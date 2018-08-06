@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{EF0307D3-3DA0-596D-661F-5DF701744214}</ProjectGuid>
+    <ProjectGuid>{AE28FBD7-FCDE-4CBD-4CEB-023F33C1B7A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -65,10 +65,10 @@
     <Compile Include="Assets\Script\Component\Player\PlayerMove.cs" />
     <Compile Include="Assets\Script\ScriptableObject\PlayerData.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/Intern/Desktop/Noir專題/00-Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Intern/Desktop/Noir專題/01-Noir/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Intern/Desktop/Noir專題/00-Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Intern/Desktop/Noir專題/01-Noir/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
