@@ -10,6 +10,9 @@ public class PlayerMove : MonoBehaviour {
     private float RotationY;
     public Quaternion rotationEuler;
 
+   
+   
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,20 +22,15 @@ public class PlayerMove : MonoBehaviour {
 	void FixedUpdate ()
     {
         Movement();
-
         Rotaion();
-
-
-
     }
 
     private void Movement()
     {
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
+       // transform.Translate(MoveX, 0, MoveZ);
 
-        
-        transform.Translate(MoveX, 0, MoveZ);
 
     }
 
@@ -51,5 +49,7 @@ public class PlayerMove : MonoBehaviour {
         rotationEuler = Quaternion.Euler(0, RotationX, 0);
         transform.rotation = rotationEuler;
     }
+
+   
 
 }

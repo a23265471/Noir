@@ -4,44 +4,36 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour {
 
-    public GameObject target;
-    public float MoveSpeed_Y;
-    public float MoveSpeed_X;
-    private Vector3 OffsetPos;
+    public GameObject target;      
     private Quaternion rotationEuler;
-    public Transform PlayerBack;
-
-    private Transform initialTransform;
-    
     public float RotateSpeed_X;
     public float RotateSpeed_Y;
     private float CameraLookAt_X;
     private float CameraLookAt_Y;
-    private float direction_Y;
-    private float direction_X;
-    public float distence;
+    private float distence;
     public float Max_distence;
     public float Min_distence;
     public float CameraHigh;
     public float distenceSpeed;
+    public float Camera_Wall_distence;
+    private int WallMask;
+    public float CameraHitWallDis;
+    public float preDistence;
 
     // Use this for initialization
     void Start () {
-        OffsetPos = transform.position - target.transform.position;
-        initialTransform = transform;
+
+        WallMask = LayerMask.GetMask("Wall");
     }
 	
 	// Update is called once per frame
-	void LateUpdate () {
-        
+	void LateUpdate () {        
         Rotaion();
         distenceControl();
     }
 
     private void Rotaion()
     {
-        float rotate_y = Input.GetAxis("Mouse Y");
-       
         CameraLookAt_X += Input.GetAxis("Mouse X") * RotateSpeed_X * Time.deltaTime;
         CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
 
@@ -54,7 +46,6 @@ public class MainCamera : MonoBehaviour {
             CameraLookAt_X += 360;
         }
 
-
         if (CameraLookAt_Y > 35)
         {
             CameraLookAt_Y = 35;
@@ -66,11 +57,29 @@ public class MainCamera : MonoBehaviour {
         rotationEuler = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
         transform.rotation = rotationEuler;
         transform.position = rotationEuler * new Vector3(0, CameraHigh , -distence) + target.transform.position;
+
     }
     private void distenceControl()
-    {
-        distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;
-        distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+    {      
+        RaycastHit Hit;
+        if (Physics.Raycast(target.transform.position, -target.transform.forward, preDistence, WallMask))
+        {
+            Physics.Raycast(target.transform.position, -target.transform.forward, out Hit);
+           // Debug.Log(Hit.distance);
+            distence = Hit.distance;
+        }
+        else
+        {           
+             distence = preDistence;
+             distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;               
+             distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+             preDistence = distence;
+        }
+       // Debug.DrawLine(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z), new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - (target.transform.forward * distence), Color.red);
+
+       
+
     }
 
+    
 }
