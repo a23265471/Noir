@@ -9,13 +9,17 @@ public class PlayerMove : MonoBehaviour {
     private float RotationX;
     private float RotationY;
     public Quaternion rotationEuler;
+    private Animator animator;
+    private float RunSpeed;
 
-   
-   
 
-	// Use this for initialization
-	void Start () {
-		
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+    // Use this for initialization
+    void Start () {
+        
 	}
 	
 	// Update is called once per frame
@@ -29,9 +33,11 @@ public class PlayerMove : MonoBehaviour {
     {
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
-       // transform.Translate(MoveX, 0, MoveZ);
+        // transform.Translate(MoveX, 0, MoveZ);
 
-
+        Debug.Log(Input.GetAxis("Vertical"));
+        animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
+      
     }
 
     private void Rotaion()
