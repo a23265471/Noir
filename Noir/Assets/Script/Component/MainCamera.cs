@@ -10,7 +10,7 @@ public class MainCamera : MonoBehaviour {
     public float RotateSpeed_Y;
     private float CameraLookAt_X;
     private float CameraLookAt_Y;
-    private float distence;
+    public float distence;
     public float Max_distence;
     public float Min_distence;
     public float CameraHigh;
@@ -65,15 +65,23 @@ public class MainCamera : MonoBehaviour {
         if (Physics.Raycast(target.transform.position, -target.transform.forward, preDistence, WallMask))
         {
             Physics.Raycast(target.transform.position, -target.transform.forward, out Hit);
-           // Debug.Log(Hit.distance);
-            distence = Hit.distance;
+            // Debug.Log(Hit.distance);
+            distence = Mathf.Lerp(distence, Hit.distance, 0.1f);
+           // distence = Hit.distance;
         }
         else
-        {           
-             distence = preDistence;
-             distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;               
-             distence = Mathf.Clamp(distence, Min_distence, Max_distence);
-             preDistence = distence;
+        {
+            if (distence != preDistence)
+            {
+                distence = Mathf.Lerp(distence, preDistence, 0.1f);
+            }
+            else
+            {
+                distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;
+                distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+                preDistence = distence;
+            }
+             
         }
        // Debug.DrawLine(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z), new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - (target.transform.forward * distence), Color.red);
 
