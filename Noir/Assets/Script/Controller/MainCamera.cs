@@ -73,7 +73,15 @@ public class MainCamera : MonoBehaviour {
         {
             if (distence != preDistence)
             {
-                distence = Mathf.Lerp(distence, preDistence, 0.1f);
+                
+                if (distence < preDistence)
+                {
+                    distence += 0.1f;
+                    if (distence >= preDistence)
+                    {
+                        distence = preDistence;
+                    }
+                }
             }
             else
             {

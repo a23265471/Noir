@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
-    public float MoveSpeed;
+    //public float MoveSpeed;
     public float RotationSpeed;
     private float RotationX;
     private float RotationY;
@@ -31,13 +31,21 @@ public class PlayerMove : MonoBehaviour {
 
     private void Movement()
     {
-        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
-        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
-        // transform.Translate(MoveX, 0, MoveZ);
+        /* float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
+         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
+         // transform.Translate(MoveX, 0, MoveZ);*/
 
-        Debug.Log(Input.GetAxis("Vertical"));
+      /* if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") == 0)
+        {
+            animator.SetFloat("Run_Left_Right", Input.GetAxis("Horizontal"));
+        }
+        else
+        {
+            animator.SetBool("Run_Left", false);
+            animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
+        }*/
+        animator.SetFloat("Run_Left_Right", Input.GetAxis("Horizontal"));
         animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
-      
     }
 
     private void Rotaion()
