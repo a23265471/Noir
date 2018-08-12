@@ -295,8 +295,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Component\MainCamera.cs" />
-    <Compile Include="Assets\Script\Component\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Script\Controller\MainCamera.cs" />
+    <Compile Include="Assets\Script\Controller\Player\PlayerController.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\ScriptableObject\PlayerData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
