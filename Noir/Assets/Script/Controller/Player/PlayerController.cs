@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour {
     public Quaternion rotationEuler;
     private Animator animator;
     private float RunSpeed;
-    public Transform camera_pre_pos;
-
+    public Transform Player_pre_pos;
+    public Quaternion rot;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        
+       
 	}
 	
 	// Update is called once per frame
@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour {
               animator.SetBool("Run_Left", false);
               animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
           }*/
-        
+       
+
         animator.SetFloat("Action_Contrll", 0f);
         animator.SetFloat("RunSpeed_Horizontal", Input.GetAxis("Horizontal"));
         animator.SetFloat("RunSpeed_Vertical", Input.GetAxis("Vertical"));
@@ -55,12 +56,17 @@ public class PlayerController : MonoBehaviour {
         {
             transform.rotation = Quaternion.Euler(0, -45, 0);
 
-            Debug.Log("a");
+
+            rot.eulerAngles = new Vector3(0, 45, 10);
+            Player_pre_pos.transform.rotation = rot;
+            Debug.Log(Player_pre_pos.transform.eulerAngles);
+
+            Debug.Log(transform.eulerAngles);
         }
-        else
+        /*else
         {
-            camera_pre_pos = transform;
-        }
+            Player_pre_pos = transform;
+        }*/
     }
 
     private void Rotaion()

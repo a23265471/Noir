@@ -63,13 +63,13 @@ public class MainCamera : MonoBehaviour {
     private void distenceControl()
     {      
         RaycastHit Hit;
-        if (Physics.Raycast(target.transform.position, -target.transform.forward , preDistence, WallMask))
+        if (Physics.Raycast(target.transform.position, -target.transform.forward, preDistence, WallMask))
         {
-            Debug.Log("aa");
+          //  Debug.Log(PlayerController.Player_pre_pos.eulerAngles);
             Physics.Raycast(target.transform.position, -target.transform.forward, out Hit);
-             Debug.Log(Hit.distance);
+            //Debug.Log(Hit.distance);
             distence = Mathf.Lerp(distence, Hit.distance, 0.1f);
-           // distence = Hit.distance;
+            // distence = Hit.distance;
         }
         else
         {
@@ -93,7 +93,7 @@ public class MainCamera : MonoBehaviour {
             }
              
         }
-        Debug.DrawLine(target.transform.position, new Vector3(transform.position.x, 1, transform.position.z), Color.red);
+     //   Debug.DrawLine(PlayerController.Player_pre_pos.position, -PlayerController.Player_pre_pos.forward, Color.red);
 
        
 
