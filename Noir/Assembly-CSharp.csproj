@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Controller\MainCamera.cs" />
-    <Compile Include="Assets\Script\Controller\Player\PlayerControl.cs" />
     <Compile Include="Assets\Script\Controller\Player\PlayerController.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\ScriptableObject\PlayerData.cs" />

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour {
 
-    public GameObject target;      
+    public GameObject target;
+    public PlayerController playerController;
     private Quaternion rotationEuler;
     public float RotateSpeed_X;
     public float RotateSpeed_Y;
@@ -34,7 +35,7 @@ public class MainCamera : MonoBehaviour {
 
     private void Rotaion()
     {
-        CameraLookAt_X += Input.GetAxis("Mouse X") * RotateSpeed_X * Time.deltaTime;
+        CameraLookAt_X += Input.GetAxis("Mouse X") * playerController.RotationSpeed * Time.deltaTime;
         CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
 
         if (CameraLookAt_X > 360)
@@ -62,10 +63,11 @@ public class MainCamera : MonoBehaviour {
     private void distenceControl()
     {      
         RaycastHit Hit;
-        if (Physics.Raycast(target.transform.position, -target.transform.forward, preDistence, WallMask))
+        if (Physics.Raycast(target.transform.position, -target.transform.forward , preDistence, WallMask))
         {
+            Debug.Log("aa");
             Physics.Raycast(target.transform.position, -target.transform.forward, out Hit);
-            // Debug.Log(Hit.distance);
+             Debug.Log(Hit.distance);
             distence = Mathf.Lerp(distence, Hit.distance, 0.1f);
            // distence = Hit.distance;
         }
@@ -91,7 +93,7 @@ public class MainCamera : MonoBehaviour {
             }
              
         }
-       // Debug.DrawLine(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z), new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - (target.transform.forward * distence), Color.red);
+        Debug.DrawLine(target.transform.position, new Vector3(transform.position.x, 1, transform.position.z), Color.red);
 
        
 

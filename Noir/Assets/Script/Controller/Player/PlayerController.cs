@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public Quaternion rotationEuler;
     private Animator animator;
     private float RunSpeed;
+    public Transform camera_pre_pos;
 
 
     private void Awake()
@@ -25,8 +26,9 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        Movement();
+        
         Rotaion();
+        Movement();
     }
 
     private void Movement()
@@ -35,17 +37,30 @@ public class PlayerController : MonoBehaviour {
          float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
          // transform.Translate(MoveX, 0, MoveZ);*/
 
-      /* if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") == 0)
+        /* if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") == 0)
+          {
+              animator.SetFloat("Run_Left_Right", Input.GetAxis("Horizontal"));
+          }
+          else
+          {
+              animator.SetBool("Run_Left", false);
+              animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
+          }*/
+        
+        animator.SetFloat("Action_Contrll", 0f);
+        animator.SetFloat("RunSpeed_Horizontal", Input.GetAxis("Horizontal"));
+        animator.SetFloat("RunSpeed_Vertical", Input.GetAxis("Vertical"));
+
+        if (Input.GetAxis("Horizontal") < 0 && Input.GetAxis("Vertical") < 0)
         {
-            animator.SetFloat("Run_Left_Right", Input.GetAxis("Horizontal"));
+            transform.rotation = Quaternion.Euler(0, -45, 0);
+
+            Debug.Log("a");
         }
         else
         {
-            animator.SetBool("Run_Left", false);
-            animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
-        }*/
-        animator.SetFloat("Run_Left_Right", Input.GetAxis("Horizontal"));
-        animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
+            camera_pre_pos = transform;
+        }
     }
 
     private void Rotaion()
