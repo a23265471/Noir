@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    //public float MoveSpeed;
+    public float MoveSpeed;
     public float RotationSpeed;
     private float RotationX;
     private float RotationY;
-    public Quaternion rotationEuler;
+    private Quaternion rotationEuler;
     private Animator animator;
     private float RunSpeed;
     public Transform Player_pre_pos;
     public Quaternion rot;
+    public Transform PlayerHead;
 
     private void Awake()
     {
@@ -33,40 +34,19 @@ public class PlayerController : MonoBehaviour {
 
     private void Movement()
     {
-        /* float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
+         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
          float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
-         // transform.Translate(MoveX, 0, MoveZ);*/
+         transform.Translate(MoveX, 0, MoveZ);
 
-        /* if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") == 0)
-          {
-              animator.SetFloat("Run_Left_Right", Input.GetAxis("Horizontal"));
-          }
-          else
-          {
-              animator.SetBool("Run_Left", false);
-              animator.SetFloat("RunSpeed", Input.GetAxis("Vertical"));
-          }*/
-       
+
 
         animator.SetFloat("Action_Contrll", 0f);
+        
+
         animator.SetFloat("RunSpeed_Horizontal", Input.GetAxis("Horizontal"));
         animator.SetFloat("RunSpeed_Vertical", Input.GetAxis("Vertical"));
 
-        if (Input.GetAxis("Horizontal") < 0 && Input.GetAxis("Vertical") < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, -45, 0);
-
-
-            rot.eulerAngles = new Vector3(0, 45, 10);
-            Player_pre_pos.transform.rotation = rot;
-            Debug.Log(Player_pre_pos.transform.eulerAngles);
-
-            Debug.Log(transform.eulerAngles);
-        }
-        /*else
-        {
-            Player_pre_pos = transform;
-        }*/
+      
     }
 
     private void Rotaion()
@@ -83,6 +63,7 @@ public class PlayerController : MonoBehaviour {
         }
         rotationEuler = Quaternion.Euler(0, RotationX, 0);
         transform.rotation = rotationEuler;
+        
     }
 
    
