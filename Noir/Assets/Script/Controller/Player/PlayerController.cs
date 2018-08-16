@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
         Player_pre_pos = this.gameObject.transform.GetChild(0);
         PlayerAnimation_parameter = 0;
 
-
+        BuildNameTable();
     }
 	
 	// Update is called once per frame
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour {
     {        
         Rotaion();
         Movement();
+        GetCurrentAnimatorStateName();
     }
 
     public string GetCurrentAnimatorStateName()
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour {
         if (NameTable.TryGetValue(stateInfo.shortNameHash, out stateName))
         {
             AnimationTime = stateClipInfo[0].clip.length * stateInfo.normalizedTime;
-
+            Debug.Log(stateName);
             return stateName;
         }
         else

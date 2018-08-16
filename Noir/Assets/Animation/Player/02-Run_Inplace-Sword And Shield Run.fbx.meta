@@ -139,9 +139,9 @@ ModelImporter:
     400132: mixamorig:Spine2
     2100000: No Name
     4300000: Box002
-    7400000: mixamo.com
-    7400002: mixamo.com (1)
-    7400004: mixamo.com (2)
+    7400000: Run
+    7400002: RunForwardLeft
+    7400004: RunForwardRight
     9500000: //RootNode
     13700000: Box002
   externalObjects: {}
@@ -163,7 +163,6 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -173,7 +172,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Run
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 21
@@ -201,7 +200,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: mixamo.com (1)
+      name: RunForwardLeft
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 21
@@ -229,7 +228,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: mixamo.com (2)
+      name: RunForwardRight
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 21
