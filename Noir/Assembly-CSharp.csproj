@@ -61,10 +61,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_OCASM\Image Effects\SSMS\SSMS.cs" />
+    <Compile Include="Assets\_OCASM\Image Effects\SSMS\SSMSGlobalFog.cs" />
     <Compile Include="Assets\Script\Controller\MainCamera.cs" />
     <Compile Include="Assets\Script\Controller\Player\PlayerController.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\ScriptableObject\PlayerData.cs" />
+    <Compile Include="Assets\Shader\WorldSkies\Demo\Scripts\LookCamera.cs" />
+    <Compile Include="Assets\Shader\WorldSkies\Demo\Scripts\SkyboxChanger.cs" />
+    <None Include="Assets\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMSGlobalFog.shader" />
+    <None Include="Assets\Shader\Laser_Shader.shader" />
+    <None Include="Assets\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMS.shader" />
+    <None Include="Assets\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMS.cginc" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Intern/Desktop/Noir專題/01-Noir/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

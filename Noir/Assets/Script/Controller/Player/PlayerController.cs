@@ -14,36 +14,81 @@ public class PlayerController : MonoBehaviour {
         GoForwardRight,
         GoForwardLeft,
         GoBackRight,
-        GoBackLeft
+        GoBackLeft,
+        Attack_1,
+        Attack_2,
+        Attack_3,
+        Avoid
+
     }
-    PlayerState playerState;
+    private PlayerState playerState;
+
+    public static PlayerController playerController;  
     public float MoveSpeed;
     public float RotationSpeed;
     private float RotationX;
     private Quaternion rotationEuler;
-    private Animator animator;
     public Transform Player_pre_pos;
     public Transform PlayerHead;
+
     private float Motion_parameter_x;
     private float Motion_parameter_y;
+    private float PlayerAnimation_parameter;
+
+    private Animator animator { get; set; }
+    public string[] AnimatorStateNames;
+    private float AnimationTime;
+    private Dictionary<int, string> NameTable { get; set; }
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         Motion_parameter_x = 0;
         Motion_parameter_x = 0;
+        playerController = this;
+        Player_pre_pos = this.gameObject.transform.GetChild(0);
+        PlayerAnimation_parameter = 0;
 
-	}
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
-    {
-        
+    {        
         Rotaion();
         Movement();
+    }
+
+    public string GetCurrentAnimatorStateName()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorClipInfo[] stateClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        string stateName;
+        if (NameTable.TryGetValue(stateInfo.shortNameHash, out stateName))
+        {
+            AnimationTime = stateClipInfo[0].clip.length * stateInfo.normalizedTime;
+
+            return stateName;
+        }
+        else
+        {
+            Debug.LogWarning("Unknown animator state name.");
+            return string.Empty;
+        }
+    }
+
+    private void BuildNameTable()
+    {
+        NameTable = new Dictionary<int, string>();
+
+        foreach (string stateName in AnimatorStateNames)
+        {
+            NameTable[Animator.StringToHash(stateName)] = stateName;
+        }
     }
 
     private void Movement()
@@ -51,7 +96,13 @@ public class PlayerController : MonoBehaviour {
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
         transform.Translate(MoveX, 0, MoveZ);
-        animator.SetFloat("Action_Contrll", 0f);
+
+        PlayerAnimation_parameter = Mathf.Lerp(PlayerAnimation_parameter, 0, 0.1f);
+        if(PlayerAnimation_parameter <= 0.06f && PlayerAnimation_parameter >= -0.06f)
+        {
+            PlayerAnimation_parameter = 0;
+        }
+        animator.SetFloat("Action_Contrll", PlayerAnimation_parameter);
 
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
         {
@@ -94,8 +145,7 @@ public class PlayerController : MonoBehaviour {
         {
             case PlayerState.Idle:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
-               
+                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);              
                 break;
 
             case PlayerState.GoRight:
@@ -195,7 +245,10 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
         animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);     
     }
+    private void Attack()
+    {
 
+    }
     private void Rotaion()
     {
         RotationX += Input.GetAxis("Mouse X") * Time.deltaTime * RotationSpeed;

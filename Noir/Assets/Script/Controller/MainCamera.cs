@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour {
 
-    public GameObject target;
-    public PlayerController playerController;
+   // public GameObject target;
+  //  public PlayerController playerController;
     private Quaternion rotationEuler;
     public float RotateSpeed_X;
     public float RotateSpeed_Y;
@@ -35,7 +35,7 @@ public class MainCamera : MonoBehaviour {
 
     private void Rotaion()
     {
-        CameraLookAt_X += Input.GetAxis("Mouse X") * playerController.RotationSpeed * Time.deltaTime;
+        CameraLookAt_X += Input.GetAxis("Mouse X") * PlayerController.playerController.RotationSpeed * Time.deltaTime;
         CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
 
         if (CameraLookAt_X > 360)
@@ -57,16 +57,16 @@ public class MainCamera : MonoBehaviour {
         }
         rotationEuler = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
         transform.rotation = rotationEuler;
-        transform.position = rotationEuler * new Vector3(0, CameraHigh , -distence) + target.transform.position;
+        transform.position = rotationEuler * new Vector3(0, CameraHigh , -distence) + PlayerController.playerController.transform.position;
 
     }
     private void distenceControl()
     {      
         RaycastHit Hit;
-        if (Physics.Raycast(playerController.Player_pre_pos.position, -playerController.Player_pre_pos.forward, preDistence, WallMask))
+        if (Physics.Raycast(PlayerController.playerController.Player_pre_pos.position, -PlayerController.playerController.Player_pre_pos.forward, preDistence, WallMask))
         {
             //Debug.Log(PlayerController.Player_pre_pos.eulerAngles);
-            Physics.Raycast(playerController.Player_pre_pos.position, -playerController.Player_pre_pos.forward, out Hit);
+            Physics.Raycast(PlayerController.playerController.Player_pre_pos.position, -PlayerController.playerController.Player_pre_pos.forward, out Hit);
 
             /*Debug.Log(playerController.Player_pre_pos.position);
             Debug.Log(target.transform.position);*/
