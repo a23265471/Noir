@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,7 +38,8 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 10
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -132,9 +132,7 @@ MonoBehaviour:
   RotationSpeed: 30
   Player_pre_pos: {fileID: 0}
   PlayerHead: {fileID: 1205853507}
-  AnimatorStateNames:
-  - Idle
-  - Run
+  grounded_dis: 0.85
 --- !u!4 &143113553 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400074, guid: 9f52fe018ed3cdc4d977e44c108386fd, type: 3}
@@ -243,7 +241,7 @@ GameObject:
   - component: {fileID: 450289378}
   - component: {fileID: 450289377}
   - component: {fileID: 450289376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,6 +275,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -420,7 +419,7 @@ Prefab:
     - target: {fileID: 9500000, guid: 9f52fe018ed3cdc4d977e44c108386fd, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 414f29444708d124d9abf1348c83fdb7, type: 2}
+      objectReference: {fileID: 9100000, guid: 30ce92bed19a6924f81a44cbc16ddd26, type: 2}
     - target: {fileID: 100074, guid: 9f52fe018ed3cdc4d977e44c108386fd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -547,6 +546,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 70b26b282219aee4e80f9a89f0d1b987, type: 2}
   m_StaticBatchInfo:
@@ -631,6 +631,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 70b26b282219aee4e80f9a89f0d1b987, type: 2}
   m_StaticBatchInfo:

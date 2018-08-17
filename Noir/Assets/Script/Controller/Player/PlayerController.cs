@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    enum PlayerBlendTreeState
+    {
+        Movement,
+        Attack,
+    }
+
     enum PlayerState
     {
         Idle,
@@ -21,7 +27,9 @@ public class PlayerController : MonoBehaviour {
         Avoid
 
     }
+
     private PlayerState playerState;
+    private PlayerBlendTreeState playerBlendTreeState;
 
     public static PlayerController playerController;  
     public float MoveSpeed;
@@ -31,14 +39,18 @@ public class PlayerController : MonoBehaviour {
     public Transform Player_pre_pos;
     public Transform PlayerHead;
 
+    private CapsuleCollider PlayerCollider;
     private float Motion_parameter_x;
     private float Motion_parameter_y;
     private float PlayerAnimation_parameter;
+    private bool CanRun;
+    private int FloorMask;
+    public float grounded_dis;
 
-    private Animator animator { get; set; }
-    public string[] AnimatorStateNames;
-    private float AnimationTime;
-    private Dictionary<int, string> NameTable { get; set; }
+    private bool IsAttacking;
+
+    private Animator animator;
+    AnimatorClipInfo[] AnimatorClipInfo;
 
     private void Awake()
     {
@@ -50,46 +62,45 @@ public class PlayerController : MonoBehaviour {
         Motion_parameter_x = 0;
         Motion_parameter_x = 0;
         playerController = this;
+        IsAttacking = false;
         Player_pre_pos = this.gameObject.transform.GetChild(0);
         PlayerAnimation_parameter = 0;
-
-        BuildNameTable();
-    }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-    {        
-        Rotaion();
-        Movement();
-        GetCurrentAnimatorStateName();
+        PlayerCollider = GetComponent<CapsuleCollider>();
+        FloorMask = LayerMask.GetMask("Floor");
     }
 
-    public string GetCurrentAnimatorStateName()
+    private void Update()
     {
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        AnimatorClipInfo[] stateClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        string stateName;
-        if (NameTable.TryGetValue(stateInfo.shortNameHash, out stateName))
-        {
-            AnimationTime = stateClipInfo[0].clip.length * stateInfo.normalizedTime;
-            Debug.Log(stateName);
-            return stateName;
-        }
-        else
-        {
-            Debug.LogWarning("Unknown animator state name.");
-            return string.Empty;
-        }
+        
     }
 
-    private void BuildNameTable()
+    private void FixedUpdate ()
     {
-        NameTable = new Dictionary<int, string>();
 
-        foreach (string stateName in AnimatorStateNames)
+        if (playerBlendTreeState == PlayerBlendTreeState.Movement)
         {
-            NameTable[Animator.StringToHash(stateName)] = stateName;
+            Rotaion();
         }
+        
+        
+
+        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
+        {
+            Attack();
+            if (!IsAttacking)
+            {
+                Movement();
+            }
+           
+        }
+
+       // Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+
+        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        // Debug.Log(AnimatorClipInfo[0].clip.length);
+
+        BlendTreeState();
+        
     }
 
     private void Movement()
@@ -98,12 +109,87 @@ public class PlayerController : MonoBehaviour {
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
         transform.Translate(MoveX, 0, MoveZ);
 
-        PlayerAnimation_parameter = Mathf.Lerp(PlayerAnimation_parameter, 0, 0.1f);
-        if(PlayerAnimation_parameter <= 0.06f && PlayerAnimation_parameter >= -0.06f)
+        MovementAnimaionControl();
+    }
+    
+    private void Rotaion()
+    {
+        RotationX += Input.GetAxis("Mouse X") * Time.deltaTime * RotationSpeed;
+
+        if (RotationX > 360)
         {
-            PlayerAnimation_parameter = 0;
+            RotationX -= 360;
+        }
+        else if (RotationX < 0)
+        {
+            RotationX += 360;
+        }
+        rotationEuler = Quaternion.Euler(0, RotationX, 0);
+        transform.rotation = rotationEuler;
+        
+    }
+    private void BlendTreeState()
+    {
+        switch (playerBlendTreeState)
+        {
+            case PlayerBlendTreeState.Movement:
+                PlayerAnimation_parameter = Mathf.Lerp(PlayerAnimation_parameter, 0, 0.1f);
+
+                break;
+            case PlayerBlendTreeState.Attack:
+                PlayerAnimation_parameter = Mathf.Lerp(PlayerAnimation_parameter, 1, 0.1f);
+                break;
+        }
+
+        if (PlayerAnimation_parameter <= ((int)playerBlendTreeState + 0.06f) && PlayerAnimation_parameter >= -((int)playerBlendTreeState + 0.06f))
+        {
+            PlayerAnimation_parameter = (int)playerBlendTreeState;
+            Debug.Log(PlayerAnimation_parameter);
         }
         animator.SetFloat("Action_Contrll", PlayerAnimation_parameter);
+    }
+
+    private void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("a");
+            playerBlendTreeState = PlayerBlendTreeState.Attack;
+            IsAttacking = true;     
+            
+            if (playerState != PlayerState.Attack_1 && playerState != PlayerState.Attack_2 && playerState != PlayerState.Attack_3)
+            {
+                playerState = PlayerState.Attack_1;
+            }
+            else if (playerState == PlayerState.Attack_1)
+            {
+                playerState = PlayerState.Attack_2;
+            }
+            else if (playerState == PlayerState.Attack_2)
+            {
+                playerState = PlayerState.Attack_3;
+            }            
+            //animator.SetFloat("AttackControl",)
+
+        }
+    }
+    
+    private void AttackAnimation()
+    {
+        switch (playerState)
+        {
+            case PlayerState.Attack_2:
+
+                break;
+
+        }
+
+       
+    }
+
+    private void MovementAnimaionControl()
+    {
+        playerBlendTreeState = PlayerBlendTreeState.Movement;
 
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
         {
@@ -136,7 +222,7 @@ public class PlayerController : MonoBehaviour {
         else if (Input.GetKey(KeyCode.S))
         {
             playerState = PlayerState.GoBack;
-        }       
+        }
         else
         {
             playerState = PlayerState.Idle;
@@ -146,7 +232,7 @@ public class PlayerController : MonoBehaviour {
         {
             case PlayerState.Idle:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);              
+                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
                 break;
 
             case PlayerState.GoRight:
@@ -158,7 +244,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
 
-            case PlayerState.GoLeft:               
+            case PlayerState.GoLeft:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, -1, 0.1f);
                 Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
                 if (Motion_parameter_x <= -1)
@@ -167,7 +253,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
 
-            case PlayerState.GoForward:                
+            case PlayerState.GoForward:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
                 Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 1, 0.1f);
                 if (Motion_parameter_y >= 1)
@@ -175,7 +261,7 @@ public class PlayerController : MonoBehaviour {
                     Motion_parameter_y = 1;
                 }
                 break;
-            case PlayerState.GoBack:               
+            case PlayerState.GoBack:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
                 Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, -1, 0.08f);
                 if (Motion_parameter_y <= -1)
@@ -206,7 +292,6 @@ public class PlayerController : MonoBehaviour {
                 {
                     Motion_parameter_y = 1;
                 }
-
                 break;
             case PlayerState.GoBackLeft:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, -1, 0.1f);
@@ -219,7 +304,6 @@ public class PlayerController : MonoBehaviour {
                 {
                     Motion_parameter_y = -1;
                 }
-
                 break;
             case PlayerState.GoBackRight:
                 Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 1, 0.1f);
@@ -244,29 +328,7 @@ public class PlayerController : MonoBehaviour {
             Motion_parameter_y = 0;
         }
         animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
-        animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);     
+        animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
     }
-    private void Attack()
-    {
-
-    }
-    private void Rotaion()
-    {
-        RotationX += Input.GetAxis("Mouse X") * Time.deltaTime * RotationSpeed;
-
-        if (RotationX > 360)
-        {
-            RotationX -= 360;
-        }
-        else if (RotationX < 0)
-        {
-            RotationX += 360;
-        }
-        rotationEuler = Quaternion.Euler(0, RotationX, 0);
-        transform.rotation = rotationEuler;
-        
-    }
-
-   
 
 }
