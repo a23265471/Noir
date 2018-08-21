@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     {
         Movement,
         Attack,
+        Avoid
     }
     enum PlayerState
     {
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour {
     private bool IsAttacking;
     private float Attack_parameter;
     private float Attack_Short_parameter;
-    private bool CanAttack;
+    private bool CanClick;
 
     private Animator animator;
     AnimatorClipInfo[] AnimatorClipInfo;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour {
         PlayerAnimation_parameter = 0;
         PlayerCollider = GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
-        CanAttack = true;
+        CanClick = true;
     }
 
     private void Update()
@@ -84,20 +85,22 @@ public class PlayerController : MonoBehaviour {
     {
         AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
         AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        BlendTreeState();
+       
         Rotaion();
 
         if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
         {
+            Avoid();
             Attack();
+            Debug.Log(playerBlendTreeState);
             if (playerBlendTreeState == PlayerBlendTreeState.Movement) 
             {
                 Movement();
             }
            
         }
-
-        // Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+        BlendTreeState();
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
 
        
     }
@@ -138,28 +141,26 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
         }
 
-
-        if (playerState == PlayerState.Attack_3 && AnimatorstateInfo.IsName("PlayerController") && playerState == PlayerState.LongAttack) 
+        if (playerState == PlayerState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
         {
             playerBlendTreeState = PlayerBlendTreeState.Movement;
             playerState = PlayerState.Idle;
-            
         }
-        else if (playerState != PlayerState.Idle && AnimatorstateInfo.IsName("PlayerController"))
-        {         
+        else if (playerState != PlayerState.Idle && AnimatorstateInfo.IsName("PlayerController")) 
+        {
             StartCoroutine("CancelAttack");
         }
 
-        Debug.Log(IsAttacking);
-        //Debug.Log(playerState);
-        //Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
+       /* Debug.Log(playerState);
+        Debug.Log(playerBlendTreeState);*/
+        
 
     }
 
     private void Attack()
     {
 
-        if (CanAttack)
+        if (CanClick)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -182,43 +183,57 @@ public class PlayerController : MonoBehaviour {
                     animator.SetTrigger("Attack3");
                 }
 
-                CanAttack = false;
-                StartCoroutine("Canattack");
+                CanClick = false;
+                StartCoroutine(ClickIntervel(0.3f));
+               
+               Debug.Log("Attack");
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 StopCoroutine("CancelAttack");
                 playerBlendTreeState = PlayerBlendTreeState.Attack;
 
-                playerState = PlayerState.LongAttack;
-                animator.SetTrigger("LongAttack");
-                CanAttack = false;
-                StartCoroutine("Canattack");
+                if (playerState != PlayerState.LongAttack)
+                {
+                    playerState = PlayerState.LongAttack;
+                    animator.SetTrigger("LongAttack");
+                }
 
-            }
-             
-        }
+                CanClick = false;
+                StartCoroutine(ClickIntervel(1.3f));
 
-        
-
+            }             
+        }        
     }
 
-    IEnumerator Canattack()
-    {
-        yield return new WaitForSeconds(0.3f);
-        CanAttack = true;
-
+    IEnumerator ClickIntervel(float IntervelTime)
+    {      
+        yield return new WaitForSeconds(IntervelTime);
+        CanClick = true;
     }
 
     IEnumerator CancelAttack()
-    {      
-        yield return new WaitForSeconds(1f);
+    {
+        yield return new WaitForSeconds(1.5f);
         playerBlendTreeState = PlayerBlendTreeState.Movement;
-        // animator.SetTrigger("Idle");
+        //animator.SetTrigger("Idle"）; 
         playerState = PlayerState.Idle;
 
-        
+    }
 
+    private void Avoid()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
+        {
+            playerBlendTreeState = PlayerBlendTreeState.Avoid;
+            
+            animator.SetTrigger("Avoid_Left");
+            if (AnimatorstateInfo.IsName("Avoid_Left"))
+            {
+                playerState = PlayerState.Avoid;
+            }
+            
+        }
     }
 
     private void MovementAnimaionControl()
@@ -306,8 +321,8 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
 
-        Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, x_direction, 0.1f);
-        Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, y_direction, 0.1f);      
+        Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, x_direction, 0.15f);
+        Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, y_direction, 0.15f);      
         
         if (Motion_parameter_x <= 0.06f && Motion_parameter_x >= -0.06f)
         {
@@ -324,7 +339,8 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
         animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
     }
-   
+
+    
 
 
 }
