@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour {
         Movement,
         Attack,
     }
-
     enum PlayerState
     {
         Idle,
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour {
         Attack_1,
         Attack_2,
         Attack_3,
+        LongAttack,
         Avoid
 
     }
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour {
 
     public static PlayerController playerController;  
     public float MoveSpeed;
+    private float x_direction;
+    private float y_direction;
     public float RotationSpeed;
     private float RotationX;
     private Quaternion rotationEuler;
@@ -43,14 +45,17 @@ public class PlayerController : MonoBehaviour {
     private float Motion_parameter_x;
     private float Motion_parameter_y;
     private float PlayerAnimation_parameter;
-    private bool CanRun;
     private int FloorMask;
     public float grounded_dis;
 
     private bool IsAttacking;
+    private float Attack_parameter;
+    private float Attack_Short_parameter;
+    private bool CanAttack;
 
     private Animator animator;
     AnimatorClipInfo[] AnimatorClipInfo;
+    AnimatorStateInfo AnimatorstateInfo;
 
     private void Awake()
     {
@@ -67,6 +72,7 @@ public class PlayerController : MonoBehaviour {
         PlayerAnimation_parameter = 0;
         PlayerCollider = GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
+        CanAttack = true;
     }
 
     private void Update()
@@ -76,31 +82,24 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate ()
     {
-
-        if (playerBlendTreeState == PlayerBlendTreeState.Movement)
-        {
-            Rotaion();
-        }
-        
-        
+        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        BlendTreeState();
+        Rotaion();
 
         if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
         {
             Attack();
-            if (!IsAttacking)
+            if (playerBlendTreeState == PlayerBlendTreeState.Movement) 
             {
                 Movement();
             }
            
         }
 
-       // Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+        // Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
 
-        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        // Debug.Log(AnimatorClipInfo[0].clip.length);
-
-        BlendTreeState();
-        
+       
     }
 
     private void Movement()
@@ -110,8 +109,7 @@ public class PlayerController : MonoBehaviour {
         transform.Translate(MoveX, 0, MoveZ);
 
         MovementAnimaionControl();
-    }
-    
+    }   
     private void Rotaion()
     {
         RotationX += Input.GetAxis("Mouse X") * Time.deltaTime * RotationSpeed;
@@ -128,67 +126,104 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = rotationEuler;
         
     }
+
     private void BlendTreeState()
     {
-        switch (playerBlendTreeState)
+        
+        if (playerBlendTreeState != PlayerBlendTreeState.Movement) 
         {
-            case PlayerBlendTreeState.Movement:
-                PlayerAnimation_parameter = Mathf.Lerp(PlayerAnimation_parameter, 0, 0.1f);
-
-                break;
-            case PlayerBlendTreeState.Attack:
-                PlayerAnimation_parameter = Mathf.Lerp(PlayerAnimation_parameter, 1, 0.1f);
-                break;
+            Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
+            Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
+            animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
+            animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
         }
 
-        if (PlayerAnimation_parameter <= ((int)playerBlendTreeState + 0.06f) && PlayerAnimation_parameter >= -((int)playerBlendTreeState + 0.06f))
+
+        if (playerState == PlayerState.Attack_3 && AnimatorstateInfo.IsName("PlayerController") && playerState == PlayerState.LongAttack) 
         {
-            PlayerAnimation_parameter = (int)playerBlendTreeState;
-            Debug.Log(PlayerAnimation_parameter);
+            playerBlendTreeState = PlayerBlendTreeState.Movement;
+            playerState = PlayerState.Idle;
+            
         }
-        animator.SetFloat("Action_Contrll", PlayerAnimation_parameter);
+        else if (playerState != PlayerState.Idle && AnimatorstateInfo.IsName("PlayerController"))
+        {         
+            StartCoroutine("CancelAttack");
+        }
+
+        Debug.Log(IsAttacking);
+        //Debug.Log(playerState);
+        //Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
+
     }
 
     private void Attack()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("a");
-            playerBlendTreeState = PlayerBlendTreeState.Attack;
-            IsAttacking = true;     
-            
-            if (playerState != PlayerState.Attack_1 && playerState != PlayerState.Attack_2 && playerState != PlayerState.Attack_3)
-            {
-                playerState = PlayerState.Attack_1;
-            }
-            else if (playerState == PlayerState.Attack_1)
-            {
-                playerState = PlayerState.Attack_2;
-            }
-            else if (playerState == PlayerState.Attack_2)
-            {
-                playerState = PlayerState.Attack_3;
-            }            
-            //animator.SetFloat("AttackControl",)
 
+        if (CanAttack)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                StopCoroutine("CancelAttack");
+                playerBlendTreeState = PlayerBlendTreeState.Attack;
+
+                if (playerState != PlayerState.Attack_1 && playerState != PlayerState.Attack_2 && playerState != PlayerState.Attack_3)
+                {
+                    playerState = PlayerState.Attack_1;
+                    animator.SetTrigger("Attack1");
+                }
+                else if (playerState == PlayerState.Attack_1)
+                {
+                    playerState = PlayerState.Attack_2;
+                    animator.SetTrigger("Attack2");
+                }
+                else if (playerState == PlayerState.Attack_2)
+                {
+                    playerState = PlayerState.Attack_3;
+                    animator.SetTrigger("Attack3");
+                }
+
+                CanAttack = false;
+                StartCoroutine("Canattack");
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                StopCoroutine("CancelAttack");
+                playerBlendTreeState = PlayerBlendTreeState.Attack;
+
+                playerState = PlayerState.LongAttack;
+                animator.SetTrigger("LongAttack");
+                CanAttack = false;
+                StartCoroutine("Canattack");
+
+            }
+             
         }
+
+        
+
     }
-    
-    private void AttackAnimation()
+
+    IEnumerator Canattack()
     {
-        switch (playerState)
-        {
-            case PlayerState.Attack_2:
+        yield return new WaitForSeconds(0.3f);
+        CanAttack = true;
 
-                break;
+    }
 
-        }
+    IEnumerator CancelAttack()
+    {      
+        yield return new WaitForSeconds(1f);
+        playerBlendTreeState = PlayerBlendTreeState.Movement;
+        // animator.SetTrigger("Idle");
+        playerState = PlayerState.Idle;
 
-       
+        
+
     }
 
     private void MovementAnimaionControl()
     {
+        
         playerBlendTreeState = PlayerBlendTreeState.Movement;
 
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
@@ -229,96 +264,51 @@ public class PlayerController : MonoBehaviour {
         }
 
         switch (playerState)
-        {
-            case PlayerState.Idle:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
+        {          
+            case PlayerState.Idle:          
+                x_direction = 0;
+                y_direction = 0;
                 break;
 
-            case PlayerState.GoRight:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 1, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
-                if (Motion_parameter_x >= 1)
-                {
-                    Motion_parameter_x = 1;
-                }
+            case PlayerState.GoRight:            
+                x_direction = 1;
+                y_direction = 0;
                 break;
 
-            case PlayerState.GoLeft:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, -1, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
-                if (Motion_parameter_x <= -1)
-                {
-                    Motion_parameter_x = -1;
-                }
+            case PlayerState.GoLeft:            
+                x_direction = -1;
+                y_direction = 0;
                 break;
 
-            case PlayerState.GoForward:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 1, 0.1f);
-                if (Motion_parameter_y >= 1)
-                {
-                    Motion_parameter_y = 1;
-                }
+            case PlayerState.GoForward:           
+                x_direction = 0;
+                y_direction = 1;
                 break;
-            case PlayerState.GoBack:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, -1, 0.08f);
-                if (Motion_parameter_y <= -1)
-                {
-                    Motion_parameter_y = -1;
-                }
+            case PlayerState.GoBack:          
+                x_direction = 0;
+                y_direction = -1;
                 break;
-            case PlayerState.GoForwardRight:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 1, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 1, 0.1f);
-                if (Motion_parameter_x >= 1)
-                {
-                    Motion_parameter_x = 1;
-                }
-                if (Motion_parameter_y >= 1)
-                {
-                    Motion_parameter_y = 1;
-                }
+            case PlayerState.GoForwardRight:         
+                x_direction = 1;
+                y_direction = 1;
                 break;
-            case PlayerState.GoForwardLeft:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, -1, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 1, 0.1f);
-                if (Motion_parameter_x <= -1)
-                {
-                    Motion_parameter_x = -1;
-                }
-                if (Motion_parameter_y >= 1)
-                {
-                    Motion_parameter_y = 1;
-                }
+            case PlayerState.GoForwardLeft:            
+                x_direction = -1;
+                y_direction = 1;
                 break;
-            case PlayerState.GoBackLeft:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, -1, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, -1, 0.1f);
-                if (Motion_parameter_x <= -1)
-                {
-                    Motion_parameter_x = -1;
-                }
-                if (Motion_parameter_y <= -1)
-                {
-                    Motion_parameter_y = -1;
-                }
+            case PlayerState.GoBackLeft:               
+                x_direction = -1;
+                y_direction = -1;
                 break;
-            case PlayerState.GoBackRight:
-                Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 1, 0.1f);
-                Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, -1, 0.1f);
-                if (Motion_parameter_x >= 1)
-                {
-                    Motion_parameter_x = 1;
-                }
-                if (Motion_parameter_y <= -1)
-                {
-                    Motion_parameter_y = -1;
-                }
+            case PlayerState.GoBackRight:            
+                x_direction = 1;
+                y_direction = -1;
                 break;
         }
 
+        Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, x_direction, 0.1f);
+        Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, y_direction, 0.1f);      
+        
         if (Motion_parameter_x <= 0.06f && Motion_parameter_x >= -0.06f)
         {
             Motion_parameter_x = 0;
@@ -327,8 +317,14 @@ public class PlayerController : MonoBehaviour {
         {
             Motion_parameter_y = 0;
         }
+
+        Motion_parameter_x = Mathf.Clamp(Motion_parameter_x, -1, 1);
+        Motion_parameter_y = Mathf.Clamp(Motion_parameter_y, -1, 1);
+
         animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
         animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
     }
+   
+
 
 }
