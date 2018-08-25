@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    enum PlayerBlendTreeState
+    enum PlayerAnimatorState
     {
         Movement,
         Attack,
         Avoid
     }
-    enum PlayerState
+    enum MoveState
     {
         Idle,
         GoForward,
@@ -20,38 +20,41 @@ public class PlayerController : MonoBehaviour {
         GoForwardRight,
         GoForwardLeft,
         GoBackRight,
-        GoBackLeft,
+        GoBackLeft,        
+    }
+    enum AttackState
+    {
+        Default,
         Attack_1,
         Attack_2,
         Attack_3,
         LongAttack,
-        Avoid
-
     }
 
-    private PlayerState playerState;
-    private PlayerBlendTreeState playerBlendTreeState;
+    private AttackState attackState;
+    private MoveState moveState;
+    private PlayerAnimatorState playerAnimatorState;
+    public static PlayerController playerController;
 
-    public static PlayerController playerController;  
+    private float PlayerAnimation_parameter;
     public float MoveSpeed;
     private float x_direction;
     private float y_direction;
+    private float Move_parameter_x;
+    private float Move_parameter_y;
     public float RotationSpeed;
     private float RotationX;
     private Quaternion rotationEuler;
     public Transform Player_pre_pos;
     public Transform PlayerHead;
 
-    private CapsuleCollider PlayerCollider;
-    private float Motion_parameter_x;
-    private float Motion_parameter_y;
-    private float PlayerAnimation_parameter;
+    private CapsuleCollider PlayerCollider;   
+    
     private int FloorMask;
     public float grounded_dis;
 
-    private bool IsAttacking;
-    private float Attack_parameter;
-    private float Attack_Short_parameter;
+    private bool AttackTrigger;
+   
     private bool CanClick;
 
     private Animator animator;
@@ -63,47 +66,161 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
     }
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        Motion_parameter_x = 0;
-        Motion_parameter_x = 0;
+        Move_parameter_x = 0;
+        Move_parameter_x = 0;
         playerController = this;
-        IsAttacking = false;
+        AttackTrigger = true;
         Player_pre_pos = this.gameObject.transform.GetChild(0);
         PlayerAnimation_parameter = 0;
         PlayerCollider = GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
         CanClick = true;
+        attackState = AttackState.Default;
+        moveState = MoveState.Idle;
+        playerAnimatorState = PlayerAnimatorState.Movement;
     }
-
     private void Update()
-    {
-        
-    }
-
-    private void FixedUpdate ()
     {
         AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
         AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
-       
+
         Rotaion();
 
         if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
         {
-            Avoid();
             Attack();
-            Debug.Log(playerBlendTreeState);
-            if (playerBlendTreeState == PlayerBlendTreeState.Movement) 
+
+            if (playerAnimatorState == PlayerAnimatorState.Movement)
             {
+                //Debug.Log("SS");
                 Movement();
             }
-           
         }
-        BlendTreeState();
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
 
-       
+        ResetBlendTree();
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+    
+
+}
+
+   /* private void FixedUpdate()
+    {
+        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        Rotaion();
+
+        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
+        {
+            Attack();
+            
+            if (playerAnimatorState == PlayerAnimatorState.Movement)
+            {
+                //Debug.Log("SS");
+                Movement();
+            }                      
+        }
+        
+        ResetBlendTree();
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+    }*/
+
+    private void Attack()
+    {
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            playerAnimatorState = PlayerAnimatorState.Attack;
+            StopCoroutine("CancelAttack");
+            switch (attackState)
+            {
+                case AttackState.Default:
+                    AttackTrigger = true;
+                    attackState = AttackState.Attack_1;                       
+                    break;
+                case AttackState.Attack_1:                       
+                    attackState = AttackState.Attack_2;
+
+                    break;
+                case AttackState.Attack_2:
+                    
+                    attackState = AttackState.Attack_3;
+                    break;
+            }
+
+               StartCoroutine(ClickIntervel(0.2f));
+        }
+
+        
+        
+        AttackAnimation();
     }
+    private void AttackAnimation()
+    {
+        if (AttackTrigger)
+        {
+            switch (attackState)
+            {
+                case AttackState.Attack_1:
+                    animator.SetTrigger("Attack1");                    
+                    AttackTrigger = false;
+                    break;
+                case AttackState.Attack_2:
+                    animator.SetTrigger("Attack2");                  
+                    AttackTrigger = false;
+                    break;
+                case AttackState.Attack_3:
+                    animator.SetTrigger("Attack3");
+                    AttackTrigger = false;
+                    break;
+                case AttackState.LongAttack:
+                    animator.SetTrigger("LongAttack");
+                    AttackTrigger = false;
+                    break;
+            }            
+        }
+
+        if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
+        {
+            attackState = AttackState.Default;
+            playerAnimatorState = PlayerAnimatorState.Movement;
+        }
+        
+        Debug.Log(playerAnimatorState);
+            
+        // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
+        /*  Debug.Log(attackState);*/
+        
+    }
+
+    IEnumerator CancelAttack()
+    {
+        
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("a");
+        attackState = AttackState.Default;
+    }
+
+    IEnumerator ClickIntervel(float IntervelTime)
+    {
+        CanClick = true;
+        yield return new WaitForSeconds(IntervelTime);
+        CanClick = false;
+    }
+
+    private void ResetBlendTree()
+    {
+        if (playerAnimatorState != PlayerAnimatorState.Movement)
+        {
+            Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
+            Move_parameter_y = Mathf.Lerp(Move_parameter_y, 0, 0.15f);
+            animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
+            animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
+        }
+    }
+    
 
     private void Movement()
     {
@@ -129,218 +246,109 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = rotationEuler;
         
     }
-
-    private void BlendTreeState()
-    {
-        
-        if (playerBlendTreeState != PlayerBlendTreeState.Movement) 
-        {
-            Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, 0, 0.1f);
-            Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, 0, 0.1f);
-            animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
-            animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
-        }
-
-        if (playerState == PlayerState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
-        {
-            playerBlendTreeState = PlayerBlendTreeState.Movement;
-            playerState = PlayerState.Idle;
-        }
-        else if (playerState != PlayerState.Idle && AnimatorstateInfo.IsName("PlayerController")) 
-        {
-            StartCoroutine("CancelAttack");
-        }
-
-       /* Debug.Log(playerState);
-        Debug.Log(playerBlendTreeState);*/
-        
-
-    }
-
-    private void Attack()
-    {
-
-        if (CanClick)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                StopCoroutine("CancelAttack");
-                playerBlendTreeState = PlayerBlendTreeState.Attack;
-
-                if (playerState != PlayerState.Attack_1 && playerState != PlayerState.Attack_2 && playerState != PlayerState.Attack_3)
-                {
-                    playerState = PlayerState.Attack_1;
-                    animator.SetTrigger("Attack1");
-                }
-                else if (playerState == PlayerState.Attack_1)
-                {
-                    playerState = PlayerState.Attack_2;
-                    animator.SetTrigger("Attack2");
-                }
-                else if (playerState == PlayerState.Attack_2)
-                {
-                    playerState = PlayerState.Attack_3;
-                    animator.SetTrigger("Attack3");
-                }
-
-                CanClick = false;
-                StartCoroutine(ClickIntervel(0.3f));
-               
-               Debug.Log("Attack");
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                StopCoroutine("CancelAttack");
-                playerBlendTreeState = PlayerBlendTreeState.Attack;
-
-                if (playerState != PlayerState.LongAttack)
-                {
-                    playerState = PlayerState.LongAttack;
-                    animator.SetTrigger("LongAttack");
-                }
-
-                CanClick = false;
-                StartCoroutine(ClickIntervel(1.3f));
-
-            }             
-        }        
-    }
-
-    IEnumerator ClickIntervel(float IntervelTime)
-    {      
-        yield return new WaitForSeconds(IntervelTime);
-        CanClick = true;
-    }
-
-    IEnumerator CancelAttack()
-    {
-        yield return new WaitForSeconds(1.5f);
-        playerBlendTreeState = PlayerBlendTreeState.Movement;
-        //animator.SetTrigger("Idle"）; 
-        playerState = PlayerState.Idle;
-
-    }
-
-    private void Avoid()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
-        {
-            playerBlendTreeState = PlayerBlendTreeState.Avoid;
-            
-            animator.SetTrigger("Avoid_Left");
-            if (AnimatorstateInfo.IsName("Avoid_Left"))
-            {
-                playerState = PlayerState.Avoid;
-            }
-            
-        }
-    }
-
+  
+    
     private void MovementAnimaionControl()
     {
-        
-        playerBlendTreeState = PlayerBlendTreeState.Movement;
+      //  playerAnimatorState = PlayerAnimatorState.Movement;
 
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
         {
-            playerState = PlayerState.GoForwardRight;
+            moveState = MoveState.GoForwardRight;
         }
         else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W))
         {
-            playerState = PlayerState.GoForwardLeft;
+            moveState = MoveState.GoForwardLeft;
         }
         else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
         {
-            playerState = PlayerState.GoBackLeft;
+            moveState = MoveState.GoBackLeft;
         }
         else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
         {
-            playerState = PlayerState.GoBackRight;
+            moveState = MoveState.GoBackRight;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            playerState = PlayerState.GoRight;
+            moveState = MoveState.GoRight;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            playerState = PlayerState.GoLeft;
+            moveState = MoveState.GoLeft;
         }
         else if (Input.GetKey(KeyCode.W))
         {
-            playerState = PlayerState.GoForward;
+            moveState = MoveState.GoForward;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            playerState = PlayerState.GoBack;
+            moveState = MoveState.GoBack;
         }
         else
         {
-            playerState = PlayerState.Idle;
+            moveState = MoveState.Idle;
         }
 
-        switch (playerState)
+        switch (moveState)
         {          
-            case PlayerState.Idle:          
+            case MoveState.Idle:          
                 x_direction = 0;
                 y_direction = 0;
                 break;
 
-            case PlayerState.GoRight:            
+            case MoveState.GoRight:            
                 x_direction = 1;
                 y_direction = 0;
                 break;
 
-            case PlayerState.GoLeft:            
+            case MoveState.GoLeft:            
                 x_direction = -1;
                 y_direction = 0;
                 break;
 
-            case PlayerState.GoForward:           
+            case MoveState.GoForward:           
                 x_direction = 0;
                 y_direction = 1;
                 break;
-            case PlayerState.GoBack:          
+            case MoveState.GoBack:          
                 x_direction = 0;
                 y_direction = -1;
                 break;
-            case PlayerState.GoForwardRight:         
+            case MoveState.GoForwardRight:         
                 x_direction = 1;
                 y_direction = 1;
                 break;
-            case PlayerState.GoForwardLeft:            
+            case MoveState.GoForwardLeft:            
                 x_direction = -1;
                 y_direction = 1;
                 break;
-            case PlayerState.GoBackLeft:               
+            case MoveState.GoBackLeft:               
                 x_direction = -1;
                 y_direction = -1;
                 break;
-            case PlayerState.GoBackRight:            
+            case MoveState.GoBackRight:            
                 x_direction = 1;
                 y_direction = -1;
                 break;
         }
 
-        Motion_parameter_x = Mathf.Lerp(Motion_parameter_x, x_direction, 0.15f);
-        Motion_parameter_y = Mathf.Lerp(Motion_parameter_y, y_direction, 0.15f);      
+        Move_parameter_x = Mathf.Lerp(Move_parameter_x, x_direction, 0.15f);
+        Move_parameter_y = Mathf.Lerp(Move_parameter_y, y_direction, 0.15f);      
         
-        if (Motion_parameter_x <= 0.06f && Motion_parameter_x >= -0.06f)
+        if (Move_parameter_x <= 0.06f && Move_parameter_x >= -0.06f)
         {
-            Motion_parameter_x = 0;
+            Move_parameter_x = 0;
         }
-        if (Motion_parameter_y <= 0.06f && Motion_parameter_y >= -0.06f)
+        if (Move_parameter_y <= 0.06f && Move_parameter_y >= -0.06f)
         {
-            Motion_parameter_y = 0;
+            Move_parameter_y = 0;
         }
 
-        Motion_parameter_x = Mathf.Clamp(Motion_parameter_x, -1, 1);
-        Motion_parameter_y = Mathf.Clamp(Motion_parameter_y, -1, 1);
+        Move_parameter_x = Mathf.Clamp(Move_parameter_x, -1, 1);
+        Move_parameter_y = Mathf.Clamp(Move_parameter_y, -1, 1);
 
-        animator.SetFloat("RunSpeed_Horizontal", Motion_parameter_x);
-        animator.SetFloat("RunSpeed_Vertical", Motion_parameter_y);
+        animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
+        animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
     }
-
     
-
-
 }
