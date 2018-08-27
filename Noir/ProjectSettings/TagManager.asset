@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - PlayerAttack_Big
   - PlayerAttack_Small
+  - PlayerAttack_Big
   layers:
   - Default
   - TransparentFX
@@ -17,8 +16,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Wall
   - Floor
+  - Wall
   - 
   - 
   - 
