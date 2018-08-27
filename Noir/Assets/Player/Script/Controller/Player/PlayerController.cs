@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject AttackCollider_Big;
 
     private float PlayerAnimation_parameter;
-    public float MoveSpeed;//Player Data
+    private float MoveSpeed;//Player Data
+    public float MaxMoveSpeed;//Player Data
     private float x_direction;
     private float y_direction;
     private float Move_parameter_x;
@@ -116,8 +117,7 @@ public class PlayerController : MonoBehaviour {
 
             Avoid();
             if (playerAnimatorState == PlayerAnimatorState.Movement)
-            {
-                Debug.Log(playerAnimatorState);
+            {                
                 Movement();
             }
         }
@@ -130,10 +130,14 @@ public class PlayerController : MonoBehaviour {
     {
         if (AnimatorstateInfo.IsName("Avoid_Left") || AnimatorstateInfo.IsName("Avoid_Right"))
         {
-            playerAnimatorState = PlayerAnimatorState.Avoid;
+            playerAnimatorState = PlayerAnimatorState.Avoid;            
         }
         else if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2") || AnimatorstateInfo.IsName("ShortAttack_3") || AnimatorstateInfo.IsName("LongAttack"))
         {
+            Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
+            Move_parameter_y = Mathf.Lerp(Move_parameter_y, 0, 0.15f);
+            animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
+            animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
             playerAnimatorState = PlayerAnimatorState.Attack;
         }
         else if (AnimatorstateInfo.IsName("PlayerController"))
@@ -141,13 +145,15 @@ public class PlayerController : MonoBehaviour {
             playerAnimatorState = PlayerAnimatorState.Movement;
         }
 
-        if (playerAnimatorState != PlayerAnimatorState.Movement)
+      /*  if (playerAnimatorState != PlayerAnimatorState.Movement)
         {
             Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
             Move_parameter_y = Mathf.Lerp(Move_parameter_y, 0, 0.15f);
             animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
             animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
-        }
+        }*/
+        Debug.Log(playerAnimatorState);
+
     }
 
     #region 攻擊
@@ -224,15 +230,21 @@ public class PlayerController : MonoBehaviour {
         {
             StartCoroutine("CancelAttack");
         }
-
         if (attackState == AttackState.Default)
         {
             CanAttack = true;
         }
+
+        if (playerAnimatorState == PlayerAnimatorState.Avoid)
+        {
+            attackState = AttackState.Default;
+            attackState = AttackState.Default; CanAttack = false;
+
+        }
         //  Debug.Log(AnimatorstateInfo.shortNameHash);
         //Debug.Log(playerAnimatorState);            
         // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
-        Debug.Log(CanAttack);
+       // Debug.Log(CanAttack);
     }
     IEnumerator CancelAttack()
     {
@@ -263,7 +275,7 @@ public class PlayerController : MonoBehaviour {
 
     #region 移動 
     private void Rotaion()
-    {
+    { 
         RotationX += Input.GetAxis("Mouse X") * Time.deltaTime * RotationSpeed;
 
         if (RotationX > 360)
@@ -280,8 +292,20 @@ public class PlayerController : MonoBehaviour {
     }
     private void Movement()
     {
+       
+        if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
+        {
+            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.1f);            
+        }
+        else if(Input.GetAxis("Horizontal") == 0 || Input.GetAxis("Vertical") == 0)
+        {
+            MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.1f);           
+        }
+        MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
+
+        Debug.Log(MoveSpeed);
         transform.Translate(MoveX, 0, MoveZ);
 
         MovementAnimaionControl();
