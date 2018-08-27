@@ -35,27 +35,31 @@ public class PlayerController : MonoBehaviour {
     private MoveState moveState;
     private PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
+    public GameObject AttackCollider_Small;
+    public GameObject AttackCollider_Big;
 
     private float PlayerAnimation_parameter;
-    public float MoveSpeed;
+    public float MoveSpeed;//Player Data
     private float x_direction;
     private float y_direction;
     private float Move_parameter_x;
     private float Move_parameter_y;
-    public float RotationSpeed;
+    public float RotationSpeed;//Player Data
     private float RotationX;
     private Quaternion rotationEuler;
     public Transform Player_pre_pos;
     public Transform PlayerHead;
+
+    public float AvoidSpeed;//Player Data
+    private bool IsAvoid;
 
     private CapsuleCollider PlayerCollider;   
     
     private int FloorMask;
     public float grounded_dis;
 
-    private bool AttackTrigger;
-   
-    private bool CanClick;
+    private int AttackTrigger;     
+    private bool CanAttack;
 
     private Animator animator;
     AnimatorClipInfo[] AnimatorClipInfo;
@@ -71,147 +75,72 @@ public class PlayerController : MonoBehaviour {
         Move_parameter_x = 0;
         Move_parameter_x = 0;
         playerController = this;
-        AttackTrigger = true;
+        AttackTrigger = 0;
         Player_pre_pos = this.gameObject.transform.GetChild(0);
         PlayerAnimation_parameter = 0;
         PlayerCollider = GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
-        CanClick = true;
+        AttackCollider_Small.SetActive(false);
+      
+        CanAttack = true;
         attackState = AttackState.Default;
         moveState = MoveState.Idle;
         playerAnimatorState = PlayerAnimatorState.Movement;
     }
-    private void Update()
+   /* private void Update()
     {
         AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
         AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
         Rotaion();
-
         if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
         {
             Attack();
-
             if (playerAnimatorState == PlayerAnimatorState.Movement)
             {
-                //Debug.Log("SS");
                 Movement();
             }
         }
-
-        ResetBlendTree();
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
-    
-
-}
-
-   /* private void FixedUpdate()
-    {
-        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        Rotaion();
-
-        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
-        {
-            Attack();
-            
-            if (playerAnimatorState == PlayerAnimatorState.Movement)
-            {
-                //Debug.Log("SS");
-                Movement();
-            }                      
-        }
-        
         ResetBlendTree();
         Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
     }*/
 
-    private void Attack()
+     private void FixedUpdate()
+     {
+        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        Rotaion();
+        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
+        {
+           
+            Attack();
+
+            Avoid();
+            if (playerAnimatorState == PlayerAnimatorState.Movement)
+            {
+                Debug.Log(playerAnimatorState);
+                Movement();
+            }
+        }
+        AnimatorStateControll();
+        Attackcollider();
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+       
+    }
+    private void AnimatorStateControll()
     {
-        
-        if (Input.GetMouseButtonDown(0))
+        if (AnimatorstateInfo.IsName("Avoid_Left") || AnimatorstateInfo.IsName("Avoid_Right"))
+        {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
+        }
+        else if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2") || AnimatorstateInfo.IsName("ShortAttack_3") || AnimatorstateInfo.IsName("LongAttack"))
         {
             playerAnimatorState = PlayerAnimatorState.Attack;
-            StopCoroutine("CancelAttack");
-            switch (attackState)
-            {
-                case AttackState.Default:
-                    AttackTrigger = true;
-                    attackState = AttackState.Attack_1;                       
-                    break;
-                case AttackState.Attack_1:                       
-                    attackState = AttackState.Attack_2;
-
-                    break;
-                case AttackState.Attack_2:
-                    
-                    attackState = AttackState.Attack_3;
-                    break;
-            }
-
-               StartCoroutine(ClickIntervel(0.2f));
         }
-
-        
-        
-        AttackAnimation();
-    }
-    private void AttackAnimation()
-    {
-        if (AttackTrigger)
+        else if (AnimatorstateInfo.IsName("PlayerController"))
         {
-            switch (attackState)
-            {
-                case AttackState.Attack_1:
-                    animator.SetTrigger("Attack1");                    
-                    AttackTrigger = false;
-                    break;
-                case AttackState.Attack_2:
-                    animator.SetTrigger("Attack2");                  
-                    AttackTrigger = false;
-                    break;
-                case AttackState.Attack_3:
-                    animator.SetTrigger("Attack3");
-                    AttackTrigger = false;
-                    break;
-                case AttackState.LongAttack:
-                    animator.SetTrigger("LongAttack");
-                    AttackTrigger = false;
-                    break;
-            }            
-        }
-
-        if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
-        {
-            attackState = AttackState.Default;
             playerAnimatorState = PlayerAnimatorState.Movement;
         }
-        
-        Debug.Log(playerAnimatorState);
-            
-        // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
-        /*  Debug.Log(attackState);*/
-        
-    }
 
-    IEnumerator CancelAttack()
-    {
-        
-        yield return new WaitForSeconds(1.5f);
-        Debug.Log("a");
-        attackState = AttackState.Default;
-    }
-
-    IEnumerator ClickIntervel(float IntervelTime)
-    {
-        CanClick = true;
-        yield return new WaitForSeconds(IntervelTime);
-        CanClick = false;
-    }
-
-    private void ResetBlendTree()
-    {
         if (playerAnimatorState != PlayerAnimatorState.Movement)
         {
             Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
@@ -220,16 +149,119 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
         }
     }
-    
 
-    private void Movement()
+    #region 攻擊
+    private void Attack()
     {
-        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
-        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
-        transform.Translate(MoveX, 0, MoveZ);
+        AttackAnimation();
+        if (Input.GetMouseButtonDown(0) && (playerAnimatorState==PlayerAnimatorState.Movement||playerAnimatorState==PlayerAnimatorState.Attack))
+        {            
+            StopCoroutine("CancelAttack");
+                switch (attackState)
+                {
+                    case AttackState.Default:
+                    if (CanAttack && AttackTrigger == 0) 
+                    {
+                        attackState = AttackState.Attack_1;
+                        AttackTrigger += 1;
+                    }                                         
+                        break;
+                    case AttackState.Attack_1:
+                    if(CanAttack && AttackTrigger == 0)
+                    {
+                        attackState = AttackState.Attack_2;
+                        AttackTrigger += 1;
+                    }                        
+                    break;
+                    case AttackState.Attack_2:
+                    if (CanAttack && AttackTrigger == 0)
+                    {
+                        attackState = AttackState.Attack_3;
+                        AttackTrigger += 1;
+                    }
+                      /*  Debug.Log(AttackTrigger);
+                        Debug.Log(attackState);*/
+                    break;
+                }                        
+        }               
+        
+    }
+    private void AttackAnimation()
+    {
+        if (AttackTrigger == 1)
+        {
+            switch (attackState)
+            {
+                case AttackState.Attack_1:
+                    animator.SetTrigger("Attack1");
+                    AttackTrigger = 0;
+                    CanAttack = true;
+                    break;
+                case AttackState.Attack_2:
+                    animator.SetTrigger("Attack2");
+                    AttackTrigger = 0;
+                    CanAttack = true;
+                    break;
+                case AttackState.Attack_3:
+                    animator.SetTrigger("Attack3");
+                    AttackTrigger = 0;
+                    
+                    break;
+                case AttackState.LongAttack:
+                    animator.SetTrigger("LongAttack");
+                    AttackTrigger = 0;
+                    CanAttack = true;
+                    break;
+            }
+        }
+        
+        if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
+        {
+            attackState = AttackState.Default;
+            
+        }
+        else if(attackState != AttackState.Default && AnimatorstateInfo.IsName("PlayerController"))
+        {
+            StartCoroutine("CancelAttack");
+        }
 
-        MovementAnimaionControl();
-    }   
+        if (attackState == AttackState.Default)
+        {
+            CanAttack = true;
+        }
+        //  Debug.Log(AnimatorstateInfo.shortNameHash);
+        //Debug.Log(playerAnimatorState);            
+        // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
+        Debug.Log(CanAttack);
+    }
+    IEnumerator CancelAttack()
+    {
+        yield return new WaitForSeconds(1.5f);
+        CanAttack = false;
+        attackState = AttackState.Default;        
+    }
+
+    private void Attackcollider()
+    {
+        if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2"))
+        {
+            AttackCollider_Small.SetActive(true);
+        }
+        else if (AnimatorstateInfo.IsName("ShortAttack_3"))
+        {
+            AttackCollider_Big.SetActive(true);
+        }
+        else if(!AnimatorstateInfo.IsName("ShortAttack_1") || !AnimatorstateInfo.IsName("ShortAttack_2")|| !AnimatorstateInfo.IsName("ShortAttack_3"))
+        {
+            AttackCollider_Small.SetActive(false);
+            AttackCollider_Big.SetActive(false);
+        }
+
+    }
+
+    #endregion
+
+    #region 移動 
     private void Rotaion()
     {
         RotationX += Input.GetAxis("Mouse X") * Time.deltaTime * RotationSpeed;
@@ -246,8 +278,15 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = rotationEuler;
         
     }
-  
-    
+    private void Movement()
+    {
+        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
+        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
+        transform.Translate(MoveX, 0, MoveZ);
+
+        MovementAnimaionControl();
+    }
+   
     private void MovementAnimaionControl()
     {
       //  playerAnimatorState = PlayerAnimatorState.Movement;
@@ -332,8 +371,8 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
 
-        Move_parameter_x = Mathf.Lerp(Move_parameter_x, x_direction, 0.15f);
-        Move_parameter_y = Mathf.Lerp(Move_parameter_y, y_direction, 0.15f);      
+        Move_parameter_x = Mathf.Lerp(Move_parameter_x, x_direction, 0.2f);
+        Move_parameter_y = Mathf.Lerp(Move_parameter_y, y_direction, 0.2f);      
         
         if (Move_parameter_x <= 0.06f && Move_parameter_x >= -0.06f)
         {
@@ -350,5 +389,42 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
         animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
     }
+    #endregion
+
+    private void Avoid()
+    {
+        if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            animator.SetTrigger("Avoid_Left");
+            IsAvoid = true;
+        }
+        else if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            animator.SetTrigger("Avoid_Right");
+            IsAvoid = true;
+        }
+
+        AvoidMovement();
     
+    }
+
+   
+
+    private void AvoidMovement()
+    {
+        if (AnimatorstateInfo.IsName("Avoid_Left"))
+        {
+            float MoveX = -1 * Time.deltaTime * AvoidSpeed;
+
+            transform.Translate(MoveX, 0, 0);
+        }
+        else if (AnimatorstateInfo.IsName("Avoid_Right"))
+        {
+            float MoveX = 1 * Time.deltaTime * AvoidSpeed;
+
+            transform.Translate(MoveX, 0, 0);
+        }
+
+    }
+
 }

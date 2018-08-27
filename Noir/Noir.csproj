@@ -297,6 +297,7 @@
   <ItemGroup>
     <Compile Include="Assets\_OCASM\Image Effects\SSMS\SSMS.cs" />
     <Compile Include="Assets\_OCASM\Image Effects\SSMS\SSMSGlobalFog.cs" />
+    <Compile Include="Assets\Script\Controller\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Script\Controller\MainCamera.cs" />
     <Compile Include="Assets\Script\Controller\Player\PlayerController.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
