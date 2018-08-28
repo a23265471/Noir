@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
         PlayerCollider = GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
         AttackCollider_Small.SetActive(false);
+        AttackCollider_Big.SetActive(false);
       
         CanAttack = true;
         attackState = AttackState.Default;
@@ -122,7 +123,9 @@ public class PlayerController : MonoBehaviour {
             }
         }
         AnimatorStateControll();
-        Attackcollider();
+
+        //Attackcollider();
+
         Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
        
     }
@@ -202,6 +205,7 @@ public class PlayerController : MonoBehaviour {
                     animator.SetTrigger("Attack1");
                     AttackTrigger = 0;
                     CanAttack = true;
+                    
                     break;
                 case AttackState.Attack_2:
                     animator.SetTrigger("Attack2");
@@ -219,6 +223,7 @@ public class PlayerController : MonoBehaviour {
                     CanAttack = true;
                     break;
             }
+            
         }
         
         if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
@@ -271,6 +276,8 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+   
+
     #endregion
 
     #region 移動 
@@ -295,11 +302,11 @@ public class PlayerController : MonoBehaviour {
        
         if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
         {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.1f);            
+            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.06f);            
         }
         else if(Input.GetAxis("Horizontal") == 0 || Input.GetAxis("Vertical") == 0)
         {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.1f);           
+            MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.08f);           
         }
         MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
@@ -450,5 +457,24 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
+
+    public void AttackColliderOpen_Small()
+    {
+        AttackCollider_Small.SetActive(true);
+        EnemyController.enemyController.EnemyCanDamage = true;
+    }
+
+    public void AttackColliderOpen_Big()
+    {
+        AttackCollider_Big.SetActive(true);
+        EnemyController.enemyController.EnemyCanDamage = true;
+    }
+
+    public void AttackColliderClose()
+    {
+        AttackCollider_Small.SetActive(false);
+        AttackCollider_Big.SetActive(false);
+    }
+
 
 }
