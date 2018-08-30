@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackCollider_Small: {fileID: 1079347714655906}
   AttackCollider_Big: {fileID: 1887068979965610}
-  MoveSpeed: 5
+  MaxMoveSpeed: 0
   RotationSpeed: 30
   Player_pre_pos: {fileID: 0}
   PlayerHead: {fileID: 4818212970107778}

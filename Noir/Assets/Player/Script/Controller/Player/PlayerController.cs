@@ -51,7 +51,9 @@ public class PlayerController : MonoBehaviour {
     public Transform Player_pre_pos;
     public Transform PlayerHead;
 
-    public float AvoidSpeed;//Player Data
+    private float AvoidSpeed;//Player Data
+    public float AvoidMaxSpeed;
+
     private bool IsAvoid;
 
     private CapsuleCollider PlayerCollider;   
@@ -89,42 +91,27 @@ public class PlayerController : MonoBehaviour {
         moveState = MoveState.Idle;
         playerAnimatorState = PlayerAnimatorState.Movement;
     }
-   /* private void Update()
-    {
-        AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        Rotaion();
-        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
-        {
-            Attack();
-            if (playerAnimatorState == PlayerAnimatorState.Movement)
-            {
-                Movement();
-            }
-        }
-        ResetBlendTree();
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
-    }*/
-
+   
      private void FixedUpdate()
      {
         AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
         AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
         Rotaion();
+        
         if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
         {
-           
+            Avoid();
             Attack();
 
-            Avoid();
+            
             if (playerAnimatorState == PlayerAnimatorState.Movement)
             {                
                 Movement();
             }
         }
+
         AnimatorStateControll();
 
-        //Attackcollider();
 
         Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
        
@@ -173,6 +160,7 @@ public class PlayerController : MonoBehaviour {
                     {
                         attackState = AttackState.Attack_1;
                         AttackTrigger += 1;
+                        CanAttack = false;
                     }                                         
                         break;
                     case AttackState.Attack_1:
@@ -180,6 +168,7 @@ public class PlayerController : MonoBehaviour {
                     {
                         attackState = AttackState.Attack_2;
                         AttackTrigger += 1;
+                        CanAttack = false;
                     }                        
                     break;
                     case AttackState.Attack_2:
@@ -187,6 +176,7 @@ public class PlayerController : MonoBehaviour {
                     {
                         attackState = AttackState.Attack_3;
                         AttackTrigger += 1;
+                        CanAttack = false;
                     }
                       /*  Debug.Log(AttackTrigger);
                         Debug.Log(attackState);*/
@@ -228,8 +218,7 @@ public class PlayerController : MonoBehaviour {
         
         if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
         {
-            attackState = AttackState.Default;
-            
+            attackState = AttackState.Default;            
         }
         else if(attackState != AttackState.Default && AnimatorstateInfo.IsName("PlayerController"))
         {
@@ -239,12 +228,10 @@ public class PlayerController : MonoBehaviour {
         {
             CanAttack = true;
         }
-
         if (playerAnimatorState == PlayerAnimatorState.Avoid)
         {
-            attackState = AttackState.Default;
-            attackState = AttackState.Default; CanAttack = false;
-
+            attackState = AttackState.Default;           
+            CanAttack = false;
         }
         //  Debug.Log(AnimatorstateInfo.shortNameHash);
         //Debug.Log(playerAnimatorState);            
@@ -253,30 +240,10 @@ public class PlayerController : MonoBehaviour {
     }
     IEnumerator CancelAttack()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         CanAttack = false;
         attackState = AttackState.Default;        
-    }
-
-    private void Attackcollider()
-    {
-        if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2"))
-        {
-            AttackCollider_Small.SetActive(true);
-        }
-        else if (AnimatorstateInfo.IsName("ShortAttack_3"))
-        {
-            AttackCollider_Big.SetActive(true);
-        }
-        else if(!AnimatorstateInfo.IsName("ShortAttack_1") || !AnimatorstateInfo.IsName("ShortAttack_2")|| !AnimatorstateInfo.IsName("ShortAttack_3"))
-        {
-            AttackCollider_Small.SetActive(false);
-            AttackCollider_Big.SetActive(false);
-        }
-
-    }
-
-   
+    }   
 
     #endregion
 
@@ -302,13 +269,20 @@ public class PlayerController : MonoBehaviour {
        
         if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
         {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.06f);            
+            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.04f);
+            MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
         }
-        else if(Input.GetAxis("Horizontal") == 0 || Input.GetAxis("Vertical") == 0)
+        else if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.08f);           
+            MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.1f);
+            if (MoveSpeed <= 0.06f && MoveSpeed >= -0.06f)
+            {
+                MoveSpeed = 0;
+            }
         }
-        MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
+        
+        
+       
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
 
@@ -402,8 +376,8 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
 
-        Move_parameter_x = Mathf.Lerp(Move_parameter_x, x_direction, 0.2f);
-        Move_parameter_y = Mathf.Lerp(Move_parameter_y, y_direction, 0.2f);      
+        Move_parameter_x = Mathf.Lerp(Move_parameter_x, x_direction, 0.1f);
+        Move_parameter_y = Mathf.Lerp(Move_parameter_y, y_direction, 0.1f);      
         
         if (Move_parameter_x <= 0.06f && Move_parameter_x >= -0.06f)
         {
@@ -434,23 +408,24 @@ public class PlayerController : MonoBehaviour {
             animator.SetTrigger("Avoid_Right");
             IsAvoid = true;
         }
-
+       
         AvoidMovement();
     
     }
-
    
-
     private void AvoidMovement()
     {
         if (AnimatorstateInfo.IsName("Avoid_Left"))
         {
+            AvoidSpeed = Mathf.Lerp(AvoidSpeed, AvoidMaxSpeed, 0.1f);
+
             float MoveX = -1 * Time.deltaTime * AvoidSpeed;
 
             transform.Translate(MoveX, 0, 0);
         }
         else if (AnimatorstateInfo.IsName("Avoid_Right"))
         {
+            AvoidSpeed = Mathf.Lerp(AvoidSpeed, AvoidMaxSpeed, 0.1f);
             float MoveX = 1 * Time.deltaTime * AvoidSpeed;
 
             transform.Translate(MoveX, 0, 0);
