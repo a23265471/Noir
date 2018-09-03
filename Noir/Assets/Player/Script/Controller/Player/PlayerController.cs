@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
     private float AvoidSpeed;//Player Data
     public float AvoidMaxSpeed;
 
-    private bool IsAvoid;
+   
 
     private CapsuleCollider PlayerCollider;   
     
@@ -118,11 +118,11 @@ public class PlayerController : MonoBehaviour {
     }
     private void AnimatorStateControll()
     {
-         if (AnimatorstateInfo.IsName("Avoid_Left") || AnimatorstateInfo.IsName("Avoid_Right"))
+        /* if (AnimatorstateInfo.IsName("Avoid_Left") || AnimatorstateInfo.IsName("Avoid_Right"))
          {
              playerAnimatorState = PlayerAnimatorState.Avoid;            
-         }
-         else if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2") || AnimatorstateInfo.IsName("ShortAttack_3") || AnimatorstateInfo.IsName("LongAttack"))
+         }*/
+        if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2") || AnimatorstateInfo.IsName("ShortAttack_3") || AnimatorstateInfo.IsName("LongAttack"))
         {
             Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
             Move_parameter_y = Mathf.Lerp(Move_parameter_y, 0, 0.15f);
@@ -130,10 +130,6 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
             playerAnimatorState = PlayerAnimatorState.Attack;
         }
-      /*  else if (AnimatorstateInfo.IsName("PlayerController"))
-        {
-            playerAnimatorState = PlayerAnimatorState.Movement;
-        }*/
 
         if (playerAnimatorState != PlayerAnimatorState.Movement)
         {
@@ -142,48 +138,66 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
             animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
         }
-        Debug.Log(playerAnimatorState);
+      //  Debug.Log(playerAnimatorState);
+        Debug.Log(attackState);
 
     }
 
-    #region 攻擊
+   
     private void Attack()
     {
-        AttackAnimation();
+        //AttackAnimation();
         if (Input.GetMouseButtonDown(0) && (playerAnimatorState==PlayerAnimatorState.Movement||playerAnimatorState==PlayerAnimatorState.Attack))
-        {            
+        {
             StopCoroutine("CancelAttack");
-                switch (attackState)
+            switch (attackState)
                 {
                     case AttackState.Default:
-                    if (CanAttack && AttackTrigger == 0) 
+                    if (CanAttack) 
                     {
+                       
                         attackState = AttackState.Attack_1;
-                        AttackTrigger += 1;
+                        animator.SetTrigger("Attack1");
+                        animator.ResetTrigger("Attack3");
+                       // animator.ResetTrigger("Attack2");
+                       
                         CanAttack = false;
                     }                                         
                         break;
                     case AttackState.Attack_1:
-                    if(CanAttack && AttackTrigger == 0)
+                    if(CanAttack)
                     {
+                        StopCoroutine("CancelAttack");
                         attackState = AttackState.Attack_2;
-                        AttackTrigger += 1;
+                        animator.SetTrigger("Attack2");
+                       // animator.ResetTrigger("Attack3");
+                        
+                        animator.ResetTrigger("Attack1");
                         CanAttack = false;
                     }                        
                     break;
                     case AttackState.Attack_2:
-                    if(CanAttack && AttackTrigger == 0)
+                    if(CanAttack)
                     {
+                        StopCoroutine("CancelAttack");
                         attackState = AttackState.Attack_3;
-                        AttackTrigger += 1;
+                        animator.SetTrigger("Attack3");
+                        
+                        animator.ResetTrigger("Attack2");
+                        animator.ResetTrigger("Attack1");
                         CanAttack = false;
                     }
                       /*  Debug.Log(AttackTrigger);
                         Debug.Log(attackState);*/
                     break;
                 }                        
-        }               
-        
+        }
+        if (attackState == AttackState.Default)
+        {
+            CanAttack = true;
+           
+        }
+
     }
     private void AttackAnimation()
     {
@@ -220,21 +234,20 @@ public class PlayerController : MonoBehaviour {
         {
             attackState = AttackState.Default;            
         }
-      /*  else if(attackState != AttackState.Default && AnimatorstateInfo.IsName("PlayerController"))
-        {
-            StartCoroutine("CancelAttack");
-        }*/
+     
         if (attackState == AttackState.Default)
         {
             CanAttack = true;
+            AttackTrigger = 0;
         }        
         //  Debug.Log(AnimatorstateInfo.shortNameHash);
         Debug.Log(playerAnimatorState);            
         // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
-       // Debug.Log(CanAttack);
+        Debug.Log(CanAttack);
+        Debug.Log(AttackTrigger);
     }
    
-    #endregion
+    
 
     #region 移動 
     private void Rotaion()
@@ -389,13 +402,15 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
         {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
             animator.SetTrigger("Avoid_Left");
-            IsAvoid = true;
+            
         }
         else if(Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.LeftShift))
         {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
             animator.SetTrigger("Avoid_Right");
-            IsAvoid = true;
+            
         }
        
         AvoidMovement();
@@ -406,7 +421,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (AnimatorstateInfo.IsName("Avoid_Left"))
         {
-            AvoidSpeed = Mathf.Lerp(AvoidSpeed, AvoidMaxSpeed, 0.1f);
+            AvoidSpeed = Mathf.Lerp(AvoidSpeed, AvoidMaxSpeed, 11f);
 
             float MoveX = -1 * Time.deltaTime * AvoidSpeed;
 
@@ -414,7 +429,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (AnimatorstateInfo.IsName("Avoid_Right"))
         {
-            AvoidSpeed = Mathf.Lerp(AvoidSpeed, AvoidMaxSpeed, 0.1f);
+            AvoidSpeed = Mathf.Lerp(AvoidSpeed, AvoidMaxSpeed, 1f);
             float MoveX = 1 * Time.deltaTime * AvoidSpeed;
 
             transform.Translate(MoveX, 0, 0);
@@ -422,27 +437,26 @@ public class PlayerController : MonoBehaviour {
 
     }
 //------------------------------------Animatioｎ　Event--------------------
-    IEnumerator CancelAttack()
+   
+   
+    public void TriggerCancelAttack(float WaitTime)
     {
-        yield return new WaitForSeconds(0.5f);
-        CanAttack = false;
+        StartCoroutine(CancelAttack(WaitTime));
+    }
+
+    IEnumerator CancelAttack(float WaitTime)
+    {
+        yield return new WaitForSeconds(WaitTime);
+        
         attackState = AttackState.Default;
-    }
-
-    IEnumerator ResetState()
-    {
-        yield return new WaitForSeconds(0.1f);
-        playerAnimatorState = PlayerAnimatorState.Movement;
-    }
-
-    public void TriggerCancelAttack()
-    {
-        StartCoroutine("CancelAttack");
+        
     }
 
     public void CanTriggerAttack()
     {
         CanAttack = true;
+        StopCoroutine("ResetState");
+       // StopCoroutine("CancelAttack");
     }
 
     public void CancelAttackNow()
@@ -456,6 +470,20 @@ public class PlayerController : MonoBehaviour {
         StopCoroutine("ResetState");
         
     }
+    public void ChangeToIdle(float WaitTime)
+    {
+
+        StartCoroutine(ResetState(WaitTime));
+
+    }
+
+    IEnumerator ResetState(float WaitTime)
+    {
+        yield return new WaitForSeconds(WaitTime);
+        playerAnimatorState = PlayerAnimatorState.Movement;
+        //Debug.Log("aa");
+    }
+
     public void AttackColliderOpen_Small()
     {
         AttackCollider_Small.SetActive(true);
@@ -474,12 +502,5 @@ public class PlayerController : MonoBehaviour {
         AttackCollider_Big.SetActive(false);
     }
 
-    public void ExitAvoidState()
-    {
-        
-        StartCoroutine("ResetState");
-
-    }
-
-
+   
 }

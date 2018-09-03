@@ -234,7 +234,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 272274345954b0149b0f302a9d4c93a1, type: 3}
-    m_Threshold: 0.11111111
+    m_Threshold: 0.082644634
     m_Position: {x: 0, y: 0.9}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -242,7 +242,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 5e21cd3424889754ca0d059c4c005401, type: 3}
-    m_Threshold: 0.22222222
+    m_Threshold: 0.16528927
     m_Position: {x: 0, y: -0.9}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -250,7 +250,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400004, guid: 0fbe00e7898f93d4e9a974cd69f6ef3a, type: 3}
-    m_Threshold: 0.33333334
+    m_Threshold: 0.2479339
     m_Position: {x: -0.9, y: 0}
     m_TimeScale: 1.2
     m_CycleOffset: 0
@@ -258,23 +258,15 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400002, guid: 0fbe00e7898f93d4e9a974cd69f6ef3a, type: 3}
-    m_Threshold: 0.44444445
+    m_Threshold: 0.33057854
     m_Position: {x: 0.9, y: 0}
     m_TimeScale: 1.2
     m_CycleOffset: 0
     m_DirectBlendParameter: RunSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 206616335577675302}
-    m_Threshold: 0.5555556
-    m_Position: {x: 0, y: 2}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: RunSpeed
-    m_Mirror: 0
-  - serializedVersion: 2
     m_Motion: {fileID: 7400004, guid: 272274345954b0149b0f302a9d4c93a1, type: 3}
-    m_Threshold: 0.6666667
+    m_Threshold: 0.41322318
     m_Position: {x: 0.9, y: 0.9}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -282,7 +274,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400006, guid: 0fbe00e7898f93d4e9a974cd69f6ef3a, type: 3}
-    m_Threshold: 0.7777778
+    m_Threshold: 0.4958678
     m_Position: {x: 0.9, y: -0.9}
     m_TimeScale: 1.2
     m_CycleOffset: 0
@@ -290,7 +282,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400002, guid: 272274345954b0149b0f302a9d4c93a1, type: 3}
-    m_Threshold: 0.8888889
+    m_Threshold: 0.57851243
     m_Position: {x: -0.9, y: 0.9}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -298,16 +290,40 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400008, guid: 0fbe00e7898f93d4e9a974cd69f6ef3a, type: 3}
-    m_Threshold: 1
+    m_Threshold: 0.6611571
     m_Position: {x: -0.9, y: -0.9}
     m_TimeScale: 1.2
     m_CycleOffset: 0
     m_DirectBlendParameter: RunSpeed
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 0}
+    m_Threshold: 0.74380165
+    m_Position: {x: -2, y: 2}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: RunSpeed_Vertical
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 0}
+    m_Threshold: 0.82644635
+    m_Position: {x: 2, y: 2}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: RunSpeed_Vertical
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 0}
+    m_Threshold: 0.90909094
+    m_Position: {x: 0, y: 2}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: RunSpeed_Vertical
+    m_Mirror: 0
   m_BlendParameter: RunSpeed_Horizontal
   m_BlendParameterY: RunSpeed_Vertical
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 0.90909094
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 2
@@ -431,6 +447,20 @@ BlendTree:
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
+--- !u!206 &206463001520507018
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: BlendTree
+  m_Childs: []
+  m_BlendParameter: RunSpeed_Horizontal
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
 --- !u!206 &206490302702772888
@@ -1527,7 +1557,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: ShortAttack_3
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101293710908113298}
