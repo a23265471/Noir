@@ -471,7 +471,17 @@ public class PlayerController : MonoBehaviour {
 
     private void Avoid()
     {
-        if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
+            animator.SetTrigger("Avoid_ForwardRight");
+        }
+        else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
+            animator.SetTrigger("Avoid_ForwardLeft");
+        }
+        else if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
         {
             playerAnimatorState = PlayerAnimatorState.Avoid;
             animator.SetTrigger("Avoid_Left");
@@ -483,8 +493,8 @@ public class PlayerController : MonoBehaviour {
             animator.SetTrigger("Avoid_Right");
             
         }
-       
-        AvoidMovement();
+         
+     //   AvoidMovement();
     
     }
    
@@ -544,6 +554,7 @@ public class PlayerController : MonoBehaviour {
     {
         yield return new WaitForSeconds(WaitTime);
         playerAnimatorState = PlayerAnimatorState.Movement;
+        IsFastRun = false;
         //Debug.Log("aa");
     }
 
