@@ -43,7 +43,9 @@ public class PlayerController : MonoBehaviour {
     #region Move
     private float PlayerAnimation_parameter;
     private float MoveSpeed;//Player Data
-    public float MaxMoveSpeed;//Player Data
+    private float MaxMoveSpeed;//Player Data
+    public float RunSpeed;//Player Data
+    public float FastRunSpeed;//Player Data
     private float x_direction;
     private float y_direction;
     private float Move_parameter_x;
@@ -56,6 +58,9 @@ public class PlayerController : MonoBehaviour {
     private bool CanDoubleClick;
     public float DoubleClickTime;//PlayerData
     private bool IsFastRun;
+    private float preClickTime;
+    private float nextClickTime;
+
     #endregion
     private float AvoidSpeed;//Player Data
     public float AvoidMaxSpeed;
@@ -132,19 +137,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void AnimatorStateControll()
     {
-        /* if (AnimatorstateInfo.IsName("Avoid_Left") || AnimatorstateInfo.IsName("Avoid_Right"))
-         {
-             playerAnimatorState = PlayerAnimatorState.Avoid;            
-         }*/
-        if (AnimatorstateInfo.IsName("ShortAttack_1") || AnimatorstateInfo.IsName("ShortAttack_2") || AnimatorstateInfo.IsName("ShortAttack_3") || AnimatorstateInfo.IsName("LongAttack"))
-        {
-            Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
-            Move_parameter_y = Mathf.Lerp(Move_parameter_y, 0, 0.15f);
-            animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
-            animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
-            playerAnimatorState = PlayerAnimatorState.Attack;
-        }
-
+        
         if (playerAnimatorState != PlayerAnimatorState.Movement)
         {
             Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
@@ -152,7 +145,7 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
             animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
         }
-      //  Debug.Log(playerAnimatorState);
+        Debug.Log(playerAnimatorState);
       //  Debug.Log(attackState);
 
     }
@@ -160,40 +153,55 @@ public class PlayerController : MonoBehaviour {
    
     private void Attack()
     {
-       
-        if (Input.GetMouseButtonDown(0) && (playerAnimatorState==PlayerAnimatorState.Movement||playerAnimatorState==PlayerAnimatorState.Attack))
+       if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack)
         {
            
-            switch (attackState)
+            if (Input.GetMouseButtonDown(0))
+            {
+               
+                switch (attackState)
                 {
                     case AttackState.Default:
-                    if (CanAttack) 
-                    {                  
-                        attackState = AttackState.Attack_1;
-                        AttackTrigger += 1;                                              
-                        CanAttack = false;                  
-                    }                                         
+                        if (CanAttack)
+                        {
+                            attackState = AttackState.Attack_1;
+                            AttackTrigger += 1;
+                            CanAttack = false;
+                        }
                         break;
                     case AttackState.Attack_1:
-                    if(CanAttack)
-                    {  
-                        attackState = AttackState.Attack_2;
-                        AttackTrigger += 1;
-                        CanAttack = false;                      
-                    }                        
-                    break;
+                        if (CanAttack)
+                        {
+                            attackState = AttackState.Attack_2;
+                            AttackTrigger += 1;
+                            CanAttack = false;
+                        }
+                        break;
                     case AttackState.Attack_2:
-                    if(CanAttack)
-                    {                     
-                        attackState = AttackState.Attack_3;
-                        AttackTrigger += 1;
-                        CanAttack = false;                    
-                    }
-                      /*  Debug.Log(AttackTrigger);*/
-                        
-                    break;
-                }                        
+                        if (CanAttack)
+                        {
+                            attackState = AttackState.Attack_3;
+                            AttackTrigger += 1;
+                            CanAttack = false;
+                        }
+                        /*  Debug.Log(AttackTrigger);*/
+                        break;
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                //playerAnimatorState = PlayerAnimatorState.Attack;               
+                if (CanAttack)
+                {
+                    attackState = AttackState.LongAttack;
+                    AttackTrigger += 1;
+                    CanAttack = false;
+                }
+
+            }
         }
+        
+
         AttackAnimation();
         if (attackState == AttackState.Default)
         {
@@ -215,9 +223,7 @@ public class PlayerController : MonoBehaviour {
                     AttackTrigger = 0;                                       
                     break;
                 case AttackState.Attack_2:
-                    animator.SetTrigger("Attack2");
-                    
-                   
+                    animator.SetTrigger("Attack2");                                      
                     AttackTrigger = 0;                   
                     break;
                 case AttackState.Attack_3:
@@ -234,21 +240,22 @@ public class PlayerController : MonoBehaviour {
             
         }
         
-        if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController"))
+       /* if (attackState == AttackState.Attack_3 && AnimatorstateInfo.IsName("PlayerController")|| attackState == AttackState.LongAttack && AnimatorstateInfo.IsName("PlayerController"))
         {
             attackState = AttackState.Default;            
-        }
+        }*/
      
         if (attackState == AttackState.Default)
         {
             CanAttack = true;
             AttackTrigger = 0;
-        }        
+        }
         //  Debug.Log(AnimatorstateInfo.shortNameHash);
-       // Debug.Log(playerAnimatorState);            
+        // Debug.Log(playerAnimatorState);            
         // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
         //Debug.Log(CanAttack);
-       // Debug.Log(AttackTrigger);
+        // Debug.Log(AttackTrigger);
+       // Debug.Log(attackState);
     }
    
     
@@ -271,7 +278,15 @@ public class PlayerController : MonoBehaviour {
         
     }
     private void Movement()
-    {      
+    {
+        if (IsFastRun)
+        {
+            MaxMoveSpeed = FastRunSpeed;
+        }
+        else
+        {
+            MaxMoveSpeed = RunSpeed;
+        }
         if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
         {
             MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.04f);
@@ -285,7 +300,8 @@ public class PlayerController : MonoBehaviour {
                 MoveSpeed = 0;
             }
         }
-                      
+                     
+        
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
 
@@ -301,15 +317,21 @@ public class PlayerController : MonoBehaviour {
         {
             if (CanDoubleClick) 
             {
-                StopCoroutine(DoubleClickCoroutine);
-                CanDoubleClick = false;
-                moveState = MoveState.FastRunForward;
-                IsFastRun = true;
+                nextClickTime = Time.time;
+                if (nextClickTime - preClickTime > 0.1f)
+                {
+                    StopCoroutine(DoubleClickCoroutine);
+                    CanDoubleClick = false;
+                    moveState = MoveState.FastRunForward;
+                    IsFastRun = true;
+                }
+                
             }
+            preClickTime = Time.time;
             CanDoubleClick = true;
             DoubleClickCoroutine = DoubleClick(DoubleClickTime);
             StartCoroutine(DoubleClickCoroutine);
-            Debug.Log(CanDoubleClick);        
+            //Debug.Log(CanDoubleClick);        
         }
         else if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -339,7 +361,7 @@ public class PlayerController : MonoBehaviour {
             moveState = MoveState.Idle;
             IsFastRun = false;
         }
-        Debug.Log(moveState);
+        //Debug.Log(moveState);
        
     }
 
@@ -481,6 +503,21 @@ public class PlayerController : MonoBehaviour {
             playerAnimatorState = PlayerAnimatorState.Avoid;
             animator.SetTrigger("Avoid_ForwardLeft");
         }
+        else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
+            animator.SetTrigger("Avoid_BackLeft");
+        }
+        else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
+            animator.SetTrigger("Avoid_BackRight");
+        }
+        else if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            playerAnimatorState = PlayerAnimatorState.Avoid;
+            animator.SetTrigger("Avoid_Back");
+        }
         else if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
         {
             playerAnimatorState = PlayerAnimatorState.Avoid;
@@ -531,7 +568,7 @@ public class PlayerController : MonoBehaviour {
     {
         yield return new WaitForSeconds(WaitTime);
 
-        Debug.Log("Default");
+       // Debug.Log("Default");
         attackState = AttackState.Default;
         
     }
@@ -539,9 +576,22 @@ public class PlayerController : MonoBehaviour {
     public void CanTriggerAttack()
     {
         CanAttack = true;
-        StopCoroutine(ResetStateCoroutine);
-        StopCoroutine(CancelAttackCoroutine);
-        Debug.Log("CanAttack");
+        playerAnimatorState = PlayerAnimatorState.Attack;
+
+        if (ResetStateCoroutine != null)
+        {
+            StopCoroutine(ResetStateCoroutine);
+            
+          //  Debug.Log("StopCoroutine");
+        }
+        if (CancelAttackCoroutine != null)
+        {
+            StopCoroutine(CancelAttackCoroutine);
+        }
+
+        
+
+
     }
   
     public void ChangeToIdle(float WaitTime)
@@ -555,7 +605,7 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(WaitTime);
         playerAnimatorState = PlayerAnimatorState.Movement;
         IsFastRun = false;
-        //Debug.Log("aa");
+        Debug.Log("StartCoroutine");
     }
 
     public void CancelAttackNow()
