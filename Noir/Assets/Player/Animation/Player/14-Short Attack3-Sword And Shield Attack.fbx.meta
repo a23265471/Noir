@@ -178,7 +178,6 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -239,7 +238,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.19354838
         functionName: CanTriggerAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
