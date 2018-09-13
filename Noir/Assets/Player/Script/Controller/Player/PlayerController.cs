@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour {
             else if (Input.GetMouseButtonDown(1))
             {
                 //playerAnimatorState = PlayerAnimatorState.Attack;               
-                if (CanAttack)
+                if (CanAttack && attackState != AttackState.BigSkill) 
                 {
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour {
                     AttackTrigger = 0;                  
                     break;
                 case AttackState.BigSkill:
-                    animator.SetTrigger("LongAttack");
+                    animator.SetTrigger("BigSkill");
                     AttackTrigger = 0;
                     break;
             }
@@ -416,7 +416,7 @@ public class PlayerController : MonoBehaviour {
         //  playerAnimatorState = PlayerAnimatorState.Movement;
         if (!IsFastRun)
         {
-            if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W)) 
             {
                 moveState = MoveState.GoForwardRight;
             }
