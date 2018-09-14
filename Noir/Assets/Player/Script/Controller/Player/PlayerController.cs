@@ -89,7 +89,16 @@ public class PlayerController : MonoBehaviour {
     private Quaternion AvoidEuler;   
     private Vector3 AvoidPosition;
     //-----------------------------------------Avoid-------------
+    //-----------------------------Particle------------
+    public GameObject ShortAttack1_Object;
+    public GameObject ShortAttack2_Object;
+    public GameObject ShortAttack3_Object;
 
+    private ParticleSystem ShortAttack1_Particle;
+    private ParticleSystem ShortAttack2_Particle;
+    private ParticleSystem ShortAttack3_Particle;
+    
+    //-----------------------------Particle------------
 
     private CapsuleCollider PlayerCollider;   
     
@@ -109,15 +118,19 @@ public class PlayerController : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        Player_pre_pos = this.gameObject.transform.GetChild(0);
+        ShortAttack1_Object = this.gameObject.transform.GetChild(1).gameObject;
+        ShortAttack2_Object = this.gameObject.transform.GetChild(2).gameObject;
+        ShortAttack3_Object = this.gameObject.transform.GetChild(3).gameObject;
     }
     // Use this for initialization
+    
     void Start()
     {
         Move_parameter_x = 0;
         Move_parameter_x = 0;
         playerController = this;
-        AttackTrigger = 0;
-        Player_pre_pos = this.gameObject.transform.GetChild(0);
+        AttackTrigger = 0;       
         PlayerAnimation_parameter = 0;
         PlayerCollider = GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
@@ -129,6 +142,12 @@ public class PlayerController : MonoBehaviour {
         ResetStateCoroutine = null;
         DoubleClickCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
+
+        //----particle--
+        ShortAttack1_Particle = ShortAttack1_Object.GetComponent<ParticleSystem>();
+        ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
+        ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
+        //-----particle---
 
         attackState = AttackState.Default;       
         moveState = MoveState.Idle;
@@ -259,22 +278,28 @@ public class PlayerController : MonoBehaviour {
             {
                 case AttackState.Attack_1:
                     animator.SetTrigger("Attack1");
-                   
+                    
                     animator.ResetTrigger("Attack3");
+                    ShortAttack1_Particle.Play();
+
                     AttackTrigger = 0;                                       
                     break;
                 case AttackState.Attack_2:
-                    animator.SetTrigger("Attack2");                                      
+                    animator.SetTrigger("Attack2");
+                    ShortAttack2_Particle.Play();
                     AttackTrigger = 0;                   
                     break;
                 case AttackState.Attack_3:
                     animator.SetTrigger("Attack3");
                     animator.ResetTrigger("Attack1");
                     animator.ResetTrigger("Attack2");
+                    ShortAttack3_Particle.Play();
                     AttackTrigger = 0;                    
                     break;
                 case AttackState.LongAttack:
                     animator.SetTrigger("LongAttack");
+                    
+
                     AttackTrigger = 0;                  
                     break;
                 case AttackState.BigSkill:
@@ -651,6 +676,7 @@ public class PlayerController : MonoBehaviour {
     public void ChangeToIdle(float WaitTime)
     {       
         ResetStateCoroutine = ResetState(WaitTime);
+      
         StartCoroutine(ResetStateCoroutine);
     }
 
