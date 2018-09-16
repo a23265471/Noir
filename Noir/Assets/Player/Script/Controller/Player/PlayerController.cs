@@ -73,12 +73,10 @@ public class PlayerController : MonoBehaviour {
     private bool CanDoubleClick;
     public float DoubleClickTime;//PlayerData
     private bool IsFastRun;
+    private bool CanFastRun;
     private float preClickTime;
     private float nextClickTime;
-    private bool Right;
-    private bool Left;
-    private bool Forward;
-    private bool Back;
+   
     //----------------------------------Move-----------------
     //---------------------------------------Avoid-------------
     public float AvoidSpeed;//Player Data
@@ -114,6 +112,7 @@ public class PlayerController : MonoBehaviour {
     private IEnumerator ResetStateCoroutine;
     private IEnumerator CancelAttackCoroutine;
     private IEnumerator DoubleClickCoroutine;
+    private IEnumerator FastRunCoroutine;
 
     private Animator animator;
     AnimatorClipInfo[] AnimatorClipInfo;
@@ -145,6 +144,7 @@ public class PlayerController : MonoBehaviour {
         CancelAttackCoroutine = null;
         ResetStateCoroutine = null;
         DoubleClickCoroutine = null;
+        FastRunCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
         
         //----particle--
@@ -381,32 +381,36 @@ public class PlayerController : MonoBehaviour {
     
     private void FastRun()
     {
-       /* if (Input.GetKeyDown(KeyCode.W) && !Back) 
-        {
-            if (CanDoubleClick) 
-            {
-                nextClickTime = Time.time;
-                if (nextClickTime - preClickTime > 0.1f)
-                {
-                    StopCoroutine(DoubleClickCoroutine);
-                    CanDoubleClick = false;
-                    moveState = MoveState.FastRunForward;
-                    IsFastRun = true;
-                }
-                
-            }
-            preClickTime = Time.time;
-            CanDoubleClick = true;
-            DoubleClickCoroutine = DoubleClick(DoubleClickTime);
-            StartCoroutine(DoubleClickCoroutine);
-            //Debug.Log(CanDoubleClick);        
-        }
-        else if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
+        /* if (Input.GetKeyDown(KeyCode.W) && !Back) 
+         {
+             if (CanDoubleClick) 
+             {
+                 nextClickTime = Time.time;
+                 if (nextClickTime - preClickTime > 0.1f)
+                 {
+                     StopCoroutine(DoubleClickCoroutine);
+                     CanDoubleClick = false;
+                     moveState = MoveState.FastRunForward;
+                     IsFastRun = true;
+                 }
+
+             }
+             preClickTime = Time.time;
+             CanDoubleClick = true;
+             DoubleClickCoroutine = DoubleClick(DoubleClickTime);
+             StartCoroutine(DoubleClickCoroutine);
+             //Debug.Log(CanDoubleClick);        
+         }
+         else if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
+         {
+             moveState = MoveState.FastRunForward;
+             IsFastRun = true;
+         }*/
+        if (CanFastRun && Input.GetKey(KeyCode.W))
         {
             moveState = MoveState.FastRunForward;
             IsFastRun = true;
-        }*/
-
+        }
         if (IsFastRun && Input.GetKey(KeyCode.W))
         {
             if (Input.GetKey(KeyCode.A))
@@ -417,11 +421,12 @@ public class PlayerController : MonoBehaviour {
             else if (Input.GetKey(KeyCode.D))
             {
                 moveState = MoveState.FastRunRight;
-            }
+            }           
             else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
                 moveState = MoveState.FastRunForward;
             }
+            
         }
 
         if (Input.GetKeyUp(KeyCode.W))
@@ -429,90 +434,40 @@ public class PlayerController : MonoBehaviour {
             moveState = MoveState.Idle;
             IsFastRun = false;
         }
-        //Debug.Log(moveState);
-       
-    }
-    private void DoubleClickFuntion(float ClickTime)
-    {
-        if (CanDoubleClick)
-        {
-            nextClickTime = Time.time;
-            if (nextClickTime - preClickTime > 0.1f)
-            {
-                StopCoroutine(DoubleClickCoroutine);
-                CanDoubleClick = false;
-                moveState = MoveState.FastRunForward;
-                IsFastRun = true;
-            }
 
-        }
-        else
+        Debug.Log(CanFastRun);
+    }
+    public void TriggerFastRun(float time)
+    {
+        if (FastRunCoroutine != null)
         {
-            preClickTime = Time.time;
-            CanDoubleClick = true;
-            DoubleClickCoroutine = DoubleClick(DoubleClickTime);
-            StartCoroutine(DoubleClickCoroutine);
+            StopCoroutine(FastRunCoroutine);
         }        
+        CanFastRun = true;
+        
+        FastRunCoroutine = FastRunTimeInterval(time);
+        StartCoroutine(FastRunCoroutine);
+        
     }
-    IEnumerator DoubleClick(float WaitTime)
+    IEnumerator FastRunTimeInterval(float time)
     {
-        yield return new WaitForSeconds(WaitTime);
-        CanDoubleClick = false;
-
+        
+        yield return new WaitForSeconds(time);
+        CanFastRun = false;
     }
 
     private void MovementAnimaionControl()
     {
         //  playerAnimatorState = PlayerAnimatorState.Movement;
         if (!IsFastRun)
-        {
-            if (Input.GetKey(KeyCode.A) && !Right) 
-            {
-                Right = false;
-                Left = true;
-            }
-            else if(Input.GetKey(KeyCode.D) && !Left)
-            {
-                Right = true;
-                Left = false;
-            }
-
-            if (Input.GetKeyUp(KeyCode.A) && Left)
-            {
-                Left = false;
-            }
-            else if(Input.GetKeyUp(KeyCode.D) && Right)
-            {
-                Right = false;
-            }
-
-            if (Input.GetKey(KeyCode.W) && !Back)
-            {
-                Back = false;
-                Forward = true;
-            }
-            else if (Input.GetKey(KeyCode.S) && !Forward)
-            {
-                Back = true;
-                Forward = false;
-            }
-
-            if (Input.GetKeyUp(KeyCode.W) && Forward)
-            {
-                Forward = false;
-            }
-            else if (Input.GetKeyUp(KeyCode.S) && Back)
-            {
-                Back = false;
-            }
-
-            if (Input.GetKey(KeyCode.W) && Forward) 
+        {         
+            if (Input.GetKey(KeyCode.W) && Input.GetAxis("Vertical") > 0)  
             {                
-                if (Input.GetKey(KeyCode.A) && Left)  
+                if (Input.GetKey(KeyCode.A) && Input.GetAxis("Horizontal") < 0)   
                 {
                     moveState = MoveState.GoForwardLeft;                                       
                 }
-                else if (Input.GetKey(KeyCode.D) && Right)  
+                else if (Input.GetKey(KeyCode.D) && Input.GetAxis("Horizontal") > 0)   
                 {                                        
                     moveState = MoveState.GoForwardRight;                   
                 }
@@ -521,13 +476,13 @@ public class PlayerController : MonoBehaviour {
                     moveState = MoveState.GoForward;
                 }
             }
-            else if (Input.GetKey(KeyCode.S) && Back) 
+            else if (Input.GetKey(KeyCode.S) && Input.GetAxis("Vertical") < 0) 
             {
-                if (Input.GetKey(KeyCode.A) && Left)
+                if (Input.GetKey(KeyCode.A) && Input.GetAxis("Horizontal") < 0)
                 {
                     moveState = MoveState.GoBackLeft;
                 }
-                else if (Input.GetKey(KeyCode.D) && Right)
+                else if (Input.GetKey(KeyCode.D) && Input.GetAxis("Horizontal") > 0)
                 {
                     moveState = MoveState.GoBackRight;
                 }
@@ -536,11 +491,11 @@ public class PlayerController : MonoBehaviour {
                     moveState = MoveState.GoBack;
                 }
             }
-            else if (Input.GetKey(KeyCode.A) && Left)
+            else if (Input.GetKey(KeyCode.A) && Input.GetAxis("Horizontal") < 0)
             {
                 moveState = MoveState.GoLeft;
             }
-            else if(Input.GetKey(KeyCode.D) && Right)
+            else if(Input.GetKey(KeyCode.D) && Input.GetAxis("Horizontal") > 0)
             {
                 moveState = MoveState.GoRight;
             }
@@ -550,7 +505,6 @@ public class PlayerController : MonoBehaviour {
             }
         }
        
-
         switch (moveState)
         {          
             case MoveState.Idle:          
@@ -624,7 +578,7 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
         animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
 
-        Debug.Log(moveState);
+        //Debug.Log(moveState);
     }
 
     #endregion
@@ -632,87 +586,191 @@ public class PlayerController : MonoBehaviour {
     private void Avoid()
     {
         
-        if (playerAnimatorState != PlayerAnimatorState.Avoid && Input.GetKeyDown(KeyCode.LeftShift))
+        if (playerAnimatorState != PlayerAnimatorState.Avoid)
         {
-            AvoidCanMove = true;
-            if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                playerAnimatorState = PlayerAnimatorState.Avoid;
-                avoidState = AvoidState.ForwardRight;
-                animator.SetTrigger("Avoid_ForwardRight");
-                AvoidRotate = 45;             
+                AvoidCanMove = true;
+                if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
+                {
+                    AvoidStateSelect(AvoidState.ForwardRight);
+                }
+                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W))
+                {                    
+                    AvoidStateSelect(AvoidState.ForwardLeft);
+                }
+                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+                {                   
+                    AvoidStateSelect(AvoidState.BackLeft);
+                }
+                else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
+                {                  
+                    AvoidStateSelect(AvoidState.BackRight);
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {                   
+                    AvoidStateSelect(AvoidState.Back);
+                }
+                else if (Input.GetKey(KeyCode.W))
+                {                 
+                    AvoidStateSelect(AvoidState.Forward);
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {                 
+                    AvoidStateSelect(AvoidState.Left);
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {                 
+                    AvoidStateSelect(AvoidState.Right);
+                }
             }
-            else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
-                playerAnimatorState = PlayerAnimatorState.Avoid;
-                avoidState = AvoidState.ForwardLeft;
-                animator.SetTrigger("Avoid_ForwardLeft");
-                AvoidRotate = -45;
-
-            }
-            else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
-            {
-                playerAnimatorState = PlayerAnimatorState.Avoid;
-                avoidState = AvoidState.BackLeft;
-                animator.SetTrigger("Avoid_BackLeft");
-                AvoidRotate = -135;
-            }
-            else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
-            {
-                playerAnimatorState = PlayerAnimatorState.Avoid;
-                avoidState = AvoidState.BackRight;
-                animator.SetTrigger("Avoid_BackRight");
-                AvoidRotate = 135;
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    Avoid_DoubleClickFuntion(AvoidState.ForwardLeft);
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    Avoid_DoubleClickFuntion(AvoidState.ForwardRight);
+                }
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                playerAnimatorState = PlayerAnimatorState.Avoid;
-                avoidState = AvoidState.Back;
-                animator.SetTrigger("Avoid_Back");
-                AvoidRotate = 180;
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    Avoid_DoubleClickFuntion(AvoidState.BackLeft);
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    Avoid_DoubleClickFuntion(AvoidState.BackRight);
+                }
+
             }
-            else if (Input.GetKey(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
+                Avoid_DoubleClickFuntion(AvoidState.Forward);
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                Avoid_DoubleClickFuntion(AvoidState.Back);
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                Avoid_DoubleClickFuntion(AvoidState.Left);
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Avoid_DoubleClickFuntion(AvoidState.Right);
+            }
+            
+            AvoidEuler = Quaternion.Euler(0, RotationX + AvoidRotate, 0);            
+            AvoidPosition = AvoidEuler * new Vector3(0, 0, AvoidDistance) + transform.position;
+        }
+
+        
+        Debug.DrawLine(transform.position + new Vector3(0, 0.5f, PlayerCollider.radius), AvoidPosition + new Vector3(0, 0.5f, 0), Color.red);
+        AvoidMovement();    
+    }
+    private void Avoid_DoubleClickFuntion(AvoidState avoidState)
+    {
+        if (CanDoubleClick)
+        {
+            nextClickTime = Time.time;
+            if (nextClickTime - preClickTime > 0.1f)
+            {
+                StopCoroutine(DoubleClickCoroutine);
+                CanDoubleClick = false;
+                /* moveState = MoveState.FastRunForward;
+                 IsFastRun = true;*/
+                AvoidStateSelect(avoidState);
+            }
+        }
+        else
+        {
+            preClickTime = Time.time;
+            CanDoubleClick = true;
+            DoubleClickCoroutine = DoubleClick(DoubleClickTime);
+            StartCoroutine(DoubleClickCoroutine);
+        }
+    }
+    IEnumerator DoubleClick(float WaitTime)
+    {
+        yield return new WaitForSeconds(WaitTime);
+        CanDoubleClick = false;
+
+    }
+
+    private void AvoidStateSelect(AvoidState avoidState)
+    {
+        AvoidCanMove = true;
+        switch (avoidState)
+        {
+            case AvoidState.Forward:
                 playerAnimatorState = PlayerAnimatorState.Avoid;
                 avoidState = AvoidState.Forward;
                 animator.SetTrigger("Avoid_Forward");
                 AvoidRotate = 0;
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
+                break;
+            case AvoidState.Back:
+                playerAnimatorState = PlayerAnimatorState.Avoid;
+                avoidState = AvoidState.Back;
+                animator.SetTrigger("Avoid_Back");
+                AvoidRotate = 180;
+                break;
+            case AvoidState.Left:
                 playerAnimatorState = PlayerAnimatorState.Avoid;
                 avoidState = AvoidState.Left;
                 animator.SetTrigger("Avoid_Left");
                 AvoidRotate = -90;
-
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
+                break;
+            case AvoidState.Right:
                 playerAnimatorState = PlayerAnimatorState.Avoid;
                 avoidState = AvoidState.Right;
                 animator.SetTrigger("Avoid_Right");
+
                 AvoidRotate = 90;
-            }           
-            AvoidEuler = Quaternion.Euler(0, RotationX + AvoidRotate, 0);            
-            AvoidPosition = AvoidEuler * new Vector3(0, 0, AvoidDistance) + transform.position;
+                break;
+            case AvoidState.ForwardLeft:
+                playerAnimatorState = PlayerAnimatorState.Avoid;
+                avoidState = AvoidState.ForwardLeft;
+                animator.SetTrigger("Avoid_ForwardLeft");
+                AvoidRotate = -45;
+                break;
+            case AvoidState.ForwardRight:
+                playerAnimatorState = PlayerAnimatorState.Avoid;
+                avoidState = AvoidState.ForwardRight;
+                animator.SetTrigger("Avoid_ForwardRight");
+                AvoidRotate = 45;
+                break;
+            case AvoidState.BackLeft:
+                playerAnimatorState = PlayerAnimatorState.Avoid;
+                avoidState = AvoidState.BackLeft;
+                animator.SetTrigger("Avoid_BackLeft");
+                AvoidRotate = -135;
+                break;
+            case AvoidState.BackRight:
+                playerAnimatorState = PlayerAnimatorState.Avoid;
+                avoidState = AvoidState.BackRight;
+                animator.SetTrigger("Avoid_BackRight");
+                AvoidRotate = 135;
+                break;
+
         }
-        
-        Debug.DrawLine(transform.position + new Vector3(0, 0.5f, PlayerCollider.radius), AvoidPosition + new Vector3(0, 0.5f, 0), Color.red);
-        AvoidMovement();    
+
     }
 
     private void AvoidMovement()
     {
         
         if (playerAnimatorState == PlayerAnimatorState.Avoid && AvoidCanMove)
-        {
-
-            
+        {           
             IsAvoidDistance += Time.deltaTime * AvoidSpeed;
             FracDistance = IsAvoidDistance / AvoidDistance;
 
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
-            Debug.Log("FracDistance" + FracDistance);
+            //Debug.Log("FracDistance" + FracDistance);
         }
         else
         {
@@ -768,7 +826,6 @@ public class PlayerController : MonoBehaviour {
         avoidState = AvoidState.Default;
         IsFastRun = false;
 
-        
     }
 
     public void CancelAttackNow()

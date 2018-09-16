@@ -427,6 +427,14 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 1
+        functionName: TriggerFastRun
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0.2
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
         functionName: ChangeToIdle
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
