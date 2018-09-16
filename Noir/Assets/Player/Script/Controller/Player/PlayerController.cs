@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
     enum AvoidState
     {
         Default,
+        Forward,
         Back,
         Right,
         Left,
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour {
     public static PlayerController playerController;
     public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
-    #region Move
+    //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
     private float MoveSpeed;//Player Data
     private float MaxMoveSpeed;//Player Data
@@ -74,8 +75,11 @@ public class PlayerController : MonoBehaviour {
     private bool IsFastRun;
     private float preClickTime;
     private float nextClickTime;
-
-    #endregion
+    private bool Right;
+    private bool Left;
+    private bool Forward;
+    private bool Back;
+    //----------------------------------Move-----------------
     //---------------------------------------Avoid-------------
     public float AvoidSpeed;//Player Data
     public float AvoidDistance;
@@ -142,7 +146,7 @@ public class PlayerController : MonoBehaviour {
         ResetStateCoroutine = null;
         DoubleClickCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
-
+        
         //----particle--
         ShortAttack1_Particle = ShortAttack1_Object.GetComponent<ParticleSystem>();
         ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
@@ -374,10 +378,10 @@ public class PlayerController : MonoBehaviour {
 
         MovementAnimaionControl();
     }
-
+    
     private void FastRun()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+       /* if (Input.GetKeyDown(KeyCode.W) && !Back) 
         {
             if (CanDoubleClick) 
             {
@@ -401,7 +405,7 @@ public class PlayerController : MonoBehaviour {
         {
             moveState = MoveState.FastRunForward;
             IsFastRun = true;
-        }
+        }*/
 
         if (IsFastRun && Input.GetKey(KeyCode.W))
         {
@@ -428,7 +432,28 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log(moveState);
        
     }
+    private void DoubleClickFuntion(float ClickTime)
+    {
+        if (CanDoubleClick)
+        {
+            nextClickTime = Time.time;
+            if (nextClickTime - preClickTime > 0.1f)
+            {
+                StopCoroutine(DoubleClickCoroutine);
+                CanDoubleClick = false;
+                moveState = MoveState.FastRunForward;
+                IsFastRun = true;
+            }
 
+        }
+        else
+        {
+            preClickTime = Time.time;
+            CanDoubleClick = true;
+            DoubleClickCoroutine = DoubleClick(DoubleClickTime);
+            StartCoroutine(DoubleClickCoroutine);
+        }        
+    }
     IEnumerator DoubleClick(float WaitTime)
     {
         yield return new WaitForSeconds(WaitTime);
@@ -441,37 +466,83 @@ public class PlayerController : MonoBehaviour {
         //  playerAnimatorState = PlayerAnimatorState.Movement;
         if (!IsFastRun)
         {
-            if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W)) 
+            if (Input.GetKey(KeyCode.A) && !Right) 
             {
-                moveState = MoveState.GoForwardRight;
+                Right = false;
+                Left = true;
             }
-            else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W))
+            else if(Input.GetKey(KeyCode.D) && !Left)
             {
-                moveState = MoveState.GoForwardLeft;
+                Right = true;
+                Left = false;
             }
-            else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+
+            if (Input.GetKeyUp(KeyCode.A) && Left)
             {
-                moveState = MoveState.GoBackLeft;
+                Left = false;
             }
-            else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
+            else if(Input.GetKeyUp(KeyCode.D) && Right)
             {
-                moveState = MoveState.GoBackRight;
+                Right = false;
             }
-            else if (Input.GetKey(KeyCode.D))
+
+            if (Input.GetKey(KeyCode.W) && !Back)
             {
-                moveState = MoveState.GoRight;
+                Back = false;
+                Forward = true;
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.S) && !Forward)
+            {
+                Back = true;
+                Forward = false;
+            }
+
+            if (Input.GetKeyUp(KeyCode.W) && Forward)
+            {
+                Forward = false;
+            }
+            else if (Input.GetKeyUp(KeyCode.S) && Back)
+            {
+                Back = false;
+            }
+
+            if (Input.GetKey(KeyCode.W) && Forward) 
+            {                
+                if (Input.GetKey(KeyCode.A) && Left)  
+                {
+                    moveState = MoveState.GoForwardLeft;                                       
+                }
+                else if (Input.GetKey(KeyCode.D) && Right)  
+                {                                        
+                    moveState = MoveState.GoForwardRight;                   
+                }
+                else
+                {
+                    moveState = MoveState.GoForward;
+                }
+            }
+            else if (Input.GetKey(KeyCode.S) && Back) 
+            {
+                if (Input.GetKey(KeyCode.A) && Left)
+                {
+                    moveState = MoveState.GoBackLeft;
+                }
+                else if (Input.GetKey(KeyCode.D) && Right)
+                {
+                    moveState = MoveState.GoBackRight;
+                }
+                else
+                {
+                    moveState = MoveState.GoBack;
+                }
+            }
+            else if (Input.GetKey(KeyCode.A) && Left)
             {
                 moveState = MoveState.GoLeft;
             }
-            else if (Input.GetKey(KeyCode.W))
+            else if(Input.GetKey(KeyCode.D) && Right)
             {
-                moveState = MoveState.GoForward;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                moveState = MoveState.GoBack;
+                moveState = MoveState.GoRight;
             }
             else
             {
@@ -552,7 +623,10 @@ public class PlayerController : MonoBehaviour {
 
         animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
         animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
+
+        Debug.Log(moveState);
     }
+
     #endregion
 
     private void Avoid()
@@ -596,6 +670,13 @@ public class PlayerController : MonoBehaviour {
                 avoidState = AvoidState.Back;
                 animator.SetTrigger("Avoid_Back");
                 AvoidRotate = 180;
+            }
+            else if (Input.GetKey(KeyCode.W))
+            {
+                playerAnimatorState = PlayerAnimatorState.Avoid;
+                avoidState = AvoidState.Forward;
+                animator.SetTrigger("Avoid_Forward");
+                AvoidRotate = 0;
             }
             else if (Input.GetKey(KeyCode.A))
             {
