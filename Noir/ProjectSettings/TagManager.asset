@@ -7,6 +7,9 @@ TagManager:
   - PlayerAttack_Small
   - PlayerAttack_Big
   - Wall
+  - EnemyAttack_Small
+  - EnemyAttack_Big
+  - EnemyAttack_GetDown
   layers:
   - Default
   - TransparentFX

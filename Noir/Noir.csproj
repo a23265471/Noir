@@ -345,6 +345,7 @@
     <Compile Include="Assets\Player\Script\Controller\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Player\Script\Controller\MainCamera.cs" />
     <Compile Include="Assets\Player\Script\Controller\Player\PlayerController.cs" />
+    <Compile Include="Assets\Player\Script\Controller\Player\PlayerDamage.cs" />
     <Compile Include="Assets\Player\Script\GameManager.cs" />
     <Compile Include="Assets\Player\Script\ScriptableObject\PlayerData.cs" />
   </ItemGroup>

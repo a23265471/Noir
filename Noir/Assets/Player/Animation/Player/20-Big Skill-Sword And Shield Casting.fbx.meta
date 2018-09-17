@@ -246,6 +246,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.66877633
+        functionName: AttackColliderOpen_BigSkill
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 1
         functionName: ChangeToIdle
         data: 
@@ -256,6 +264,14 @@ ModelImporter:
         messageOptions: 0
       - time: 1
         functionName: TriggerCancelAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AttackColliderClose
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}

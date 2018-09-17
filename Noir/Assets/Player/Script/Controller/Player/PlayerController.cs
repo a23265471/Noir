@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    enum PlayerAnimatorState
+    public enum PlayerAnimatorState
     {
         Movement,
         Attack,
-        Avoid
+        Avoid,
+        Damage,
+        GetDown,
+        GetUp,
     }
     enum MoveState
     {
@@ -51,10 +54,11 @@ public class PlayerController : MonoBehaviour {
     private AttackState attackState;
     private MoveState moveState;
     private AvoidState avoidState;
-    private PlayerAnimatorState playerAnimatorState;
+    public PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
     public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
+    private GameObject AttackCollider_BigSkill;
     //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
     private float MoveSpeed;//Player Data
@@ -75,8 +79,7 @@ public class PlayerController : MonoBehaviour {
     private bool IsFastRun;
     private bool CanFastRun;
     private float preClickTime;
-    private float nextClickTime;
-   
+    private float nextClickTime;  
     //----------------------------------Move-----------------
     //---------------------------------------Avoid-------------
     public float AvoidSpeed;//Player Data
@@ -85,21 +88,30 @@ public class PlayerController : MonoBehaviour {
     private float AvoidRotate;
    
     private bool AvoidCanMove;
-
+    private string InputKey_pre;
+    private string InputKey_next;
     private float IsAvoidDistance;
     private float FracDistance;
     private Quaternion AvoidEuler;   
     private Vector3 AvoidPosition;
     //-----------------------------------------Avoid-------------
+
+    //--------------------------------Damage----------------------------------
+    public float GetupTime;//PlayerData
+    private GameObject DamageObject;
+    private CapsuleCollider DamageCollider;
+    //--------------------------------Damage----------------------------------
+
     //-----------------------------Particle------------
     public GameObject ShortAttack1_Object;
     public GameObject ShortAttack2_Object;
     public GameObject ShortAttack3_Object;
+    private GameObject LongAttack_Object;
 
     private ParticleSystem ShortAttack1_Particle;
     private ParticleSystem ShortAttack2_Particle;
     private ParticleSystem ShortAttack3_Particle;
-    
+    private ParticleSystem LongAttack_Particle;
     //-----------------------------Particle------------
 
     private CapsuleCollider PlayerCollider;   
@@ -113,8 +125,9 @@ public class PlayerController : MonoBehaviour {
     private IEnumerator CancelAttackCoroutine;
     private IEnumerator DoubleClickCoroutine;
     private IEnumerator FastRunCoroutine;
+    private IEnumerator GetUpCoroutine;
 
-    private Animator animator;
+    public Animator animator;
     AnimatorClipInfo[] AnimatorClipInfo;
     AnimatorStateInfo AnimatorstateInfo;
 
@@ -125,6 +138,9 @@ public class PlayerController : MonoBehaviour {
         ShortAttack1_Object = this.gameObject.transform.GetChild(1).gameObject;
         ShortAttack2_Object = this.gameObject.transform.GetChild(2).gameObject;
         ShortAttack3_Object = this.gameObject.transform.GetChild(3).gameObject;
+        LongAttack_Object = this.gameObject.transform.GetChild(4).gameObject;
+        DamageObject = this.gameObject.transform.GetChild(5).gameObject;
+        AttackCollider_BigSkill = this.gameObject.transform.GetChild(6).gameObject;
     }
     // Use this for initialization
     
@@ -136,21 +152,26 @@ public class PlayerController : MonoBehaviour {
         AttackTrigger = 0;       
         PlayerAnimation_parameter = 0;
         PlayerCollider = GetComponent<CapsuleCollider>();
+        DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
         AvoidCanMove = true;
         AttackCollider_Small.SetActive(false);
-        AttackCollider_Big.SetActive(false);      
+        AttackCollider_Big.SetActive(false);
+        AttackCollider_BigSkill.SetActive(false);
         CanAttack = true;
         CancelAttackCoroutine = null;
         ResetStateCoroutine = null;
         DoubleClickCoroutine = null;
         FastRunCoroutine = null;
+        GetUpCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
         
         //----particle--
         ShortAttack1_Particle = ShortAttack1_Object.GetComponent<ParticleSystem>();
         ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
         ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
+        LongAttack_Particle = LongAttack_Object.GetComponent<ParticleSystem>();
+
         //-----particle---
 
         attackState = AttackState.Default;       
@@ -186,18 +207,7 @@ public class PlayerController : MonoBehaviour {
        
     }
     private void AnimatorStateControll()
-    {
-        
-       /* if (AnimatorstateInfo.IsTag("Avoid"))
-        {
-            playerAnimatorState = PlayerAnimatorState.Avoid;
-            Debug.Log("a");
-        }
-        else if (AnimatorstateInfo.IsTag("Attack"))
-        {
-            playerAnimatorState = PlayerAnimatorState.Attack;
-        }*/
-
+    {       
         if (playerAnimatorState != PlayerAnimatorState.Movement)
         {
             Move_parameter_x = Mathf.Lerp(Move_parameter_x, 0, 0.15f);
@@ -210,7 +220,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-   
+//--------------------------Attack---------------------------------   
     private void Attack()
     {
        if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack || playerAnimatorState==PlayerAnimatorState.Avoid)
@@ -302,7 +312,7 @@ public class PlayerController : MonoBehaviour {
                     break;
                 case AttackState.LongAttack:
                     animator.SetTrigger("LongAttack");
-                    
+                    //LongAttack_Particle.Play();
 
                     AttackTrigger = 0;                  
                     break;
@@ -325,9 +335,9 @@ public class PlayerController : MonoBehaviour {
         // Debug.Log(AttackTrigger);
        // Debug.Log(attackState);
     }
-   
-    
+    //--------------------------Attack---------------------------------      
 
+    //--------------------------Move---------------------------------   
     #region 移動 
     private void Rotaion()
     { 
@@ -582,11 +592,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     #endregion
-
+    //--------------------------Move---------------------------------   
+    //--------------------------Avoid---------------------------------   
     private void Avoid()
     {
         
-        if (playerAnimatorState != PlayerAnimatorState.Avoid)
+        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack) 
         {
             
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -629,40 +640,42 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    Avoid_DoubleClickFuntion(AvoidState.ForwardLeft);
+                    Avoid_DoubleClickFuntion(AvoidState.ForwardLeft, Input.inputString);
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    Avoid_DoubleClickFuntion(AvoidState.ForwardRight);
+                    Avoid_DoubleClickFuntion(AvoidState.ForwardRight, Input.inputString);
                 }
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    Avoid_DoubleClickFuntion(AvoidState.BackLeft);
+                    Avoid_DoubleClickFuntion(AvoidState.BackLeft, Input.inputString);
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    Avoid_DoubleClickFuntion(AvoidState.BackRight);
+                    Avoid_DoubleClickFuntion(AvoidState.BackRight, Input.inputString);
                 }
 
             }
             if (Input.GetKeyDown(KeyCode.W))
             {
-                Avoid_DoubleClickFuntion(AvoidState.Forward);
+                Avoid_DoubleClickFuntion(AvoidState.Forward, Input.inputString);
+
+                
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
-                Avoid_DoubleClickFuntion(AvoidState.Back);
+                Avoid_DoubleClickFuntion(AvoidState.Back, Input.inputString);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                Avoid_DoubleClickFuntion(AvoidState.Left);
+                Avoid_DoubleClickFuntion(AvoidState.Left, Input.inputString);
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                Avoid_DoubleClickFuntion(AvoidState.Right);
+                Avoid_DoubleClickFuntion(AvoidState.Right, Input.inputString);
             }
             
             AvoidEuler = Quaternion.Euler(0, RotationX + AvoidRotate, 0);            
@@ -673,12 +686,13 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawLine(transform.position + new Vector3(0, 0.5f, PlayerCollider.radius), AvoidPosition + new Vector3(0, 0.5f, 0), Color.red);
         AvoidMovement();    
     }
-    private void Avoid_DoubleClickFuntion(AvoidState avoidState)
+    private void Avoid_DoubleClickFuntion(AvoidState avoidState,string InputKey)
     {
         if (CanDoubleClick)
         {
+            InputKey_next = InputKey;
             nextClickTime = Time.time;
-            if (nextClickTime - preClickTime > 0.1f)
+            if (nextClickTime - preClickTime > 0.1f && InputKey_next == InputKey_pre) 
             {
                 StopCoroutine(DoubleClickCoroutine);
                 CanDoubleClick = false;
@@ -689,6 +703,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
+            InputKey_pre = InputKey;
             preClickTime = Time.time;
             CanDoubleClick = true;
             DoubleClickCoroutine = DoubleClick(DoubleClickTime);
@@ -705,53 +720,47 @@ public class PlayerController : MonoBehaviour {
     private void AvoidStateSelect(AvoidState avoidState)
     {
         AvoidCanMove = true;
+        playerAnimatorState = PlayerAnimatorState.Avoid;
+        DamageObject.SetActive(false);
         switch (avoidState)
         {
-            case AvoidState.Forward:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.Forward:               
                 avoidState = AvoidState.Forward;
                 animator.SetTrigger("Avoid_Forward");
                 AvoidRotate = 0;
                 break;
-            case AvoidState.Back:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.Back:            
                 avoidState = AvoidState.Back;
                 animator.SetTrigger("Avoid_Back");
                 AvoidRotate = 180;
                 break;
-            case AvoidState.Left:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.Left:             
                 avoidState = AvoidState.Left;
                 animator.SetTrigger("Avoid_Left");
                 AvoidRotate = -90;
                 break;
-            case AvoidState.Right:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.Right:            
                 avoidState = AvoidState.Right;
                 animator.SetTrigger("Avoid_Right");
 
                 AvoidRotate = 90;
                 break;
-            case AvoidState.ForwardLeft:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.ForwardLeft:          
                 avoidState = AvoidState.ForwardLeft;
                 animator.SetTrigger("Avoid_ForwardLeft");
                 AvoidRotate = -45;
                 break;
             case AvoidState.ForwardRight:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
                 avoidState = AvoidState.ForwardRight;
                 animator.SetTrigger("Avoid_ForwardRight");
                 AvoidRotate = 45;
                 break;
-            case AvoidState.BackLeft:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.BackLeft:       
                 avoidState = AvoidState.BackLeft;
                 animator.SetTrigger("Avoid_BackLeft");
                 AvoidRotate = -135;
                 break;
-            case AvoidState.BackRight:
-                playerAnimatorState = PlayerAnimatorState.Avoid;
+            case AvoidState.BackRight:        
                 avoidState = AvoidState.BackRight;
                 animator.SetTrigger("Avoid_BackRight");
                 AvoidRotate = 135;
@@ -778,22 +787,25 @@ public class PlayerController : MonoBehaviour {
             FracDistance = 0;
         }
     }
-//------------------------------------Animatioｎ　Event--------------------
-      
-    public void TriggerCancelAttack(float WaitTime)
+    //--------------------------Avoid---------------------------------   
+
+    //-------------------------Animatioｎ　Event--------------------******
+
+    //------------Attack-----------
+    public void TriggerCancelAttack(float WaitTime) 
     {      
         CancelAttackCoroutine = CancelAttack(WaitTime);
         StartCoroutine(CancelAttackCoroutine);
 
     }
 
-    IEnumerator CancelAttack(float WaitTime)
+    IEnumerator CancelAttack(float WaitTime) 
     {
         yield return new WaitForSeconds(WaitTime);
         attackState = AttackState.Default;        
     }
 
-    public void CanTriggerAttack()
+    public void CanTriggerAttack() 
     {        
         CanAttack = true;
         playerAnimatorState = PlayerAnimatorState.Attack;
@@ -807,12 +819,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void FirstAttackState()
+    public void FirstAttackState() 
     {
         playerAnimatorState = PlayerAnimatorState.Attack;
     }
 
-    public void ChangeToIdle(float WaitTime)
+    public void ChangeToIdle(float WaitTime) //-----Attack,Avoid,Damage-----
     {       
         ResetStateCoroutine = ResetState(WaitTime);
       
@@ -825,14 +837,14 @@ public class PlayerController : MonoBehaviour {
         playerAnimatorState = PlayerAnimatorState.Movement;
         avoidState = AvoidState.Default;
         IsFastRun = false;
-
+        DamageObject.SetActive(true);
     }
 
-    public void CancelAttackNow()
+    public void CancelAttackNow() //-----Avoid-----
     {
         CanAttack = false;
         attackState = AttackState.Default;
-        playerAnimatorState = PlayerAnimatorState.Avoid;
+      //  playerAnimatorState = PlayerAnimatorState.Avoid;
         animator.ResetTrigger("Attack3");
         animator.ResetTrigger("Attack2");
         animator.ResetTrigger("Attack1");
@@ -842,7 +854,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void AttackColliderOpen_Small()
+    public void AttackColliderOpen_Small() 
     {
         AttackCollider_Small.SetActive(true);
         EnemyController.enemyController.EnemyCanDamage = true;
@@ -853,14 +865,36 @@ public class PlayerController : MonoBehaviour {
         AttackCollider_Big.SetActive(true);
         EnemyController.enemyController.EnemyCanDamage = true;
     }
-
+    public void AttackColliderOpen_BigSkill()
+    {
+        AttackCollider_BigSkill.SetActive(true);
+        EnemyController.enemyController.EnemyCanDamage = true;
+    }
     public void AttackColliderClose()
     {
         AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
+        AttackCollider_BigSkill.SetActive(false);
     }
+    //------------Attack-----------
 
-    private void OnTriggerStay(Collider collider)//判斷是否被攻擊
+    //------------Damage-----------
+    public void GetUp()
+    {
+        GetUpCoroutine = TriggerGetUp(GetupTime);
+        StartCoroutine(GetUpCoroutine);
+    }
+    IEnumerator TriggerGetUp(float GetUpWaitTime)
+    {
+        yield return new WaitForSeconds(GetUpWaitTime);
+        animator.SetTrigger("GettingUp");
+    }
+    
+
+    //-------------------------Animatioｎ　Event--------------------******
+
+    //----------------------------Trigger---------------------------------
+    private void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "Wall")
         {
@@ -868,4 +902,6 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("aa");
         }
     }
+    
+    //----------------------------Trigger---------------------------------
 }

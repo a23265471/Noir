@@ -38,9 +38,10 @@ public class EnemyController : MonoBehaviour
             {
                 EnemyAnimator.SetTrigger("Damage_Big");                                
             }
+            transform.LookAt(PlayerController.playerController.transform.position);
         }
-        transform.LookAt(PlayerController.playerController.transform.position);
-        EnemyCanDamage = false;
+        
+        //EnemyCanDamage = false;
     }
     /*private void OnTriggerExit(Collider other)
     {
