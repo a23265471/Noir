@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour {
                     break;
                 case AttackState.LongAttack:
                     animator.SetTrigger("LongAttack");
-                    //LongAttack_Particle.Play();
+                    LongAttack_Particle.Play();
 
                     AttackTrigger = 0;                  
                     break;
