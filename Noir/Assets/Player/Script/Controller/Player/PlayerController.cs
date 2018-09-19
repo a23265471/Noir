@@ -294,25 +294,25 @@ public class PlayerController : MonoBehaviour {
                     animator.SetTrigger("Attack1");
                     
                     animator.ResetTrigger("Attack3");
-                    ShortAttack1_Particle.Play();
+                   // ShortAttack1_Particle.Play();
 
                     AttackTrigger = 0;                                       
                     break;
                 case AttackState.Attack_2:
                     animator.SetTrigger("Attack2");
-                    ShortAttack2_Particle.Play();
+                   // ShortAttack2_Particle.Play();
                     AttackTrigger = 0;                   
                     break;
                 case AttackState.Attack_3:
                     animator.SetTrigger("Attack3");
                     animator.ResetTrigger("Attack1");
                     animator.ResetTrigger("Attack2");
-                    ShortAttack3_Particle.Play();
+                    //ShortAttack3_Particle.Play();
                     AttackTrigger = 0;                    
                     break;
                 case AttackState.LongAttack:
                     animator.SetTrigger("LongAttack");
-                    LongAttack_Particle.Play();
+                  //  LongAttack_Particle.Play();
 
                     AttackTrigger = 0;                  
                     break;
@@ -445,26 +445,9 @@ public class PlayerController : MonoBehaviour {
             IsFastRun = false;
         }
 
-        Debug.Log(CanFastRun);
+       // Debug.Log(CanFastRun);
     }
-    public void TriggerFastRun(float time)
-    {
-        if (FastRunCoroutine != null)
-        {
-            StopCoroutine(FastRunCoroutine);
-        }        
-        CanFastRun = true;
-        
-        FastRunCoroutine = FastRunTimeInterval(time);
-        StartCoroutine(FastRunCoroutine);
-        
-    }
-    IEnumerator FastRunTimeInterval(float time)
-    {
-        
-        yield return new WaitForSeconds(time);
-        CanFastRun = false;
-    }
+    
 
     private void MovementAnimaionControl()
     {
@@ -683,7 +666,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         
-        Debug.DrawLine(transform.position + new Vector3(0, 0.5f, PlayerCollider.radius), AvoidPosition + new Vector3(0, 0.5f, 0), Color.red);
+        //Debug.DrawLine(transform.position + new Vector3(0, 0.5f, PlayerCollider.radius), AvoidPosition + new Vector3(0, 0.5f, 0), Color.red);
         AvoidMovement();    
     }
     private void Avoid_DoubleClickFuntion(AvoidState avoidState,string InputKey)
@@ -728,6 +711,7 @@ public class PlayerController : MonoBehaviour {
                 avoidState = AvoidState.Forward;
                 animator.SetTrigger("Avoid_Forward");
                 AvoidRotate = 0;
+               
                 break;
             case AvoidState.Back:            
                 avoidState = AvoidState.Back;
@@ -772,20 +756,30 @@ public class PlayerController : MonoBehaviour {
 
     private void AvoidMovement()
     {
-        
+       
         if (playerAnimatorState == PlayerAnimatorState.Avoid && AvoidCanMove)
         {           
             IsAvoidDistance += Time.deltaTime * AvoidSpeed;
             FracDistance = IsAvoidDistance / AvoidDistance;
-
+            FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
-            //Debug.Log("FracDistance" + FracDistance);
+            Debug.Log("FracDistance" + FracDistance);
+            
         }
         else
         {
             IsAvoidDistance = 0;
             FracDistance = 0;
+           // animator.SetTrigger("ExitAvoidForward");
         }
+        if (FracDistance == 1)
+        {
+           /*animator.SetTrigger("ExitAvoidForward");
+            TriggerFastRun(0.2f);
+            ChangeToIdle(0.1f);*/
+            Debug.Log("aa");
+        }
+        
     }
     //--------------------------Avoid---------------------------------   
 
@@ -816,6 +810,26 @@ public class PlayerController : MonoBehaviour {
         if (CancelAttackCoroutine != null)
         {
             StopCoroutine(CancelAttackCoroutine);
+        }
+
+       
+    }
+    public void ParticleTrigger()
+    {
+        switch (attackState)
+        {
+            case AttackState.Attack_1:
+                ShortAttack1_Particle.Play();
+                break;
+            case AttackState.Attack_2:
+                ShortAttack2_Particle.Play();
+                break;
+            case AttackState.Attack_3:
+                ShortAttack3_Particle.Play();
+                break;
+            case AttackState.LongAttack:
+                LongAttack_Particle.Play();
+                break;
         }
     }
 
@@ -889,7 +903,27 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(GetUpWaitTime);
         animator.SetTrigger("GettingUp");
     }
-    
+    //------------Damage-----------
+    //------------FastRun-----------
+    public void TriggerFastRun(float time)
+    {
+        if (FastRunCoroutine != null)
+        {
+            StopCoroutine(FastRunCoroutine);
+        }
+        CanFastRun = true;
+
+        FastRunCoroutine = FastRunTimeInterval(time);
+        StartCoroutine(FastRunCoroutine);
+
+    }
+    IEnumerator FastRunTimeInterval(float time)
+    {
+
+        yield return new WaitForSeconds(time);
+        CanFastRun = false;
+    }
+    //------------FastRun-----------
 
     //-------------------------Animatioｎ　Event--------------------******
 
