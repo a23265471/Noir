@@ -391,7 +391,7 @@ public class PlayerController : MonoBehaviour {
     
     private void FastRun()
     {
-        /* if (Input.GetKeyDown(KeyCode.W) && !Back) 
+        /* if (Input.GetKeyDown(KeyCode.W)) 
          {
              if (CanDoubleClick) 
              {
@@ -410,19 +410,17 @@ public class PlayerController : MonoBehaviour {
              DoubleClickCoroutine = DoubleClick(DoubleClickTime);
              StartCoroutine(DoubleClickCoroutine);
              //Debug.Log(CanDoubleClick);        
-         }
-         else if (Input.GetKey(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
-         {
-             moveState = MoveState.FastRunForward;
-             IsFastRun = true;
          }*/
-        if (CanFastRun && Input.GetKey(KeyCode.W))
+       
+         
+       /* if (CanFastRun && Input.GetKey(KeyCode.W))
         {
             moveState = MoveState.FastRunForward;
             IsFastRun = true;
-        }
-        if (IsFastRun && Input.GetKey(KeyCode.W))
+        }*/
+        if (Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.W))
         {
+            IsFastRun = true;
             if (Input.GetKey(KeyCode.A))
             {
                 moveState = MoveState.FastRunLeft;
@@ -432,20 +430,21 @@ public class PlayerController : MonoBehaviour {
             {
                 moveState = MoveState.FastRunRight;
             }           
-            else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+            else 
             {
                 moveState = MoveState.FastRunForward;
             }
             
         }
 
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.E))
         {
             moveState = MoveState.Idle;
             IsFastRun = false;
         }
-
-       // Debug.Log(CanFastRun);
+        
+        // Debug.Log(CanFastRun);
+        Debug.Log(moveState);
     }
     
 
@@ -601,14 +600,14 @@ public class PlayerController : MonoBehaviour {
                 else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
                 {                  
                     AvoidStateSelect(AvoidState.BackRight);
-                }
-                else if (Input.GetKey(KeyCode.S))
-                {                   
-                    AvoidStateSelect(AvoidState.Back);
-                }
+                }               
                 else if (Input.GetKey(KeyCode.W))
                 {                 
                     AvoidStateSelect(AvoidState.Forward);
+                }
+                else if (Input.GetKey(KeyCode.S)) 
+                {
+                    AvoidStateSelect(AvoidState.Back);
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {                 
@@ -666,7 +665,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         
-        //Debug.DrawLine(transform.position + new Vector3(0, 0.5f, PlayerCollider.radius), AvoidPosition + new Vector3(0, 0.5f, 0), Color.red);
+        Debug.DrawLine(transform.position, AvoidPosition, Color.red);
         AvoidMovement();    
     }
     private void Avoid_DoubleClickFuntion(AvoidState avoidState,string InputKey)
@@ -764,7 +763,14 @@ public class PlayerController : MonoBehaviour {
             FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
             Debug.Log("FracDistance" + FracDistance);
-            
+            //Debug.Log("IsAvoidDistance" + IsAvoidDistance);
+           /* if (FracDistance >= 1)
+            {
+                animator.SetTrigger("ExitAvoidForward");
+                 TriggerFastRun(0.2f);
+                 ChangeToIdle(0.1f);
+                Debug.Log("aa");
+            }*/
         }
         else
         {
@@ -772,13 +778,7 @@ public class PlayerController : MonoBehaviour {
             FracDistance = 0;
            // animator.SetTrigger("ExitAvoidForward");
         }
-        if (FracDistance == 1)
-        {
-           /*animator.SetTrigger("ExitAvoidForward");
-            TriggerFastRun(0.2f);
-            ChangeToIdle(0.1f);*/
-            Debug.Log("aa");
-        }
+        
         
     }
     //--------------------------Avoid---------------------------------   
@@ -905,7 +905,7 @@ public class PlayerController : MonoBehaviour {
     }
     //------------Damage-----------
     //------------FastRun-----------
-    public void TriggerFastRun(float time)
+  /*  public void TriggerFastRun(float time)
     {
         if (FastRunCoroutine != null)
         {
@@ -922,7 +922,7 @@ public class PlayerController : MonoBehaviour {
 
         yield return new WaitForSeconds(time);
         CanFastRun = false;
-    }
+    }*/
     //------------FastRun-----------
 
     //-------------------------Animatioｎ　Event--------------------******

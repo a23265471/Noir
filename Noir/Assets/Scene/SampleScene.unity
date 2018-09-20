@@ -353,7 +353,12 @@ Prefab:
     - target: {fileID: 114640856759815754, guid: 9be523fd779967a49ae2bc4787557df2,
         type: 2}
       propertyPath: AvoidSpeed
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640856759815754, guid: 9be523fd779967a49ae2bc4787557df2,
+        type: 2}
+      propertyPath: AvoidMaxDistance
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9be523fd779967a49ae2bc4787557df2, type: 2}

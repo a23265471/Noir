@@ -182,6 +182,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -424,14 +425,6 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: TriggerFastRun
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
-          type: 3}
-        floatParameter: 0.2
         intParameter: 0
         messageOptions: 0
       - time: 1
