@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
     public float AvoidMaxDistance;
     private float AvoidRotate;
    
-    private bool AvoidCanMove;
+    public bool AvoidCanMove;
     private string InputKey_pre;
     private string InputKey_next;
     private float IsAvoidDistance;
@@ -286,7 +286,7 @@ public class PlayerController : MonoBehaviour {
 
     private void AttackAnimation()
     {
-        if (AttackTrigger == 1)
+        if (AttackTrigger == 1) 
         {
             switch (attackState)
             {
@@ -437,14 +437,14 @@ public class PlayerController : MonoBehaviour {
             
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.W))
         {
             moveState = MoveState.Idle;
             IsFastRun = false;
         }
         
         // Debug.Log(CanFastRun);
-        Debug.Log(moveState);
+       // Debug.Log(moveState);
     }
     
 
@@ -762,21 +762,15 @@ public class PlayerController : MonoBehaviour {
             FracDistance = IsAvoidDistance / AvoidDistance;
             FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
-            Debug.Log("FracDistance" + FracDistance);
-            //Debug.Log("IsAvoidDistance" + IsAvoidDistance);
-           /* if (FracDistance >= 1)
-            {
-                animator.SetTrigger("ExitAvoidForward");
-                 TriggerFastRun(0.2f);
-                 ChangeToIdle(0.1f);
-                Debug.Log("aa");
-            }*/
+           
+           
         }
         else
         {
             IsAvoidDistance = 0;
             FracDistance = 0;
-           // animator.SetTrigger("ExitAvoidForward");
+            // animator.SetTrigger("ExitAvoidForward");
+            Debug.Log("wwwwwwwww");
         }
         
         
@@ -819,10 +813,11 @@ public class PlayerController : MonoBehaviour {
         switch (attackState)
         {
             case AttackState.Attack_1:
-                ShortAttack1_Particle.Play();
+                ShortAttack2_Particle.Play();
+                
                 break;
             case AttackState.Attack_2:
-                ShortAttack2_Particle.Play();
+                ShortAttack1_Particle.Play();
                 break;
             case AttackState.Attack_3:
                 ShortAttack3_Particle.Play();
@@ -852,6 +847,7 @@ public class PlayerController : MonoBehaviour {
         avoidState = AvoidState.Default;
         IsFastRun = false;
         DamageObject.SetActive(true);
+        
     }
 
     public void CancelAttackNow() //-----Avoid-----
@@ -905,37 +901,37 @@ public class PlayerController : MonoBehaviour {
     }
     //------------Damage-----------
     //------------FastRun-----------
-  /*  public void TriggerFastRun(float time)
-    {
-        if (FastRunCoroutine != null)
-        {
-            StopCoroutine(FastRunCoroutine);
-        }
-        CanFastRun = true;
+    /*  public void TriggerFastRun(float time)
+      {
+          if (FastRunCoroutine != null)
+          {
+              StopCoroutine(FastRunCoroutine);
+          }
+          CanFastRun = true;
 
-        FastRunCoroutine = FastRunTimeInterval(time);
-        StartCoroutine(FastRunCoroutine);
+          FastRunCoroutine = FastRunTimeInterval(time);
+          StartCoroutine(FastRunCoroutine);
 
-    }
-    IEnumerator FastRunTimeInterval(float time)
-    {
+      }
+      IEnumerator FastRunTimeInterval(float time)
+      {
 
-        yield return new WaitForSeconds(time);
-        CanFastRun = false;
-    }*/
+          yield return new WaitForSeconds(time);
+          CanFastRun = false;
+      }*/
     //------------FastRun-----------
 
     //-------------------------Animatioｎ　Event--------------------******
 
     //----------------------------Trigger---------------------------------
+
     private void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "Wall")
         {
             AvoidCanMove = false;
-            Debug.Log("aa");
+           // Debug.Log("aa");
         }
     }
-    
     //----------------------------Trigger---------------------------------
 }

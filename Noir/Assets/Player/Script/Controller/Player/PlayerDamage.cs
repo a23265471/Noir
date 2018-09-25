@@ -32,4 +32,6 @@ public class PlayerDamage : MonoBehaviour {
             PlayerController.playerController.animator.SetTrigger("Damage_Small");
         }
     }
+
+    
 }
