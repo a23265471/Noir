@@ -241,10 +241,104 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: PlayerColliderHeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1.76
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.36049384
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.8987655
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1.76
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: PlayerCollider_Pos_Y
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.88
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.36049384
+            value: 0.25
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.8987655
+            value: 0.25
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0.88
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events:
       - time: 0
         functionName: CancelAttackNow
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: ChangeAvoidState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
@@ -295,6 +389,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0
+        functionName: ChangeAvoidState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.99791664
         functionName: ChangeToIdle
         data: 
@@ -331,20 +433,36 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9975014
-        functionName: ChangeToIdle
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
-          type: 3}
-        floatParameter: 0.1
-        intParameter: 0
-        messageOptions: 0
       - time: 0
         functionName: CancelAttackNow
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: ChangeAvoidState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.0026809652
+        functionName: ChangeAvoidState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9975014
+        functionName: ChangeToIdle
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0.1
         intParameter: 0
         messageOptions: 0
       transformMask: []
@@ -377,6 +495,14 @@ ModelImporter:
       events:
       - time: 0
         functionName: CancelAttackNow
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: ChangeAvoidState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
@@ -421,6 +547,14 @@ ModelImporter:
       events:
       - time: 0
         functionName: CancelAttackNow
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: ChangeAvoidState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}

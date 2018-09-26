@@ -94,6 +94,8 @@ public class PlayerController : MonoBehaviour {
     private float FracDistance;
     private Quaternion AvoidEuler;   
     private Vector3 AvoidPosition;
+    private Vector3 AvoidColliderPos;
+    //private GameObject PlayerCollider;
     //-----------------------------------------Avoid-------------
 
     //--------------------------------Damage----------------------------------
@@ -141,9 +143,20 @@ public class PlayerController : MonoBehaviour {
         LongAttack_Object = this.gameObject.transform.GetChild(4).gameObject;
         DamageObject = this.gameObject.transform.GetChild(5).gameObject;
         AttackCollider_BigSkill = this.gameObject.transform.GetChild(6).gameObject;
+        PlayerCollider = GetComponent<CapsuleCollider>();
+        DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
+        FloorMask = LayerMask.GetMask("Floor");
+        AvoidColliderPos = GetComponent<CapsuleCollider>().center;
+        //----particle--
+        ShortAttack1_Particle = ShortAttack1_Object.GetComponent<ParticleSystem>();
+        ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
+        ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
+        LongAttack_Particle = LongAttack_Object.GetComponent<ParticleSystem>();
+
+        //-----particle---
     }
     // Use this for initialization
-    
+
     void Start()
     {
         Move_parameter_x = 0;
@@ -151,9 +164,8 @@ public class PlayerController : MonoBehaviour {
         playerController = this;
         AttackTrigger = 0;       
         PlayerAnimation_parameter = 0;
-        PlayerCollider = GetComponent<CapsuleCollider>();
-        DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
-        FloorMask = LayerMask.GetMask("Floor");
+       
+        
         AvoidCanMove = true;
         AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
@@ -165,21 +177,19 @@ public class PlayerController : MonoBehaviour {
         FastRunCoroutine = null;
         GetUpCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
-        
-        //----particle--
-        ShortAttack1_Particle = ShortAttack1_Object.GetComponent<ParticleSystem>();
-        ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
-        ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
-        LongAttack_Particle = LongAttack_Object.GetComponent<ParticleSystem>();
-
-        //-----particle---
+       
 
         attackState = AttackState.Default;       
         moveState = MoveState.Idle;
         playerAnimatorState = PlayerAnimatorState.Movement;
         avoidState = AvoidState.Default;
     }
-   
+    private void Update()
+    {
+        GetComponent<CapsuleCollider>().height = animator.GetFloat("PlayerColliderHeight");
+        AvoidColliderPos.y = animator.GetFloat("PlayerCollider_Pos_Y");
+        GetComponent<CapsuleCollider>().center = AvoidColliderPos;
+    }
      private void FixedUpdate()
      {
         AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
@@ -762,8 +772,7 @@ public class PlayerController : MonoBehaviour {
             FracDistance = IsAvoidDistance / AvoidDistance;
             FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
-           
-           
+                     
         }
         else
         {
@@ -854,7 +863,7 @@ public class PlayerController : MonoBehaviour {
     {
         CanAttack = false;
         attackState = AttackState.Default;
-      //  playerAnimatorState = PlayerAnimatorState.Avoid;
+        
         animator.ResetTrigger("Attack3");
         animator.ResetTrigger("Attack2");
         animator.ResetTrigger("Attack1");
@@ -862,6 +871,11 @@ public class PlayerController : MonoBehaviour {
         {
             StopCoroutine(ResetStateCoroutine);
         }
+    }
+
+    public void ChangeAvoidState()
+    {
+        playerAnimatorState = PlayerAnimatorState.Avoid;
     }
 
     public void AttackColliderOpen_Small() 

@@ -249,6 +249,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0
+        functionName: ChangeAvoidState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 1
         functionName: ChangeToIdle
         data: 
@@ -285,12 +293,12 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: ChangeToIdle
+      - time: 0
+        functionName: ChangeAvoidState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
-        floatParameter: 0.1
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0
@@ -299,6 +307,14 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: ChangeToIdle
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0.1
         intParameter: 0
         messageOptions: 0
       transformMask: []
@@ -329,8 +345,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: ChangeToIdle
+      - time: 0
+        functionName: CancelAttackNow
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
@@ -338,7 +354,15 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0
-        functionName: CancelAttackNow
+        functionName: ChangeAvoidState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: ChangeToIdle
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
