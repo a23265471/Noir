@@ -903,6 +903,7 @@ GameObject:
   - component: {fileID: 95808725878196032}
   - component: {fileID: 54599505120742598}
   - component: {fileID: 136126277969580956}
+  - component: {fileID: 136728469989056818}
   - component: {fileID: 114640856759815754}
   m_Layer: 0
   m_Name: Player 1
@@ -1050,7 +1051,7 @@ GameObject:
   - component: {fileID: 135164718995854276}
   m_Layer: 0
   m_Name: BigSkillCollider
-  m_TagString: EnemyAttack_Big
+  m_TagString: PlayerAttack_Big
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1572,7 +1573,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1344575990458058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: 1.39}
+  m_LocalPosition: {x: 0.07, y: 1.41, z: 1.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4410686527838928}
@@ -2727,7 +2728,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1602110056915892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 6.69, y: 0, z: -22.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4536053571522348}
@@ -2948,8 +2949,8 @@ Rigidbody:
   m_GameObject: {fileID: 1602110056915892}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: Infinity
-  m_AngularDrag: Infinity
+  m_Drag: 1
+  m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -3028,14 +3029,15 @@ MonoBehaviour:
   Player_pre_pos: {fileID: 0}
   PlayerHead: {fileID: 4859003889627508}
   DoubleClickTime: 0.5
-  AvoidSpeed: 2
+  AvoidSpeed: 5
   AvoidDistance: 0
-  AvoidMaxDistance: 5
+  AvoidMaxDistance: 10
+  AvoidCanMove: 0
   GetupTime: 0.2
   ShortAttack1_Object: {fileID: 1836676163393452}
   ShortAttack2_Object: {fileID: 1626117498122164}
   ShortAttack3_Object: {fileID: 1110329316348294}
-  grounded_dis: 0.85
+  grounded_dis: 0.03
   animator: {fileID: 0}
 --- !u!135 &135164718995854276
 SphereCollider:
@@ -3068,6 +3070,19 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1987779474831094}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.27
+  m_Height: 1.76
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.88, z: 0}
+--- !u!136 &136728469989056818
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1602110056915892}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -58427,7 +58442,7 @@ ParticleSystem:
   lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -72276,7 +72291,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2

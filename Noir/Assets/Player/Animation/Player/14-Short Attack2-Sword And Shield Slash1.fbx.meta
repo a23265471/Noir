@@ -240,23 +240,23 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: CanTriggerAttack
+        functionName: ParticleTrigger
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.26449084
-        functionName: FirstAttackState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.51898736
+      - time: 0.3102917
         functionName: AttackColliderOpen_Small
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.36086956
+        functionName: CanTriggerAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
@@ -285,14 +285,6 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0.8
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
-        functionName: ParticleTrigger
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
-          type: 3}
-        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask: []

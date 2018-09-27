@@ -116,8 +116,10 @@ public class PlayerController : MonoBehaviour {
     private ParticleSystem LongAttack_Particle;
     //-----------------------------Particle------------
 
-    private CapsuleCollider PlayerCollider;   
-    
+    //private CapsuleCollider PlayerCollider;
+    private CapsuleCollider[] PlayerCollider;
+
+
     private int FloorMask;
     public float grounded_dis;
 
@@ -143,7 +145,7 @@ public class PlayerController : MonoBehaviour {
         LongAttack_Object = this.gameObject.transform.GetChild(4).gameObject;
         DamageObject = this.gameObject.transform.GetChild(5).gameObject;
         AttackCollider_BigSkill = this.gameObject.transform.GetChild(6).gameObject;
-        PlayerCollider = GetComponent<CapsuleCollider>();
+        PlayerCollider = GetComponents<CapsuleCollider>();
         DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
         AvoidColliderPos = GetComponent<CapsuleCollider>().center;
@@ -177,6 +179,7 @@ public class PlayerController : MonoBehaviour {
         FastRunCoroutine = null;
         GetUpCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
+
        
 
         attackState = AttackState.Default;       
@@ -186,9 +189,13 @@ public class PlayerController : MonoBehaviour {
     }
     private void Update()
     {
-        GetComponent<CapsuleCollider>().height = animator.GetFloat("PlayerColliderHeight");
-        AvoidColliderPos.y = animator.GetFloat("PlayerCollider_Pos_Y");
-        GetComponent<CapsuleCollider>().center = AvoidColliderPos;
+        for(int i = 0; i < PlayerCollider.Length; i++)
+        {
+            GetComponents<CapsuleCollider>()[i].height = animator.GetFloat("PlayerColliderHeight");
+            AvoidColliderPos.y = animator.GetFloat("PlayerCollider_Pos_Y");
+            GetComponents<CapsuleCollider>()[i].center = AvoidColliderPos;
+        }
+        
     }
      private void FixedUpdate()
      {
@@ -196,7 +203,7 @@ public class PlayerController : MonoBehaviour {
         AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
         Rotaion();
         
-        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider.bounds.extents.y - grounded_dis, FloorMask))
+        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis), FloorMask))
         {
             Avoid();
             Attack();
@@ -213,7 +220,7 @@ public class PlayerController : MonoBehaviour {
         AnimatorStateControll();
 
 
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - PlayerCollider.bounds.extents.y + grounded_dis, transform.position.z), Color.red);
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - (PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis)), transform.position.z), Color.red);
        
     }
     private void AnimatorStateControll()
@@ -881,18 +888,18 @@ public class PlayerController : MonoBehaviour {
     public void AttackColliderOpen_Small() 
     {
         AttackCollider_Small.SetActive(true);
-        EnemyController.enemyController.EnemyCanDamage = true;
+      //  EnemyController.enemyController.EnemyCanDamage = true;
     }
 
     public void AttackColliderOpen_Big()
     {
         AttackCollider_Big.SetActive(true);
-        EnemyController.enemyController.EnemyCanDamage = true;
+     //   EnemyController.enemyController.EnemyCanDamage = true;
     }
     public void AttackColliderOpen_BigSkill()
     {
         AttackCollider_BigSkill.SetActive(true);
-        EnemyController.enemyController.EnemyCanDamage = true;
+       // EnemyController.enemyController.EnemyCanDamage = true;
     }
     public void AttackColliderClose()
     {

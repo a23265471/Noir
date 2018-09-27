@@ -239,7 +239,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.24423963
+      - time: 0
+        functionName: FirstAttackState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
         functionName: CanTriggerAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
@@ -277,14 +285,6 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0.8
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
-        functionName: ParticleTrigger
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
-          type: 3}
-        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask: []
