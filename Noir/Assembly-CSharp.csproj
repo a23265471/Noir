@@ -160,11 +160,19 @@
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
     <None Include="Assets\Effect\Others\PostProcessing\Editor Resources\Monitors\WaveformCompute.compute" />
     <None Include="Assets\Effect\Others\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMS.cginc" />
+<<<<<<< HEAD
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Intern/Desktop/Noir/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>C:/Users/Intern/Desktop/Noir/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+=======
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>C:/Users/Intern/Documents/Noir/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>C:/Users/Intern/Documents/Noir/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+>>>>>>> d9bbc8861f82b5a2ccfba25d07956df8161a0fd8
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
