@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
     {
         EnemyAnimator = GetComponent<Animator>();
         enemyController = this;
-      //  Nav = GetComponent<NavMeshAgent>();
+        //Nav = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void Start()
