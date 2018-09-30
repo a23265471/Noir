@@ -107,6 +107,7 @@
      <Compile Include="Assets\Player\Script\Controller\Player\PlayerDamage.cs" />
      <Compile Include="Assets\Player\Script\GameManager.cs" />
      <Compile Include="Assets\Player\Script\ScriptableObject\PlayerData.cs" />
+     <Compile Include="Assets\UI\Script\MainMenu.cs" />
      <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\DepthOfField.shader" />
      <None Include="Assets\Effect\Others\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMSGlobalFog.shader" />
      <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
