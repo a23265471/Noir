@@ -64,8 +64,8 @@ public class EnemyController : MonoBehaviour
             EnemyNav.SetDestination(PlayerController.playerController.transform.position);
             enemyState = EnemyState.Move;
         }
-        Debug.Log(EnemyNav.isStopped);
-        Debug.Log(enemyState);
+       // Debug.Log(EnemyNav.isStopped);
+       // Debug.Log(enemyState);
     }
 
 

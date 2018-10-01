@@ -207,11 +207,13 @@ public class PlayerController : MonoBehaviour {
             Avoid();
             Attack();
 
-            FastRun();
+            
 
             if (playerAnimatorState == PlayerAnimatorState.Movement)
-            {              
+            {
+               
                 Movement();
+                FastRun();
             }
         }
 
@@ -412,7 +414,7 @@ public class PlayerController : MonoBehaviour {
         float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
         float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
 
-       // Debug.Log(MoveSpeed);
+        //Debug.Log(Input.GetAxis("Horizontal"));
         transform.Translate(MoveX, 0, MoveZ);
 
         MovementAnimaionControl();
@@ -440,14 +442,18 @@ public class PlayerController : MonoBehaviour {
              StartCoroutine(DoubleClickCoroutine);
              //Debug.Log(CanDoubleClick);        
          }*/
-       
-         
-       /* if (CanFastRun && Input.GetKey(KeyCode.W))
+
+
+        /* if (CanFastRun && Input.GetKey(KeyCode.W))
+         {
+             moveState = MoveState.FastRunForward;
+             IsFastRun = true;
+         }*/
+        if (Input.GetKey(KeyCode.R))
         {
-            moveState = MoveState.FastRunForward;
-            IsFastRun = true;
-        }*/
-        if (Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.W))
+            Debug.Log("1");
+        }
+        if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.W))
         {
             IsFastRun = true;
             if (Input.GetKey(KeyCode.A))
@@ -457,23 +463,25 @@ public class PlayerController : MonoBehaviour {
             }
             else if (Input.GetKey(KeyCode.D))
             {
+                Debug.Log("2");
                 moveState = MoveState.FastRunRight;
             }           
             else 
             {
                 moveState = MoveState.FastRunForward;
             }
-            
+           // Debug.Log("a");
         }
 
-        if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.R) || Input.GetKeyUp(KeyCode.W))
         {
             moveState = MoveState.Idle;
             IsFastRun = false;
         }
         
-        // Debug.Log(CanFastRun);
-       // Debug.Log(moveState);
+         Debug.Log(Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.W));
+        
+       //Debug.Log(moveState);
     }
     
 

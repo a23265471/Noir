@@ -5,15 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     private bool CursorLocked;
-    
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         CursorLocked = true;
         Screen.lockCursor = true;
 
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
