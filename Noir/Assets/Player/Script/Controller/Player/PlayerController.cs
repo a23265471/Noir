@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
         Attack_3,
         LongAttack,
         BigSkill,
+        DashAttack,
     }
     enum AvoidState
     {
@@ -49,8 +50,6 @@ public class PlayerController : MonoBehaviour {
         BackRight,
         BackLeft,
     }
-
-
     private AttackState attackState;
     private MoveState moveState;
     private AvoidState avoidState;
@@ -211,8 +210,7 @@ public class PlayerController : MonoBehaviour {
             FastRun();
 
             if (playerAnimatorState == PlayerAnimatorState.Movement)
-            {
-                
+            {              
                 Movement();
             }
         }
@@ -260,9 +258,19 @@ public class PlayerController : MonoBehaviour {
                     case AttackState.Default:
                         if (CanAttack)
                         {
-                            attackState = AttackState.Attack_1;
-                            AttackTrigger += 1;
-                            CanAttack = false;
+                            if (IsFastRun)
+                            {
+                                attackState = AttackState.DashAttack;
+                                AttackTrigger += 1;
+                                CanAttack = false;
+                            }
+                            else
+                            {
+                                attackState = AttackState.Attack_1;
+                                AttackTrigger += 1;
+                                CanAttack = false;
+                            }
+                            
                         }
                         break;
                     case AttackState.Attack_1:
@@ -335,6 +343,10 @@ public class PlayerController : MonoBehaviour {
                     break;
                 case AttackState.BigSkill:
                     animator.SetTrigger("BigSkill");
+                    AttackTrigger = 0;
+                    break;
+                case AttackState.DashAttack:
+                    animator.SetTrigger("DashAttack");
                     AttackTrigger = 0;
                     break;
             }
@@ -713,7 +725,7 @@ public class PlayerController : MonoBehaviour {
     {
         yield return new WaitForSeconds(WaitTime);
         CanDoubleClick = false;
-
+        
     }
 
     private void AvoidStateSelect(AvoidState avoidState)
@@ -785,8 +797,8 @@ public class PlayerController : MonoBehaviour {
         {
             IsAvoidDistance = 0;
             FracDistance = 0;
-            // animator.SetTrigger("ExitAvoidForward");
-            Debug.Log("wwwwwwwww");
+            
+           
         }
         
         

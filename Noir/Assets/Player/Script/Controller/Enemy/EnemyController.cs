@@ -5,31 +5,71 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public enum EnemyState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damage,
+        GetDown,
+        GetUp,
+    }
+    private EnemyState enemyState;
+
     private Animator EnemyAnimator;
     public static EnemyController enemyController;
     public bool EnemyCanDamage;
 
-    private NavMeshAgent Nav;
-    private Transform Player;
-
+    private NavMeshAgent EnemyNav;
+    //-----------------------Move-----------------   
+    public float PlayerChaseDis;//EneyData
+    private float PlayerDis;
+    public bool CanChase;
+    //-----------------------Move-----------------   
     // Use this for initialization
     private void Awake()
     {
         EnemyAnimator = GetComponent<Animator>();
         enemyController = this;
-        //Nav = GetComponent<NavMeshAgent>();
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        EnemyNav = GetComponent<NavMeshAgent>();
+       // Player = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
     void Start()
     {
-
+        CanChase = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-       // Nav.SetDestination(Player.position);
+
+        EnemyMove();
+
+
     }
+
+    private void EnemyMove()
+    {
+        PlayerDis = Vector3.Distance(transform.position, PlayerController.playerController.transform.position);
+
+        
+       if (PlayerDis <= EnemyNav.stoppingDistance && !EnemyNav.isStopped)
+        {
+            enemyState = EnemyState.Idle;
+            EnemyNav.isStopped = true;
+        }
+       else if (CanChase && PlayerDis <= PlayerChaseDis)
+        {
+            EnemyNav.isStopped = false;
+            EnemyNav.SetDestination(PlayerController.playerController.transform.position);
+            enemyState = EnemyState.Move;
+        }
+        Debug.Log(EnemyNav.isStopped);
+        Debug.Log(enemyState);
+    }
+
+
+
 
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
     {   
@@ -48,13 +88,6 @@ public class EnemyController : MonoBehaviour
         
         //EnemyCanDamage = false;
     }
-    /*private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "PlayerAttack_Small"|| other.tag == "PlayerAttack_Big") 
-        {
-            EnemyCanDamage = true;
-        }
-        
-    }*/
+   
 
 }

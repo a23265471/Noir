@@ -219,7 +219,7 @@ ModelImporter:
       name: LongAttack
       takeName: mixamo.com
       firstFrame: 37
-      lastFrame: 77
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: -90
       level: 0
@@ -261,6 +261,14 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
         floatParameter: 0.1
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: ParticleTrigger
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
+          type: 3}
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0

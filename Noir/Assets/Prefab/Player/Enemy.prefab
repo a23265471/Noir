@@ -1015,9 +1015,9 @@ GameObject:
   - component: {fileID: 95506063087778926}
   - component: {fileID: 54031145850579532}
   - component: {fileID: 136316973790288144}
-  - component: {fileID: 114596729414382436}
   - component: {fileID: 136149695659558370}
-  - component: {fileID: 114780505335980872}
+  - component: {fileID: 114596729414382436}
+  - component: {fileID: 195473753115844744}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -2152,10 +2152,10 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1930113907143246}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
+  m_Mass: 10
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -2172,7 +2172,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e7dd740961effb448a7065f74cdf9752, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2190,18 +2190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyCanDamage: 0
---- !u!114 &114780505335980872
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1930113907143246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyCanDamage: 0
+  PlayerChaseDis: 10
+  CanChase: 0
 --- !u!136 &136149695659558370
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2224,10 +2214,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.27
-  m_Height: 1.76
+  m_Radius: 0.5
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.88, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137071212750547110
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2475,3 +2465,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.014344037, y: -0.04310393, z: -0.05314344}
     m_Extent: {x: 0.22419421, y: 0.06168222, z: 0.3378993}
   m_DirtyAABB: 0
+--- !u!195 &195473753115844744
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930113907143246}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
