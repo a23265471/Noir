@@ -55,19 +55,20 @@ public class PlayerController : MonoBehaviour {
     private AvoidState avoidState;
     public PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
-    private bool BulletCanLunch;
+    
     //-----------------------------Attack--------------------
     public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
     private GameObject AttackCollider_BigSkill;
-    public Vector3 FixBulletPos;
-    private Vector3 BulletPos;
-    private float LongAttackMaxDis;
-    private float LongAttackNowDis;
-    private float LongAttackFracDistance;
-    private float LongAttackSpeed;
-    private float LongAttackStartTime;
-    private Vector3 LongAttackPos;
+    public GameObject Bullet;
+    private Vector3 FixBulletPos;
+    private Vector3 BulletStartPos;
+    public float LongAttackMaxDis;
+   // private float LongAttackNowDis;
+   // public float LongAttackFracDistance;
+    public float LongAttackSpeed;  //PlayerData 
+    public Vector3 LongAttackEndPos;
+
     //-----------------------------Attack--------------------
     //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
@@ -189,7 +190,7 @@ public class PlayerController : MonoBehaviour {
         FastRunCoroutine = null;
         GetUpCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
-
+        FixBulletPos = ObjectPool.objectPool.LongAttack.transform.position - transform.position;
        
 
         attackState = AttackState.Default;       
@@ -369,38 +370,26 @@ public class PlayerController : MonoBehaviour {
         {
             CanAttack = true;
             AttackTrigger = 0;
-        }
-        //  Debug.Log(AnimatorstateInfo.shortNameHash);
-        // Debug.Log(playerAnimatorState);            
-        // Debug.Log(AnimatorstateInfo.IsName("PlayerController"));
-        //Debug.Log(CanAttack);
-        // Debug.Log(AttackTrigger);
-       // Debug.Log(attackState);
+        }       
+       
     }
-    private void LongAttackMove()
-    {
-        if (BulletCanLunch)
-        {
-            LongAttackNowDis = (Time.time - LongAttackStartTime) * LongAttackSpeed;
-            LongAttackFracDistance = LongAttackNowDis / LongAttackMaxDis;
-            
-
-
-        }
-
-    }
+   
     private void LongAttackGetObj()
-    {
-        GameObject Bulle = ObjectPool.objectPool.LongAttackObj();
+    {           
+        Bullet = ObjectPool.objectPool.LongAttackObj();
 
-        if (Bulle == null) return;
+        if (Bullet == null) return;
 
-        BulletPos = transform.position + FixBulletPos;
-        Bulle.transform.position = BulletPos;
-        Bulle.transform.rotation = transform.rotation;
-        Bulle.SetActive(true);
-        LongAttackStartTime = Time.time;
-
+        /*BulletStartPos = transform.position + FixBulletPos;*/
+        BulletStartPos = transform.position + rotationEuler * FixBulletPos;
+       // Debug.Log(FixBulletPos);
+        Bullet.transform.position = BulletStartPos;
+        Bullet.transform.rotation = transform.rotation;
+        Bullet.SetActive(true);
+        
+        
+        LongAttackEndPos = rotationEuler * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
+        //Debug.Log(Bullet.transform.position);
     }
     //--------------------------Attack---------------------------------      
 

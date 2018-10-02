@@ -76,14 +76,21 @@ public class EnemyController : MonoBehaviour
         if (other.tag == "PlayerAttack_Big")
         {
             EnemyAnimator.SetTrigger("Damage_Big");
+            transform.LookAt(PlayerController.playerController.transform.position);
         }
 
         else if (other.tag == "PlayerAttack_Small")
         {
-            EnemyAnimator.SetTrigger("Damage_Small");                
-        }
-            
+            EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
+            
+        }
+        else if(other.tag == "PlayerLongAttack")
+        {
+            EnemyAnimator.SetTrigger("Damage_Small");
+            transform.LookAt(PlayerController.playerController.transform.position);
+        }
+           
         
         
         //EnemyCanDamage = false;
