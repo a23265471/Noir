@@ -55,9 +55,20 @@ public class PlayerController : MonoBehaviour {
     private AvoidState avoidState;
     public PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
+    private bool BulletCanLunch;
+    //-----------------------------Attack--------------------
     public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
     private GameObject AttackCollider_BigSkill;
+    public Vector3 FixBulletPos;
+    private Vector3 BulletPos;
+    private float LongAttackMaxDis;
+    private float LongAttackNowDis;
+    private float LongAttackFracDistance;
+    private float LongAttackSpeed;
+    private float LongAttackStartTime;
+    private Vector3 LongAttackPos;
+    //-----------------------------Attack--------------------
     //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
     private float MoveSpeed;//Player Data
@@ -339,8 +350,8 @@ public class PlayerController : MonoBehaviour {
                     break;
                 case AttackState.LongAttack:
                     animator.SetTrigger("LongAttack");
-                  //  LongAttack_Particle.Play();
-
+                    //  LongAttack_Particle.Play();
+                   
                     AttackTrigger = 0;                  
                     break;
                 case AttackState.BigSkill:
@@ -365,6 +376,31 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log(CanAttack);
         // Debug.Log(AttackTrigger);
        // Debug.Log(attackState);
+    }
+    private void LongAttackMove()
+    {
+        if (BulletCanLunch)
+        {
+            LongAttackNowDis = (Time.time - LongAttackStartTime) * LongAttackSpeed;
+            LongAttackFracDistance = LongAttackNowDis / LongAttackMaxDis;
+            
+
+
+        }
+
+    }
+    private void LongAttackGetObj()
+    {
+        GameObject Bulle = ObjectPool.objectPool.LongAttackObj();
+
+        if (Bulle == null) return;
+
+        BulletPos = transform.position + FixBulletPos;
+        Bulle.transform.position = BulletPos;
+        Bulle.transform.rotation = transform.rotation;
+        Bulle.SetActive(true);
+        LongAttackStartTime = Time.time;
+
     }
     //--------------------------Attack---------------------------------      
 
@@ -860,9 +896,13 @@ public class PlayerController : MonoBehaviour {
                 break;
             case AttackState.LongAttack:
                 LongAttack_Particle.Play();
+                LongAttackGetObj();
                 break;
         }
     }
+
+    
+
 
     public void FirstAttackState() 
     {

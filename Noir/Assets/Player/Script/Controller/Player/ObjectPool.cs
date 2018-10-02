@@ -31,7 +31,7 @@ public class ObjectPool : MonoBehaviour {
         }
 
     }
-	public GameObject GetAttackLongAttack()
+	public GameObject LongAttackObj()
     {
         for (int i = 0; i < LongAttacks.Count; i++)
         {

@@ -247,12 +247,12 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: TriggerCancelAttack
+      - time: 0
+        functionName: ParticleTrigger
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
-        floatParameter: 0.2
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 1
@@ -263,20 +263,12 @@ ModelImporter:
         floatParameter: 0.1
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: ParticleTrigger
+      - time: 1
+        functionName: TriggerCancelAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
           type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
-        functionName: ParticleTrigger
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 23103c895a28c934f8bd1c4600195f95,
-          type: 3}
-        floatParameter: 0
+        floatParameter: 0.2
         intParameter: 0
         messageOptions: 0
       transformMask: []
