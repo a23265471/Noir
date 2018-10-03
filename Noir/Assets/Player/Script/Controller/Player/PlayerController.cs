@@ -120,11 +120,13 @@ public class PlayerController : MonoBehaviour {
     public GameObject ShortAttack2_Object;
     public GameObject ShortAttack3_Object;
     private GameObject LongAttack_Object;
+    private GameObject LongAttackBullet_Object;
 
     private ParticleSystem ShortAttack1_Particle;
     private ParticleSystem ShortAttack2_Particle;
     private ParticleSystem ShortAttack3_Particle;
     private ParticleSystem LongAttack_Particle;
+    private ParticleSystem LongAttackBullet_Particle;
     //-----------------------------Particle------------
 
     //private CapsuleCollider PlayerCollider;
@@ -156,6 +158,7 @@ public class PlayerController : MonoBehaviour {
         LongAttack_Object = this.gameObject.transform.GetChild(4).gameObject;
         DamageObject = this.gameObject.transform.GetChild(5).gameObject;
         AttackCollider_BigSkill = this.gameObject.transform.GetChild(6).gameObject;
+        LongAttackBullet_Object = this.gameObject.transform.GetChild(7).gameObject;
         PlayerCollider = GetComponents<CapsuleCollider>();
         DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
@@ -165,6 +168,7 @@ public class PlayerController : MonoBehaviour {
         ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
         ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
         LongAttack_Particle = LongAttack_Object.GetComponent<ParticleSystem>();
+        LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
 
         //-----particle---
     }
@@ -874,17 +878,23 @@ public class PlayerController : MonoBehaviour {
         switch (attackState)
         {
             case AttackState.Attack_1:
+                ShortAttack1_Particle.Stop();
                 ShortAttack2_Particle.Play();
                 
                 break;
             case AttackState.Attack_2:
+                ShortAttack2_Particle.Stop();
                 ShortAttack1_Particle.Play();
                 break;
             case AttackState.Attack_3:
+                ShortAttack3_Particle.Stop();
                 ShortAttack3_Particle.Play();
                 break;
             case AttackState.LongAttack:
+                LongAttack_Particle.Stop();
+                LongAttackBullet_Particle.Stop();
                 LongAttack_Particle.Play();
+                LongAttackBullet_Particle.Play();
                 LongAttackGetObj();
                 break;
         }
