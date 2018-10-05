@@ -9,6 +9,7 @@ public class CloseBullet : MonoBehaviour {
     private float LongAttackStartTime;
     private float LongAttackNowDis;
     private float LongAttackFracDistance;
+    private Quaternion BulletRotation;
     // Use this for initialization
     private void OnEnable()
     {
@@ -23,6 +24,8 @@ public class CloseBullet : MonoBehaviour {
         LongAttackFracDistance = Mathf.Clamp(LongAttackFracDistance, 0, 1);
         transform.position = Vector3.Lerp(transform.position, PlayerController.playerController.LongAttackEndPos, LongAttackFracDistance);
 
+        BulletRotation = Quaternion.Euler(0, PlayerController.playerController.RotationX + 90, 0);
+        transform.rotation = BulletRotation;
 
         if (LongAttackFracDistance >= 0.2f)
         {

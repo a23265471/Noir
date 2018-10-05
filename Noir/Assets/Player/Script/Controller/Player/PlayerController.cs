@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour {
     private float Move_parameter_x;
     private float Move_parameter_y;
     public float RotationSpeed;//Player Data
-    private float RotationX;
+    public float RotationX;
     private Quaternion rotationEuler;
     public Transform Player_pre_pos;
     public Transform PlayerHead;

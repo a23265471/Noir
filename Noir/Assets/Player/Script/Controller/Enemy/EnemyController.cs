@@ -25,6 +25,12 @@ public class EnemyController : MonoBehaviour
     public float PlayerChaseDis;//EneyData
     private float PlayerDis;
     public bool CanChase;
+    private float EnemyMove_parameter;
+    public float EnemyMaxSpeed;
+    public float MoveAccelertion;//EneyData
+    public float StopAccelertion;//EneyData   
+    private float EnemySpeed;
+
     //-----------------------Move-----------------   
     // Use this for initialization
     private void Awake()
@@ -53,21 +59,37 @@ public class EnemyController : MonoBehaviour
         PlayerDis = Vector3.Distance(transform.position, PlayerController.playerController.transform.position);
 
         
-       if (PlayerDis <= EnemyNav.stoppingDistance && !EnemyNav.isStopped)
+       if (PlayerDis <= EnemyNav.stoppingDistance)
         {
             enemyState = EnemyState.Idle;
-            EnemyNav.isStopped = true;
+           
         }
        else if (CanChase && PlayerDis <= PlayerChaseDis)
         {
-            EnemyNav.isStopped = false;
+            
             EnemyNav.SetDestination(PlayerController.playerController.transform.position);
             enemyState = EnemyState.Move;
         }
-       // Debug.Log(EnemyNav.isStopped);
-       // Debug.Log(enemyState);
+        // Debug.Log(EnemyNav.isStopped);
+        // Debug.Log(enemyState);
+        EnemyMoveState();
     }
+    private void EnemyMoveState()
+    {
+        switch (enemyState)
+        {
+            case EnemyState.Idle:
+                EnemyMove_parameter = Mathf.Lerp(EnemyMove_parameter, 0, StopAccelertion);
+                break;
+            case EnemyState.Move:
+                EnemyMove_parameter = Mathf.Lerp(EnemyMove_parameter, 1, MoveAccelertion);
+                break;
+ 
+        }
 
+        EnemyMove_parameter = Mathf.Clamp(EnemyMove_parameter, 0, 1);
+        EnemyAnimator.SetFloat("MoveState", EnemyMove_parameter);
+    }
 
 
 
