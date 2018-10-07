@@ -9,11 +9,11 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         Debug.Log("Play game");
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Lighting");
     }
     public void ChooseLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("ChooseLevel");
     }
     public void QuitGame()
     {
@@ -24,5 +24,8 @@ public class MainMenu : MonoBehaviour {
     {
         SceneManager.LoadScene(0);
     }
-   
+    public void Back()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
 }
