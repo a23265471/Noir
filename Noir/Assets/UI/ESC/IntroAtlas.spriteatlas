@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: IntroAtlas
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: b2f9ef27014d1df4181ba595dc0d0e0e, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4497f3da148522a45a5f140e3898098e, type: 3}
+  - {fileID: 21300000, guid: 4714d8e314850d442a9a369a71080ebf, type: 3}
+  - {fileID: 21300000, guid: 35f264c635372394dbe86f263dde028d, type: 3}
+  - {fileID: 21300000, guid: cb14a0e9712832c4880d5a4f0814b405, type: 3}
+  - {fileID: 21300000, guid: 5c62b86f4eeabc445a6d604726ce802b, type: 3}
+  - {fileID: 21300000, guid: 87b61b762e8066f479b84bea0926005d, type: 3}
+  - {fileID: 21300000, guid: a7a54ad998c45cc40b62849e1d17614c, type: 3}
+  - {fileID: 21300000, guid: 8cce4be6a9dbfbf4fa97a1932818dda3, type: 3}
+  - {fileID: 21300000, guid: 1982684c4bd684d429ebd5e7c63bc137, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Comp 1_00007_00004
+  - Comp 1_00007_00005
+  - Comp 1_00007_00006
+  - Comp 1_00007_00007
+  - Comp 1_00007_00000
+  - Comp 1_00007_00001
+  - Comp 1_00007_00002
+  - Comp 1_00007_00003
+  - Comp 1_00007_00008
+  m_Tag: IntroAtlas
+  m_IsVariant: 0

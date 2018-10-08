@@ -5,11 +5,8 @@ using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
 public class PlayVideo : MonoBehaviour {
+       
    
-    void Start()
-    {
-      
-    }
     void Update()
     {
         
@@ -19,9 +16,9 @@ public class PlayVideo : MonoBehaviour {
 
     IEnumerator LoadScene()
     {
-        yield return new WaitForSeconds(10f);//括號內填入影片時間
-     
-        SceneManager.LoadScene("Main");//載入場景
+        yield return new WaitForSeconds(3f);//括號內填入影片時間
+
+        SkipMovie();//載入場景
     }
    public void SkipMovie()
     {
