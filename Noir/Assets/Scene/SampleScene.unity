@@ -1237,7 +1237,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4641638774073962, guid: 9be523fd779967a49ae2bc4787557df2, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4654598080219616, guid: 9be523fd779967a49ae2bc4787557df2, type: 2}
       propertyPath: m_RootOrder
@@ -1265,7 +1265,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4041515695447468, guid: 9be523fd779967a49ae2bc4787557df2, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114640856759815754, guid: 9be523fd779967a49ae2bc4787557df2,
         type: 2}
@@ -1320,7 +1320,7 @@ Prefab:
     - target: {fileID: 95808725878196032, guid: 9be523fd779967a49ae2bc4787557df2,
         type: 2}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 136728469989056818, guid: 9be523fd779967a49ae2bc4787557df2,
         type: 2}
@@ -1345,6 +1345,16 @@ Prefab:
     - target: {fileID: 114640856759815754, guid: 9be523fd779967a49ae2bc4787557df2,
         type: 2}
       propertyPath: RunSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640856759815754, guid: 9be523fd779967a49ae2bc4787557df2,
+        type: 2}
+      propertyPath: DashAttack_MaxDis
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640856759815754, guid: 9be523fd779967a49ae2bc4787557df2,
+        type: 2}
+      propertyPath: DashAttack_Speed
       value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []

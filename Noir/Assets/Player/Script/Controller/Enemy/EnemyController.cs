@@ -51,7 +51,6 @@ public class EnemyController : MonoBehaviour
 
         EnemyMove();
 
-
     }
 
     private void EnemyMove()
@@ -65,8 +64,7 @@ public class EnemyController : MonoBehaviour
            
         }
        else if (CanChase && PlayerDis <= PlayerChaseDis)
-        {
-            
+        {            
             EnemyNav.SetDestination(PlayerController.playerController.transform.position);
             enemyState = EnemyState.Move;
         }
@@ -85,6 +83,7 @@ public class EnemyController : MonoBehaviour
                 EnemyMove_parameter = Mathf.Lerp(EnemyMove_parameter, 1, MoveAccelertion);
                 break;
  
+
         }
 
         EnemyMove_parameter = Mathf.Clamp(EnemyMove_parameter, 0, 1);

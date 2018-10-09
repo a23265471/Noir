@@ -68,7 +68,13 @@ public class PlayerController : MonoBehaviour {
    // public float LongAttackFracDistance;
     public float LongAttackSpeed;  //PlayerData 
     public Vector3 LongAttackEndPos;
-
+    public float DashAttack_MaxDis;//PlayerData
+    private float DashAttack_NowDis;
+    private float DashAttack_FracDis;
+    private Quaternion DashAttack_Euler;
+    private float DashAttack_StartTime;
+    public float DashAttack_Speed;
+    private Vector3 DashAttack_Pos;
     //-----------------------------Attack--------------------
     //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
@@ -184,8 +190,7 @@ public class PlayerController : MonoBehaviour {
         playerController = this;
         AttackTrigger = 0;       
         PlayerAnimation_parameter = 0;
-       
-        
+            
         AvoidCanMove = true;
         AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
@@ -252,7 +257,23 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("RunSpeed_Horizontal", Move_parameter_x);
             animator.SetFloat("RunSpeed_Vertical", Move_parameter_y);
         }
+        if (playerAnimatorState == PlayerAnimatorState.Attack) 
+        {
+            if (attackState == AttackState.DashAttack)
+            {
+                animator.applyRootMotion = false;
+            }
+            else
+            {
+                animator.applyRootMotion = true;
+            }
+        }
+        else
+        {
+            animator.applyRootMotion = false;
+        }
         Debug.Log(playerAnimatorState);
+        Debug.Log(animator.applyRootMotion);
       //  Debug.Log(attackState);
 
     }
@@ -282,6 +303,24 @@ public class PlayerController : MonoBehaviour {
                         {
                             if (IsFastRun)
                             {
+                                switch (moveState)
+                                {
+                                    case MoveState.FastRunForward:
+                                        DashAttack_Euler = Quaternion.Euler(0, RotationX, 0);
+                                        DashAttack_Pos = DashAttack_Euler * new Vector3(0, 0, DashAttack_MaxDis) + transform.position;
+                                        break;
+                                    case MoveState.FastRunLeft:
+                                        DashAttack_Euler = Quaternion.Euler(0, RotationX - 45, 0);
+                                        DashAttack_Pos = DashAttack_Euler * new Vector3(0, 0, DashAttack_MaxDis) + transform.position;
+                                        break;
+                                    case MoveState.FastRunRight:
+                                        DashAttack_Euler = Quaternion.Euler(0, RotationX + 45, 0);
+                                        DashAttack_Pos = DashAttack_Euler * new Vector3(0, 0, DashAttack_MaxDis) + transform.position;
+                                        break;
+
+                                }
+
+                                DashAttack_StartTime = Time.time;
                                 attackState = AttackState.DashAttack;
                                 AttackTrigger += 1;
                                 CanAttack = false;
@@ -337,37 +376,36 @@ public class PlayerController : MonoBehaviour {
         {
             switch (attackState)
             {
-                case AttackState.Attack_1:
-                    animator.SetTrigger("Attack1");
-                    
+                case AttackState.Attack_1:                   
+                    animator.SetTrigger("Attack1");                    
                     animator.ResetTrigger("Attack3");
                    // ShortAttack1_Particle.Play();
 
                     AttackTrigger = 0;                                       
                     break;
-                case AttackState.Attack_2:
+                case AttackState.Attack_2:                   
                     animator.SetTrigger("Attack2");
                    // ShortAttack2_Particle.Play();
                     AttackTrigger = 0;                   
                     break;
-                case AttackState.Attack_3:
+                case AttackState.Attack_3:                   
                     animator.SetTrigger("Attack3");
                     animator.ResetTrigger("Attack1");
                     animator.ResetTrigger("Attack2");
                     //ShortAttack3_Particle.Play();
                     AttackTrigger = 0;                    
                     break;
-                case AttackState.LongAttack:
+                case AttackState.LongAttack:                   
                     animator.SetTrigger("LongAttack");
                     //  LongAttack_Particle.Play();
                    
                     AttackTrigger = 0;                  
                     break;
-                case AttackState.BigSkill:
+                case AttackState.BigSkill:                   
                     animator.SetTrigger("BigSkill");
                     AttackTrigger = 0;
                     break;
-                case AttackState.DashAttack:
+                case AttackState.DashAttack:                   
                     animator.SetTrigger("DashAttack");
                     AttackTrigger = 0;
                     break;
@@ -378,7 +416,12 @@ public class PlayerController : MonoBehaviour {
         {
             CanAttack = true;
             AttackTrigger = 0;
-        }       
+        }
+
+        if (attackState == AttackState.DashAttack)
+        {
+            DashAttackMove();
+        }
        
     }
    
@@ -399,6 +442,16 @@ public class PlayerController : MonoBehaviour {
         LongAttackEndPos = rotationEuler * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
         //Debug.Log(Bullet.transform.position);
     }
+
+    private void DashAttackMove()
+    {
+        DashAttack_NowDis = (Time.time - DashAttack_StartTime) * DashAttack_Speed;
+        DashAttack_FracDis = DashAttack_NowDis / DashAttack_MaxDis;
+        DashAttack_FracDis = Mathf.Clamp(DashAttack_FracDis, 0, 1);
+        transform.position = Vector3.Lerp(transform.position, DashAttack_Pos, DashAttack_FracDis);
+
+    }
+
     //--------------------------Attack---------------------------------      
 
     //--------------------------Move---------------------------------   
@@ -802,7 +855,6 @@ public class PlayerController : MonoBehaviour {
         CanDoubleClick = false;
         
     }
-
     private void AvoidStateSelect(AvoidState avoidState)
     {
         AvoidCanMove = true;
@@ -917,8 +969,7 @@ public class PlayerController : MonoBehaviour {
         {
             case AttackState.Attack_1:
                 ShortAttack1_Particle.Stop();
-                ShortAttack2_Particle.Play();
-                
+                ShortAttack2_Particle.Play();               
                 break;
             case AttackState.Attack_2:
                 ShortAttack2_Particle.Stop();
@@ -950,6 +1001,7 @@ public class PlayerController : MonoBehaviour {
     public void ChangeToIdle(float WaitTime) //-----Attack,Avoid,Damage-----
     {       
         ResetStateCoroutine = ResetState(WaitTime);
+       
 
         if(AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)
         {
