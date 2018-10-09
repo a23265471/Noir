@@ -633,8 +633,18 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1930113907143246, guid: 12e7067975704e346a637dd39d97e25c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 137239333656412356, guid: 12e7067975704e346a637dd39d97e25c,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8c960fc216aaa2842a715ec7f281af0e, type: 2}
+    - target: {fileID: 137193949001522188, guid: 12e7067975704e346a637dd39d97e25c,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8c960fc216aaa2842a715ec7f281af0e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12e7067975704e346a637dd39d97e25c, type: 2}
   m_IsPrefabParent: 0
@@ -727,7 +737,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9c418949d9c6a6a479d78e0053f62e69, type: 2}
+  - {fileID: 2100000, guid: 8caee94b680a3234e9d25cd2edfbaf26, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -968,7 +978,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: f027ddf63c92cb043be9c93d4c28d2ec, type: 2}
+  - {fileID: 2100000, guid: 30b5bfee9a3ee024fa572a049dd1bb75, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1053,7 +1063,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: f027ddf63c92cb043be9c93d4c28d2ec, type: 2}
+  - {fileID: 2100000, guid: 30b5bfee9a3ee024fa572a049dd1bb75, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1356,6 +1366,10 @@ Prefab:
         type: 2}
       propertyPath: DashAttack_Speed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600690875190562, guid: 9be523fd779967a49ae2bc4787557df2, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9be523fd779967a49ae2bc4787557df2, type: 2}

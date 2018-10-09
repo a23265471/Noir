@@ -119,6 +119,13 @@
     <Compile Include="Assets\UI\Script\Fading.cs" />
     <Compile Include="Assets\UI\Script\MainMenu.cs" />
     <Compile Include="Assets\UI\Script\PlayVideo.cs" />
+    <Compile Include="Assets\UI\Script\UIController.cs" />
+    <Compile Include="Assets\UI\Script\Utility_master\DebugFilter.cs" />
+    <Compile Include="Assets\UI\Script\Utility_master\Singleton.cs" />
+    <Compile Include="Assets\UI\Script\Utility_master\SingletonObject.cs" />
+    <Compile Include="Assets\UI\Script\Utility_master\UIManager.cs" />
+    <Compile Include="Assets\UI\Script\Utility_master\UIRootHandler.cs" />
+    <Compile Include="Assets\UI\Script\Utility_master\Utility.cs" />
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\Effect\Others\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMSGlobalFog.shader" />
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
