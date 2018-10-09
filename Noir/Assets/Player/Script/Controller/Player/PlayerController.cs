@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour {
     private float MoveSpeed;//Player Data
     private float MaxMoveSpeed;//Player Data
     public float RunSpeed;//Player Data
+    private float RunNowSpeed;
     public float FastRunSpeed;//Player Data
     private float x_direction;
     private float y_direction;
@@ -90,14 +91,16 @@ public class PlayerController : MonoBehaviour {
     private bool IsFastRun;
     private bool CanFastRun;
     private float preClickTime;
-    private float nextClickTime;  
+    private float nextClickTime;
     //----------------------------------Move-----------------
+    private bool Shift_LongPress;
+    private bool Shift_Click;
+    private float ShiftPressTime;
     //---------------------------------------Avoid-------------
     public float AvoidSpeed;//Player Data
     public float AvoidDistance;
     public float AvoidMaxDistance;
-    private float AvoidRotate;
-   
+    private float AvoidRotate;  
     public bool AvoidCanMove;
     private string InputKey_pre;
     private string InputKey_next;
@@ -220,6 +223,7 @@ public class PlayerController : MonoBehaviour {
         
         if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis), FloorMask))
         {
+            ShiftIntervel();
             Avoid();
             Attack();
 
@@ -427,7 +431,7 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
         {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.04f);
+            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.03f);
             MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
         }
         else if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
@@ -438,10 +442,17 @@ public class PlayerController : MonoBehaviour {
                 MoveSpeed = 0;
             }
         }
-                     
-        
-        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed;
-        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed;
+                             
+        if(Input.GetAxis("Horizontal")==0|| Input.GetAxis("Vertical") == 0)
+        {
+            RunNowSpeed = Mathf.Sqrt((Mathf.Pow(MoveSpeed, 2) * 2));            
+        }
+        else
+        {
+            RunNowSpeed = MoveSpeed;
+        }
+        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * RunNowSpeed;
+        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * RunNowSpeed;
 
         //Debug.Log(Input.GetAxis("Horizontal"));
         transform.Translate(MoveX, 0, MoveZ);
@@ -478,39 +489,37 @@ public class PlayerController : MonoBehaviour {
              moveState = MoveState.FastRunForward;
              IsFastRun = true;
          }*/
-        if (Input.GetKey(KeyCode.R))
-        {
-            Debug.Log("1");
-        }
-        if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.W))
+        
+        if (Shift_LongPress && Input.GetKey(KeyCode.W))
         {
             IsFastRun = true;
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && Input.GetAxis("Horizontal") < 0)
             {
                 moveState = MoveState.FastRunLeft;
 
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D) && Input.GetAxis("Horizontal") > 0)
             {
-                Debug.Log("2");
                 moveState = MoveState.FastRunRight;
             }           
-            else 
+            else if (Input.GetAxis("Vertical") > 0) 
             {
                 moveState = MoveState.FastRunForward;
             }
-           // Debug.Log("a");
+            // Debug.Log("a");
+           
         }
 
-        if (Input.GetKeyUp(KeyCode.R) || Input.GetKeyUp(KeyCode.W))
+        if ( (Input.GetKeyUp(KeyCode.LeftShift) && !Shift_LongPress) || Input.GetKeyUp(KeyCode.W)) 
         {
             moveState = MoveState.Idle;
             IsFastRun = false;
+            
         }
-        
-         Debug.Log(Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.W));
-        
-       //Debug.Log(moveState);
+        Debug.Log(moveState);
+
+
+
     }
     
 
@@ -641,6 +650,35 @@ public class PlayerController : MonoBehaviour {
 
     #endregion
     //--------------------------Move---------------------------------   
+    private void ShiftIntervel()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            ShiftPressTime = Time.time;
+        }      
+        
+        if (Input.GetKeyUp(KeyCode.LeftShift) && Time.time - ShiftPressTime < 0.3f)
+        {           
+            Shift_Click = true;
+            Shift_LongPress = false;
+            return;
+        }
+        else if(Input.GetKey(KeyCode.LeftShift) && Time.time - ShiftPressTime > 0.3f)
+        {
+            Shift_Click = false;
+            Shift_LongPress = true;
+            Debug.Log(Shift_LongPress);
+            return;
+        }
+        if (!Input.GetKey(KeyCode.LeftShift) && (Shift_Click || Shift_LongPress)) 
+        {
+            Shift_Click = false;
+            Shift_LongPress = false;
+        }
+
+        
+
+    }
     //--------------------------Avoid---------------------------------   
     private void Avoid()
     {
@@ -648,7 +686,7 @@ public class PlayerController : MonoBehaviour {
         if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack) 
         {
             
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Shift_Click)
             {
                 AvoidCanMove = true;
                 if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
@@ -870,7 +908,7 @@ public class PlayerController : MonoBehaviour {
         {
             StopCoroutine(CancelAttackCoroutine);
         }
-
+        StopCoroutine("CancelAttackNow");
        
     }
     public void ParticleTrigger()
@@ -905,14 +943,24 @@ public class PlayerController : MonoBehaviour {
 
     public void FirstAttackState() 
     {
+        
         playerAnimatorState = PlayerAnimatorState.Attack;
     }
 
     public void ChangeToIdle(float WaitTime) //-----Attack,Avoid,Damage-----
     {       
         ResetStateCoroutine = ResetState(WaitTime);
-      
-        StartCoroutine(ResetStateCoroutine);
+
+        if(AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)
+        {
+            Debug.Log("attack");
+            return;
+        }
+        else
+        {            
+            StartCoroutine(ResetStateCoroutine);
+        }
+        
     }
 
     IEnumerator ResetState(float WaitTime)
@@ -942,6 +990,11 @@ public class PlayerController : MonoBehaviour {
     public void ChangeAvoidState()
     {
         playerAnimatorState = PlayerAnimatorState.Avoid;
+        AttackColliderClose();
+        ShortAttack1_Particle.Stop();
+        ShortAttack2_Particle.Stop();
+        ShortAttack3_Particle.Stop();
+        LongAttack_Particle.Stop();
     }
 
     public void AttackColliderOpen_Small() 
