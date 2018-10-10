@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour {
     private bool Shift_LongPress;
     private bool Shift_Click;
     private float ShiftPressTime;
+    private bool CanMove;
     //---------------------------------------Avoid-------------
     public float AvoidSpeed;//Player Data
     public float AvoidDistance;
@@ -191,7 +192,7 @@ public class PlayerController : MonoBehaviour {
         AttackTrigger = 0;       
         PlayerAnimation_parameter = 0;
             
-        AvoidCanMove = true;
+        CanMove = true;
         AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
         AttackCollider_BigSkill.SetActive(false);
@@ -272,8 +273,8 @@ public class PlayerController : MonoBehaviour {
         {
             animator.applyRootMotion = false;
         }
-        Debug.Log(playerAnimatorState);
-        Debug.Log(animator.applyRootMotion);
+       /* Debug.Log(playerAnimatorState);*/
+       
       //  Debug.Log(attackState);
 
     }
@@ -405,7 +406,8 @@ public class PlayerController : MonoBehaviour {
                     animator.SetTrigger("BigSkill");
                     AttackTrigger = 0;
                     break;
-                case AttackState.DashAttack:                   
+                case AttackState.DashAttack:
+                    CanMove = true;
                     animator.SetTrigger("DashAttack");
                     AttackTrigger = 0;
                     break;
@@ -418,10 +420,8 @@ public class PlayerController : MonoBehaviour {
             AttackTrigger = 0;
         }
 
-        if (attackState == AttackState.DashAttack)
-        {
-            DashAttackMove();
-        }
+       
+        DashAttackMove();
        
     }
    
@@ -445,11 +445,20 @@ public class PlayerController : MonoBehaviour {
 
     private void DashAttackMove()
     {
-        DashAttack_NowDis = (Time.time - DashAttack_StartTime) * DashAttack_Speed;
-        DashAttack_FracDis = DashAttack_NowDis / DashAttack_MaxDis;
-        DashAttack_FracDis = Mathf.Clamp(DashAttack_FracDis, 0, 1);
-        transform.position = Vector3.Lerp(transform.position, DashAttack_Pos, DashAttack_FracDis);
-
+        if(attackState == AttackState.DashAttack && CanMove)
+        {
+            DashAttack_NowDis = (Time.time - DashAttack_StartTime) * DashAttack_Speed;
+            DashAttack_FracDis = DashAttack_NowDis / DashAttack_MaxDis;
+            DashAttack_FracDis = Mathf.Clamp(DashAttack_FracDis, 0, 1);
+            transform.position = Vector3.Lerp(transform.position, DashAttack_Pos, DashAttack_FracDis);
+            Debug.Log(CanMove);
+        }
+        else
+        {
+            DashAttack_NowDis = 0;
+            DashAttack_FracDis = 0;
+        }
+       
     }
 
     //--------------------------Attack---------------------------------      
@@ -569,7 +578,7 @@ public class PlayerController : MonoBehaviour {
             IsFastRun = false;
             
         }
-        Debug.Log(moveState);
+        /*Debug.Log(moveState);*/
 
 
 
@@ -720,7 +729,7 @@ public class PlayerController : MonoBehaviour {
         {
             Shift_Click = false;
             Shift_LongPress = true;
-            Debug.Log(Shift_LongPress);
+            
             return;
         }
         if (!Input.GetKey(KeyCode.LeftShift) && (Shift_Click || Shift_LongPress)) 
@@ -741,7 +750,7 @@ public class PlayerController : MonoBehaviour {
             
             if (Shift_Click)
             {
-                AvoidCanMove = true;
+                
                 if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
                 {
                     AvoidStateSelect(AvoidState.ForwardRight);
@@ -857,7 +866,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void AvoidStateSelect(AvoidState avoidState)
     {
-        AvoidCanMove = true;
+        CanMove = true;
         playerAnimatorState = PlayerAnimatorState.Avoid;
         DamageObject.SetActive(false);
         switch (avoidState)
@@ -912,7 +921,7 @@ public class PlayerController : MonoBehaviour {
     private void AvoidMovement()
     {
        
-        if (playerAnimatorState == PlayerAnimatorState.Avoid && AvoidCanMove)
+        if (playerAnimatorState == PlayerAnimatorState.Avoid && CanMove/*AvoidCanMove*/)
         {           
             IsAvoidDistance += Time.deltaTime * AvoidSpeed;
             FracDistance = IsAvoidDistance / AvoidDistance;
@@ -1112,11 +1121,13 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "Wall")
+        if (collider.tag == "Wall" ||　collider.tag=="Enemy")
         {
-            AvoidCanMove = false;
+            /*  AvoidCanMove = false;*/
+            CanMove = false;
            // Debug.Log("aa");
         }
     }
+
     //----------------------------Trigger---------------------------------
 }
