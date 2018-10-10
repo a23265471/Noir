@@ -3,38 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UIController : MonoBehaviour {
-    public GameObject openESCPanel;
-    private Animator ESCPanel_anim;
-    private bool ESC_PanelActive;
+    public GameObject ESCPanel;
+    public GameObject IntroPanel;
+    public GameObject Options;
+
+    private Animator ESCPanel_Anim;
+    public Animator IntroPanel_Anim;
+
+    private bool ESCPanel_Active;
     void Start()
     {
-        openESCPanel.SetActive(false);
-        ESC_PanelActive = false;
-        ESCPanel_anim = openESCPanel.GetComponent<Animator>();
+        ESCPanel_Active = true;
+        ESCPanel.SetActive(true);
+        Options.SetActive(true);
+        IntroPanel.SetActive(false);
+        ESCPanel_Anim =GetComponent<Animator>();
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            if (ESC_PanelActive)
+            if (ESCPanel_Active)
             {
-                ESC_PanelActive = false;
-                openESCPanel.SetActive(false);
-                
+                ESCPanel_Active = false;
+                ESCPanel.SetActive(false);
+                ESCPanel_Anim.SetBool("OpenESCPanel", false);
+
+
             }
             else
             {
-                ESC_PanelActive = true;
-                openESCPanel.SetActive(true);
+                ESCPanel_Active = true;
+                ESCPanel.SetActive(true);
+                ESCPanel_Anim.SetBool("OpenESCPanel", true);
                
             }
-            
+
         }
         
     }
     public void OpenIntro()
     {
-
+       
+        Options.SetActive(false);
+        IntroPanel.SetActive (true);
+        IntroPanel_Anim.SetBool("OpenIntroPanel",true);
+     }
+    public void CloseIntro()
+    {
+        IntroPanel_Anim.SetBool("OpenIntroPanel", false);
+        Options.SetActive(true);
+        IntroPanel.SetActive(false);
+       
     }
 }
 
