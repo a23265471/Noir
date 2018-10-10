@@ -7,14 +7,28 @@ public class EnemyController : MonoBehaviour
 {
     public enum EnemyState
     {
-        Idle,
-        Move,
+        Movement,
         Attack,
         Damage,
         GetDown,
         GetUp,
     }
+    private enum Movestate
+    {
+        Idle,
+        Move,
+    }
+    private enum AttackState
+    {
+        Attack1,
+        Attack2,
+        Attack3,
+        RangAttack,
+        DashAttack,
+    }
     private EnemyState enemyState;
+    private Movestate moveState;
+    private AttackState attackState;
 
     private Animator EnemyAnimator;
     public static EnemyController enemyController;
@@ -29,10 +43,17 @@ public class EnemyController : MonoBehaviour
     public float EnemyMaxSpeed;
     public float MoveAccelertion;//EneyData
     public float StopAccelertion;//EneyData   
+    public float BufferDis;
     private float EnemySpeed;
 
     //-----------------------Move-----------------   
-    // Use this for initialization
+
+    //--------------------Coroutine---------------
+    private IEnumerator ResetStateCoroutine;
+
+
+    //--------------------Coroutine---------------
+    
     private void Awake()
     {
         EnemyAnimator = GetComponent<Animator>();
@@ -40,58 +61,89 @@ public class EnemyController : MonoBehaviour
         EnemyNav = GetComponent<NavMeshAgent>();
        // Player = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
+
     void Start()
     {
         CanChase = true;
+        enemyState = EnemyState.Movement;
+        ResetStateCoroutine = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        EnemyMove();
-
+        if (enemyState == EnemyState.Movement)
+        {
+            EnemyMove();
+        }
+        Debug.Log(enemyState);
     }
 
     private void EnemyMove()
     {
-        PlayerDis = Vector3.Distance(transform.position, PlayerController.playerController.transform.position);
-
-        
-       if (PlayerDis <= EnemyNav.stoppingDistance)
+        EnemyNav.SetDestination(PlayerController.playerController.transform.position);
+        if (EnemyNav.remainingDistance <= EnemyNav.stoppingDistance+BufferDis)
         {
-            enemyState = EnemyState.Idle;
+            moveState = Movestate.Idle;
+            // EnemyNav.isStopped = true; ;
+            //EnemyNav.enabled = false;
+
+            EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed,2)/(2*BufferDis);
            
+
+            Debug.Log("A::"+EnemyNav.acceleration);
         }
-       else if (CanChase && PlayerDis <= PlayerChaseDis)
-        {            
-            EnemyNav.SetDestination(PlayerController.playerController.transform.position);
-            enemyState = EnemyState.Move;
+        else if (EnemyNav.remainingDistance > EnemyNav.stoppingDistance)
+        {          
+            moveState = Movestate.Move;
+            EnemyNav.acceleration = 5;
+            
         }
-        // Debug.Log(EnemyNav.isStopped);
-        // Debug.Log(enemyState);
+
+       
+      //  Debug.Log(EnemyNav.remainingDistance);
         EnemyMoveState();
     }
+
     private void EnemyMoveState()
     {
-        switch (enemyState)
+        switch (moveState)
         {
-            case EnemyState.Idle:
+            case Movestate.Idle:
                 EnemyMove_parameter = Mathf.Lerp(EnemyMove_parameter, 0, StopAccelertion);
                 break;
-            case EnemyState.Move:
+            case Movestate.Move:
                 EnemyMove_parameter = Mathf.Lerp(EnemyMove_parameter, 1, MoveAccelertion);
                 break;
- 
-
         }
-
         EnemyMove_parameter = Mathf.Clamp(EnemyMove_parameter, 0, 1);
         EnemyAnimator.SetFloat("MoveState", EnemyMove_parameter);
     }
+    //--------------------------Aniamtion Event------------------------------------------
+    public void EnemyDamage()
+    {
+        enemyState = EnemyState.Damage;
+        if (ResetStateCoroutine != null)
+        {
+            Debug.Log("bb");
+            StopCoroutine(ResetStateCoroutine);
+        }
+    }
 
+    public void EnemyChangToIdle(float WaitTime)
+    {
+        ResetStateCoroutine = ResetState(WaitTime);
+        StartCoroutine(ResetStateCoroutine);      
+    }
 
-
+    IEnumerator ResetState(float WaitTime)
+    {
+        yield return new WaitForSeconds(WaitTime);
+        Debug.Log("aa");
+        enemyState = EnemyState.Movement;
+    }
+    //--------------------------Aniamtion Event------------------------------------------
+    //---------------------------Collider------------------------------------------------
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
     {   
         if (other.tag == "PlayerAttack_Big")
@@ -110,10 +162,7 @@ public class EnemyController : MonoBehaviour
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
-        }
-           
-        
-        
+        }                         
         //EnemyCanDamage = false;
     }
    

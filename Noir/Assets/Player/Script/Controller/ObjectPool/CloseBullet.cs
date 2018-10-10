@@ -32,7 +32,7 @@ public class CloseBullet : MonoBehaviour {
             gameObject.SetActive(false);
             
         }
-        Debug.Log(LongAttackFracDistance);
+       
         
     }
     

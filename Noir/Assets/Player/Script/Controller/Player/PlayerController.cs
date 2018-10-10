@@ -142,7 +142,6 @@ public class PlayerController : MonoBehaviour {
     //private CapsuleCollider PlayerCollider;
     private CapsuleCollider[] PlayerCollider;
 
-
     private int FloorMask;
     public float grounded_dis;
 
@@ -997,9 +996,6 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
     }
-
-    
-
 
     public void FirstAttackState() 
     {
