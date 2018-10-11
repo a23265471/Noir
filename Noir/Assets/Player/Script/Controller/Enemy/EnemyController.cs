@@ -82,26 +82,27 @@ public class EnemyController : MonoBehaviour
     private void EnemyMove()
     {
         EnemyNav.SetDestination(PlayerController.playerController.transform.position);
-        if (EnemyNav.remainingDistance <= EnemyNav.stoppingDistance+BufferDis)
+
+        if (EnemyNav.velocity!=new Vector3(0, 0, 0))
         {
-            moveState = Movestate.Idle;
-            // EnemyNav.isStopped = true; ;
-            //EnemyNav.enabled = false;
-
-            EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed,2)/(2*BufferDis);
-           
-
-            Debug.Log("A::"+EnemyNav.acceleration);
+            if (moveState == Movestate.Idle)
+            {
+                BufferDis = 0.5f;
+                EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed, 2) / (2 * BufferDis);
+            }
+            moveState = Movestate.Move;           
         }
-        else if (EnemyNav.remainingDistance > EnemyNav.stoppingDistance)
-        {          
-            moveState = Movestate.Move;
-            EnemyNav.acceleration = 5;
-            
-        }
+        else
+        {
+            if (moveState == Movestate.Move)
+            {
+                BufferDis = 0;
+                EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed, 2) / (2 * BufferDis);
+            }
+            moveState = Movestate.Idle;           
+        }       
 
-       
-      //  Debug.Log(EnemyNav.remainingDistance);
+        Debug.Log(EnemyNav.remainingDistance);
         EnemyMoveState();
     }
 
@@ -141,6 +142,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(WaitTime);
         Debug.Log("aa");
         enemyState = EnemyState.Movement;
+        moveState = Movestate.Idle;
     }
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------
