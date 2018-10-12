@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     }
     private enum AttackState
     {
+        Defualt,
         Attack1,
         Attack2,
         Attack3,
@@ -43,8 +44,9 @@ public class EnemyController : MonoBehaviour
     public float EnemyMaxSpeed;
     public float MoveAccelertion;//EneyData
     public float StopAccelertion;//EneyData   
-    public float BufferDis;
+    private float BufferDis;
     private float EnemySpeed;
+
 
     //-----------------------Move-----------------   
 
@@ -75,6 +77,10 @@ public class EnemyController : MonoBehaviour
         if (enemyState == EnemyState.Movement)
         {
             EnemyMove();
+        }
+        if (EnemyNav.remainingDistance <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt) 
+        {
+            Attack(1);
         }
         Debug.Log(enemyState);
     }
@@ -120,6 +126,35 @@ public class EnemyController : MonoBehaviour
         EnemyMove_parameter = Mathf.Clamp(EnemyMove_parameter, 0, 1);
         EnemyAnimator.SetFloat("MoveState", EnemyMove_parameter);
     }
+
+    private void Attack(int AttackState_Number)
+    {
+
+        switch (AttackState_Number)
+        {   
+            case (int)AttackState.Attack1:
+                attackState = AttackState.Attack1;
+                EnemyAnimator.SetTrigger("Attack1");
+
+                break;
+            case (int)AttackState.Attack2:
+                EnemyAnimator.SetTrigger("Attack2");
+
+                break;
+            case (int)AttackState.Attack3:
+                EnemyAnimator.SetTrigger("Attack3");
+
+                break;
+
+
+        }
+            
+
+
+        
+
+    }
+
     //--------------------------Aniamtion Event------------------------------------------
     public void EnemyDamage()
     {
