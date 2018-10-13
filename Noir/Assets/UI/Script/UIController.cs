@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour {
                 ESCPanel.SetActive(false);
                 ESCPanel_Anim.SetBool("OpenESCPanel", false);
                 IntroPanel.SetActive(false);
-
+               
             }
             else
             {

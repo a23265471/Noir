@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class IntroPages : MonoBehaviour
 {
-
     public GameObject[] Pages;
     public GameObject Page_Active;
     public Text Page_Num;
@@ -31,12 +30,13 @@ public class IntroPages : MonoBehaviour
 
     private void Start()
     {
+        
         if (Pages.Length == 0)
             return;//return :直接跳出結束那個函式，不會繼續執行迴圈外的程式
 
         Page_Active = Pages[Page_CurrentNum];
         SetActivePage();
-      
+        
     }
 
   
