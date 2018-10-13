@@ -792,6 +792,88 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &598981739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 598981740}
+  - component: {fileID: 598981741}
+  m_Layer: 11
+  m_Name: EnemyAttack_R_Collider
+  m_TagString: EnemyAttack_Small
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &598981740
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598981739}
+  m_LocalRotation: {x: -0.0000026303453, y: -0.0000018273882, z: -2.660199e-11, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1276580586}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &598981741
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598981739}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.84, y: 0.26, z: 0.3}
+  m_Center: {x: 0.1, y: 0, z: 0.03}
+--- !u!1 &748729037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 748729038}
+  - component: {fileID: 748729039}
+  m_Layer: 11
+  m_Name: EnemyAttack_L_Collider
+  m_TagString: EnemyAttack_Small
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &748729038
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 748729037}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1276580587}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &748729039
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 748729037}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.84, y: 0.26, z: 0.3}
+  m_Center: {x: -0, y: 0, z: 0.03}
 --- !u!1 &1021662867 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
@@ -834,6 +916,7 @@ MonoBehaviour:
   EnemyMaxSpeed: 0
   MoveAccelertion: 0.1
   StopAccelertion: 0.1
+  PlayerisDamage: 0
 --- !u!136 &1021662870
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1246,9 +1329,37 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+      propertyPath: m_TagString
+      value: EnemyAttack_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 400086, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400078, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400094, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400070, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &1276580586 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400068, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+  m_PrefabInternal: {fileID: 1276580585}
+--- !u!4 &1276580587 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400014, guid: c0825c791bb7d474e8a50ead4c48bff9, type: 3}
+  m_PrefabInternal: {fileID: 1276580585}
 --- !u!1001 &1381422811
 Prefab:
   m_ObjectHideFlags: 0

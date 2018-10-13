@@ -188,7 +188,9 @@ ModelImporter:
       has scale animation that will be discarded.\n\t'StoneRigRArmDigit33' has scale
       animation that will be discarded.\n\t'StoneRigRArmDigit41' has scale animation
       that will be discarded.\n\t'StoneRigRArmDigit42' has scale animation that will
-      be discarded.\n\t'StoneRigRArmDigit43' has scale animation that will be discarded.\n"
+      be discarded.\n\t'StoneRigRArmDigit43' has scale animation that will be discarded.\nEvent
+      \ has a time (1.766667) outside the clip's valid range (0.000000..1.766666).
+      It will never be fired"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -790,8 +792,8 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
@@ -800,7 +802,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.5066666
+        functionName: AttackCollider_Open
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.7200001
+        functionName: AttackCollider_Close
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -944,7 +970,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 0.36000016
+        functionName: AttackCollider_Open
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.6233334
+        functionName: AttackCollider_Close
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1088,7 +1138,30 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: 
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.35333315
+        functionName: AttackCollider_Open
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.58666635
+        functionName: AttackCollider_Close
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

@@ -49,7 +49,16 @@ public class EnemyController : MonoBehaviour
 
 
     //-----------------------Move-----------------   
+    //----------------------Attack----------------
+    public bool PlayerisDamage;
+    private GameObject Attack_R_Collider;
+    private GameObject Attack_L_Collider;
+  /*  private GameObject AttackDown_R_Collider;
+    private GameObject AttackSmall_L_Collider;
+    private GameObject AttackBig_L_Collider;
+    private GameObject AttackDown_L_Collider;*/
 
+    //----------------------Attack----------------
     //--------------------Coroutine---------------
     private IEnumerator ResetStateCoroutine;
 
@@ -61,7 +70,11 @@ public class EnemyController : MonoBehaviour
         EnemyAnimator = GetComponent<Animator>();
         enemyController = this;
         EnemyNav = GetComponent<NavMeshAgent>();
-       // Player = GameObject.FindGameObjectWithTag("Player").gameObject;
+        Attack_R_Collider = GameObject.Find("EnemyAttack_R_Collider");
+        Attack_L_Collider = GameObject.Find("EnemyAttack_L_Collider");
+       
+
+        // Player = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
 
     void Start()
@@ -127,6 +140,7 @@ public class EnemyController : MonoBehaviour
         EnemyAnimator.SetFloat("MoveState", EnemyMove_parameter);
     }
 
+
     private void Attack(int AttackState_Number)
     {
 
@@ -135,37 +149,29 @@ public class EnemyController : MonoBehaviour
             case (int)AttackState.Attack1:
                 attackState = AttackState.Attack1;
                 EnemyAnimator.SetTrigger("Attack1");
-
+                Attack_L_Collider.tag = "EnemyAttack_Small";
+                Attack_R_Collider.tag = "EnemyAttack_Small";
                 break;
             case (int)AttackState.Attack2:
-                EnemyAnimator.SetTrigger("Attack2");
-
+                if (PlayerisDamage)
+                {
+                    EnemyAnimator.SetTrigger("Attack2");
+                    PlayerisDamage = false;
+                }
+               
                 break;
             case (int)AttackState.Attack3:
-                EnemyAnimator.SetTrigger("Attack3");
-
+                if (PlayerisDamage)
+                {
+                    EnemyAnimator.SetTrigger("Attack3");
+                    PlayerisDamage = false;
+                }                
                 break;
-
-
-        }
-            
-
-
-        
-
+        }           
+      
     }
 
     //--------------------------Aniamtion Event------------------------------------------
-    public void EnemyDamage()
-    {
-        enemyState = EnemyState.Damage;
-        if (ResetStateCoroutine != null)
-        {
-            Debug.Log("bb");
-            StopCoroutine(ResetStateCoroutine);
-        }
-    }
-
     public void EnemyChangToIdle(float WaitTime)
     {
         ResetStateCoroutine = ResetState(WaitTime);
@@ -178,6 +184,37 @@ public class EnemyController : MonoBehaviour
         Debug.Log("aa");
         enemyState = EnemyState.Movement;
         moveState = Movestate.Idle;
+    }
+    public void EnemyDamage()
+    {
+        enemyState = EnemyState.Damage;
+        if (ResetStateCoroutine != null)
+        {
+            Debug.Log("bb");
+            StopCoroutine(ResetStateCoroutine);
+        }
+    }
+
+    public void AttackCollider_Open(int AttackState_Number)
+    {
+        switch (AttackState_Number)
+        {
+            case (int)AttackState.Attack1:
+                Attack_R_Collider.SetActive(true);
+                break;
+            case (int)AttackState.Attack2:
+                Attack_L_Collider.SetActive(true);
+                break;
+            case (int)AttackState.Attack3:
+                Attack_R_Collider.SetActive(true);
+                Attack_L_Collider.SetActive(true);
+                break;
+        }       
+    }
+    public void AttackCollider_Close()
+    {
+        Attack_L_Collider.SetActive(false);
+        Attack_R_Collider.SetActive(false);
     }
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------

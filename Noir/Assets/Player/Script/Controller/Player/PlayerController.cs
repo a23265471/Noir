@@ -873,8 +873,7 @@ public class PlayerController : MonoBehaviour {
             case AvoidState.Forward:               
                 avoidState = AvoidState.Forward;
                 animator.SetTrigger("Avoid_Forward");
-                AvoidRotate = 0;
-               
+                AvoidRotate = 0;              
                 break;
             case AvoidState.Back:            
                 avoidState = AvoidState.Back;

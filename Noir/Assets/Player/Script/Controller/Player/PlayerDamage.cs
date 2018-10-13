@@ -25,11 +25,13 @@ public class PlayerDamage : MonoBehaviour {
         {
             PlayerController.playerController.playerAnimatorState = PlayerController.PlayerAnimatorState.Damage;
             PlayerController.playerController.animator.SetTrigger("Damage_Big");
+            EnemyController.enemyController.PlayerisDamage = true;
         }
         else if (other.tag == "EnemyAttack_Small")
         {
             PlayerController.playerController.playerAnimatorState = PlayerController.PlayerAnimatorState.Damage;
             PlayerController.playerController.animator.SetTrigger("Damage_Small");
+            EnemyController.enemyController.PlayerisDamage = true;
         }
     }
 
