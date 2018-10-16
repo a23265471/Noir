@@ -114,6 +114,9 @@
     <Compile Include="Assets\Player\Script\Controller\ObjectPool\ObjectPool.cs" />
     <Compile Include="Assets\Player\Script\Controller\Player\PlayerController.cs" />
     <Compile Include="Assets\Player\Script\Controller\Player\PlayerDamage.cs" />
+    <Compile Include="Assets\Player\Script\Effect\GhostItem.cs" />
+    <Compile Include="Assets\Player\Script\Effect\GhostShadow.cs" />
+    <Compile Include="Assets\Player\Script\Effect\GhostShadowSwitch.cs" />
     <Compile Include="Assets\Player\Script\GameManager.cs" />
     <Compile Include="Assets\Player\Script\ScriptableObject\PlayerData.cs" />
     <Compile Include="Assets\UI\Script\Fading.cs" />
@@ -166,6 +169,7 @@
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\Effect\Others\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMS.shader" />
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\Bloom.shader" />
+    <None Include="Assets\Player\Script\Effect\Xray.shader" />
     <None Include="Assets\Effect\Others\PostProcessing\Editor Resources\Monitors\VectorscopeRender.shader" />
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
     <None Include="Assets\Effect\Others\PostProcessing\Resources\Shaders\ColorGrading.cginc" />

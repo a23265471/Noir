@@ -131,12 +131,16 @@ public class PlayerController : MonoBehaviour {
     public GameObject ShortAttack3_Object;
     private GameObject LongAttack_Object;
     private GameObject LongAttackBullet_Object;
+    private GameObject BigSkill_Object;
+    private GameObject DashAttack_Object;
 
     private ParticleSystem ShortAttack1_Particle;
     private ParticleSystem ShortAttack2_Particle;
     private ParticleSystem ShortAttack3_Particle;
     private ParticleSystem LongAttack_Particle;
     private ParticleSystem LongAttackBullet_Particle;
+    private ParticleSystem BigSkill_Particle;
+    private ParticleSystem DashAttack_Particle;
     //-----------------------------Particle------------
 
     //private CapsuleCollider PlayerCollider;
@@ -168,6 +172,8 @@ public class PlayerController : MonoBehaviour {
         DamageObject = gameObject.transform.Find("DamageCollider").gameObject;
         AttackCollider_BigSkill = gameObject.transform.Find("BigSkillCollider").gameObject;
         LongAttackBullet_Object = gameObject.transform.Find("fx_LongAttackBullet").gameObject;
+        BigSkill_Object = gameObject.transform.Find("fx_AuraMagicCircle").gameObject;
+        DashAttack_Object = gameObject.transform.Find("fx_Slash_White").gameObject;
 
         PlayerCollider = GetComponents<CapsuleCollider>();
         DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
@@ -179,6 +185,8 @@ public class PlayerController : MonoBehaviour {
         ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
         LongAttack_Particle = LongAttack_Object.GetComponent<ParticleSystem>();
         LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
+        BigSkill_Particle = BigSkill_Object.GetComponent<ParticleSystem>();
+        DashAttack_Particle = DashAttack_Object.GetComponent<ParticleSystem>();
 
         //-----particle---
     }
@@ -994,6 +1002,15 @@ public class PlayerController : MonoBehaviour {
                 LongAttackBullet_Particle.Play();
                 LongAttackGetObj();
                 break;
+            case AttackState.BigSkill:
+                BigSkill_Particle.Stop();
+                BigSkill_Particle.Play();
+                break;
+            case AttackState.DashAttack:
+                DashAttack_Particle.Stop();
+                DashAttack_Particle.Play();
+                break;
+
         }
     }
 
