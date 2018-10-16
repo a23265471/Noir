@@ -51,12 +51,13 @@ public class EnemyController : MonoBehaviour
     //-----------------------Move-----------------   
     //----------------------Attack----------------
     public bool PlayerisDamage;
-    private GameObject Attack_R_Collider;
-    private GameObject Attack_L_Collider;
-  /*  private GameObject AttackDown_R_Collider;
-    private GameObject AttackSmall_L_Collider;
-    private GameObject AttackBig_L_Collider;
-    private GameObject AttackDown_L_Collider;*/
+    public GameObject Attack_R_Collider;
+    public GameObject Attack_L_Collider;
+    private bool TriggerNextAttack;
+    /*  private GameObject AttackDown_R_Collider;
+      private GameObject AttackSmall_L_Collider;
+      private GameObject AttackBig_L_Collider;
+      private GameObject AttackDown_L_Collider;*/
 
     //----------------------Attack----------------
     //--------------------Coroutine---------------
@@ -64,15 +65,16 @@ public class EnemyController : MonoBehaviour
 
 
     //--------------------Coroutine---------------
-    
+
     private void Awake()
     {
         EnemyAnimator = GetComponent<Animator>();
         enemyController = this;
         EnemyNav = GetComponent<NavMeshAgent>();
-        Attack_R_Collider = GameObject.Find("EnemyAttack_R_Collider");
-        Attack_L_Collider = GameObject.Find("EnemyAttack_L_Collider");
-       
+        /* Attack_R_Collider = gameObject.transform.Find("EnemyAttack_R_Collider").gameObject;
+         Attack_L_Collider = gameObject.transform.Find("EnemyAttack_L_Collider").gameObject;*/
+        Attack_L_Collider.SetActive(false);
+        Attack_R_Collider.SetActive(false);
 
         // Player = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
@@ -82,46 +84,63 @@ public class EnemyController : MonoBehaviour
         CanChase = true;
         enemyState = EnemyState.Movement;
         ResetStateCoroutine = null;
+        
+       /* Attack_R_Collider.SetActive(false);
+        Attack_L_Collider.SetActive(false);*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (enemyState == EnemyState.Movement)
-        {
-            EnemyMove();
-        }
-        if (EnemyNav.remainingDistance <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt) 
+
+    }
+    private void FixedUpdate()
+    {
+
+        PlayerDis = Vector3.Distance(PlayerController.playerController.transform.position, transform.position);
+
+        if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
         {
             Attack(1);
         }
+        
+        EnemyMove();
+        
         Debug.Log(enemyState);
     }
 
     private void EnemyMove()
     {
         EnemyNav.SetDestination(PlayerController.playerController.transform.position);
+        if (enemyState != EnemyState.Movement)
+        {
+            EnemyNav.isStopped = true;
+        }
+        else
+        {
+            EnemyNav.isStopped = false;
+        }
 
-        if (EnemyNav.velocity!=new Vector3(0, 0, 0))
+        if (EnemyNav.velocity != new Vector3(0, 0, 0))
         {
             if (moveState == Movestate.Idle)
             {
                 BufferDis = 0.5f;
                 EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed, 2) / (2 * BufferDis);
             }
-            moveState = Movestate.Move;           
+            moveState = Movestate.Move;
         }
         else
         {
             if (moveState == Movestate.Move)
             {
                 BufferDis = 0;
-                EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed, 2) / (2 * BufferDis);
+              //  EnemyNav.acceleration = Mathf.Pow(EnemyNav.speed, 2) / (2 * BufferDis);
             }
-            moveState = Movestate.Idle;           
-        }       
+            moveState = Movestate.Idle;
+        }
 
-        Debug.Log(EnemyNav.remainingDistance);
+       
         EnemyMoveState();
     }
 
@@ -141,59 +160,73 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    private void Attack(int AttackState_Number)
+    public void Attack(int AttackStateInt)
     {
-
-        switch (AttackState_Number)
-        {   
+        switch (AttackStateInt)
+        {
             case (int)AttackState.Attack1:
-                attackState = AttackState.Attack1;
                 EnemyAnimator.SetTrigger("Attack1");
-                Attack_L_Collider.tag = "EnemyAttack_Small";
+                attackState = AttackState.Attack1;
                 Attack_R_Collider.tag = "EnemyAttack_Small";
                 break;
             case (int)AttackState.Attack2:
+                Debug.Log("ss");
                 if (PlayerisDamage)
                 {
+                    Attack_L_Collider.tag = "EnemyAttack_Big";
                     EnemyAnimator.SetTrigger("Attack2");
+                    attackState = AttackState.Attack2;
+                    TriggerNextAttack = true;
                     PlayerisDamage = false;
-                }
-               
+                    Debug.Log(Attack_L_Collider.tag);
+                }               
                 break;
             case (int)AttackState.Attack3:
                 if (PlayerisDamage)
                 {
+                    Attack_L_Collider.tag = "EnemyAttack_GetDown";
                     EnemyAnimator.SetTrigger("Attack3");
-                    PlayerisDamage = false;
-                }                
+                    attackState = AttackState.Attack3;
+                    PlayerisDamage = false;                   
+                }
                 break;
-        }           
-      
+
+        }
+
+
     }
 
     //--------------------------Aniamtion Event------------------------------------------
     public void EnemyChangToIdle(float WaitTime)
     {
         ResetStateCoroutine = ResetState(WaitTime);
-        StartCoroutine(ResetStateCoroutine);      
+        //StartCoroutine(ResetStateCoroutine);
+        if (!TriggerNextAttack)
+        {
+            StartCoroutine(ResetStateCoroutine);
+        }
+        TriggerNextAttack = false;
+        Debug.Log("ChangToIdle");
     }
 
     IEnumerator ResetState(float WaitTime)
     {
         yield return new WaitForSeconds(WaitTime);
-        Debug.Log("aa");
         enemyState = EnemyState.Movement;
         moveState = Movestate.Idle;
+        attackState = AttackState.Defualt;
+        
     }
-    public void EnemyDamage()
+
+    public void SetAttackState()
     {
-        enemyState = EnemyState.Damage;
+        enemyState = EnemyState.Attack;
         if (ResetStateCoroutine != null)
         {
-            Debug.Log("bb");
             StopCoroutine(ResetStateCoroutine);
         }
     }
+
 
     public void AttackCollider_Open(int AttackState_Number)
     {
@@ -206,7 +239,7 @@ public class EnemyController : MonoBehaviour
                 Attack_L_Collider.SetActive(true);
                 break;
             case (int)AttackState.Attack3:
-                Attack_R_Collider.SetActive(true);
+               // Attack_R_Collider.SetActive(true);
                 Attack_L_Collider.SetActive(true);
                 break;
         }       
@@ -215,6 +248,15 @@ public class EnemyController : MonoBehaviour
     {
         Attack_L_Collider.SetActive(false);
         Attack_R_Collider.SetActive(false);
+    }
+
+    public void EnemyDamage()
+    {
+        enemyState = EnemyState.Damage;
+        if (ResetStateCoroutine != null)
+        {
+            StopCoroutine(ResetStateCoroutine);
+        }
     }
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------

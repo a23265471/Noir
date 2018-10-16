@@ -189,7 +189,7 @@ ModelImporter:
       animation that will be discarded.\n\t'StoneRigRArmDigit41' has scale animation
       that will be discarded.\n\t'StoneRigRArmDigit42' has scale animation that will
       be discarded.\n\t'StoneRigRArmDigit43' has scale animation that will be discarded.\nEvent
-      \ has a time (1.766667) outside the clip's valid range (0.000000..1.766666).
+      EnemyChangToIdle has a time (1.766667) outside the clip's valid range (0.000000..1.766666).
       It will never be fired"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -786,7 +786,7 @@ ModelImporter:
       lastFrame: 420
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 0.2
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -803,15 +803,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: Attack
+      - time: 0
+        functionName: SetAttackState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
           type: 3}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 1
         messageOptions: 0
-      - time: 0.5066666
+      - time: 0.5158832
         functionName: AttackCollider_Open
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
@@ -825,7 +825,23 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
           type: 3}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9354839
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 1
+        functionName: EnemyChangToIdle
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0.1
+        intParameter: 0
         messageOptions: 0
       transformMask:
       - path: 
@@ -954,14 +970,14 @@ ModelImporter:
       lastFrame: 494
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 0.2
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
@@ -971,13 +987,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: Attack
+      - time: 0
+        functionName: SetAttackState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
           type: 3}
         floatParameter: 0
-        intParameter: 3
+        intParameter: 0
         messageOptions: 0
       - time: 0.36000016
         functionName: AttackCollider_Open
@@ -993,6 +1009,22 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
           type: 3}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.72318166
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: 1
+        functionName: EnemyChangToIdle
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0.1
         intParameter: 0
         messageOptions: 0
       transformMask:
@@ -1122,7 +1154,7 @@ ModelImporter:
       lastFrame: 548
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 0.2
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -1140,10 +1172,11 @@ ModelImporter:
       curves: []
       events:
       - time: 1
-        functionName: 
+        functionName: EnemyChangToIdle
         data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0.1
         intParameter: 0
         messageOptions: 0
       - time: 0.35333315
@@ -1152,10 +1185,18 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
           type: 3}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 3
         messageOptions: 0
       - time: 0.58666635
         functionName: AttackCollider_Close
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: SetAttackState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
           type: 3}

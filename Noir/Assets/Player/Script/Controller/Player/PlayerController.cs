@@ -160,14 +160,15 @@ public class PlayerController : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        Player_pre_pos = this.gameObject.transform.GetChild(0);
-        ShortAttack1_Object = this.gameObject.transform.GetChild(1).gameObject;
-        ShortAttack2_Object = this.gameObject.transform.GetChild(2).gameObject;
-        ShortAttack3_Object = this.gameObject.transform.GetChild(3).gameObject;
-        LongAttack_Object = this.gameObject.transform.GetChild(4).gameObject;
-        DamageObject = this.gameObject.transform.GetChild(5).gameObject;
-        AttackCollider_BigSkill = this.gameObject.transform.GetChild(6).gameObject;
-        LongAttackBullet_Object = this.gameObject.transform.GetChild(7).gameObject;
+        Player_pre_pos = gameObject.transform.Find("Camare_LookAt");
+        ShortAttack1_Object = gameObject.transform.Find("fx_ShortAttack_1").gameObject;
+        ShortAttack2_Object = gameObject.transform.Find("fx_ShortAttack_2").gameObject;
+        ShortAttack3_Object = gameObject.transform.Find("fx_ShortAttack_3").gameObject;
+        LongAttack_Object = gameObject.transform.Find("LongAttack_MagicCircle").gameObject;
+        DamageObject = gameObject.transform.Find("DamageCollider").gameObject;
+        AttackCollider_BigSkill = gameObject.transform.Find("BigSkillCollider").gameObject;
+        LongAttackBullet_Object = gameObject.transform.Find("fx_LongAttackBullet").gameObject;
+
         PlayerCollider = GetComponents<CapsuleCollider>();
         DamageCollider = DamageObject.GetComponent<CapsuleCollider>();
         FloorMask = LayerMask.GetMask("Floor");
@@ -1005,11 +1006,11 @@ public class PlayerController : MonoBehaviour {
     public void ChangeToIdle(float WaitTime) //-----Attack,Avoid,Damage-----
     {       
         ResetStateCoroutine = ResetState(WaitTime);
-       
 
-        if(AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)
+        Debug.Log("attack");
+        if (AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)
         {
-            Debug.Log("attack");
+            
             return;
         }
         else
