@@ -54,6 +54,7 @@ public class EnemyController : MonoBehaviour
     public GameObject Attack_R_Collider;
     public GameObject Attack_L_Collider;
     private bool TriggerNextAttack;
+    private float AttackProbability;
     /*  private GameObject AttackDown_R_Collider;
       private GameObject AttackSmall_L_Collider;
       private GameObject AttackBig_L_Collider;
@@ -101,7 +102,12 @@ public class EnemyController : MonoBehaviour
 
         if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
         {
-            Attack(1);
+            AttackProbability = Random.Range(1, 10);
+            if (AttackProbability >= 7)
+            {
+                Attack(1);
+            }
+            
         }
         
         EnemyMove();
@@ -169,11 +175,10 @@ public class EnemyController : MonoBehaviour
                 attackState = AttackState.Attack1;
                 Attack_R_Collider.tag = "EnemyAttack_Small";
                 break;
-            case (int)AttackState.Attack2:
-                Debug.Log("ss");
+            case (int)AttackState.Attack2:             
                 if (PlayerisDamage)
                 {
-                    Attack_L_Collider.tag = "EnemyAttack_Big";
+                    Attack_L_Collider.tag = "EnemyAttack_Small";
                     EnemyAnimator.SetTrigger("Attack2");
                     attackState = AttackState.Attack2;
                     TriggerNextAttack = true;
@@ -184,7 +189,7 @@ public class EnemyController : MonoBehaviour
             case (int)AttackState.Attack3:
                 if (PlayerisDamage)
                 {
-                    Attack_L_Collider.tag = "EnemyAttack_GetDown";
+                    Attack_L_Collider.tag = "EnemyAttack_Big";
                     EnemyAnimator.SetTrigger("Attack3");
                     attackState = AttackState.Attack3;
                     PlayerisDamage = false;                   
@@ -206,7 +211,7 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(ResetStateCoroutine);
         }
         TriggerNextAttack = false;
-        Debug.Log("ChangToIdle");
+       // Debug.Log("ChangToIdle");
     }
 
     IEnumerator ResetState(float WaitTime)

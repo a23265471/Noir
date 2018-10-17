@@ -199,6 +199,7 @@ public class PlayerController : MonoBehaviour {
         playerController = this;
         AttackTrigger = 0;       
         PlayerAnimation_parameter = 0;
+        GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = false;
             
         CanMove = true;
         AttackCollider_Small.SetActive(false);
@@ -241,7 +242,7 @@ public class PlayerController : MonoBehaviour {
             Avoid();
             Attack();
 
-            
+            //Debug.Log(avoidState);
 
             if (playerAnimatorState == PlayerAnimatorState.Movement)
             {
@@ -293,7 +294,7 @@ public class PlayerController : MonoBehaviour {
        if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack || playerAnimatorState==PlayerAnimatorState.Avoid)
         {
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q) && attackState == AttackState.Default) 
             {
                 if (CanAttack)
                 {
@@ -753,7 +754,7 @@ public class PlayerController : MonoBehaviour {
     private void Avoid()
     {
         
-        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack) 
+        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill)  
         {
             
             if (Shift_Click)
@@ -778,6 +779,7 @@ public class PlayerController : MonoBehaviour {
                 else if (Input.GetKey(KeyCode.W))
                 {                 
                     AvoidStateSelect(AvoidState.Forward);
+                    
                 }
                 else if (Input.GetKey(KeyCode.S)) 
                 {
@@ -791,6 +793,7 @@ public class PlayerController : MonoBehaviour {
                 {                 
                     AvoidStateSelect(AvoidState.Right);
                 }
+               
             }
             if (Input.GetKey(KeyCode.W))
             {
@@ -840,6 +843,7 @@ public class PlayerController : MonoBehaviour {
 
         
         Debug.DrawLine(transform.position, AvoidPosition, Color.red);
+       
         AvoidMovement();    
     }
     private void Avoid_DoubleClickFuntion(AvoidState avoidState,string InputKey)
@@ -872,19 +876,20 @@ public class PlayerController : MonoBehaviour {
         CanDoubleClick = false;
         
     }
-    private void AvoidStateSelect(AvoidState avoidState)
+    private void AvoidStateSelect(AvoidState InputAvoidState)
     {
         CanMove = true;
         playerAnimatorState = PlayerAnimatorState.Avoid;
         DamageObject.SetActive(false);
-        switch (avoidState)
+        switch (InputAvoidState)
         {
-            case AvoidState.Forward:               
-                avoidState = AvoidState.Forward;
+            case AvoidState.Forward:
+                avoidState = InputAvoidState;
                 animator.SetTrigger("Avoid_Forward");
-                AvoidRotate = 0;              
+                AvoidRotate = 0;
+                
                 break;
-            case AvoidState.Back:            
+            case AvoidState.Back:              
                 avoidState = AvoidState.Back;
                 animator.SetTrigger("Avoid_Back");
                 AvoidRotate = 180;
@@ -922,7 +927,7 @@ public class PlayerController : MonoBehaviour {
                 break;
 
         }
-
+        
     }
 
     private void AvoidMovement()
@@ -1042,6 +1047,7 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(WaitTime);
         playerAnimatorState = PlayerAnimatorState.Movement;
         avoidState = AvoidState.Default;
+        GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = false;
         IsFastRun = false;
         DamageObject.SetActive(true);
         
@@ -1069,6 +1075,10 @@ public class PlayerController : MonoBehaviour {
         ShortAttack2_Particle.Stop();
         ShortAttack3_Particle.Stop();
         LongAttack_Particle.Stop();
+        if (avoidState == AvoidState.Back || avoidState == AvoidState.BackLeft || avoidState == AvoidState.BackRight)
+        {
+            GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = true;
+        }
     }
 
     public void AttackColliderOpen_Small() 

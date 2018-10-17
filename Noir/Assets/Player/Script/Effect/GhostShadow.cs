@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class GhostShadow : MonoBehaviour
 {
+    public static GhostShadow ghostShadow;
     //持續時間
     public float duration = 2f;
     //殘影間隔
@@ -15,13 +16,17 @@ public class GhostShadow : MonoBehaviour
 
     //殘影造型
     Shader ghostShader;
-
-    void Start()
+    private void Awake()
     {
-        
-        meshRender = this.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        ghostShadow = this;
+    }
+    void Start()
+    {       
+
+        meshRender = this.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 
         ghostShader = Shader.Find("Xray");
+        
     }
 
     private float lastTime = 0;
