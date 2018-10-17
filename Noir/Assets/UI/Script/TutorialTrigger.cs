@@ -7,16 +7,19 @@ public class TutorialTrigger : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Tutorial.SetActive(false);
-	}
-    private void OnTriggerOpen()
+    }
+    public void OnTriggerEnter(Collider du)
     {
-        Tutorial.SetActive(true);
-        StartCoroutine(OnTriggerClose());
-        Tutorial.SetActive(false);
+        if(du.gameObject.name=="Tutorial_Collider")
+        Tutorial.SetActive(true);  
+    }
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0)|| Input.GetMouseButtonDown(1))
+        {
+            Tutorial.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
 
-    }
-    IEnumerator OnTriggerClose()
-    {
-        yield return new WaitForSeconds(5f);
-    }
 }
