@@ -3,23 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialTrigger : MonoBehaviour {
-    public GameObject Tutorial;
+  public GameObject Tutorial;
 	// Use this for initialization
 	void Start () {
-        Tutorial.SetActive(false);
+        
     }
-    public void OnTriggerEnter(Collider du)
+    public void OnTriggerEnter(Collider other)
     {
-        if(du.gameObject.name=="Tutorial_Collider")
-        Tutorial.SetActive(true);  
-    }
-    public void Update()
-    {
-        if (Input.GetMouseButtonDown(0)|| Input.GetMouseButtonDown(1))
+        if (other.gameObject.tag == "Player")
         {
-            Tutorial.SetActive(false);
-            gameObject.SetActive(false);
+            Tutorial.SetActive(true);
         }
     }
-
+   
+  
 }
