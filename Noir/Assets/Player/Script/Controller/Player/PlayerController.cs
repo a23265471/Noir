@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
         Damage,
         GetDown,
         GetUp,
+        Dead,
     }
     enum MoveState
     {
@@ -952,7 +953,24 @@ public class PlayerController : MonoBehaviour {
         
     }
     //--------------------------Avoid---------------------------------   
+    //--------------------------Dead----------------------------------
 
+    public void Dead()
+    {
+        if (playerAnimatorState != PlayerAnimatorState.Dead)
+        {
+            animator.SetTrigger("Dead");
+            playerAnimatorState = PlayerAnimatorState.Dead;
+            
+        }
+       
+    }
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+    }
+
+    //--------------------------Dead----------------------------------
     //-------------------------Animatioｎ　Event--------------------******
 
     //------------Attack-----------

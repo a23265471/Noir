@@ -100,18 +100,20 @@ public class EnemyController : MonoBehaviour
 
         PlayerDis = Vector3.Distance(PlayerController.playerController.transform.position, transform.position);
 
-        if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
+        if (PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead)
         {
-            AttackProbability = Random.Range(1, 10);
-            if (AttackProbability >= 7)
+            if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
             {
-                Attack(1);
+                AttackProbability = Random.Range(1, 10);
+                if (AttackProbability >= 7)
+                {
+                    Attack(1);
+                }
+
             }
-            
+
+            EnemyMove();
         }
-        
-        EnemyMove();
-        
         Debug.Log(enemyState);
     }
 
