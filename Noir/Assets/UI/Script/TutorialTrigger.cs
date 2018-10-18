@@ -13,6 +13,7 @@ public class TutorialTrigger : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             Tutorial.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
    
