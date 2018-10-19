@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour {
         AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
         Rotaion();
         
-        if (Physics.Raycast(transform.position, -Vector3.up, PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis), FloorMask))
+        if (Physics.Raycast(transform.position+new Vector3(0,0.01f,0), -Vector3.up, PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis), FloorMask))
         {
             ShiftIntervel();
             Avoid();
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour {
         AnimatorStateControll();
 
 
-        Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - (PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis)), transform.position.z), Color.red);
+        Debug.DrawLine(transform.position + new Vector3(0, 0.01f, 0), new Vector3(transform.position.x, transform.position.y  - (PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis)), transform.position.z), Color.red);
        
     }
     private void AnimatorStateControll()
