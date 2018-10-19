@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour {
     private bool CanFastRun;
     private float preClickTime;
     private float nextClickTime;
+    private Rigidbody rigi;
     //----------------------------------Move-----------------
     private bool Shift_LongPress;
     private bool Shift_Click;
@@ -192,6 +193,7 @@ public class PlayerController : MonoBehaviour {
         LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
         BigSkill_Particle = BigSkill_Object.GetComponent<ParticleSystem>();
         DashAttack_Particle = DashAttack_Object.GetComponent<ParticleSystem>();
+        rigi = GetComponent<Rigidbody>();
 
         //-----particle---
     }
@@ -202,7 +204,7 @@ public class PlayerController : MonoBehaviour {
         Move_parameter_x = 0;
         Move_parameter_x = 0;
         playerController = this;
-        AttackTrigger = 0;       
+        AttackTrigger = 0;
         PlayerAnimation_parameter = 0;
         GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = false;
             
@@ -249,7 +251,7 @@ public class PlayerController : MonoBehaviour {
             ShiftIntervel();
             Avoid();
             Attack();
-
+            rigi.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
             //Debug.Log(avoidState);
 
             if (playerAnimatorState == PlayerAnimatorState.Movement)

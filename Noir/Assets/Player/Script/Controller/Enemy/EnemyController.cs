@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
         Damage,
         GetDown,
         GetUp,
+        Dead,
     }
     private enum Movestate
     {
@@ -27,7 +28,7 @@ public class EnemyController : MonoBehaviour
         RangAttack,
         DashAttack,
     }
-    private EnemyState enemyState;
+    public EnemyState enemyState;
     private Movestate moveState;
     private AttackState attackState;
 
@@ -174,6 +175,7 @@ public class EnemyController : MonoBehaviour
         switch (AttackStateInt)
         {
             case (int)AttackState.Attack1:
+                transform.LookAt(PlayerController.playerController.transform);
                 EnemyAnimator.SetTrigger("Attack1");
                 attackState = AttackState.Attack1;
                 Attack_R_Collider.tag = "EnemyAttack_Small";
@@ -181,6 +183,7 @@ public class EnemyController : MonoBehaviour
             case (int)AttackState.Attack2:             
                 if (PlayerisDamage)
                 {
+                    transform.LookAt(PlayerController.playerController.transform);
                     Attack_L_Collider.tag = "EnemyAttack_Small";
                     EnemyAnimator.SetTrigger("Attack2");
                     attackState = AttackState.Attack2;
@@ -192,6 +195,7 @@ public class EnemyController : MonoBehaviour
             case (int)AttackState.Attack3:
                 if (PlayerisDamage)
                 {
+                    transform.LookAt(PlayerController.playerController.transform);
                     Attack_L_Collider.tag = "EnemyAttack_Big";
                     EnemyAnimator.SetTrigger("Attack3");
                     attackState = AttackState.Attack3;
@@ -202,6 +206,13 @@ public class EnemyController : MonoBehaviour
         }
 
 
+    }
+
+    public void Dead()
+    {
+        enemyState = EnemyState.Dead;
+        EnemyAnimator.SetTrigger("Dead");
+        AttackCollider_Close();
     }
 
     //--------------------------Aniamtion Event------------------------------------------
@@ -274,18 +285,21 @@ public class EnemyController : MonoBehaviour
         {
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(PlayerController.playerController.transform.position);
+            UI_FollowEnemy.ui_FollowEnemy.HP -= 20;
         }
 
         else if (other.tag == "PlayerAttack_Small")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
-            
+            UI_FollowEnemy.ui_FollowEnemy.HP -= 10;
         }
         else if(other.tag == "PlayerLongAttack")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
+            UI_FollowEnemy.ui_FollowEnemy.HP -= 30;
+            
         }                         
         //EnemyCanDamage = false;
     }

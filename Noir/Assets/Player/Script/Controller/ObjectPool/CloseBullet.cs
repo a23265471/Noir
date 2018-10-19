@@ -5,6 +5,7 @@ using UnityEngine;
 public class CloseBullet : MonoBehaviour {
 
     public float DistroyTime;//PlayerData
+   
 
     private float LongAttackStartTime;
     private float LongAttackNowDis;
@@ -14,6 +15,7 @@ public class CloseBullet : MonoBehaviour {
     private void OnEnable()
     {
         LongAttackStartTime = Time.time;
+       
     }
 
 	// Update is called once per frame
@@ -40,7 +42,7 @@ public class CloseBullet : MonoBehaviour {
     {
         if (other.tag == "Wall" || other.tag == "Enemy")
         {
-           
+            
             StartCoroutine("LongAttackHitWaitTime");
         }
 
@@ -49,6 +51,7 @@ public class CloseBullet : MonoBehaviour {
     IEnumerator LongAttackHitWaitTime()
     {
         yield return new WaitForSeconds(DistroyTime);
-        gameObject.SetActive(false);        
+        gameObject.SetActive(false);       
+        
     }
 }

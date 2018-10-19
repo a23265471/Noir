@@ -13,9 +13,9 @@ public class UIController : MonoBehaviour {
     private bool ESCPanel_Active;
     void Start()
     {
-        ESCPanel_Active = true;
-        ESCPanel.SetActive(true);
-        Options.SetActive(true);
+        ESCPanel_Active = false;
+        ESCPanel.SetActive(false);
+        Options.SetActive(false);
         IntroPanel.SetActive(false);
         ESCPanel_Anim =GetComponent<Animator>();
     }

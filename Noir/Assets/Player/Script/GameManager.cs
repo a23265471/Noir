@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     private bool CursorLocked;
+    private bool GamePause;
 
     // Use this for initialization
     void Start()
@@ -20,11 +22,28 @@ public class GameManager : MonoBehaviour {
     {
 
         CursorLock();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!GamePause)
+            {
+                Time.timeScale = 0;
+                GamePause = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                GamePause = false;
+
+            }
+            
+        }
+       
     }
 
     private void CursorLock()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Escape)) 
         {
             if (Screen.lockCursor)
             {
@@ -39,6 +58,32 @@ public class GameManager : MonoBehaviour {
             
         }
         
+    }
+    public void PlayGame()
+    {
+        Debug.Log("Play game");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Lighting");
+    }
+    public void ChooseLevel()
+    {
+        SceneManager.LoadScene("ChooseLevel");
+        Time.timeScale = 1;
+    }
+    public void QuitGame()
+    {
+        Debug.Log("Quit game");
+        Application.Quit();
+    }
+    public void BackToMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
+    }
+    public void Back()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
 }
