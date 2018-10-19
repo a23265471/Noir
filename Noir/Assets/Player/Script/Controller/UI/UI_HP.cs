@@ -40,6 +40,10 @@ public class UI_HP : MonoBehaviour
             HP = 0;
             PlayerController.playerController.Dead();
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            MP = MP_Max;
+        }
        
 	}
 

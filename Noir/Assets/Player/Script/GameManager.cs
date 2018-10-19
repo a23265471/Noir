@@ -8,12 +8,15 @@ public class GameManager : MonoBehaviour {
     private bool CursorLocked;
     private bool GamePause;
 
+    public GameObject END_Panel;
+
     // Use this for initialization
     void Start()
     {
 
         CursorLocked = true;
         Screen.lockCursor = true;
+        END_Panel.SetActive(false);
 
     }
 
@@ -38,7 +41,22 @@ public class GameManager : MonoBehaviour {
             }
             
         }
+
+        if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead || EnemyController.enemyController.enemyState == EnemyController.EnemyState.Dead)
+        {
+            StartCoroutine("GoToMainScene");
+            END_Panel.SetActive(true);
+        }
        
+    }
+
+    IEnumerator GoToMainScene()
+    {
+        yield return new WaitForSeconds(2);
+        Time.timeScale = 0;
+        
+       
+        BackToMainMenu();
     }
 
     private void CursorLock()
@@ -63,10 +81,12 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("Play game");
         Time.timeScale = 1;
+        Screen.lockCursor = false;
         SceneManager.LoadScene("Lighting");
     }
     public void ChooseLevel()
     {
+        Screen.lockCursor = false;
         SceneManager.LoadScene("ChooseLevel");
         Time.timeScale = 1;
     }
@@ -77,11 +97,13 @@ public class GameManager : MonoBehaviour {
     }
     public void BackToMainMenu()
     {
+        Screen.lockCursor = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
     public void Back()
     {
+        
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }

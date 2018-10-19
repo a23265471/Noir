@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject Weapons;//--
     public Transform WeaponsBone;//--
-
+    private Transform Bullet_pos;
     //-----------------------------Attack--------------------
     //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour {
         LongAttackBullet_Object = gameObject.transform.Find("fx_LongAttackBullet").gameObject;
         BigSkill_Object = gameObject.transform.Find("fx_AuraMagicCircle").gameObject;
         DashAttack_Object = gameObject.transform.Find("fx_Slash_White").gameObject;
+        Bullet_pos=gameObject.transform.Find("Bullet_pos");
 
         PlayerCollider = GetComponents<CapsuleCollider>();
         DamageCollider = DamageObject.GetComponent<CapsuleCollider>();

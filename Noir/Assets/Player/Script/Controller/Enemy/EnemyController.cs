@@ -102,7 +102,7 @@ public class EnemyController : MonoBehaviour
 
         PlayerDis = Vector3.Distance(PlayerController.playerController.transform.position, transform.position);
 
-        if (PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead)
+        if (PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead && PlayerDis <= PlayerChaseDis) 
         {
             if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
             {
