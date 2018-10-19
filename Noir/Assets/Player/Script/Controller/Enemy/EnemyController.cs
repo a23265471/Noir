@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     public bool EnemyCanDamage;
 
     private NavMeshAgent EnemyNav;
+
     //-----------------------Move-----------------   
     public float PlayerChaseDis;//EneyData
     private float PlayerDis;
@@ -288,6 +289,8 @@ public class EnemyController : MonoBehaviour
         }                         
         //EnemyCanDamage = false;
     }
-   
+
+    //--------------------------------
+    
 
 }

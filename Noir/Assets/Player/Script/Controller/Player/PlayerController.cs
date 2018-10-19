@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
     private GameObject AttackCollider_BigSkill;
-    public GameObject Bullet;
+    private GameObject Bullet;
     private Vector3 FixBulletPos;
     private Vector3 BulletStartPos;
     public float LongAttackMaxDis;
@@ -76,6 +76,10 @@ public class PlayerController : MonoBehaviour {
     private float DashAttack_StartTime;
     public float DashAttack_Speed;
     private Vector3 DashAttack_Pos;
+
+    public GameObject Weapons;//--
+    public Transform WeaponsBone;//--
+
     //-----------------------------Attack--------------------
     //-------------------------------- Move------------------
     private float PlayerAnimation_parameter;
@@ -92,7 +96,7 @@ public class PlayerController : MonoBehaviour {
     public float RotationX;
     private Quaternion rotationEuler;
     public Transform Player_pre_pos;
-    public Transform PlayerHead;
+   // public Transform PlayerHead;
     private bool CanDoubleClick;
     public float DoubleClickTime;//PlayerData
     private bool IsFastRun;
@@ -214,7 +218,9 @@ public class PlayerController : MonoBehaviour {
         GetUpCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
         FixBulletPos = ObjectPool.objectPool.LongAttack.transform.position - transform.position;
-       
+
+        Weapons.transform.parent = WeaponsBone;//--
+
 
         attackState = AttackState.Default;       
         moveState = MoveState.Idle;
@@ -230,6 +236,7 @@ public class PlayerController : MonoBehaviour {
             GetComponents<CapsuleCollider>()[i].center = AvoidColliderPos;
         }
         
+
     }
      private void FixedUpdate()
      {
@@ -368,7 +375,7 @@ public class PlayerController : MonoBehaviour {
             else if (Input.GetMouseButtonDown(1))
             {
                 //playerAnimatorState = PlayerAnimatorState.Attack;               
-                if (CanAttack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.MP >= 10)  
+                if (CanAttack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.MP >= 5)  //--
                 {
                     UI_HP.Ui_HP.MP -= 10;
                     attackState = AttackState.LongAttack;
@@ -1010,11 +1017,11 @@ public class PlayerController : MonoBehaviour {
         {
             case AttackState.Attack_1:
                 ShortAttack1_Particle.Stop();
-                ShortAttack2_Particle.Play();               
+                ShortAttack1_Particle.Play();               
                 break;
             case AttackState.Attack_2:
                 ShortAttack2_Particle.Stop();
-                ShortAttack1_Particle.Play();
+                ShortAttack2_Particle.Play();
                 break;
             case AttackState.Attack_3:
                 ShortAttack3_Particle.Stop();
