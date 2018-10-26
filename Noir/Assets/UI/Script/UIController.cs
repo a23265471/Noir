@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour {
                 ESCPanel_Active = false;
                 ESCPanel.SetActive(false);
                 ESCPanel_Anim.SetBool("OpenESCPanel", false);
+                IntroPanel_Anim.SetBool("OpenIntroPanel", false);
                 IntroPanel.SetActive(false);
                
             }
@@ -48,7 +49,7 @@ public class UIController : MonoBehaviour {
        
         Options.SetActive(false);
         IntroPanel.SetActive (true);
-        IntroPanel_Anim.SetTrigger("OpenIntroPanel");
+        IntroPanel_Anim.SetBool("OpenIntroPanel",true);
         
      }
     public void CloseIntro()
@@ -56,7 +57,7 @@ public class UIController : MonoBehaviour {
        
         Options.SetActive(true);
         IntroPanel.SetActive(false);
-       
+        IntroPanel_Anim.SetBool("OpenIntroPanel", false);
     }
    
 }
