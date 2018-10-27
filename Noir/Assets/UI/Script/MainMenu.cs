@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
-
+    public Animator LevelChanger_anim;
     // Use this for initialization
     public void PlayGame()
     {
         Debug.Log("Play game");
         SceneManager.LoadScene("Lighting");
+    }
+    public void FadeToLevel()
+    {
+        LevelChanger_anim.SetTrigger("MainFadeOut");
     }
     public void ChooseLevel()
     {
