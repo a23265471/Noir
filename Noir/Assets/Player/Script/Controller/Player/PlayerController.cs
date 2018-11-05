@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour {
     public float RunSpeed;//Player Data
     private float RunNowSpeed;
     public float FastRunSpeed;//Player Data
+    public float ConsumeSp;//Player Data
+    public float RecoverSp;
     private float x_direction;
     private float y_direction;
     private float Move_parameter_x;
@@ -115,6 +117,7 @@ public class PlayerController : MonoBehaviour {
     public float AvoidMaxDistance;
     private float AvoidRotate;  
     public bool AvoidCanMove;
+    
     private string InputKey_pre;
     private string InputKey_next;
     private float IsAvoidDistance;
@@ -169,6 +172,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
+        
         animator = GetComponent<Animator>();
         Player_pre_pos = gameObject.transform.Find("Camare_LookAt");
         ShortAttack1_Object = gameObject.transform.Find("fx_ShortAttack_1").gameObject;
@@ -229,6 +233,7 @@ public class PlayerController : MonoBehaviour {
         moveState = MoveState.Idle;
         playerAnimatorState = PlayerAnimatorState.Movement;
         avoidState = AvoidState.Default;
+       
     }
     private void Update()
     {
@@ -253,13 +258,15 @@ public class PlayerController : MonoBehaviour {
             Avoid();
             Attack();
             rigi.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-            Debug.Log("著地");
-            
+            //Debug.Log(avoidState);
+
             if (playerAnimatorState == PlayerAnimatorState.Movement)
             {
                
                 Movement();
                 FastRun();
+                
+                
             }
         }
 
@@ -299,7 +306,8 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-//--------------------------Attack---------------------------------   
+    //--------------------------Attack---------------------------------   
+    #region Attack
     private void Attack()
     {
        if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack || playerAnimatorState==PlayerAnimatorState.Avoid)
@@ -482,7 +490,7 @@ public class PlayerController : MonoBehaviour {
         }
        
     }
-
+    #endregion
     //--------------------------Attack---------------------------------      
 
     //--------------------------Move---------------------------------   
@@ -508,10 +516,19 @@ public class PlayerController : MonoBehaviour {
         if (IsFastRun)
         {
             MaxMoveSpeed = FastRunSpeed;
+            UI_HP.Ui_HP.SP -= ConsumeSp;
+            UI_HP.Ui_HP.ConsumeSP();
+
         }
         else
         {
             MaxMoveSpeed = RunSpeed;
+            if (UI_HP.Ui_HP.SP < UI_HP.Ui_HP.SP_Max)
+            {
+                UI_HP.Ui_HP.SP += RecoverSp;
+                UI_HP.Ui_HP.ConsumeSP();
+            }
+            
         }
         if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
         {
@@ -545,36 +562,8 @@ public class PlayerController : MonoBehaviour {
     }
     
     private void FastRun()
-    {
-        /* if (Input.GetKeyDown(KeyCode.W)) 
-         {
-             if (CanDoubleClick) 
-             {
-                 nextClickTime = Time.time;
-                 if (nextClickTime - preClickTime > 0.1f)
-                 {
-                     StopCoroutine(DoubleClickCoroutine);
-                     CanDoubleClick = false;
-                     moveState = MoveState.FastRunForward;
-                     IsFastRun = true;
-                 }
-
-             }
-             preClickTime = Time.time;
-             CanDoubleClick = true;
-             DoubleClickCoroutine = DoubleClick(DoubleClickTime);
-             StartCoroutine(DoubleClickCoroutine);
-             //Debug.Log(CanDoubleClick);        
-         }*/
-
-
-        /* if (CanFastRun && Input.GetKey(KeyCode.W))
-         {
-             moveState = MoveState.FastRunForward;
-             IsFastRun = true;
-         }*/
-        
-        if (Shift_LongPress && Input.GetKey(KeyCode.W))
+    {        
+        if (Shift_LongPress && Input.GetKey(KeyCode.W) && UI_HP.Ui_HP.SP > 0) 
         {
             IsFastRun = true;
             if (Input.GetKey(KeyCode.A) && Input.GetAxis("Horizontal") < 0)
@@ -594,16 +583,14 @@ public class PlayerController : MonoBehaviour {
            
         }
 
-        if ( (Input.GetKeyUp(KeyCode.LeftShift) && !Shift_LongPress) || Input.GetKeyUp(KeyCode.W)) 
+        if ( (Input.GetKeyUp(KeyCode.LeftShift) && !Shift_LongPress) || Input.GetKeyUp(KeyCode.W) || UI_HP.Ui_HP.SP <= 0)  
         {
             moveState = MoveState.Idle;
             IsFastRun = false;
             
         }
         /*Debug.Log(moveState);*/
-
-
-
+        
     }
     
 
@@ -767,7 +754,7 @@ public class PlayerController : MonoBehaviour {
     private void Avoid()
     {
         
-        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill)  
+        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill || UI_HP.Ui_HP.SP >= 20)   
         {
             
             if (Shift_Click)
@@ -891,6 +878,8 @@ public class PlayerController : MonoBehaviour {
     }
     private void AvoidStateSelect(AvoidState InputAvoidState)
     {
+       /* UI_HP.Ui_HP.SP -= UI_HP.Ui_HP.SP_Max/UI_HP.Ui_HP.SP_Light.Length;
+        UI_HP.Ui_HP.ConsumeSP();*/
         CanMove = true;
         playerAnimatorState = PlayerAnimatorState.Avoid;
         DamageObject.SetActive(false);
@@ -959,7 +948,7 @@ public class PlayerController : MonoBehaviour {
             IsAvoidDistance = 0;
             FracDistance = 0;
             
-           
+            
         }
         
         
@@ -1061,7 +1050,7 @@ public class PlayerController : MonoBehaviour {
     {       
         ResetStateCoroutine = ResetState(WaitTime);
 
-        Debug.Log("attack");
+       // Debug.Log("attack");
         if (AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)
         {
             

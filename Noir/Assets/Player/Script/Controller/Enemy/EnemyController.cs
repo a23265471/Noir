@@ -116,7 +116,7 @@ public class EnemyController : MonoBehaviour
 
             EnemyMove();
         }
-        Debug.Log(enemyState);
+        //Debug.Log(enemyState);
     }
 
     private void EnemyMove()
@@ -189,7 +189,7 @@ public class EnemyController : MonoBehaviour
                     attackState = AttackState.Attack2;
                     TriggerNextAttack = true;
                     PlayerisDamage = false;
-                    Debug.Log(Attack_L_Collider.tag);
+                  
                 }               
                 break;
             case (int)AttackState.Attack3:
