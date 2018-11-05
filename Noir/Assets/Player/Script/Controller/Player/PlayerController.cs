@@ -392,6 +392,8 @@ public class PlayerController : MonoBehaviour {
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
                     CanAttack = false;
+                    LongAttackBullet_Object.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
+                   
                 }
 
             }
@@ -465,11 +467,11 @@ public class PlayerController : MonoBehaviour {
         BulletStartPos = transform.position + rotationEuler * FixBulletPos;
        // Debug.Log(FixBulletPos);
         Bullet.transform.position = BulletStartPos;
-        Bullet.transform.rotation = transform.rotation;
+        Bullet.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
         Bullet.SetActive(true);
         
         
-        LongAttackEndPos = rotationEuler * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
+        LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
         //Debug.Log(Bullet.transform.position);
     }
 
@@ -936,12 +938,14 @@ public class PlayerController : MonoBehaviour {
     {
        
         if (playerAnimatorState == PlayerAnimatorState.Avoid && CanMove/*AvoidCanMove*/)
-        {           
-            IsAvoidDistance += Time.deltaTime * AvoidSpeed;
-            FracDistance = IsAvoidDistance / AvoidDistance;
+        {
+             IsAvoidDistance += Time.deltaTime * AvoidSpeed;
+             FracDistance = IsAvoidDistance / AvoidDistance;
+
+           
             FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
-                     
+            Debug.Log(FracDistance);  
         }
         else
         {

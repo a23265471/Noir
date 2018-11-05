@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour {
 
-   // public GameObject target;
-  //  public PlayerController playerController;
+    // public GameObject target;
+    //  public PlayerController playerController;
+    public static MainCamera mainCamera;
+    
     private Quaternion rotationEuler;
     public float RotateSpeed_X;
     public float RotateSpeed_Y;
@@ -21,18 +23,24 @@ public class MainCamera : MonoBehaviour {
     public float CameraHitWallDis;
     public float preDistence;
 
+    public Ray aimPoint;
+    
+   
     // Use this for initialization
     void Start () {
-
+        mainCamera = this;
         WallMask = LayerMask.GetMask("Wall");
     }
 	
 	// Update is called once per frame
 	void LateUpdate () {        
+
+        
         Rotaion();
         distenceControl();
-    }
 
+
+    }
     private void Rotaion()
     {
         CameraLookAt_X += Input.GetAxis("Mouse X") * PlayerController.playerController.RotationSpeed * Time.deltaTime;
@@ -101,5 +109,13 @@ public class MainCamera : MonoBehaviour {
 
     }
 
-    
+    public Vector3 GetAimTarget()
+    {
+        aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));        
+        Debug.DrawRay(aimPoint.origin, aimPoint.direction * 10, Color.yellow);
+        return aimPoint.direction;
+
+    }
+
+
 }
