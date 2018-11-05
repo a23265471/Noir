@@ -253,8 +253,8 @@ public class PlayerController : MonoBehaviour {
             Avoid();
             Attack();
             rigi.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-            //Debug.Log(avoidState);
-
+            Debug.Log("著地");
+            
             if (playerAnimatorState == PlayerAnimatorState.Movement)
             {
                
