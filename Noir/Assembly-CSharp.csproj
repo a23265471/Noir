@@ -108,6 +108,7 @@
     <Compile Include="Assets\Effect\Others\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Effect\Others\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Effect\Others\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\Player\Script\Controller\CameraTrigger.cs" />
     <Compile Include="Assets\Player\Script\Controller\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Player\Script\Controller\MainCamera.cs" />
     <Compile Include="Assets\Player\Script\Controller\ObjectPool\CloseBullet.cs" />

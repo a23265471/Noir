@@ -78,8 +78,8 @@ public class MainCamera : MonoBehaviour {
 
             /*Debug.Log(playerController.Player_pre_pos.position);
             Debug.Log(target.transform.position);*/
-            distence = Mathf.Lerp(distence, Hit.distance, 0.1f);
-            distence = Hit.distance;
+           /* distence = Mathf.Lerp(distence, Hit.distance, 0.1f);
+            distence = Hit.distance;*/
         }
         else
         {
@@ -104,9 +104,7 @@ public class MainCamera : MonoBehaviour {
              
         }
        /* Debug.DrawLine(playerController.Player_pre_pos.position, -playerController.Player_pre_pos.forward, Color.red);*/
-
        
-
     }
 
     public Vector3 GetAimTarget()
@@ -116,6 +114,8 @@ public class MainCamera : MonoBehaviour {
         return aimPoint.direction;
 
     }
+
+   
 
 
 }

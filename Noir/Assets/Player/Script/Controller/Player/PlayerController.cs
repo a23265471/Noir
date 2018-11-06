@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour {
     public float AvoidMaxDistance;
     private float AvoidRotate;  
     public bool AvoidCanMove;
-    
+    private float avoidStartTime;
     private string InputKey_pre;
     private string InputKey_next;
     private float IsAvoidDistance;
@@ -839,11 +839,11 @@ public class PlayerController : MonoBehaviour {
                 Avoid_DoubleClickFuntion(AvoidState.Right, Input.inputString);
             }
             
-            AvoidEuler = Quaternion.Euler(0, RotationX + AvoidRotate, 0);            
-            AvoidPosition = AvoidEuler * new Vector3(0, 0, AvoidDistance) + transform.position;
+            
+            //Debug.Log(AvoidPosition);
         }
 
-        
+      
         Debug.DrawLine(transform.position, AvoidPosition, Color.red);
        
         AvoidMovement();    
@@ -885,13 +885,13 @@ public class PlayerController : MonoBehaviour {
         CanMove = true;
         playerAnimatorState = PlayerAnimatorState.Avoid;
         DamageObject.SetActive(false);
+        avoidStartTime = Time.time;
         switch (InputAvoidState)
         {
             case AvoidState.Forward:
                 avoidState = InputAvoidState;
                 animator.SetTrigger("Avoid_Forward");
-                AvoidRotate = 0;
-                
+                AvoidRotate = 0;                
                 break;
             case AvoidState.Back:              
                 avoidState = AvoidState.Back;
@@ -906,7 +906,6 @@ public class PlayerController : MonoBehaviour {
             case AvoidState.Right:            
                 avoidState = AvoidState.Right;
                 animator.SetTrigger("Avoid_Right");
-
                 AvoidRotate = 90;
                 break;
             case AvoidState.ForwardLeft:          
@@ -931,7 +930,8 @@ public class PlayerController : MonoBehaviour {
                 break;
 
         }
-        
+        AvoidEuler = Quaternion.Euler(0, RotationX + AvoidRotate, 0);
+        AvoidPosition = AvoidEuler * new Vector3(0, 0, AvoidDistance) + transform.position;
     }
 
     private void AvoidMovement()
@@ -939,13 +939,13 @@ public class PlayerController : MonoBehaviour {
        
         if (playerAnimatorState == PlayerAnimatorState.Avoid && CanMove/*AvoidCanMove*/)
         {
-             IsAvoidDistance += Time.deltaTime * AvoidSpeed;
-             FracDistance = IsAvoidDistance / AvoidDistance;
 
-           
+            IsAvoidDistance = (Time.time - avoidStartTime) * AvoidSpeed;
+            FracDistance = IsAvoidDistance / AvoidDistance;           
             FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
-            Debug.Log(FracDistance);  
+           // Debug.Log(FracDistance);
+            Debug.Log(AvoidPosition);
         }
         else
         {
