@@ -49,7 +49,6 @@ public class EnemyController : MonoBehaviour
     private float BufferDis;
     private float EnemySpeed;
 
-
     //-----------------------Move-----------------   
     //----------------------Attack----------------
     public bool PlayerisDamage;
@@ -68,12 +67,19 @@ public class EnemyController : MonoBehaviour
 
 
     //--------------------Coroutine---------------
+    //----------------Audio----------------
+    private AudioSource audiosource;
+    public AudioClip AudioClip_Damage;
+
+
+    //----------------Audio----------------
 
     private void Awake()
     {
         EnemyAnimator = GetComponent<Animator>();
         enemyController = this;
         EnemyNav = GetComponent<NavMeshAgent>();
+        audiosource = GetComponent<AudioSource>();
         /* Attack_R_Collider = gameObject.transform.Find("EnemyAttack_R_Collider").gameObject;
          Attack_L_Collider = gameObject.transform.Find("EnemyAttack_L_Collider").gameObject;*/
         Attack_L_Collider.SetActive(false);
@@ -282,10 +288,12 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
     {   
         if (other.tag == "PlayerAttack_Big")
-        {
+        {           
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(PlayerController.playerController.transform.position);
             UI_FollowEnemy.ui_FollowEnemy.HP -= 20;
+            audiosource.clip = AudioClip_Damage;
+            audiosource.Play();
         }
 
         else if (other.tag == "PlayerAttack_Small")
@@ -293,13 +301,16 @@ public class EnemyController : MonoBehaviour
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
             UI_FollowEnemy.ui_FollowEnemy.HP -= 10;
+            audiosource.clip = AudioClip_Damage;
+            audiosource.Play();
         }
         else if(other.tag == "PlayerLongAttack")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
             UI_FollowEnemy.ui_FollowEnemy.HP -= 30;
-            
+            audiosource.clip = AudioClip_Damage;
+            audiosource.Play();
         }                         
         //EnemyCanDamage = false;
     }

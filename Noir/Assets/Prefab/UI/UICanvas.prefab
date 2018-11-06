@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222549347650822624}
   - component: {fileID: 114879118541090582}
   m_Layer: 5
-  m_Name: BG_1
+  m_Name: BG_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 222698975136172502}
   - component: {fileID: 114646423380394946}
   m_Layer: 5
-  m_Name: SP_Light
+  m_Name: SP_Light_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 222254460499121016}
   - component: {fileID: 114190777158836198}
   m_Layer: 5
-  m_Name: SP_Light
+  m_Name: SP_Light_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 222562989436366790}
   - component: {fileID: 114869107693959560}
   m_Layer: 5
-  m_Name: SP_Light
+  m_Name: SP_Light_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 222402481859492936}
   - component: {fileID: 114384771002781618}
   m_Layer: 5
-  m_Name: SP_Light
+  m_Name: SP_Light_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 222653804419408244}
   - component: {fileID: 114663292711452994}
   m_Layer: 5
-  m_Name: BG_2
+  m_Name: BG_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 114440628365822376}
   - component: {fileID: 114995089491090818}
   m_Layer: 5
-  m_Name: BG_2 (1)
+  m_Name: BG_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 114498573175868388}
   - component: {fileID: 114683784152627476}
   m_Layer: 5
-  m_Name: BG_2 (2)
+  m_Name: BG_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 114190097330126930}
   - component: {fileID: 114197081761004910}
   m_Layer: 5
-  m_Name: BG_2 (3)
+  m_Name: BG_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -831,7 +831,7 @@ GameObject:
   - component: {fileID: 222890129615278036}
   - component: {fileID: 114500433897771242}
   m_Layer: 5
-  m_Name: SP_Light
+  m_Name: SP_Light_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2082,11 +2082,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP_Light: {fileID: 1348567441879684}
   MP_Light: {fileID: 1689450866703766}
+  SP_Light:
+  - {fileID: 1367982718946972}
+  - {fileID: 1524141329973188}
+  - {fileID: 1277314715231932}
+  - {fileID: 1978939001644630}
+  - {fileID: 1355702875756142}
   HP_Max: 100
   MP_Max: 100
-  SP_Max: 0
+  SP_Max: 100
   HP: 0
   MP: 0
+  SP: 0
 --- !u!114 &114903601647592796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3340,7 +3347,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 72, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224941209267141720

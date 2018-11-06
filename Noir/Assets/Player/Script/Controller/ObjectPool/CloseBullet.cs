@@ -44,6 +44,7 @@ public class CloseBullet : MonoBehaviour {
         {
             
             StartCoroutine("LongAttackHitWaitTime");
+            Debug.Log("aa");
         }
 
 

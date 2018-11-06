@@ -63,7 +63,7 @@ public class UI_HP : MonoBehaviour
         {
             SP = 0;
         }
-        {for(int i = 0; i < (int)(SP / (SP_Max / SP_Light.Length)); i++)
+        for(int i = 0; i < (int)(SP / (SP_Max / SP_Light.Length)); i++)
         {
             SP_small[i] = SP_Max / SP_Light.Length;
 
@@ -80,15 +80,20 @@ public class UI_HP : MonoBehaviour
             SP_transformPosition = -72 + ((SP_small[notFullSp] / (SP_Max / SP_Light.Length)) * 72);
             SP_Light[notFullSp].transform.localPosition = new Vector3(SP_transformPosition, 0, 0);
 
+            for(int i = notFullSp + 1; i < SP_Light.Length; i++)
+            {
+                SP_Light[i].transform.localPosition = new Vector3(-72, 0, 0);
+            }
+
         }
         else if(SP % (SP_Max / SP_Light.Length) == 0 && SP != SP_Max) 
         {
             SP_Light[(int)(SP / (SP_Max / SP_Light.Length))].transform.localPosition = new Vector3(-72, 0, 0);
         }
 
-        }
-        
     }
+        
+}
 
     
-}
+

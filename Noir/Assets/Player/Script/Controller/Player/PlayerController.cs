@@ -151,6 +151,13 @@ public class PlayerController : MonoBehaviour {
     private ParticleSystem BigSkill_Particle;
     private ParticleSystem DashAttack_Particle;
     //-----------------------------Particle------------
+    //---------------Audio----------
+    private AudioSource audioSource;
+    public AudioClip AudioClip_ShortAttack;
+    public AudioClip AudioClip_LongAttack;
+    public AudioClip AudioClip_Damage;
+    //---------------Audio----------
+
 
     //private CapsuleCollider PlayerCollider;
     private CapsuleCollider[] PlayerCollider;
@@ -198,6 +205,7 @@ public class PlayerController : MonoBehaviour {
         LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
         BigSkill_Particle = BigSkill_Object.GetComponent<ParticleSystem>();
         DashAttack_Particle = DashAttack_Object.GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
         rigi = GetComponent<Rigidbody>();
 
         //-----particle---
@@ -224,7 +232,7 @@ public class PlayerController : MonoBehaviour {
         FastRunCoroutine = null;
         GetUpCoroutine = null;
         AvoidDistance = AvoidMaxDistance;
-        FixBulletPos = ObjectPool.objectPool.LongAttack.transform.position - transform.position;
+        FixBulletPos = Bullet_pos.transform.position - transform.position;
 
         Weapons.transform.parent = WeaponsBone;//--
 
@@ -268,6 +276,12 @@ public class PlayerController : MonoBehaviour {
                 
                 
             }
+        }
+
+        if (!IsFastRun && playerAnimatorState != PlayerAnimatorState.Avoid && UI_HP.Ui_HP.SP < UI_HP.Ui_HP.SP_Max) 
+        {
+            UI_HP.Ui_HP.SP += RecoverSp;
+            UI_HP.Ui_HP.ConsumeSP();
         }
 
         AnimatorStateControll();
@@ -354,12 +368,14 @@ public class PlayerController : MonoBehaviour {
                                 attackState = AttackState.DashAttack;
                                 AttackTrigger += 1;
                                 CanAttack = false;
+                               
                             }
                             else
                             {
                                 attackState = AttackState.Attack_1;
                                 AttackTrigger += 1;
                                 CanAttack = false;
+                                
                             }
                             
                         }
@@ -367,6 +383,7 @@ public class PlayerController : MonoBehaviour {
                     case AttackState.Attack_1:
                         if (CanAttack)
                         {
+                            
                             attackState = AttackState.Attack_2;
                             AttackTrigger += 1;
                             CanAttack = false;
@@ -412,19 +429,22 @@ public class PlayerController : MonoBehaviour {
                 case AttackState.Attack_1:                   
                     animator.SetTrigger("Attack1");                    
                     animator.ResetTrigger("Attack3");
-                   // ShortAttack1_Particle.Play();
+                    // ShortAttack1_Particle.Play();
+                    
 
                     AttackTrigger = 0;                                       
                     break;
                 case AttackState.Attack_2:                   
                     animator.SetTrigger("Attack2");
-                   // ShortAttack2_Particle.Play();
+                    // ShortAttack2_Particle.Play();
+                    
                     AttackTrigger = 0;                   
                     break;
                 case AttackState.Attack_3:                   
                     animator.SetTrigger("Attack3");
                     animator.ResetTrigger("Attack1");
                     animator.ResetTrigger("Attack2");
+                   
                     //ShortAttack3_Particle.Play();
                     AttackTrigger = 0;                    
                     break;
@@ -442,6 +462,7 @@ public class PlayerController : MonoBehaviour {
                     CanMove = true;
                     animator.SetTrigger("DashAttack");
                     AttackTrigger = 0;
+                    
                     break;
             }
             
@@ -483,7 +504,7 @@ public class PlayerController : MonoBehaviour {
             DashAttack_FracDis = DashAttack_NowDis / DashAttack_MaxDis;
             DashAttack_FracDis = Mathf.Clamp(DashAttack_FracDis, 0, 1);
             transform.position = Vector3.Lerp(transform.position, DashAttack_Pos, DashAttack_FracDis);
-            Debug.Log(CanMove);
+            //Debug.Log(CanMove);
         }
         else
         {
@@ -524,13 +545,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            MaxMoveSpeed = RunSpeed;
-            if (UI_HP.Ui_HP.SP < UI_HP.Ui_HP.SP_Max)
-            {
-                UI_HP.Ui_HP.SP += RecoverSp;
-                UI_HP.Ui_HP.ConsumeSP();
-            }
-            
+            MaxMoveSpeed = RunSpeed;            
         }
         if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
         {
@@ -756,7 +771,7 @@ public class PlayerController : MonoBehaviour {
     private void Avoid()
     {
         
-        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill || UI_HP.Ui_HP.SP >= 20)   
+        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.SP >= 20)   
         {
             
             if (Shift_Click)
@@ -880,8 +895,8 @@ public class PlayerController : MonoBehaviour {
     }
     private void AvoidStateSelect(AvoidState InputAvoidState)
     {
-       /* UI_HP.Ui_HP.SP -= UI_HP.Ui_HP.SP_Max/UI_HP.Ui_HP.SP_Light.Length;
-        UI_HP.Ui_HP.ConsumeSP();*/
+        UI_HP.Ui_HP.SP -= UI_HP.Ui_HP.SP_Max/UI_HP.Ui_HP.SP_Light.Length;
+        UI_HP.Ui_HP.ConsumeSP();
         CanMove = true;
         playerAnimatorState = PlayerAnimatorState.Avoid;
         DamageObject.SetActive(false);
@@ -945,7 +960,7 @@ public class PlayerController : MonoBehaviour {
             FracDistance = Mathf.Clamp(FracDistance, 0, 1);
             transform.position = Vector3.Lerp(transform.position, AvoidPosition, FracDistance);
            // Debug.Log(FracDistance);
-            Debug.Log(AvoidPosition);
+           // Debug.Log(AvoidPosition);
         }
         else
         {
@@ -1007,6 +1022,23 @@ public class PlayerController : MonoBehaviour {
         StopCoroutine("CancelAttackNow");
        
     }
+    //-------------Audio------------
+    public void ShortAttackAudioPlay()
+    {
+        audioSource.clip = AudioClip_ShortAttack;
+        audioSource.Play();
+    }
+    public void LongAttackAudioPlay()
+    {
+        audioSource.clip = AudioClip_LongAttack;
+        audioSource.Play();
+    }
+    public void DamageAudioPlay()
+    {
+        audioSource.clip = AudioClip_Damage;
+        audioSource.Play();
+    }
+    //-------------Audio------------
     public void ParticleTrigger()
     {
         switch (attackState)

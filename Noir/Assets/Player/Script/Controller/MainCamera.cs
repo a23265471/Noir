@@ -109,9 +109,24 @@ public class MainCamera : MonoBehaviour {
 
     public Vector3 GetAimTarget()
     {
-        aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));        
-        Debug.DrawRay(aimPoint.origin, aimPoint.direction * 10, Color.yellow);
-        return aimPoint.direction;
+        RaycastHit cameraRayHitPoint;
+        aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));      
+        
+       /* if(Physics.Raycast(aimPoint,out cameraRayHitPoint) &&　cameraRayHitPoint.transform.name == "Enemy_ShortAttack")
+        {
+            print(cameraRayHitPoint.transform.name);
+            Debug.DrawRay(aimPoint.origin, cameraRayHitPoint.point * 10, Color.yellow);
+            return cameraRayHitPoint.point;
+            
+        }
+        else
+        {*/
+            return aimPoint.direction;
+
+       // }
+        
+
+        
 
     }
 
