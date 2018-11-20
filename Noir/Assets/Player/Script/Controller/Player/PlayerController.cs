@@ -13,6 +13,14 @@ public class PlayerController : MonoBehaviour {
         GetDown,
         GetUp,
         Dead,
+        Jump,
+
+    }
+    enum JumpState
+    {
+        Jump,
+        DoubleJump,
+        Falling,
     }
     enum MoveState
     {
@@ -28,6 +36,7 @@ public class PlayerController : MonoBehaviour {
         FastRunForward,
         FastRunRight,
         FastRunLeft,
+        
     }
     enum AttackState
     {
@@ -53,6 +62,7 @@ public class PlayerController : MonoBehaviour {
     }
     private AttackState attackState;
     private MoveState moveState;
+    private JumpState jumpState;
     private AvoidState avoidState;
     public PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
@@ -106,6 +116,12 @@ public class PlayerController : MonoBehaviour {
     private float preClickTime;
     private float nextClickTime;
     private Rigidbody rigi;
+
+    public float JumpHeight;
+    private int JumpCount;
+    public float DoubleJumpHigh;
+    private bool debounce;
+
     //----------------------------------Move-----------------
     private bool Shift_LongPress;
     private bool Shift_Click;
@@ -158,7 +174,7 @@ public class PlayerController : MonoBehaviour {
     public AudioClip AudioClip_Damage;
     //---------------Audio----------
 
-
+    private bool IsGround;
     //private CapsuleCollider PlayerCollider;
     private CapsuleCollider[] PlayerCollider;
 
@@ -177,6 +193,8 @@ public class PlayerController : MonoBehaviour {
     AnimatorClipInfo[] AnimatorClipInfo;
     AnimatorStateInfo AnimatorstateInfo;
 
+
+    public GameObject cube;
     private void Awake()
     {
         
@@ -220,7 +238,8 @@ public class PlayerController : MonoBehaviour {
         AttackTrigger = 0;
         PlayerAnimation_parameter = 0;
         GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = false;
-            
+
+        debounce = true;
         CanMove = true;
         AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
@@ -241,7 +260,7 @@ public class PlayerController : MonoBehaviour {
         moveState = MoveState.Idle;
         playerAnimatorState = PlayerAnimatorState.Movement;
         avoidState = AvoidState.Default;
-       
+        jumpState = JumpState.Jump;
     }
     private void Update()
     {
@@ -257,26 +276,34 @@ public class PlayerController : MonoBehaviour {
      private void FixedUpdate()
      {
         AnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorstateInfo = animator.GetCurrentAnimatorStateInfo(0);      
+        IsGround = Physics.Raycast(PlayerCollider[1].bounds.center, -Vector3.up, PlayerCollider[1].bounds.extents.y + grounded_dis, FloorMask);
         Rotaion();
-        
-        if (Physics.Raycast(transform.position+new Vector3(0,0.01f,0), -Vector3.up, PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis), FloorMask))
+        Movement();
+        ShiftIntervel();
+        Avoid();
+        Attack();
+        FastRun();
+        Jump(); 
+        Debug.Log(IsGround);
+        /* if (Physics.Raycast(PlayerCollider[1].bounds.center, -Vector3.up, PlayerCollider[1].bounds.extents.y + grounded_dis, FloorMask))
         {
-            ShiftIntervel();
-            Avoid();
-            Attack();
-            rigi.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-            //Debug.Log(avoidState);
+            ShiftIntervel();//
+            Avoid();//
+            Attack();//
+          //  rigi.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+            Debug.Log("Ground");
 
             if (playerAnimatorState == PlayerAnimatorState.Movement)
             {
                
-                Movement();
-                FastRun();
                 
+                FastRun();//
+                Jump();
                 
             }
-        }
+        }*/
+
 
         if (!IsFastRun && playerAnimatorState != PlayerAnimatorState.Avoid && UI_HP.Ui_HP.SP < UI_HP.Ui_HP.SP_Max) 
         {
@@ -287,7 +314,7 @@ public class PlayerController : MonoBehaviour {
         AnimatorStateControll();
 
 
-        Debug.DrawLine(transform.position + new Vector3(0, 0.01f, 0), new Vector3(transform.position.x, transform.position.y  - (PlayerCollider[0].bounds.extents.y - (PlayerCollider[0].bounds.extents.y - grounded_dis)), transform.position.z), Color.red);
+        Debug.DrawLine(PlayerCollider[1].bounds.center, new Vector3(PlayerCollider[1].bounds.center.x, PlayerCollider[1].bounds.center.y -(PlayerCollider[1].bounds.extents.y + grounded_dis), PlayerCollider[1].bounds.center.z), Color.red);
        
     }
     private void AnimatorStateControll()
@@ -324,8 +351,8 @@ public class PlayerController : MonoBehaviour {
     #region Attack
     private void Attack()
     {
-       if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack || playerAnimatorState==PlayerAnimatorState.Avoid)
-        {
+       if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack || playerAnimatorState == PlayerAnimatorState.Avoid && IsGround) 
+       {
 
             if (Input.GetKeyDown(KeyCode.Q) && attackState == AttackState.Default && UI_HP.Ui_HP.MP >= 30)  
             {
@@ -416,7 +443,7 @@ public class PlayerController : MonoBehaviour {
             }
 
 
-        }        
+       }        
         AttackAnimation();       
     }
 
@@ -484,16 +511,16 @@ public class PlayerController : MonoBehaviour {
 
         if (Bullet == null) return;
 
-        /*BulletStartPos = transform.position + FixBulletPos;*/
+        
         BulletStartPos = transform.position + rotationEuler * FixBulletPos;
-       // Debug.Log(FixBulletPos);
+       
         Bullet.transform.position = BulletStartPos;
         Bullet.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
         Bullet.SetActive(true);
+
+       // Instantiate(cube,MainCamera.mainCamera.GetAimTarget(),transform.rotation);
+        //LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
         
-        
-        LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
-        //Debug.Log(Bullet.transform.position);
     }
 
     private void DashAttackMove()
@@ -536,51 +563,56 @@ public class PlayerController : MonoBehaviour {
     }
     private void Movement()
     {
-        if (IsFastRun)
+        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Jump)
         {
-            MaxMoveSpeed = FastRunSpeed;
-            UI_HP.Ui_HP.SP -= ConsumeSp;
-            UI_HP.Ui_HP.ConsumeSP();
-
-        }
-        else
-        {
-            MaxMoveSpeed = RunSpeed;            
-        }
-        if (Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0) 
-        {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.03f);
-            MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
-        }
-        else if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
-        {
-            MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.1f);
-            if (MoveSpeed <= 0.06f && MoveSpeed >= -0.06f)
+            if (IsFastRun)
             {
-                MoveSpeed = 0;
+                MaxMoveSpeed = FastRunSpeed;
+                UI_HP.Ui_HP.SP -= ConsumeSp;
+                UI_HP.Ui_HP.ConsumeSP();
+
             }
-        }
-                             
-        if(Input.GetAxis("Horizontal")==0|| Input.GetAxis("Vertical") == 0)
-        {
-            RunNowSpeed = Mathf.Sqrt((Mathf.Pow(MoveSpeed, 2) * 2));            
-        }
-        else
-        {
-            RunNowSpeed = MoveSpeed;
-        }
-        float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * RunNowSpeed;
-        float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * RunNowSpeed;
+            else
+            {
+                MaxMoveSpeed = RunSpeed;
+            }
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                MoveSpeed = Mathf.Lerp(MoveSpeed, MaxMoveSpeed, 0.03f);
+                MoveSpeed = Mathf.Clamp(MoveSpeed, 0, MaxMoveSpeed);
+            }
+            else if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+            {
+                MoveSpeed = Mathf.Lerp(MoveSpeed, 0, 0.1f);
+                if (MoveSpeed <= 0.06f && MoveSpeed >= -0.06f)
+                {
+                    MoveSpeed = 0;
+                }
+            }
 
-        //Debug.Log(Input.GetAxis("Horizontal"));
-        transform.Translate(MoveX, 0, MoveZ);
+            if (Input.GetAxis("Horizontal") == 0 || Input.GetAxis("Vertical") == 0)
+            {
+                RunNowSpeed = Mathf.Sqrt((Mathf.Pow(MoveSpeed, 2) * 2));
+            }
+            else
+            {
+                RunNowSpeed = MoveSpeed;
+            }
+            float MoveX = Input.GetAxis("Horizontal") * Time.deltaTime * RunNowSpeed;
+            float MoveZ = Input.GetAxis("Vertical") * Time.deltaTime * RunNowSpeed;
 
-        MovementAnimaionControl();
+            //Debug.Log(Input.GetAxis("Horizontal"));
+            transform.Translate(MoveX, 0, MoveZ);
+
+            MovementAnimaionControl();
+
+        }
+        
     }
     
     private void FastRun()
     {        
-        if (Shift_LongPress && Input.GetKey(KeyCode.W) && UI_HP.Ui_HP.SP > 0) 
+        if (Shift_LongPress && Input.GetKey(KeyCode.W) && UI_HP.Ui_HP.SP > 0 && IsGround && playerAnimatorState == PlayerAnimatorState.Movement)  
         {
             IsFastRun = true;
             if (Input.GetKey(KeyCode.A) && Input.GetAxis("Horizontal") < 0)
@@ -738,40 +770,111 @@ public class PlayerController : MonoBehaviour {
 
     #endregion
     //--------------------------Move---------------------------------   
-    private void ShiftIntervel()
+    //--------------------------Jump---------------------------------  
+    private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+       
+        if (IsGround)
         {
-            ShiftPressTime = Time.time;
-        }      
-        
-        if (Input.GetKeyUp(KeyCode.LeftShift) && Time.time - ShiftPressTime < 0.3f)
-        {           
-            Shift_Click = true;
-            Shift_LongPress = false;
-            return;
-        }
-        else if(Input.GetKey(KeyCode.LeftShift) && Time.time - ShiftPressTime > 0.3f)
-        {
-            Shift_Click = false;
-            Shift_LongPress = true;
             
-            return;
+            if (playerAnimatorState==PlayerAnimatorState.Jump)
+            {
+                playerAnimatorState = PlayerAnimatorState.Movement;
+                jumpState = JumpState.Jump;
+                moveState = MoveState.Idle;
+                
+                animator.SetTrigger("Idle");
+                Debug.Log(moveState);
+            }
+            JumpCount = 0;
         }
-        if (!Input.GetKey(KeyCode.LeftShift) && (Shift_Click || Shift_LongPress)) 
-        {
-            Shift_Click = false;
-            Shift_LongPress = false;
-        }
+        
 
         
+        if (Input.GetKeyDown(KeyCode.Space) && (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Jump)) 
+        {
+            if (IsGround && debounce)
+            {
+                rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
+                animator.SetTrigger("Jump");
+                playerAnimatorState = PlayerAnimatorState.Jump;
+                jumpState = JumpState.Jump;
+                StartCoroutine("Debounce");
+            }
+            else if (JumpCount == 0 && !IsGround && debounce)
+            {
+                JumpCount-=1;
+                rigi.mass = 10;
+                rigi.velocity = Vector3.zero;
+                rigi.AddForce(0, DoubleJumpHigh, 0, ForceMode.Impulse);
+                rigi.mass = 800;
+                animator.SetTrigger("DoubleJump");
+                playerAnimatorState = PlayerAnimatorState.Jump;
+                jumpState = JumpState.DoubleJump;
+                
+            }
+            
+        }
+       
+    }
+
+    public void StateChangeToFalling()
+    {
+        playerAnimatorState = PlayerAnimatorState.Jump;
+        jumpState = JumpState.Falling;
+        animator.ResetTrigger("Idle");
+    }
+
+    IEnumerator Debounce()
+    {
+        debounce = false;
+        yield return new WaitForSeconds(0.1f);
+        debounce = true;
+    }
+
+   
+    //--------------------------Jump---------------------------------
+
+    private void ShiftIntervel()
+    {
+        if (IsGround)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                ShiftPressTime = Time.time;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift) && Time.time - ShiftPressTime < 0.3f)
+            {
+                Shift_Click = true;
+                Shift_LongPress = false;
+                return;
+            }
+            else if (Input.GetKey(KeyCode.LeftShift) && Time.time - ShiftPressTime > 0.3f)
+            {
+                Shift_Click = false;
+                Shift_LongPress = true;
+
+                return;
+            }
+            if (!Input.GetKey(KeyCode.LeftShift) && (Shift_Click || Shift_LongPress))
+            {
+                Shift_Click = false;
+                Shift_LongPress = false;
+            }
+
+
+        }
+
+
 
     }
     //--------------------------Avoid---------------------------------   
+    #region 迴避
     private void Avoid()
     {
         
-        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.SP >= 20)   
+        if (playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.SP >= 20 && IsGround)    
         {
             
             if (Shift_Click)
@@ -972,6 +1075,7 @@ public class PlayerController : MonoBehaviour {
         
         
     }
+    #endregion
     //--------------------------Avoid---------------------------------   
     //--------------------------Dead----------------------------------
 

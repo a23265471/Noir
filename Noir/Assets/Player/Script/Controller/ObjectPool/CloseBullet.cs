@@ -25,6 +25,7 @@ public class CloseBullet : MonoBehaviour {
         LongAttackFracDistance = LongAttackNowDis / PlayerController.playerController.LongAttackMaxDis;
         LongAttackFracDistance = Mathf.Clamp(LongAttackFracDistance, 0, 1);
         transform.position = Vector3.Lerp(transform.position, PlayerController.playerController.LongAttackEndPos, LongAttackFracDistance);
+        
 
         BulletRotation =Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
         transform.rotation = BulletRotation;

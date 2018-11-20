@@ -18,7 +18,7 @@ RenderSettings:
   m_FogColor: {r: 0.504895, g: 0.5476914, b: 0.5849056, a: 0.16078432}
   m_FogMode: 1
   m_FogDensity: 0.1
-  m_LinearFogStart: -10
+  m_LinearFogStart: -30
   m_LinearFogEnd: 91.13
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
@@ -26168,6 +26168,16 @@ Prefab:
       propertyPath: InitialModule.startLifetime.scalar
       value: 1.8
       objectReference: {fileID: 0}
+    - target: {fileID: 23701013662154506, guid: 94f035a8348c008428a0c913cf982126,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d1684e5a2ce010b4788e71842c0579f7, type: 2}
+    - target: {fileID: 23531077238908294, guid: 94f035a8348c008428a0c913cf982126,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d1684e5a2ce010b4788e71842c0579f7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94f035a8348c008428a0c913cf982126, type: 2}
   m_IsPrefabParent: 0

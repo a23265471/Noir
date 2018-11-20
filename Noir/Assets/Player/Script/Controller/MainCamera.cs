@@ -22,6 +22,7 @@ public class MainCamera : MonoBehaviour {
     private int WallMask;
     public float CameraHitWallDis;
     public float preDistence;
+    private int EnemyLayerMask;
 
     public Ray aimPoint;
     
@@ -30,6 +31,7 @@ public class MainCamera : MonoBehaviour {
     void Start () {
         mainCamera = this;
         WallMask = LayerMask.GetMask("Wall");
+        EnemyLayerMask = LayerMask.GetMask("Enemy");
     }
 	
 	// Update is called once per frame
@@ -39,7 +41,8 @@ public class MainCamera : MonoBehaviour {
         Rotaion();
         distenceControl();
 
-
+        Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
+       
     }
     private void Rotaion()
     {
@@ -65,21 +68,16 @@ public class MainCamera : MonoBehaviour {
         }
         rotationEuler = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
         transform.rotation = rotationEuler;
-        transform.position = rotationEuler * new Vector3(0, CameraHigh , -distence) + PlayerController.playerController.transform.position;
+        transform.position = rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position;
 
     }
     private void distenceControl()
     {      
         RaycastHit Hit;
-        if (Physics.Raycast(PlayerController.playerController.Player_pre_pos.position, -PlayerController.playerController.Player_pre_pos.forward, preDistence, WallMask))
-        {
-            //Debug.Log(PlayerController.Player_pre_pos.eulerAngles);
-            Physics.Raycast(PlayerController.playerController.Player_pre_pos.position, -PlayerController.playerController.Player_pre_pos.forward, out Hit);
+        if (Physics.Raycast(PlayerController.playerController.transform.position, -PlayerController.playerController.transform.forward, preDistence, WallMask))
+        {            
+            Physics.Raycast(PlayerController.playerController.transform.position, -PlayerController.playerController.transform.forward, out Hit);
 
-            /*Debug.Log(playerController.Player_pre_pos.position);
-            Debug.Log(target.transform.position);*/
-           /* distence = Mathf.Lerp(distence, Hit.distance, 0.1f);
-            distence = Hit.distance;*/
         }
         else
         {
@@ -109,25 +107,19 @@ public class MainCamera : MonoBehaviour {
 
     public Vector3 GetAimTarget()
     {
-        RaycastHit cameraRayHitPoint;
-        aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));      
-        
-       /* if(Physics.Raycast(aimPoint,out cameraRayHitPoint) &&　cameraRayHitPoint.transform.name == "Enemy_ShortAttack")
-        {
-            print(cameraRayHitPoint.transform.name);
-            Debug.DrawRay(aimPoint.origin, cameraRayHitPoint.point * 10, Color.yellow);
-            return cameraRayHitPoint.point;
-            
-        }
-        else
-        {*/
-            return aimPoint.direction;
+        RaycastHit RayHitPoint;
+        //aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));      
+         /*  if(Physics.Raycast(transform.position,transform.forward,out RayHitPoint, EnemyLayerMask))
+           {
 
-       // }
-        
+               Debug.Log(RayHitPoint.point+RayHitPoint.transform.name);
 
-        
+               return RayHitPoint.point;
 
+           }*/
+        //return RayHitPoint.point;
+        return transform.forward + new Vector3(0.05f,0,0);
+    
     }
 
    
