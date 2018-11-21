@@ -513,14 +513,22 @@ public class PlayerController : MonoBehaviour {
 
         
         BulletStartPos = transform.position + rotationEuler * FixBulletPos;
-       
+        
         Bullet.transform.position = BulletStartPos;
         Bullet.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
-        Bullet.SetActive(true);
+       
 
-       // Instantiate(cube,MainCamera.mainCamera.GetAimTarget(),transform.rotation);
-        //LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(0, 0, LongAttackMaxDis) + Bullet.transform.position;
+        Instantiate(cube,MainCamera.mainCamera.GetAimTarget(),transform.rotation);
         
+        if (MainCamera.mainCamera.raycastHitSomeThing)
+        {
+            LongAttackEndPos = MainCamera.mainCamera.GetAimTarget();
+        }
+        else
+        {
+            LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(1, 0, LongAttackMaxDis) + Bullet.transform.position;
+        }
+        Bullet.SetActive(true);
     }
 
     private void DashAttackMove()

@@ -25,7 +25,7 @@ public class MainCamera : MonoBehaviour {
     private int EnemyLayerMask;
 
     public Ray aimPoint;
-    
+    public bool raycastHitSomeThing;
    
     // Use this for initialization
     void Start () {
@@ -41,7 +41,7 @@ public class MainCamera : MonoBehaviour {
         Rotaion();
         distenceControl();
 
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
+        Debug.DrawRay(transform.position, transform.forward , Color.red);
        
     }
     private void Rotaion()
@@ -108,18 +108,26 @@ public class MainCamera : MonoBehaviour {
     public Vector3 GetAimTarget()
     {
         RaycastHit RayHitPoint;
-        //aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));      
-         /*  if(Physics.Raycast(transform.position,transform.forward,out RayHitPoint, EnemyLayerMask))
-           {
+        aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
-               Debug.Log(RayHitPoint.point+RayHitPoint.transform.name);
+        raycastHitSomeThing = Physics.Raycast(transform.position, transform.forward);
 
-               return RayHitPoint.point;
+        if (raycastHitSomeThing)
+        {
+            Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
+            Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
 
-           }*/
-        //return RayHitPoint.point;
-        return transform.forward + new Vector3(0.05f,0,0);
-    
+            return RayHitPoint.point;
+
+        }
+        else
+        {
+            return transform.forward;
+
+        }
+        
+
+
     }
 
    

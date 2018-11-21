@@ -3821,6 +3821,10 @@ Prefab:
       propertyPath: cube
       value: 
       objectReference: {fileID: 318932269}
+    - target: {fileID: 1707058621200680, guid: 94f035a8348c008428a0c913cf982126, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94f035a8348c008428a0c913cf982126, type: 2}
   m_IsPrefabParent: 0
