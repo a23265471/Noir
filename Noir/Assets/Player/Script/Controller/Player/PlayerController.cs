@@ -364,13 +364,14 @@ public class PlayerController : MonoBehaviour {
                     CanAttack = false;
                 }
             }
-            else if (Input.GetMouseButtonDown(0))
+            else if (Input.GetMouseButtonDown(0))//按下滑鼠左鍵
             {
                
-                switch (attackState)
+                switch (attackState)//用現現階段的狀態來判斷下一擊要觸發哪一個攻擊
                 {
-                    case AttackState.Default:
-                        if (CanAttack)
+                    case AttackState.Default://假如現階段為Default
+
+                        if (CanAttack)//判斷可以觸發下一階段的時機
                         {
                             if (IsFastRun)
                             {
@@ -399,9 +400,9 @@ public class PlayerController : MonoBehaviour {
                             }
                             else
                             {
-                                attackState = AttackState.Attack_1;
-                                AttackTrigger += 1;
-                                CanAttack = false;
+                                attackState = AttackState.Attack_1;//則觸發後的下一階段為Attack_1,
+                                AttackTrigger += 1;//用來限定Aniamtor.trigger只能觸發一次
+                                CanAttack = false;//用來限定當攻擊的動畫還沒播完則不能觸發下一階段攻擊,需搭配Animation Event
                                 
                             }
                             
@@ -447,19 +448,18 @@ public class PlayerController : MonoBehaviour {
         AttackAnimation();       
     }
 
-    private void AttackAnimation()
+    private void AttackAnimation()//觸發攻擊動畫
     {
-        if (AttackTrigger == 1) 
+        if (AttackTrigger == 1) //動畫只需觸發一次,因為我是把這個放在Update裡面,會每一偵觸發
         {
             switch (attackState)
             {
-                case AttackState.Attack_1:                   
-                    animator.SetTrigger("Attack1");                    
+                case AttackState.Attack_1:  //當狀態為Attack_1                 
+                    animator.SetTrigger("Attack1");  //觸發動畫                  
                     animator.ResetTrigger("Attack3");
-                    // ShortAttack1_Particle.Play();
-                    
-
-                    AttackTrigger = 0;                                       
+                    //為了防上一個狀態的Animator.Trigger多觸發一次的bug所以在執行下一個動作時重置上一動作的Animator.Trigger
+                           
+                    AttackTrigger = 0; //在觸發動畫過後將 AttackTrigger重置,即可依下一狀態判斷來觸發相對應的動畫                                     
                     break;
                 case AttackState.Attack_2:                   
                     animator.SetTrigger("Attack2");
@@ -520,7 +520,7 @@ public class PlayerController : MonoBehaviour {
 
         Instantiate(cube,MainCamera.mainCamera.GetAimTarget(),transform.rotation);
         
-        if (MainCamera.mainCamera.raycastHitSomeThing)
+        if (MainCamera.mainCamera.longAttackRaycastHitSomeThing)
         {
             LongAttackEndPos = MainCamera.mainCamera.GetAimTarget();
         }
@@ -1105,34 +1105,85 @@ public class PlayerController : MonoBehaviour {
     //--------------------------Dead----------------------------------
     //-------------------------Animatioｎ　Event--------------------******
 
-    //------------Attack-----------
-    public void TriggerCancelAttack(float WaitTime) 
+    //------------Attack,以下為掛在Animation Event上的Function-----------
+
+    public void TriggerCancelAttack(float WaitTime) //當攻擊動畫播完後,則重置攻擊狀態(掛在攻擊動畫的最後)
     {      
         CancelAttackCoroutine = CancelAttack(WaitTime);
-        StartCoroutine(CancelAttackCoroutine);
+        StartCoroutine(CancelAttackCoroutine);//執行 IEnumerator CancelAttack(float WaitTime) 
 
     }
 
     IEnumerator CancelAttack(float WaitTime) 
     {
-        yield return new WaitForSeconds(WaitTime);
+        yield return new WaitForSeconds(WaitTime);//當過了WaitTime秒後則重置現階段狀態
         attackState = AttackState.Default;        
     }
 
     public void CanTriggerAttack() 
+        //用來判斷哪時可以開始觸發下一階段,掛的位置需搭配每一個動畫之間的Exit Time來配置(數動畫的fram會比較精確)
     {        
-        CanAttack = true;
+        CanAttack = true;//可以觸發下一階段
         playerAnimatorState = PlayerAnimatorState.Attack;
+        //PlayerAnimatorState用來判斷角色的動作(Movement,Attack,Jump,Avoid...)
+        //,再宣告一個attackState來記錄Attack的狀態(Default,Attack1,Attack2...)
         if (ResetStateCoroutine != null)
         {
-            StopCoroutine(ResetStateCoroutine);       
+            StopCoroutine(ResetStateCoroutine);  //停止將狀態轉為Idle的Coroutine  
         }
         if (CancelAttackCoroutine != null)
         {
-            StopCoroutine(CancelAttackCoroutine);
+            StopCoroutine(CancelAttackCoroutine); //停止將攻擊狀態轉為Default的Coroutine  
         }
         StopCoroutine("CancelAttackNow");
        
+    }
+    public void FirstAttackState()
+    {
+
+        playerAnimatorState = PlayerAnimatorState.Attack;
+    }
+
+    public void ChangeToIdle(float WaitTime) //在動畫結束之後則將狀態轉為Default及idle//-----Attack,Avoid,Damage-----
+    {
+        ResetStateCoroutine = ResetState(WaitTime);
+
+        // Debug.Log("attack");
+        if (AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)//當迴避及攻擊的動作結束之後才觸發ResetState
+        {
+
+            return;
+        }
+        else
+        {
+            StartCoroutine(ResetStateCoroutine);
+        }
+
+    }
+
+    IEnumerator ResetState(float WaitTime)
+    {
+        yield return new WaitForSeconds(WaitTime);
+        playerAnimatorState = PlayerAnimatorState.Movement;
+        avoidState = AvoidState.Default;
+        GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = false;
+        IsFastRun = false;
+        DamageObject.SetActive(true);
+
+    }
+
+    public void CancelAttackNow() //-----Avoid-----
+    {
+        CanAttack = false;
+        attackState = AttackState.Default;
+
+        animator.ResetTrigger("Attack3");
+        animator.ResetTrigger("Attack2");
+        animator.ResetTrigger("Attack1");
+        if (ResetStateCoroutine != null)
+        {
+            StopCoroutine(ResetStateCoroutine);
+        }
     }
     //-------------Audio------------
     public void ShortAttackAudioPlay()
@@ -1188,53 +1239,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void FirstAttackState() 
-    {
-        
-        playerAnimatorState = PlayerAnimatorState.Attack;
-    }
-
-    public void ChangeToIdle(float WaitTime) //-----Attack,Avoid,Damage-----
-    {       
-        ResetStateCoroutine = ResetState(WaitTime);
-
-       // Debug.Log("attack");
-        if (AnimatorstateInfo.IsTag("Avoid") && attackState != AttackState.Default)
-        {
-            
-            return;
-        }
-        else
-        {            
-            StartCoroutine(ResetStateCoroutine);
-        }
-        
-    }
-
-    IEnumerator ResetState(float WaitTime)
-    {
-        yield return new WaitForSeconds(WaitTime);
-        playerAnimatorState = PlayerAnimatorState.Movement;
-        avoidState = AvoidState.Default;
-        GhostShadow.ghostShadow.gameObject.GetComponent<GhostShadow>().enabled = false;
-        IsFastRun = false;
-        DamageObject.SetActive(true);
-        
-    }
-
-    public void CancelAttackNow() //-----Avoid-----
-    {
-        CanAttack = false;
-        attackState = AttackState.Default;
-        
-        animator.ResetTrigger("Attack3");
-        animator.ResetTrigger("Attack2");
-        animator.ResetTrigger("Attack1");
-        if (ResetStateCoroutine != null)
-        {
-            StopCoroutine(ResetStateCoroutine);
-        }
-    }
+    
 
     public void ChangeAvoidState()
     {

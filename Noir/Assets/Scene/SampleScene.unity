@@ -3759,72 +3759,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 114459224892799312, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: Player_pre_pos
-      value: 
-      objectReference: {fileID: 1291985711}
     - target: {fileID: 198151203325555880, guid: 94f035a8348c008428a0c913cf982126,
         type: 2}
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 1504264371}
-    - target: {fileID: 4543125692408794, guid: 94f035a8348c008428a0c913cf982126, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 4543125692408794, guid: 94f035a8348c008428a0c913cf982126, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.059
-      objectReference: {fileID: 0}
-    - target: {fileID: 4543125692408794, guid: 94f035a8348c008428a0c913cf982126, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.803
-      objectReference: {fileID: 0}
-    - target: {fileID: 54878676112174076, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: m_Mass
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 54878676112174076, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: m_Drag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54878676112174076, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: m_AngularDrag
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 114459224892799312, guid: 94f035a8348c008428a0c913cf982126,
         type: 2}
-      propertyPath: grounded_dis
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 114459224892799312, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: JumpHeight
-      value: 4000
-      objectReference: {fileID: 0}
-    - target: {fileID: 114459224892799312, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: AvoidSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114459224892799312, guid: 94f035a8348c008428a0c913cf982126,
-        type: 2}
-      propertyPath: DoubleJumpHigh
-      value: 70
-      objectReference: {fileID: 0}
+      propertyPath: Player_pre_pos
+      value: 
+      objectReference: {fileID: 1291985711}
     - target: {fileID: 114459224892799312, guid: 94f035a8348c008428a0c913cf982126,
         type: 2}
       propertyPath: cube
       value: 
       objectReference: {fileID: 318932269}
-    - target: {fileID: 1707058621200680, guid: 94f035a8348c008428a0c913cf982126, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94f035a8348c008428a0c913cf982126, type: 2}
   m_IsPrefabParent: 0

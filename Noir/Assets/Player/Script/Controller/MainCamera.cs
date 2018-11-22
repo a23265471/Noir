@@ -25,8 +25,10 @@ public class MainCamera : MonoBehaviour {
     private int EnemyLayerMask;
 
     public Ray aimPoint;
-    public bool raycastHitSomeThing;
-   
+    public bool longAttackRaycastHitSomeThing;
+    private bool playerRaycastHitSomeThing;
+    private bool cameraRaycastHitSomeThing;
+
     // Use this for initialization
     void Start () {
         mainCamera = this;
@@ -40,7 +42,7 @@ public class MainCamera : MonoBehaviour {
         
         Rotaion();
         distenceControl();
-
+        transform.position = rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position;
         Debug.DrawRay(transform.position, transform.forward , Color.red);
        
     }
@@ -68,16 +70,22 @@ public class MainCamera : MonoBehaviour {
         }
         rotationEuler = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
         transform.rotation = rotationEuler;
-        transform.position = rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position;
+        
 
     }
     private void distenceControl()
     {      
-        RaycastHit Hit;
-        if (Physics.Raycast(PlayerController.playerController.transform.position, -PlayerController.playerController.transform.forward, preDistence, WallMask))
-        {            
-            Physics.Raycast(PlayerController.playerController.transform.position, -PlayerController.playerController.transform.forward, out Hit);
+        RaycastHit cameraHit;
+        RaycastHit playerHit;
 
+        playerRaycastHitSomeThing = Physics.Raycast(PlayerController.playerController.transform.position,transform.position, distence);
+        
+
+        if (playerRaycastHitSomeThing)
+        {            
+            Physics.Raycast(PlayerController.playerController.transform.position, transform.position, out playerHit);
+            distence = Mathf.Lerp(distence, (playerHit.distance - 1f), 0.1f);
+            distence = Mathf.Clamp(distence, Min_distence, Max_distence);
         }
         else
         {
@@ -110,9 +118,9 @@ public class MainCamera : MonoBehaviour {
         RaycastHit RayHitPoint;
         aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
-        raycastHitSomeThing = Physics.Raycast(transform.position, transform.forward);
+        longAttackRaycastHitSomeThing = Physics.Raycast(transform.position, transform.forward);
 
-        if (raycastHitSomeThing)
+        if (longAttackRaycastHitSomeThing)
         {
             Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
             Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
