@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour {
 
     private bool IsGround;
     //private CapsuleCollider PlayerCollider;
-    private CapsuleCollider[] PlayerCollider;
+    public CapsuleCollider[] PlayerCollider;
 
     private int FloorMask;
     public float grounded_dis;

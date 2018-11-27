@@ -20,30 +20,45 @@ public class MainCamera : MonoBehaviour {
     public float distenceSpeed;
     public float Camera_Wall_distence;
     private int WallMask;
+    private int FloorMask;
     public float CameraHitWallDis;
     public float preDistence;
     private int EnemyLayerMask;
 
     public Ray aimPoint;
+    private RaycastHit playerHit;
     public bool longAttackRaycastHitSomeThing;
-    private bool playerRaycastHitSomeThing;
-    private bool cameraRaycastHitSomeThing;
+    private bool cameraIsCollision;
+    bool playerRaycastHitSomeThing
+    {
+        get
+        {
+          
+            
+            return Physics.Linecast(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, out playerHit);
+        }
+    }
 
     // Use this for initialization
     void Start () {
         mainCamera = this;
         WallMask = LayerMask.GetMask("Wall");
         EnemyLayerMask = LayerMask.GetMask("Enemy");
+        FloorMask = LayerMask.GetMask("Floor");
     }
-	
-	// Update is called once per frame
-	void LateUpdate () {        
+    private void Update()
+    {
+        CameraCollision();
+    }
+
+    // Update is called once per frame
+    void LateUpdate () {        
 
         
         Rotaion();
         distenceControl();
         transform.position = rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position;
-        Debug.DrawRay(transform.position, transform.forward , Color.red);
+        Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);
        
     }
     private void Rotaion()
@@ -73,44 +88,48 @@ public class MainCamera : MonoBehaviour {
         
 
     }
-    private void distenceControl()
-    {      
-        RaycastHit cameraHit;
-        RaycastHit playerHit;
 
-        playerRaycastHitSomeThing = Physics.Raycast(PlayerController.playerController.transform.position,transform.position, distence);
-        
+
+    private void CameraCollision()
+    {
+        //playerRaycastHitSomeThing = Physics.Linecast(PlayerController.playerController.PlayerCollider[1].center, transform.position, out playerHit);
 
         if (playerRaycastHitSomeThing)
-        {            
-            Physics.Raycast(PlayerController.playerController.transform.position, transform.position, out playerHit);
-            distence = Mathf.Lerp(distence, (playerHit.distance - 1f), 0.1f);
-            distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+        {
+            distence = Mathf.Lerp(distence, playerHit.distance, 0.1f);
+            Debug.Log("aa");
+            cameraIsCollision = true;
         }
         else
         {
-            if (distence != preDistence)
+            if (distence != preDistence && cameraIsCollision)
             {
-                
-                if (distence < preDistence)
+                distence = Mathf.Lerp(distence, preDistence, 0.1f);
+
+                if (preDistence - distence < 0.1f)
                 {
-                    distence += 0.1f;
-                    if (distence >= preDistence)
-                    {
-                        distence = preDistence;
-                    }
+                    distence = preDistence;
+                    cameraIsCollision = false;
                 }
+                Debug.Log("dis  " + distence + "pre  " + preDistence);
             }
-            else
-            {
-                distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;
-                distence = Mathf.Clamp(distence, Min_distence, Max_distence);
-                preDistence = distence;
-            }
-             
+           
         }
-       /* Debug.DrawLine(playerController.Player_pre_pos.position, -playerController.Player_pre_pos.forward, Color.red);*/
-       
+
+    }
+
+    private void distenceControl()
+    {
+        
+        distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;
+        distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+        if (!cameraIsCollision)
+        {
+            preDistence = distence;
+        }
+        
+
+
     }
 
     public Vector3 GetAimTarget()
