@@ -7,14 +7,11 @@ public class GameDialogue : MonoBehaviour {
     public TextAsset textFile;
     public GameObject textBox;
     public Text textDialogue;
-
-    public int LineCount;
-    public int startLine;
-    public int currentLine;
-    public int endLine;
-    public string[] textLines;
     public bool textBox_Active;
-    public bool destroyWhenActivated;
+    public int LineCount;
+    public int currentLine;
+    public string[] textLines;  
+   
 
 
     void Start () {
@@ -44,13 +41,15 @@ public class GameDialogue : MonoBehaviour {
         {
             return;
         }
+
         textDialogue.text = textLines[currentLine];
-        if (Input.GetMouseButtonDown(0) && currentLine < LineCount)
+
+        if (Input.GetMouseButtonDown(0))
         {
             currentLine += 1;
 
         }
-        if (currentLine >= LineCount)
+        if (currentLine > LineCount)
         {
             DisableTextBox();
         }
@@ -66,7 +65,7 @@ public class GameDialogue : MonoBehaviour {
         textBox.SetActive(false);
         textBox_Active = false;
     }
-    public void ReloadScript(Text textDialogue)
+    public void ReloadScript(TextAsset textDialogue)
     {
         if (textDialogue != null)
         {
@@ -75,17 +74,5 @@ public class GameDialogue : MonoBehaviour {
         }
 
     }
-   void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            ReloadScript(textDialogue);
-            currentLine = startLine;
-            LineCount = endLine;
-            if (destroyWhenActivated)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
+   
 }
