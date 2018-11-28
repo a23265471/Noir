@@ -27,15 +27,25 @@ public class MainCamera : MonoBehaviour {
 
     public Ray aimPoint;
     private RaycastHit playerHit;
-    public bool longAttackRaycastHitSomeThing;
+    private RaycastHit floorHit;
+    public bool longAttackRaycastHitSomeThing; 
     private bool cameraIsCollision;
+    bool cameraRaycastHitFloor
+    {
+        get
+        {
+           
+            return Physics.Linecast(transform.position, transform.position - new Vector3(0,1,0), out floorHit,FloorMask);
+        }
+
+    }
     bool playerRaycastHitSomeThing
     {
         get
         {
-          
-            
-            return Physics.Linecast(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, out playerHit);
+
+
+            return Physics.Linecast(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, out playerHit, WallMask);
         }
     }
 
@@ -49,22 +59,53 @@ public class MainCamera : MonoBehaviour {
     private void Update()
     {
         CameraCollision();
+        Rotaion();
     }
 
     // Update is called once per frame
     void LateUpdate () {        
 
         
-        Rotaion();
+        
         distenceControl();
-        transform.position = rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position;
-        Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);
+
+        // if()
+        if (!cameraRaycastHitFloor || (cameraRaycastHitFloor && floorHit.distance > 0.5f))
+        {
+            transform.position = rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position;
+        }
        
+        Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);
+        Debug.DrawLine(transform.position, transform.position - new Vector3(0, 1, 0), Color.red);
     }
     private void Rotaion()
     {
         CameraLookAt_X += Input.GetAxis("Mouse X") * PlayerController.playerController.RotationSpeed * Time.deltaTime;
-        CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
+
+
+        if(!cameraRaycastHitFloor || (cameraRaycastHitFloor&& floorHit.distance > 0.5f))
+        {
+            CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
+        }       
+        else if (cameraRaycastHitFloor)
+        {
+            cameraIsCollision = true;
+          
+                if (Input.GetAxis("Mouse Y") < 0)
+                {
+                    CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
+                    
+                }
+                else
+                {
+                    distence -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
+                    
+
+                }
+            
+           
+        }
+        
 
         if (CameraLookAt_X > 360)
         {
@@ -83,8 +124,16 @@ public class MainCamera : MonoBehaviour {
         {
             CameraLookAt_Y = -30;
         }
+
+       
         rotationEuler = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
+       
+        
+
+       
         transform.rotation = rotationEuler;
+        
+        
         
 
     }
@@ -94,15 +143,18 @@ public class MainCamera : MonoBehaviour {
     {
         //playerRaycastHitSomeThing = Physics.Linecast(PlayerController.playerController.PlayerCollider[1].center, transform.position, out playerHit);
 
+        
+
         if (playerRaycastHitSomeThing)
         {
             distence = Mathf.Lerp(distence, playerHit.distance, 0.1f);
-            Debug.Log("aa");
+            
             cameraIsCollision = true;
+
         }
         else
         {
-            if (distence != preDistence && cameraIsCollision)
+            if (distence != preDistence && cameraIsCollision && !cameraRaycastHitFloor)
             {
                 distence = Mathf.Lerp(distence, preDistence, 0.1f);
 
@@ -111,7 +163,7 @@ public class MainCamera : MonoBehaviour {
                     distence = preDistence;
                     cameraIsCollision = false;
                 }
-                Debug.Log("dis  " + distence + "pre  " + preDistence);
+                //Debug.Log("ww");
             }
            
         }
@@ -122,7 +174,15 @@ public class MainCamera : MonoBehaviour {
     {
         
         distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;
-        distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+        if (cameraRaycastHitFloor)
+        {
+            distence = Mathf.Clamp(distence, 1f, Max_distence);
+        }
+        else
+        {
+            distence = Mathf.Clamp(distence, Min_distence, Max_distence);
+        }
+        
         if (!cameraIsCollision)
         {
             preDistence = distence;
