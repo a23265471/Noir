@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour {
         Attack();
         FastRun();
         Jump(); 
-        Debug.Log(IsGround);
+        //Debug.Log(IsGround);
         /* if (Physics.Raycast(PlayerCollider[1].bounds.center, -Vector3.up, PlayerCollider[1].bounds.extents.y + grounded_dis, FloorMask))
         {
             ShiftIntervel();//

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     private bool CursorLocked;
     private bool GamePause;
 
-    public GameObject END_Panel;
+   // public GameObject END_Panel;
 
     // Use this for initialization
     void Start()
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 
         CursorLocked = true;
         Screen.lockCursor = true;
-        END_Panel.SetActive(false);
+       // END_Panel.SetActive(false);
 
     }
 
@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour {
             
         }
 
-        if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead || EnemyController.enemyController.enemyState == EnemyController.EnemyState.Dead)
+        /*if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead || EnemyController.enemyController.enemyState == EnemyController.EnemyState.Dead)
         {
             StartCoroutine("GoToMainScene");
-            END_Panel.SetActive(true);
-        }
+           // END_Panel.SetActive(true);
+        }*/
        
     }
 
