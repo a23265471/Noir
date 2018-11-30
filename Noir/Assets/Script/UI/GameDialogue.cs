@@ -10,10 +10,12 @@ public class GameDialogue : MonoBehaviour {
     public bool textBox_Active;
     public int LineCount;
     public int currentLine;
-    public string[] textLines;  
-   
+    public string[] textLines;
 
-
+    private float typeSpeed=.05f;
+    private bool isTyping=false;
+    private bool cancelTyping=false;
+    
     void Start () {
         
         if (textFile != null)
@@ -42,23 +44,55 @@ public class GameDialogue : MonoBehaviour {
             return;
         }
 
-        textDialogue.text = textLines[currentLine];
-
+        // textDialogue.text = textLines[currentLine];
+        
         if (Input.GetMouseButtonDown(0))
         {
-            currentLine += 1;
+            if (!isTyping)
+            {
+                currentLine += 1;
+                if (currentLine > LineCount)
+                {
+                    DisableTextBox();
+                }
+                else
+                {
+                    StartCoroutine(TextScroll(textLines[currentLine]));
+                }
+            }
+            else if (isTyping && !cancelTyping)
+            {
+                cancelTyping = true;
+            }
+            
 
         }
-        if (currentLine > LineCount)
-        {
-            DisableTextBox();
-        }
+        
 
     }
+
+    private IEnumerator TextScroll(string lineOfText)
+    {
+        int letter = 0;
+        textDialogue.text = "";
+        isTyping = true;
+        cancelTyping = false;
+        while (isTyping && !cancelTyping && (letter < lineOfText.Length - 1))
+        {
+            textDialogue.text += lineOfText[letter];
+            letter += 1;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+        textDialogue.text = lineOfText;
+        isTyping = false;
+        cancelTyping = false;
+    }
+
     public void EnableTextBox()
     {
         textBox.SetActive(true);
         textBox_Active=true;
+        StartCoroutine(TextScroll(textLines[currentLine]));
     }
     public void DisableTextBox()
     {

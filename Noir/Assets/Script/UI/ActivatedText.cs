@@ -19,7 +19,17 @@ public class ActivatedText : MonoBehaviour {
         textBox = FindObjectOfType<GameDialogue>();
 	}	
 	void Update () {
-       
+        if (waitForPress && Input.GetMouseButtonDown(1))
+        {
+            textBox.ReloadScript(textDialogue);
+            textBox.currentLine = startLine;
+            textBox.LineCount = endLine;
+            textBox.EnableTextBox();
+            if (destroyWhenActivated)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
 
