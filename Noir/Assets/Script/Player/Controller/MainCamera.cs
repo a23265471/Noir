@@ -102,11 +102,15 @@ public class MainCamera : MonoBehaviour
                 distence -= Input.GetAxis("Mouse Y") * Time.deltaTime * 4;
                 //  cameraIsCollision = true;
                 cameraIsCollision = true;
+
+                CameraLookAt_Y -= Input.GetAxis("Mouse Y") * Time.deltaTime * 10;
+
             }
         }
         else
         {
-            CameraLookAt_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
+            moveRotation_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
+            CameraLookAt_Y = moveRotation_Y;
         }
 
         if (CameraLookAt_X > 360)
@@ -119,6 +123,7 @@ public class MainCamera : MonoBehaviour
         }
 
         CameraLookAt_Y = Mathf.Clamp(CameraLookAt_Y, -30, 35);
+        moveRotation_Y = Mathf.Clamp(CameraLookAt_Y, -30, 35);
 
 
         /* if(cameraRaycastHitFloor && floorHit.distance <= 0.5f && Input.GetAxis("Mouse Y") > 0)
@@ -129,7 +134,7 @@ public class MainCamera : MonoBehaviour
          {
 
          }*/
-        rotationEuler = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
+        rotationEuler = Quaternion.Euler(moveRotation_Y, CameraLookAt_X, 0);
         nowRotation = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
         transform.rotation = nowRotation;        
     }
@@ -176,9 +181,15 @@ public class MainCamera : MonoBehaviour
             if ((distence != preDistence && cameraIsCollision && !cameraCanChangeMovement) || (!cameraCanChangeMovement && cameraIsCollision)) 
             {
                 Debug.Log("aa");
+
+             /*   if (CameraLookAt_Y != moveRotation_Y)
+                {
+                    CameraLookAt_Y = Mathf.Lerp(distence, CameraLookAt_Y, moveRotation_Y);
+                }
+                */
                 distence = Mathf.Lerp(distence, preDistence, 0.1f);
-                
-                if (preDistence - distence < 0.1f)
+
+                if (preDistence - distence < 0.1f && CameraLookAt_Y - moveRotation_Y < 0.1f) 
                 {
                     distence = preDistence;
                     cameraIsCollision = false;

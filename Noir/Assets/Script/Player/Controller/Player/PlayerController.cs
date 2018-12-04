@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour {
     AnimatorStateInfo AnimatorstateInfo;
 
 
-    public GameObject cube;
+   
     private void Awake()
     {
         
@@ -518,7 +518,7 @@ public class PlayerController : MonoBehaviour {
         Bullet.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
        
 
-        Instantiate(cube,MainCamera.mainCamera.GetAimTarget(),transform.rotation);
+        
         
         if (MainCamera.mainCamera.longAttackRaycastHitSomeThing)
         {
