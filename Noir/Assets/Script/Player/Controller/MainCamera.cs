@@ -10,19 +10,21 @@ public class MainCamera : MonoBehaviour
     public static MainCamera mainCamera;
 
     private Quaternion rotationEuler;
-    private Quaternion moveRotationEuler;
+    private float cameraPreRotation_Y;
     public float RotateSpeed_X;
     public float RotateSpeed_Y;
     private float CameraLookAt_X;
     private float CameraLookAt_Y;
+ 
     public float distence;
     public float Max_distence;
     public float Min_distence;
     private float changeCameraHigh;
     public float distenceSpeed;
-    private int WallMask;
-    private int FloorMask;
     public float preDistence;
+
+    private int WallMask;
+    private int FloorMask;   
     private int EnemyLayerMask;
 
     public Ray aimPoint;
@@ -65,6 +67,7 @@ public class MainCamera : MonoBehaviour
         CameraCollision();
         CollisionFloor();
         Rotaion();
+        
     }
 
     // Update is called once per frame
@@ -91,7 +94,9 @@ public class MainCamera : MonoBehaviour
     }
     private void Rotaion()
     {
-        Quaternion nowRotation;       
+        Quaternion nowRotation;
+        
+
         CameraLookAt_X += Input.GetAxis("Mouse X") * PlayerController.playerController.RotationSpeed * Time.deltaTime;
        
         if (cameraCanChangeMovement)
@@ -102,15 +107,27 @@ public class MainCamera : MonoBehaviour
                 distence -= Input.GetAxis("Mouse Y") * Time.deltaTime * 4;
                 //  cameraIsCollision = true;
                 cameraIsCollision = true;
-
                 CameraLookAt_Y -= Input.GetAxis("Mouse Y") * Time.deltaTime * 10;
-
+               
             }
         }
         else
         {
             moveRotation_Y -= Input.GetAxis("Mouse Y") * RotateSpeed_Y * Time.deltaTime;
-            CameraLookAt_Y = moveRotation_Y;
+
+            if (CameraLookAt_Y != moveRotation_Y)
+            {
+                CameraLookAt_Y = Mathf.Lerp(CameraLookAt_Y, moveRotation_Y, 0.5  f);
+                CameraLookAt_Y = Mathf.Clamp(CameraLookAt_Y, moveRotation_Y, CameraLookAt_Y);
+            }
+            else
+            {
+                CameraLookAt_Y = moveRotation_Y;
+            }
+            
+               
+            
+            cameraPreRotation_Y = CameraLookAt_Y;
         }
 
         if (CameraLookAt_X > 360)
@@ -123,17 +140,8 @@ public class MainCamera : MonoBehaviour
         }
 
         CameraLookAt_Y = Mathf.Clamp(CameraLookAt_Y, -30, 35);
-        moveRotation_Y = Mathf.Clamp(CameraLookAt_Y, -30, 35);
+        moveRotation_Y = Mathf.Clamp(moveRotation_Y, -30, 35);
 
-
-        /* if(cameraRaycastHitFloor && floorHit.distance <= 0.5f && Input.GetAxis("Mouse Y") > 0)
-         {
-             rotationEuler = Quaternion.Euler(5, CameraLookAt_X, 0);
-         }
-         else
-         {
-
-         }*/
         rotationEuler = Quaternion.Euler(moveRotation_Y, CameraLookAt_X, 0);
         nowRotation = Quaternion.Euler(CameraLookAt_Y, CameraLookAt_X, 0);
         transform.rotation = nowRotation;        
@@ -149,7 +157,7 @@ public class MainCamera : MonoBehaviour
         }
         else
         {
-            if (Input.GetAxis("Mouse Y") < 0) 
+            if (Input.GetAxis("Mouse Y") < -0.2f) 
             {
                 cameraCanChangeMovement = false;
             }           
@@ -180,13 +188,14 @@ public class MainCamera : MonoBehaviour
         {
             if ((distence != preDistence && cameraIsCollision && !cameraCanChangeMovement) || (!cameraCanChangeMovement && cameraIsCollision)) 
             {
-                Debug.Log("aa");
+                
 
-             /*   if (CameraLookAt_Y != moveRotation_Y)
+              /*  if (CameraLookAt_Y != moveRotation_Y)
                 {
-                    CameraLookAt_Y = Mathf.Lerp(distence, CameraLookAt_Y, moveRotation_Y);
-                }
-                */
+                    CameraLookAt_Y = Mathf.Lerp(CameraLookAt_Y, moveRotation_Y, 0.1f);
+                    Debug.Log("ss");
+                }*/
+                
                 distence = Mathf.Lerp(distence, preDistence, 0.1f);
 
                 if (preDistence - distence < 0.1f && CameraLookAt_Y - moveRotation_Y < 0.1f) 
@@ -207,7 +216,10 @@ public class MainCamera : MonoBehaviour
         distence -= Input.GetAxis("Mouse ScrollWheel") * distenceSpeed * Time.deltaTime;
 
         distence = Mathf.Clamp(distence, 1, Max_distence);
-
+        if (!cameraCanChangeMovement && !cameraIsCollision)
+        {
+            preDistence = distence;
+        }
     }
 
     public Vector3 GetAimTarget()
