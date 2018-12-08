@@ -117,7 +117,7 @@ public class MainCamera : MonoBehaviour
 
             if (CameraLookAt_Y != moveRotation_Y)
             {
-                CameraLookAt_Y = Mathf.Lerp(CameraLookAt_Y, moveRotation_Y, 0.5  f);
+                CameraLookAt_Y = Mathf.Lerp(CameraLookAt_Y, moveRotation_Y, 0.5f);
                 CameraLookAt_Y = Mathf.Clamp(CameraLookAt_Y, moveRotation_Y, CameraLookAt_Y);
             }
             else
