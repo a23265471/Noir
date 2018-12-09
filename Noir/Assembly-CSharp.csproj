@@ -61,53 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plogin\_OCASM\Image Effects\SSMS\SSMS.cs" />
-    <Compile Include="Assets\Plogin\_OCASM\Image Effects\SSMS\SSMSGlobalFog.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\BloomComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\DitheringComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\FogComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\FxaaComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\GrainComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\TaaComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\UserLutComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Components\VignetteComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\BloomModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\BuiltinDebugViewsModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\DitheringModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\EyeAdaptationModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\FogModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\GrainModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\UserLutModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Models\VignetteModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\PostProcessingComponent.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\PostProcessingContext.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\PostProcessingModel.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\PostProcessingProfile.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Utils\ColorGradingCurve.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
-    <Compile Include="Assets\Plogin\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\Script\Player\Abstract\Character.cs" />
     <Compile Include="Assets\Script\Player\Controller\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Script\Player\Controller\MainCamera.cs" />
@@ -135,54 +88,11 @@
     <Compile Include="Assets\Script\UI\PlayVideo.cs" />
     <Compile Include="Assets\Script\UI\TutorialTrigger.cs" />
     <Compile Include="Assets\Script\UI\UIController.cs" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\DepthOfField.shader" />
-    <None Include="Assets\Plogin\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMSGlobalFog.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Fog.shader" />
     <None Include="Assets\Shader\Explosion.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\LutGen.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\ACES.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Uber.shader" />
+    <None Include="Assets\嘉芝\Shader\Vegetation.shader" />
     <None Include="Assets\Script\UI\Test_NPCText.txt" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Blit.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\FXAA3.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\MotionBlur.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\AmbientOcclusion.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Common.cginc" />
     <None Include="Assets\Script\UI\Test_Text.txt" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\UI\Trackball.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Bloom.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\TAA.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\TAA.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\GrainGen.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\FXAA.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\DiskKernels.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\DepthOfField.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
-    <None Include="Assets\Plogin\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMS.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\Bloom.shader" />
     <None Include="Assets\Script\Player\Effect\Xray.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\VectorscopeRender.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
-    <None Include="Assets\Plogin\PostProcessing\Editor Resources\Monitors\WaveformCompute.compute" />
-    <None Include="Assets\Plogin\_OCASM\Image Effects\SSMS\Resources\Shaders\SSMS.cginc" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>F:/Noir/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -420,6 +330,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{E04AE20A-BF9F-8C70-A0AF-0C6895B5B8BE}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
