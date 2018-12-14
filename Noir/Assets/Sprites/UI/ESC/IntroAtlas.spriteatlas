@@ -3,10 +3,11 @@
 --- !u!687078895 &4343727234628468602
 SpriteAtlas:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: IntroAtlas
   m_EditorData:
+    serializedVersion: 2
     textureSettings:
       serializedVersion: 2
       anisoLevel: 1
@@ -18,82 +19,93 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
-    packingParameters:
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
       serializedVersion: 2
-      padding: 8
+      padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 0
-      enableTightPacking: 0
+      enableRotation: 1
+      enableTightPacking: 1
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: b2f9ef27014d1df4181ba595dc0d0e0e, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 4e5edc1a76f247a4c95316543d859154, type: 3}
-  - {fileID: 21300000, guid: bf2b7994391190844948493b4b05e869, type: 3}
-  - {fileID: 21300000, guid: ad7cdd7b842bbb94f86e45482a541c73, type: 3}
-  - {fileID: 21300000, guid: 260159b5cece7e44db9627c25ce1e018, type: 3}
-  - {fileID: 21300000, guid: fd9320bd14e792f418fd32fce2e162ed, type: 3}
-  - {fileID: 21300000, guid: 0657646e955d8684cad83bc122c4df2a, type: 3}
-  - {fileID: 21300000, guid: 6b81ce8d89064b84db361f9844b6490d, type: 3}
-  - {fileID: 21300000, guid: 6f92f0aa5f719cf48a93436e899c47af, type: 3}
   - {fileID: 21300000, guid: 79e75e50bcb763743b332b148432743f, type: 3}
-  - {fileID: 21300000, guid: ffda5ad3e8281264d8ca14167d418d9a, type: 3}
   - {fileID: 21300000, guid: df24e19064931444e8559dff926a8ce9, type: 3}
-  - {fileID: 21300000, guid: 275acadf93a10754cb8ab6c2900b68c9, type: 3}
-  - {fileID: 21300000, guid: 7411a10da149bd146988a49ee432e6e4, type: 3}
-  - {fileID: 21300000, guid: 0c163a1ee9c15964dadf8df95a3c649f, type: 3}
-  - {fileID: 21300000, guid: a90e9b869b500fd488f04c9947e856d8, type: 3}
   - {fileID: 21300000, guid: ec93ba2194e3e5c46b107733b529d7ee, type: 3}
-  - {fileID: 21300000, guid: 4d6cfa33276669548b9a1a4ecd311584, type: 3}
-  - {fileID: 21300000, guid: 4264a34636ed1ab45b1924276aa27589, type: 3}
-  - {fileID: 21300000, guid: ce93b9ee4039e5940be2bb0e9a0f5f9a, type: 3}
-  - {fileID: 21300000, guid: e37c64e93b257d54e9456aa2c17bcd88, type: 3}
-  - {fileID: 21300000, guid: 645260e2e97bf3a41885503ba84635ec, type: 3}
-  - {fileID: 21300000, guid: e528c3d8b672aac41a7b950c45a9a30a, type: 3}
-  - {fileID: 21300000, guid: 3080fe66ba74f9d45a38e1d04cbe8a97, type: 3}
-  - {fileID: 21300000, guid: 92910056bf3c99943a95dbedf9005e9d, type: 3}
-  - {fileID: 21300000, guid: 349e5735d2da3494c8c99734ac6b477a, type: 3}
   - {fileID: 21300000, guid: 12776e42d7afff046818eb7c8a2b9955, type: 3}
-  - {fileID: 21300000, guid: 8ea6253b0d4005d43b948d6a1d1836a9, type: 3}
+  - {fileID: 21300000, guid: 645260e2e97bf3a41885503ba84635ec, type: 3}
+  - {fileID: 21300000, guid: 4d6cfa33276669548b9a1a4ecd311584, type: 3}
+  - {fileID: 21300000, guid: ffda5ad3e8281264d8ca14167d418d9a, type: 3}
+  - {fileID: 21300000, guid: bf2b7994391190844948493b4b05e869, type: 3}
   - {fileID: 21300000, guid: d74946d4d80adb547a1848193f39f3ac, type: 3}
-  - {fileID: 21300000, guid: 24a7025ed9e69874d910a2bf3e390c62, type: 3}
+  - {fileID: 21300000, guid: 349e5735d2da3494c8c99734ac6b477a, type: 3}
+  - {fileID: 21300000, guid: 260159b5cece7e44db9627c25ce1e018, type: 3}
+  - {fileID: 21300000, guid: 4264a34636ed1ab45b1924276aa27589, type: 3}
+  - {fileID: 21300000, guid: 92910056bf3c99943a95dbedf9005e9d, type: 3}
+  - {fileID: 21300000, guid: 3080fe66ba74f9d45a38e1d04cbe8a97, type: 3}
+  - {fileID: 21300000, guid: a90e9b869b500fd488f04c9947e856d8, type: 3}
+  - {fileID: 21300000, guid: e528c3d8b672aac41a7b950c45a9a30a, type: 3}
   - {fileID: 21300000, guid: 795d27d96ebf009459e3a4276fa87b82, type: 3}
+  - {fileID: 21300000, guid: e37c64e93b257d54e9456aa2c17bcd88, type: 3}
+  - {fileID: 21300000, guid: 4e5edc1a76f247a4c95316543d859154, type: 3}
+  - {fileID: 21300000, guid: 6f92f0aa5f719cf48a93436e899c47af, type: 3}
+  - {fileID: 21300000, guid: 8ea6253b0d4005d43b948d6a1d1836a9, type: 3}
+  - {fileID: 21300000, guid: ad7cdd7b842bbb94f86e45482a541c73, type: 3}
+  - {fileID: 21300000, guid: 7411a10da149bd146988a49ee432e6e4, type: 3}
+  - {fileID: 21300000, guid: 6b81ce8d89064b84db361f9844b6490d, type: 3}
+  - {fileID: 21300000, guid: fd9320bd14e792f418fd32fce2e162ed, type: 3}
+  - {fileID: 21300000, guid: 0c163a1ee9c15964dadf8df95a3c649f, type: 3}
+  - {fileID: 21300000, guid: 24a7025ed9e69874d910a2bf3e390c62, type: 3}
+  - {fileID: 21300000, guid: 0657646e955d8684cad83bc122c4df2a, type: 3}
+  - {fileID: 21300000, guid: ce93b9ee4039e5940be2bb0e9a0f5f9a, type: 3}
   - {fileID: 21300000, guid: 1358894f4f73f6d478ab7a2746d50a3b, type: 3}
+  - {fileID: 21300000, guid: 275acadf93a10754cb8ab6c2900b68c9, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Comp 2_00030
-  - Comp 2_00001
-  - Comp 2_00000
-  - Comp 2_00003
-  - Comp 2_00002
-  - Comp 2_00005
-  - Comp 2_00004
-  - Comp 2_00007
   - Comp 2_00006
-  - Comp 2_00009
   - Comp 2_00008
-  - Comp 2_00029
-  - Comp 2_00028
-  - Comp 2_00023
-  - Comp 2_00022
   - Comp 2_00018
-  - Comp 2_00021
-  - Comp 2_00019
-  - Comp 2_00020
-  - Comp 2_00016
-  - Comp 2_00027
-  - Comp 2_00017
-  - Comp 2_00026
-  - Comp 2_00014
-  - Comp 2_00025
   - Comp 2_00015
-  - Comp 2_00024
+  - Comp 2_00027
+  - Comp 2_00021
+  - Comp 2_00009
+  - Comp 2_00001
   - Comp 2_00012
-  - Comp 2_00013
+  - Comp 2_00025
+  - Comp 2_00003
+  - Comp 2_00019
+  - Comp 2_00014
+  - Comp 2_00026
+  - Comp 2_00022
+  - Comp 2_00017
   - Comp 2_00010
+  - Comp 2_00016
+  - Comp 2_00030
+  - Comp 2_00007
+  - Comp 2_00024
+  - Comp 2_00000
+  - Comp 2_00028
+  - Comp 2_00004
+  - Comp 2_00002
+  - Comp 2_00023
+  - Comp 2_00013
+  - Comp 2_00005
+  - Comp 2_00020
   - Comp 2_00011
+  - Comp 2_00029
   m_Tag: IntroAtlas
   m_IsVariant: 0

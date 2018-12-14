@@ -66,7 +66,11 @@ public class PlayerController : MonoBehaviour {
     private AvoidState avoidState;
     public PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
-    
+
+    public GameObject LightAccessoriesUp;
+    public GameObject LightAccessoriesDown;
+    public Transform LightAccessoriesUpBone;
+    public Transform LightAccessoriesDownBone;
     //-----------------------------Attack--------------------
     public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
@@ -88,6 +92,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 DashAttack_Pos;
 
     public GameObject Weapons;//--
+   
     public Transform WeaponsBone;//--
     private Transform Bullet_pos;
     //-----------------------------Attack--------------------
@@ -254,7 +259,8 @@ public class PlayerController : MonoBehaviour {
         FixBulletPos = Bullet_pos.transform.position - transform.position;
 
         Weapons.transform.parent = WeaponsBone;//--
-
+        LightAccessoriesUp.transform.parent = LightAccessoriesUpBone;
+        LightAccessoriesDown.transform.parent = LightAccessoriesDownBone;
 
         attackState = AttackState.Default;       
         moveState = MoveState.Idle;
