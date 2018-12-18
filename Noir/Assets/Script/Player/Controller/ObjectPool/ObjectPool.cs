@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour {
     {
         objectPool = this;
 
-        LongAttack = GameObject.Find("LongAttack");
+        LongAttack = GameObject.Find("LongAttack_Bullet");
         LongAttack.SetActive(false);
     }
 

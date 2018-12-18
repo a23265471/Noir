@@ -7,16 +7,17 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
+  m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1486276086966666}
-  m_IsPrefabAsset: 1
+  m_IsPrefabParent: 0
 --- !u!1 &1253008841780766
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
+  serializedVersion: 5
   m_Component:
   - component: {fileID: 4788242685948194}
   - component: {fileID: 33200365726627096}
@@ -32,9 +33,9 @@ GameObject:
 --- !u!1 &1486276086966666
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
+  serializedVersion: 5
   m_Component:
   - component: {fileID: 4953148091894020}
   - component: {fileID: 137556508810279418}
@@ -48,7 +49,7 @@ GameObject:
 --- !u!4 &4788242685948194
 Transform:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253008841780766}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
@@ -61,7 +62,7 @@ Transform:
 --- !u!4 &4953148091894020
 Transform:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1486276086966666}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
@@ -75,14 +76,14 @@ Transform:
 --- !u!33 &33200365726627096
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253008841780766}
   m_Mesh: {fileID: 4300000, guid: 6f75b236adc9df64fba3095324c25303, type: 3}
 --- !u!137 &137556508810279418
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1486276086966666}
   m_Enabled: 1
@@ -128,7 +129,7 @@ SkinnedMeshRenderer:
 --- !u!137 &137741154467018836
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253008841780766}
   m_Enabled: 1
@@ -175,7 +176,7 @@ SkinnedMeshRenderer:
 --- !u!183 &183989513075317036
 Cloth:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253008841780766}
   m_Enabled: 1

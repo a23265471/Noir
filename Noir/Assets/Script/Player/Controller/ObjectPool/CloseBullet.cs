@@ -5,17 +5,23 @@ using UnityEngine;
 public class CloseBullet : MonoBehaviour {
 
     public float DistroyTime;//PlayerData
-   
+    
+
 
     private float LongAttackStartTime;
     private float LongAttackNowDis;
     private float LongAttackFracDistance;
     private Quaternion BulletRotation;
+
+
     // Use this for initialization
     private void OnEnable()
     {
         LongAttackStartTime = Time.time;
+        
        
+
+        
     }
 
 	// Update is called once per frame
@@ -53,7 +59,7 @@ public class CloseBullet : MonoBehaviour {
     IEnumerator LongAttackHitWaitTime()
     {
         yield return new WaitForSeconds(DistroyTime);
-        gameObject.SetActive(false);       
+        gameObject.SetActive(false);
         
     }
 }

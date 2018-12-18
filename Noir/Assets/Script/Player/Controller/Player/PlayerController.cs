@@ -160,15 +160,16 @@ public class PlayerController : MonoBehaviour {
     public GameObject ShortAttack2_Object;
     public GameObject ShortAttack3_Object;
     private GameObject LongAttack_Object;
-    private GameObject LongAttackBullet_Object;
+    //private GameObject LongAttackBullet_Object;
     private GameObject BigSkill_Object;
     private GameObject DashAttack_Object;
+
 
     private ParticleSystem ShortAttack1_Particle;
     private ParticleSystem ShortAttack2_Particle;
     private ParticleSystem ShortAttack3_Particle;
     private ParticleSystem LongAttack_Particle;
-    private ParticleSystem LongAttackBullet_Particle;
+    //private ParticleSystem LongAttackBullet_Particle;
     private ParticleSystem BigSkill_Particle;
     private ParticleSystem DashAttack_Particle;
     //-----------------------------Particle------------
@@ -211,7 +212,7 @@ public class PlayerController : MonoBehaviour {
         LongAttack_Object = gameObject.transform.Find("LongAttack_MagicCircle").gameObject;
         DamageObject = gameObject.transform.Find("DamageCollider").gameObject;
         AttackCollider_BigSkill = gameObject.transform.Find("BigSkillCollider").gameObject;
-        LongAttackBullet_Object = gameObject.transform.Find("fx_LongAttackBullet").gameObject;
+        //LongAttackBullet_Object = gameObject.transform.Find("fx_LongAttackBullet").gameObject;
         BigSkill_Object = gameObject.transform.Find("fx_AuraMagicCircle").gameObject;
         DashAttack_Object = gameObject.transform.Find("fx_Slash_White").gameObject;
         Bullet_pos=gameObject.transform.Find("Bullet_pos");
@@ -225,7 +226,7 @@ public class PlayerController : MonoBehaviour {
         ShortAttack2_Particle = ShortAttack2_Object.GetComponent<ParticleSystem>();
         ShortAttack3_Particle = ShortAttack3_Object.GetComponent<ParticleSystem>();
         LongAttack_Particle = LongAttack_Object.GetComponent<ParticleSystem>();
-        LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
+       // LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
         BigSkill_Particle = BigSkill_Object.GetComponent<ParticleSystem>();
         DashAttack_Particle = DashAttack_Object.GetComponent<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
@@ -237,6 +238,8 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
+       
+
         Move_parameter_x = 0;
         Move_parameter_x = 0;
         playerController = this;
@@ -443,7 +446,7 @@ public class PlayerController : MonoBehaviour {
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
                     CanAttack = false;
-                    LongAttackBullet_Object.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
+                    //LongAttackBullet_Object.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
                    
                 }
 
@@ -1227,9 +1230,9 @@ public class PlayerController : MonoBehaviour {
             case AttackState.LongAttack:
                 
                 LongAttack_Particle.Stop();
-                LongAttackBullet_Particle.Stop();
+               // LongAttackBullet_Particle.Stop();
                 LongAttack_Particle.Play();
-                LongAttackBullet_Particle.Play();
+               // LongAttackBullet_Particle.Play();
                 LongAttackGetObj();
                 break;
             case AttackState.BigSkill:
