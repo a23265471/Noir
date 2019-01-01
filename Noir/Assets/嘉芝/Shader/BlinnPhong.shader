@@ -78,8 +78,7 @@ Shader "Shader Forge/NewShader" {
                 float3 lightColor = _LightColor0.rgb;
                 float3 halfDirection = normalize(viewDirection+lightDirection);
 ////// Lighting:
-                float attenuation = LIGHT_ATTENUATION(i);
-////// Emissive:
+				UNITY_LIGHT_ATTENUATION(attenuation, i, i.posWorld.xyz);////// Emissive:
                 float4 _Diffuse_var = tex2D(_Diffuse,TRANSFORM_TEX(i.uv0, _Diffuse));
                 float3 node_544 = (_Diffuse_var.rgb*_Color.rgb); // Diffuse Color
                 float3 emissive = (node_544*UNITY_LIGHTMODEL_AMBIENT.rgb);
