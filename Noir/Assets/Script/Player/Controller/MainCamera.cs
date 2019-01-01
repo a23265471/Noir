@@ -232,7 +232,7 @@ public class MainCamera : MonoBehaviour
         if (longAttackRaycastHitSomeThing)
         {
             Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
-            Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
+            //Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
 
             return RayHitPoint.point;
 
