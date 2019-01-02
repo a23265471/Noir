@@ -70,7 +70,7 @@ public class UI_HP : MonoBehaviour
         }
         DarkBarMove();
        // Debug.Log("Dark  "+DarkHP+"  HP  "+HP);
-        Debug.Log(darkBarCanMove);
+        //Debug.Log(darkBarCanMove);
       /*  if (Input.GetMouseButton(0))
         {
             SP -= 0.5f;

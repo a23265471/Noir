@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 FixBulletPos;
     private Vector3 BulletStartPos;
     public float LongAttackMaxDis;
-   // private float LongAttackNowDis;
+    public float LongAttackDis;
    // public float LongAttackFracDistance;
     public float LongAttackSpeed;  //PlayerData 
     public Vector3 LongAttackEndPos;
@@ -442,10 +442,13 @@ public class PlayerController : MonoBehaviour {
                 //playerAnimatorState = PlayerAnimatorState.Attack;               
                 if (CanAttack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.MP >= 5)  //--
                 {
+                   
+                    Debug.Log("jjjjj"); 
                     UI_HP.Ui_HP.MP -= 10;
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
                     CanAttack = false;
+                   
                     //LongAttackBullet_Object.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
                    
                 }
@@ -532,13 +535,22 @@ public class PlayerController : MonoBehaviour {
         if (MainCamera.mainCamera.longAttackRaycastHitSomeThing)
         {
             LongAttackEndPos = MainCamera.mainCamera.GetAimTarget();
+           // Debug.Log(MainCamera.mainCamera.RayHitPoint.transform.name);
+            
+            
         }
         else
         {
             LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(1, 0, LongAttackMaxDis) + Bullet.transform.position;
+            
         }
+        LongAttackDis = Vector3.Distance(BulletStartPos, LongAttackEndPos)*2;
+        LongAttackDis = Mathf.Clamp(LongAttackDis,0, LongAttackMaxDis);
         Bullet.SetActive(true);
     }
+
+    
+
 
     private void DashAttackMove()
     {
@@ -1331,7 +1343,7 @@ public class PlayerController : MonoBehaviour {
         {
             /*  AvoidCanMove = false;*/
             CanMove = false;
-           // Debug.Log("aa");
+            
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void Start () {  
 		
 	}
 	
@@ -37,6 +37,9 @@ public class PlayerDamage : MonoBehaviour {
             EnemyController.enemyController.PlayerisDamage = true;
             PlayerController.playerController.DamageAudioPlay();
             UI_HP.Ui_HP.HP -= 20;
+        }else if (other.tag == "Wall")
+        {
+            Debug.Log("h");
         }
     }
 

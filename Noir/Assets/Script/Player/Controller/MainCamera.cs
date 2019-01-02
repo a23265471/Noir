@@ -9,6 +9,8 @@ public class MainCamera : MonoBehaviour
     //  public PlayerController playerController;
     public static MainCamera mainCamera;
 
+    public RaycastHit RayHitPoint;
+
     private Quaternion rotationEuler;
     private float cameraPreRotation_Y;
     public float RotateSpeed_X;
@@ -58,6 +60,7 @@ public class MainCamera : MonoBehaviour
         WallMask = LayerMask.GetMask("Wall");
         EnemyLayerMask = LayerMask.GetMask("Enemy");
         FloorMask = LayerMask.GetMask("Floor");
+
 
     }
     private void Update()
@@ -224,16 +227,17 @@ public class MainCamera : MonoBehaviour
 
     public Vector3 GetAimTarget()
     {
-        RaycastHit RayHitPoint;
+       
         aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-
-        longAttackRaycastHitSomeThing = Physics.Raycast(transform.position, transform.forward);
+        longAttackRaycastHitSomeThing = Physics.Raycast(transform.position, transform.forward,PlayerController.playerController.LongAttackMaxDis);
+        
 
         if (longAttackRaycastHitSomeThing)
         {
             Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
-            //Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
-
+            // Debug.Log(RayHitPoint.transform.name);
+           // AimCount += 1;
+            //Debug.Log(AimCount);
             return RayHitPoint.point;
 
         }
@@ -243,7 +247,7 @@ public class MainCamera : MonoBehaviour
 
         }
 
-
+        
 
     }
 

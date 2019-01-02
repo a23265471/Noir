@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ConcentricAtlas
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 555c430f228df784683f4b37da4b2462, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 6f531ca977f8a334bb566a5cd9583da7, type: 3}
+  - {fileID: 21300000, guid: d1c7d1a800baaac40a0f3f8435e8ea69, type: 3}
+  - {fileID: 21300000, guid: 4371c299e683f6a4a94f4530102afd39, type: 3}
+  - {fileID: 21300000, guid: 2f175814a5e637c44b4272f64ef11680, type: 3}
+  - {fileID: 21300000, guid: 451502cc35ceb644b8526e7b9a7ff4c2, type: 3}
+  - {fileID: 21300000, guid: 4a3fba365cc7ddc40aa7ea1f0c4b9356, type: 3}
+  - {fileID: 21300000, guid: a2431ed214935ba4ca21c6ab6d5325f8, type: 3}
+  - {fileID: 21300000, guid: 40bf39b2f53d03440895173341afe59f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (7)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (5)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (1)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (8)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (6)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (4)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (2)"
+  - "\u6E96\u5FC3\u5E8F\u5217\u5716 (3)"
+  m_Tag: ConcentricAtlas
+  m_IsVariant: 0

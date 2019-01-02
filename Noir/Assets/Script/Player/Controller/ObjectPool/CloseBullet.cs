@@ -27,8 +27,9 @@ public class CloseBullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        
         LongAttackNowDis = (Time.time - LongAttackStartTime) * PlayerController.playerController.LongAttackSpeed;
-        LongAttackFracDistance = LongAttackNowDis / PlayerController.playerController.LongAttackMaxDis;
+        LongAttackFracDistance = LongAttackNowDis / PlayerController.playerController.LongAttackDis;
         LongAttackFracDistance = Mathf.Clamp(LongAttackFracDistance, 0, 1);
         transform.position = Vector3.Lerp(transform.position, PlayerController.playerController.LongAttackEndPos, LongAttackFracDistance);
         
@@ -36,7 +37,7 @@ public class CloseBullet : MonoBehaviour {
         BulletRotation =Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
         transform.rotation = BulletRotation;
 
-        if (LongAttackFracDistance >= 0.2f)
+        if (LongAttackNowDis >= PlayerController.playerController.LongAttackDis*0.5f)
         {
             gameObject.SetActive(false);
             
@@ -51,7 +52,7 @@ public class CloseBullet : MonoBehaviour {
         {
             
             StartCoroutine("LongAttackHitWaitTime");
-            Debug.Log("aa");
+            Debug.Log(other.name);
         }
 
 
