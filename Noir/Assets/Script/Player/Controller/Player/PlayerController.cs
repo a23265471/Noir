@@ -440,10 +440,8 @@ public class PlayerController : MonoBehaviour {
             else if (Input.GetMouseButtonDown(1))
             {
                 //playerAnimatorState = PlayerAnimatorState.Attack;               
-                if (CanAttack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.MP >= 5)  //--
-                {
-                   
-                    Debug.Log("jjjjj"); 
+                if (CanAttack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.MP >= 5 && attackState != AttackState.LongAttack)  //--
+                {                                    
                     UI_HP.Ui_HP.MP -= 10;
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
