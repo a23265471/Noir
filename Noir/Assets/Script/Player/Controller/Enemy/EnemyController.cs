@@ -33,8 +33,11 @@ public class EnemyController : MonoBehaviour
     private AttackState attackState;
 
     private Animator EnemyAnimator;
+   // AnimatorStateInfo animatorStateInfo;
     public static EnemyController enemyController;
     public bool EnemyCanDamage;
+    public UI_FollowEnemy HP;
+ //   public GameObject Enemy_UI;
 
     private NavMeshAgent EnemyNav;
 
@@ -80,6 +83,7 @@ public class EnemyController : MonoBehaviour
         enemyController = this;
         EnemyNav = GetComponent<NavMeshAgent>();
         audiosource = GetComponent<AudioSource>();
+      //  HP = Enemy_UI.GetComponent<UI_FollowEnemy>();
         /* Attack_R_Collider = gameObject.transform.Find("EnemyAttack_R_Collider").gameObject;
          Attack_L_Collider = gameObject.transform.Find("EnemyAttack_L_Collider").gameObject;*/
         Attack_L_Collider.SetActive(false);
@@ -123,6 +127,13 @@ public class EnemyController : MonoBehaviour
             EnemyMove();
         }
         //Debug.Log(enemyState);
+        if (!EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && (Attack_L_Collider.activeInHierarchy == true || Attack_R_Collider.activeInHierarchy == true)) 
+        {
+            AttackCollider_Close();
+
+        }
+        
+
     }
 
     private void EnemyMove()
@@ -219,6 +230,7 @@ public class EnemyController : MonoBehaviour
         enemyState = EnemyState.Dead;
         EnemyAnimator.SetTrigger("Dead");
         AttackCollider_Close();
+        
     }
 
     //--------------------------Aniamtion Event------------------------------------------
@@ -283,6 +295,18 @@ public class EnemyController : MonoBehaviour
             StopCoroutine(ResetStateCoroutine);
         }
     }
+
+    public void DistroyEnemy()
+    {
+        StartCoroutine("distroyEnemy");
+    }
+
+    IEnumerator distroyEnemy()
+    {
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
+    }
+
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
@@ -291,7 +315,7 @@ public class EnemyController : MonoBehaviour
         {           
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(PlayerController.playerController.transform.position);
-            UI_FollowEnemy.ui_FollowEnemy.HP -= 20;
+            HP.HP -= 20;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
         }
@@ -300,7 +324,7 @@ public class EnemyController : MonoBehaviour
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
-            UI_FollowEnemy.ui_FollowEnemy.HP -= 10;
+            HP.HP -= 10;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
         }
@@ -308,7 +332,7 @@ public class EnemyController : MonoBehaviour
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(PlayerController.playerController.transform.position);
-            UI_FollowEnemy.ui_FollowEnemy.HP -= 30;
+            HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
         }                         

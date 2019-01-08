@@ -16,13 +16,13 @@ public class PlayerController : MonoBehaviour {
         Jump,
 
     }
-    enum JumpState
+    public enum JumpState
     {
         Jump,
         DoubleJump,
         Falling,
     }
-    enum MoveState
+    public enum MoveState
     {
         Idle,
         GoForward,
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         FastRunLeft,
         
     }
-    enum AttackState
+    public enum AttackState
     {
         Default,
         Attack_1,
@@ -60,9 +60,9 @@ public class PlayerController : MonoBehaviour {
         BackRight,
         BackLeft,
     }
-    private AttackState attackState;
-    private MoveState moveState;
-    private JumpState jumpState;
+    public AttackState attackState;
+    public MoveState moveState;
+    public JumpState jumpState;
     private AvoidState avoidState;
     public PlayerAnimatorState playerAnimatorState;
     public static PlayerController playerController;
@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour {
 
     public Animator animator;
     AnimatorClipInfo[] AnimatorClipInfo;
-    AnimatorStateInfo AnimatorstateInfo;
+    public AnimatorStateInfo AnimatorstateInfo;
 
 
    
@@ -526,23 +526,19 @@ public class PlayerController : MonoBehaviour {
         
         Bullet.transform.position = BulletStartPos;
         Bullet.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
-       
-
-        
-        
-        if (MainCamera.mainCamera.longAttackRaycastHitSomeThing)
+                      
+        if (MainCamera.mainCamera.longAttackRaycastHitSomeThing && MainCamera.mainCamera.RayHitPoint.transform.CompareTag("Wall") && MainCamera.mainCamera.RayHitPoint.transform.CompareTag("Floor") && MainCamera.mainCamera.RayHitPoint.transform.CompareTag("Enemy"))
         {
             LongAttackEndPos = MainCamera.mainCamera.GetAimTarget();
            // Debug.Log(MainCamera.mainCamera.RayHitPoint.transform.name);
-            
-            
+                       
         }
         else
         {
             LongAttackEndPos = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget()) * new Vector3(1, 0, LongAttackMaxDis) + Bullet.transform.position;
             
         }
-        LongAttackDis = Vector3.Distance(BulletStartPos, LongAttackEndPos)*2;
+        LongAttackDis = Vector3.Distance(BulletStartPos, LongAttackEndPos) * 3;
         LongAttackDis = Mathf.Clamp(LongAttackDis,0, LongAttackMaxDis);
         Bullet.SetActive(true);
     }

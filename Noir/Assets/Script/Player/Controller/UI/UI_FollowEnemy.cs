@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class UI_FollowEnemy : MonoBehaviour {
 
-    public static UI_FollowEnemy ui_FollowEnemy;
+    
     public float HP_Max;    
-    public float HP;
-
+    public float HP; 
     public GameObject HP_Light;
-    private GameObject Enemy;
+    public GameObject Enemy;
     private Vector3 UI_pos;
     private GameObject maincamera;
-	// Use this for initialization
-	void Start ()
+    private EnemyController enemyController;
+
+    // Use this for initialization
+    void Start ()
     {
-        ui_FollowEnemy = this;
-        Enemy = GameObject.Find("Enemy_ShortAttack");
+       
         maincamera = GameObject.Find("Main Camera");
-	}
+        enemyController = Enemy.GetComponent<EnemyController>();
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -30,9 +32,9 @@ public class UI_FollowEnemy : MonoBehaviour {
 
         transform.rotation = Quaternion.LookRotation(transform.position - maincamera.transform.position);
 
-        if (HP <= 0 && EnemyController.enemyController.enemyState != EnemyController.EnemyState.Dead) 
+        if (HP <= 0 && enemyController.enemyState != EnemyController.EnemyState.Dead) 
         {
-            EnemyController.enemyController.Dead();
+            enemyController.Dead();
         }
 	}
 

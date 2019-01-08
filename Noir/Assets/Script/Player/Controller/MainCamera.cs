@@ -230,11 +230,11 @@ public class MainCamera : MonoBehaviour
        
         aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         longAttackRaycastHitSomeThing = Physics.Raycast(transform.position, transform.forward,PlayerController.playerController.LongAttackMaxDis);
-        
+        Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
 
-        if (longAttackRaycastHitSomeThing)
+        if (longAttackRaycastHitSomeThing && RayHitPoint.transform.CompareTag("Wall") && RayHitPoint.transform.CompareTag("Floor") && RayHitPoint.transform.CompareTag("Enemy"))
         {
-            Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
+            
             // Debug.Log(RayHitPoint.transform.name);
            // AimCount += 1;
             //Debug.Log(AimCount);

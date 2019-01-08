@@ -16,11 +16,11 @@ public class CloseAttackCollider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+       /* if (other.tag == "Enemy")
         {
             gameObject.SetActive(false);
 
         }
-       
+       */
     }
 }

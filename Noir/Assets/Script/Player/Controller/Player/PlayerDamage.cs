@@ -21,6 +21,8 @@ public class PlayerDamage : MonoBehaviour {
             gameObject.SetActive(false);
             PlayerController.playerController.animator.SetTrigger("Damage_GetDown");
             PlayerController.playerController.DamageAudioPlay();
+            UI_HP.Ui_HP.DarkBarStartControl();
+
         }
         else if (other.tag == "EnemyAttack_Big")
         {
@@ -29,6 +31,7 @@ public class PlayerDamage : MonoBehaviour {
             EnemyController.enemyController.PlayerisDamage = true;
             PlayerController.playerController.DamageAudioPlay();
             UI_HP.Ui_HP.HP -= 40;
+            UI_HP.Ui_HP.DarkBarStartControl();
         }
         else if (other.tag == "EnemyAttack_Small")
         {
@@ -37,9 +40,7 @@ public class PlayerDamage : MonoBehaviour {
             EnemyController.enemyController.PlayerisDamage = true;
             PlayerController.playerController.DamageAudioPlay();
             UI_HP.Ui_HP.HP -= 20;
-        }else if (other.tag == "Wall")
-        {
-            Debug.Log("h");
+            UI_HP.Ui_HP.DarkBarStartControl();
         }
     }
 

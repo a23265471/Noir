@@ -86,7 +86,7 @@ public class UI_HP : MonoBehaviour
        
     }
 
-    private void DarkBarStartControl()
+    public void DarkBarStartControl()
     {
         DarkBarControlCoroutine = DarkBarStartControl(1.2f);
         darkBarCanMove = false;

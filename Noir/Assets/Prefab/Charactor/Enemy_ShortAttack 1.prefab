@@ -1214,7 +1214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539476961745494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.892547, y: 8.575276e-18, z: 6.3380384}
+  m_LocalPosition: {x: 0.6039482, y: 0.87, z: 14.930206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224910503018819248}
@@ -2073,6 +2073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyState: 0
   EnemyCanDamage: 0
+  HP: {fileID: 114763550191695278}
   PlayerChaseDis: 10
   CanChase: 0
   EnemyMaxSpeed: 0
@@ -2150,6 +2151,7 @@ MonoBehaviour:
   HP_Max: 100
   HP: 100
   HP_Light: {fileID: 1602452825653112}
+  Enemy: {fileID: 1539476961745494}
 --- !u!114 &114852541169535786
 MonoBehaviour:
   m_ObjectHideFlags: 1
