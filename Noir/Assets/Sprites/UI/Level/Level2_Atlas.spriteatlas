@@ -32,11 +32,11 @@ SpriteAtlas:
       m_AndroidETC2FallbackOverride: 0
     packingParameters:
       serializedVersion: 2
-      padding: 4
+      padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 1
+      enableTightPacking: 0
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 4172f310b35655a43b41963b210403c2, type: 3}
@@ -44,7 +44,6 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: c7bda53d784fb2d4dbda229d3ac58eb5, type: 3}
-  - {fileID: 21300000, guid: d4ada00714314c34a929d98f88ed8e53, type: 3}
   - {fileID: 21300000, guid: 42b02139fce757242ac840ff07460943, type: 3}
   - {fileID: 21300000, guid: 3a72895955e84c84399a0557ab1bd047, type: 3}
   - {fileID: 21300000, guid: df114f8cebf504b408d555f89cb7fe33, type: 3}
@@ -58,7 +57,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dc66240e079395e41979053f1a8b85ce, type: 3}
   m_PackedSpriteNamesToIndex:
   - "\u602A\u7269\u6846\u6846"
-  - messageImage_1542684345040
   - "\u95DC\u5361\u6587\u5B57"
   - "\u95DC\u5361\u9396\u5B9A-36"
   - "\u95DC\u5361\u9396\u5B9A-37"
