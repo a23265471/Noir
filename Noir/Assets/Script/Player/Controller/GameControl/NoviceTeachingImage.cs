@@ -7,7 +7,7 @@ public class NoviceTeachingImage : MonoBehaviour
 {
     public static NoviceTeachingImage noviceTeachingImage;
     public Sprite[] TeachImageSource;
-    private Image TeachImge;
+    public Image TeachImge;
     IEnumerator changeAlpha = null;
     
     private void Awake()
@@ -19,7 +19,7 @@ public class NoviceTeachingImage : MonoBehaviour
     private void Start()
     {       
         TeachImge.color = new Color(TeachImge.color.r, TeachImge.color.b, TeachImge.color.g, 0);
-        LoadImage(0);
+       
     }
 
     public void LoadImage(int loadSprite)
@@ -30,7 +30,11 @@ public class NoviceTeachingImage : MonoBehaviour
 
     public void UnLoadImage()
     {
-        FadeInOut(TeachImge.color.a, 0);
+        if (TeachImge.color.a == 1)
+        {
+            FadeInOut(TeachImge.color.a, 0);
+        }
+        
 
     }
 

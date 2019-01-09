@@ -6,10 +6,13 @@ public class NoviceTeachingController : MonoBehaviour
 {
     public static NoviceTeachingController noviceTeachingController;
 
-    public GameObject LongAttackTeachTrigger;
-    public GameObject BigSkillTeachTrigger;
-    private bool SlowMotion;
+  /*  public GameObject TriggerNextTeach;*/
+
+    private TriggerNoviceTeach curTriggerNoviceTeach;
+
+  /*  private bool SlowMotion;
     private string[] AnimatorTransitionInfo;
+    private Transform[] creatEnemyPoint;*/
     public enum NoviceTeachingState
     {
         Move,
@@ -30,51 +33,96 @@ public class NoviceTeachingController : MonoBehaviour
     private void Awake()
     {
         noviceTeachingController = this;
+        this.enabled = false;
       //  EnemyLayer = LayerMask.GetMask("Enemy");
     }
+    private void Start()
+    {
+        
+    }
+
 
     private void Update()
     {
-        CloseNoviceTeaching(SlowMotion);
+        CloseNoviceTeaching(curTriggerNoviceTeach.SlowMotion);
+
+        
 
 
 
 
-
-
-        Debug.Log("hhh");
+        
     }
-    public void OpenNoviceTeaching(NoviceTeachingState curNoviceTeachingState,bool isSlowMotion,string[] animatorTransitionInfo)
+    public void OpenNoviceTeaching(TriggerNoviceTeach triggerNoviceTeach, NoviceTeachingState curNoviceTeachingState,bool isSlowMotion,string[] animatorTransitionInfo,Transform[] enemyCreatPos,GameObject enemy,GameObject triggerNextTeach)
     {
         this.enabled = true;
-        noviceTeachingState = curNoviceTeachingState;
-        NoviceTeachingImage.noviceTeachingImage.LoadImage((int)noviceTeachingState);
-        SlowMotion = isSlowMotion;
+       /* noviceTeachingState = curNoviceTeachingState;*/
         
-        AnimatorTransitionInfo = animatorTransitionInfo;
-        
-        
+        curTriggerNoviceTeach = triggerNoviceTeach;
+        NoviceTeachingImage.noviceTeachingImage.LoadImage((int)curTriggerNoviceTeach.NoviceTeachingState);
+        /* SlowMotion = isSlowMotion;
+         creatEnemyPoint = enemyCreatPos;
+         TriggerNextTeach = triggerNextTeach;
+         AnimatorTransitionInfo = animatorTransitionInfo;*/
+
         if (isSlowMotion)
         {
             Time.timeScale = 0.5f;
-            Debug.Log("ttt");
+           
         }
 
+        if (curTriggerNoviceTeach.CreatEnemyPoint.Length != 0) 
+        {
+            for(int i=0;i< curTriggerNoviceTeach.CreatEnemyPoint.Length; i++)
+            {
+                Instantiate(enemy, curTriggerNoviceTeach.CreatEnemyPoint[i].position, curTriggerNoviceTeach.CreatEnemyPoint[i].rotation);
+            }
+            
+        }
 
     }
 
+
     public void CloseNoviceTeaching(bool isSlowMotion)
     {     
-        if (MakeSureInput(noviceTeachingState))
+        if (MakeSureInput())
         {
             NoviceTeachingImage.noviceTeachingImage.UnLoadImage();
+            
             if (isSlowMotion)
             {
                 Time.timeScale = 1;
             }
-            this.enabled = false;
+
+           
         }
-        
+
+        if (curTriggerNoviceTeach.needToKillAllEnemy)
+        {
+            if(GameObject.FindGameObjectsWithTag("TeachEnemy").Length == 0)
+            {
+                this.enabled = false;
+                if (curTriggerNoviceTeach.TriggerNextTeach != null)
+                {
+                    curTriggerNoviceTeach.TriggerNextTeach.SetActive(true);
+                }
+
+            }
+            else
+            {
+                Debug.Log("NoEnemy");
+                return;
+            }
+        }
+        else if (NoviceTeachingImage.noviceTeachingImage.TeachImge.color.a == 0)
+        {
+            this.enabled = false;
+            if (curTriggerNoviceTeach.TriggerNextTeach != null)
+            {
+                curTriggerNoviceTeach.TriggerNextTeach.SetActive(true);
+            }
+        }
+               
     }
 
     public void ForceCloseNoviceTeaching(bool isSlowMotion)
@@ -87,108 +135,35 @@ public class NoviceTeachingController : MonoBehaviour
         Debug.Log("ttt");
     }
 
-    public void ShortAttackTeach()
-    {
-        /*if(Physics.Raycast(PlayerController.playerController.transform.position, PlayerController.playerController.transform.forward, 5, EnemyLayer))
+    private bool MakeSureInput()      
+    {       
+        if(curTriggerNoviceTeach.NoviceTeachingState == NoviceTeachingState.Move)
         {
-            Debug.Log("yyy");
-        }*/
-       
-    }
-    private bool MakeSureInput(NoviceTeachingState curNoviceTeachingState/*,string AnimatorTransitionInfo*/)      
-    {
-        /* if (SlowMotion)
-         {
-             if(PlayerController.playerController.animator.GetAnimatorTransitionInfo(0).IsName("PlayerController -> Jump"))
-             {
-                 return true;
-             }
-
-         }
-         else
-
-         {*/
-        if(curNoviceTeachingState== NoviceTeachingState.Move)
-        {
+            
             if (PlayerController.playerController.moveState != PlayerController.MoveState.Idle)
             {
+                
                 return true;
             }
         }       
-        else if (AnimatorTransitionInfo.LongLength != 0)
+        else if (curTriggerNoviceTeach.AnimatorTransition.Length != 0)
         {
-            for(int i=0; i < AnimatorTransitionInfo.LongLength; i++)
+            for(int i=0; i < curTriggerNoviceTeach.AnimatorTransition.Length; i++)
             {
-                if (PlayerController.playerController.animator.GetAnimatorTransitionInfo(0).IsName(AnimatorTransitionInfo[i]))
+                if (PlayerController.playerController.animator.GetAnimatorTransitionInfo(0).IsName(curTriggerNoviceTeach.AnimatorTransition[i]))
                 {
                     return true;
+
                 }
             }
             
         }
-        else if (PlayerController.playerController.AnimatorstateInfo.IsTag(curNoviceTeachingState.ToString()))
+        else if (PlayerController.playerController.AnimatorstateInfo.IsTag(curTriggerNoviceTeach.NoviceTeachingState.ToString()))
         {
                 return true;
         }
-       // }
+         return false;
         
-
-        /*switch ((int)noviceTeachingState)
-        {
-            case (int)NoviceTeachingState.Move:
-                if (PlayerController.playerController.moveState!=PlayerController.MoveState.Idle)
-                {
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.Jump:
-                if (PlayerController.playerController.animator.GetAnimatorTransitionInfo(0).IsName("PlayerController -> Jump"))
-                {
-                   
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.DoubleJump:
-                if (PlayerController.playerController.AnimatorstateInfo.IsName("DoubleJump"))
-                {
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.Avoid:
-                if (PlayerController.playerController.AnimatorstateInfo.IsTag("Avoid"))
-                {
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.ShortAttack:
-                if (PlayerController.playerController.AnimatorstateInfo.IsTag("ShortAttack"))
-                {
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.LongAttack:
-                if (PlayerController.playerController.AnimatorstateInfo.IsName("LongAttack"))
-                {
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.DashAttack:
-                if (PlayerController.playerController.AnimatorstateInfo.IsName("DashAttack"))
-                {
-                    return true;
-                }
-                break;
-            case (int)NoviceTeachingState.BigSkill:
-                if (PlayerController.playerController.AnimatorstateInfo.IsName("BigSkill"))
-                {
-                    return true;
-                }
-                break;
-        }*/
-
-        return false;
-        
-
     }
 
 }

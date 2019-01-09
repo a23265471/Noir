@@ -7,16 +7,20 @@ public class TriggerNoviceTeach : MonoBehaviour
     public NoviceTeachingController.NoviceTeachingState NoviceTeachingState;
     public bool SlowMotion;
     public string[] AnimatorTransition;
-    public Vector3[] Enemy; 
+    public GameObject TriggerNextTeach;
+    public bool needToKillAllEnemy;
+    public Transform[] CreatEnemyPoint;
+    public GameObject Enemy;
+
 
     private void OnTriggerEnter(Collider other)
     {
+        TriggerNoviceTeach triggerNoviceTeach = GetComponent<TriggerNoviceTeach>();
         if (other.gameObject.CompareTag("Player"))
         {
             if (NoviceTeachingController.noviceTeachingController.enabled == false)
-            {
-           
-                NoviceTeachingController.noviceTeachingController.OpenNoviceTeaching(NoviceTeachingState, SlowMotion, AnimatorTransition);
+            {           
+                NoviceTeachingController.noviceTeachingController.OpenNoviceTeaching(triggerNoviceTeach,NoviceTeachingState, SlowMotion, AnimatorTransition, CreatEnemyPoint,Enemy, TriggerNextTeach);
                 gameObject.SetActive(false);
 
                         

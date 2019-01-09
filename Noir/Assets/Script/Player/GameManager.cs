@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour {
             
         }
 
-        /*if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead || EnemyController.enemyController.enemyState == EnemyController.EnemyState.Dead)
+        if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead)
         {
             StartCoroutine("GoToMainScene");
            // END_Panel.SetActive(true);
-        }*/
+        }
        
     }
 

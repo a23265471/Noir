@@ -73,7 +73,7 @@ public class EnemyController : MonoBehaviour
     //----------------Audio----------------
     private AudioSource audiosource;
     public AudioClip AudioClip_Damage;
-
+    
 
     //----------------Audio----------------
 
@@ -310,16 +310,23 @@ public class EnemyController : MonoBehaviour
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
-    {   
-        if (other.tag == "PlayerAttack_Big")
-        {           
+    {
+        if (other.tag == "PlayerAttack_BigSkill")
+        {
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(PlayerController.playerController.transform.position);
-            HP.HP -= 20;
+            HP.HP -= 100;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
         }
-
+        else if (other.tag == "PlayerAttack_Big")
+        {           
+            EnemyAnimator.SetTrigger("Damage_Big");
+            transform.LookAt(PlayerController.playerController.transform.position);
+            HP.HP -= 30;
+            audiosource.clip = AudioClip_Damage;
+            audiosource.Play();
+        }
         else if (other.tag == "PlayerAttack_Small")
         {
             EnemyAnimator.SetTrigger("Damage_Small");

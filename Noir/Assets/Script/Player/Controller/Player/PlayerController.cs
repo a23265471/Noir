@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour {
     //private GameObject LongAttackBullet_Object;
     private GameObject BigSkill_Object;
     private GameObject DashAttack_Object;
-
+    public GameObject DoubleJump_Object;
 
     private ParticleSystem ShortAttack1_Particle;
     private ParticleSystem ShortAttack2_Particle;
@@ -172,6 +172,7 @@ public class PlayerController : MonoBehaviour {
     //private ParticleSystem LongAttackBullet_Particle;
     private ParticleSystem BigSkill_Particle;
     private ParticleSystem DashAttack_Particle;
+    private ParticleSystem DoubleJump_Particle;
     //-----------------------------Particle------------
     //---------------Audio----------
     private AudioSource audioSource;
@@ -229,6 +230,7 @@ public class PlayerController : MonoBehaviour {
        // LongAttackBullet_Particle = LongAttackBullet_Object.GetComponent<ParticleSystem>();
         BigSkill_Particle = BigSkill_Object.GetComponent<ParticleSystem>();
         DashAttack_Particle = DashAttack_Object.GetComponent<ParticleSystem>();
+        DoubleJump_Particle = DoubleJump_Object.GetComponent<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
         rigi = GetComponent<Rigidbody>();
 
@@ -1219,6 +1221,11 @@ public class PlayerController : MonoBehaviour {
     //-------------Audio------------
     public void ParticleTrigger()
     {
+        if (jumpState == JumpState.DoubleJump)
+        {
+            DoubleJump_Particle.Stop();
+            DoubleJump_Particle.Play();
+        }
         switch (attackState)
         {
             case AttackState.Attack_1:
@@ -1250,6 +1257,7 @@ public class PlayerController : MonoBehaviour {
                 DashAttack_Particle.Stop();
                 DashAttack_Particle.Play();
                 break;
+            
 
         }
     }
