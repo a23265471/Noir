@@ -20,6 +20,10 @@ public class MainMenu : MonoBehaviour {
     {
         LevelChanger_anim.SetTrigger("MainFadeOut");
     }
+    public void FadeToSetting()
+    {
+        LevelChanger_anim.SetTrigger("ToGameSetting");
+    }
     public void ChooseLevel()
     {
         SceneManager.LoadScene("ChooseLevel");

@@ -1805,7 +1805,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2c20d4d8c045a76448262fa80b94b3f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4ed797defde9c2408777420de96c866, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2838,6 +2838,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6e295cad6469345ab3fe0dd378387c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelChanger_anim: {fileID: 0}
+  loadingScene: {fileID: 0}
+  loadingSlider: {fileID: 0}
+  progressText: {fileID: 0}
 --- !u!1 &2014542959
 GameObject:
   m_ObjectHideFlags: 0
