@@ -71,7 +71,7 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 2
+      focusDistance: 5.91
       aperture: 5.2
       focalLength: 40
       useCameraFov: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
     m_Settings:
       bloom:
         intensity: 0.2
-        threshold: 0.21
+        threshold: 1.57
         softKnee: 1
         radius: 1.4
         antiFlicker: 1
