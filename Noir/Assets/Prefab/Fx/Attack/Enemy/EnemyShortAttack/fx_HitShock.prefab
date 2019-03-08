@@ -8408,10 +8408,22 @@ ParticleSystem:
     radiusScale: 1
   SubModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     subEmitters:
     - serializedVersion: 2
-      emitter: {fileID: 0}
+      emitter: {fileID: 198462393456320514}
+      type: 0
+      properties: 0
+    - serializedVersion: 2
+      emitter: {fileID: 198674699339838778}
+      type: 0
+      properties: 0
+    - serializedVersion: 2
+      emitter: {fileID: 198867395216136644}
+      type: 0
+      properties: 0
+    - serializedVersion: 2
+      emitter: {fileID: 198774874994881152}
       type: 0
       properties: 0
   LightsModule:
@@ -14811,7 +14823,7 @@ ParticleSystem:
         serializedVersion: 2
         minMaxState: 3
         scalar: 5
-        minScalar: 3
+        minScalar: 10
         maxCurve:
           serializedVersion: 2
           m_Curve:
