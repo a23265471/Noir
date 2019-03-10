@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: e8e25acb67c942241a25cf372770d4b1
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: potion1_cap
+    100004: potion1_de01
+    100006: potion1_de02
+    100008: potion1_de03
+    100010: potion1_de04
+    100012: potion1_de05
+    100014: potion1_glass
+    100016: potion1_red
+    400000: //RootNode
+    400002: potion1_cap
+    400004: potion1_de01
+    400006: potion1_de02
+    400008: potion1_de03
+    400010: potion1_de04
+    400012: potion1_de05
+    400014: potion1_glass
+    400016: potion1_red
+    2100000: potion_black
+    2100002: potion_blue
+    2100004: potion_red
+    2100006: potion_white
+    2100008: potion_glass
+    2300000: potion1_cap
+    2300002: potion1_de01
+    2300004: potion1_de02
+    2300006: potion1_de03
+    2300008: potion1_de04
+    2300010: potion1_de05
+    2300012: potion1_glass
+    2300014: potion1_red
+    3300000: potion1_cap
+    3300002: potion1_de01
+    3300004: potion1_de02
+    3300006: potion1_de03
+    3300008: potion1_de04
+    3300010: potion1_de05
+    3300012: potion1_glass
+    3300014: potion1_red
+    4300000: potion1_de02
+    4300002: potion1_de03
+    4300004: potion1_red
+    4300006: potion1_de01
+    4300008: potion1_de05
+    4300010: potion1_de04
+    4300012: potion1_cap
+    4300014: potion1_glass
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potion_black
+    second: {fileID: 2100000, guid: 73531598c9038a144ab86f667ee0dc33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potion_blue
+    second: {fileID: 2100000, guid: c1f0518f09222834a9d7b99f7fdb1bb1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potion_glass
+    second: {fileID: 2100000, guid: 78f82b37cbad7ff4e93018955dceeb17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potion_red
+    second: {fileID: 2100000, guid: c2775b2bc4c271e459c35ccd3d15c428, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potion_white
+    second: {fileID: 2100000, guid: 23de9984c271a9d4994bed046d6af3b3, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
