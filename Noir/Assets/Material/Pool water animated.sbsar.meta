@@ -1,0 +1,115 @@
+fileFormatVersion: 2
+guid: 378c288dc7f39864e8fd23b02b230cc8
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: Pool water animated/Pool water animated
+    400000: Pool water animated/Pool water animated/Transform
+    2100000: mat.Pool_Water
+    2300000: Pool water animated/Pool water animated/MeshRenderer
+    2800000: Pool_Water_diffuse
+    2800002: Pool_Water_normal
+    2800004: Pool_Water_metallic
+    2800006: Pool_Water_height
+    2800008: Pool_Water_ambientOcclusion
+    3300000: Pool water animated/Pool water animated/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: Pool water animated/Pool water animated/SphereCollider
+    100100000: Pool water animated
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Pool_Water
+    prototypeName: Pool_Water
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Pool_Water\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"1076631986\" type=\"8\" value=\"10,10\" />\n
+      \ <presetinput identifier=\"Dark_Color_1\" uid=\"905635820\" type=\"3\" value=\"0,0,0,1\"
+      />\n  <presetinput identifier=\"Dark_Color_2\" uid=\"905635787\" type=\"3\"
+      value=\"0,0.0918476,0.113208,1\" />\n  <presetinput identifier=\"Light_Color_2\"
+      uid=\"905635774\" type=\"3\" value=\"0.396226,0.396226,0.396226,1\" />\n  <presetinput
+      identifier=\"Light_Color_1\" uid=\"905635728\" type=\"3\" value=\"0.172882,0.333412,0.349057,1\"
+      />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: diffuse,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: normal
+      alphaSource: normal
+    - outputName: smoothness
+      alphaSource: smoothness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    - outputName: roughness
+      alphaSource: roughness
+    textureParameters:
+    - textureName: Pool_Water_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Pool_Water_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Pool_Water_smoothness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Pool_Water_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Pool_Water_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Pool_Water_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Pool_Water_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: smoothness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 1
+      textureWidth: 1024
+      textureHeight: 1024
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 378c288dc7f39864e8fd23b02b230cc8, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: 378c288dc7f39864e8fd23b02b230cc8, type: 3}
+    - {fileID: 2800002, guid: 378c288dc7f39864e8fd23b02b230cc8, type: 3}
+    - {fileID: 2800004, guid: 378c288dc7f39864e8fd23b02b230cc8, type: 3}
+    - {fileID: 2800006, guid: 378c288dc7f39864e8fd23b02b230cc8, type: 3}
+    - {fileID: 2800008, guid: 378c288dc7f39864e8fd23b02b230cc8, type: 3}

@@ -1,0 +1,99 @@
+fileFormatVersion: 2
+guid: dd52a43a9b3d319438aef407aa9fee52
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: PL_Statue_Metal_01/PL_Statue_Metal_01
+    400000: PL_Statue_Metal_01/PL_Statue_Metal_01/Transform
+    2100000: mat.Statue_Metal
+    2300000: PL_Statue_Metal_01/PL_Statue_Metal_01/MeshRenderer
+    2800000: Statue_Metal_baseColor
+    2800002: Statue_Metal_normal
+    2800004: Statue_Metal_metallic
+    2800006: Statue_Metal_height
+    3300000: PL_Statue_Metal_01/PL_Statue_Metal_01/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: PL_Statue_Metal_01/PL_Statue_Metal_01/SphereCollider
+    100100000: PL_Statue_Metal_01
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Statue_Metal
+    prototypeName: Statue_Metal
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Statue_Metal\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"2738250837\" type=\"8\" value=\"10,10\" />\n
+      \ <presetinput identifier=\"flakes_color_2\" uid=\"3489906501\" type=\"3\" value=\"0.367925,0.367925,0.367925,1\"
+      />\n  <presetinput identifier=\"flakes_color_3\" uid=\"3489905018\" type=\"3\"
+      value=\"0.481132,0.481132,0.481132,1\" />\n  <presetinput identifier=\"metal_aging_hill_color\"
+      uid=\"3490236703\" type=\"3\" value=\"0.59434,0.59434,0.59434,1\" />\n  <presetinput
+      identifier=\"metal_aging_crevices_color\" uid=\"3489875874\" type=\"3\" value=\"0.783019,0.783019,0.783019,1\"
+      />\n  <presetinput identifier=\"patina_color\" uid=\"3489884439\" type=\"3\"
+      value=\"0.688679,0.688679,0.688679,1\" />\n  <presetinput identifier=\"grime_color\"
+      uid=\"3490250516\" type=\"2\" value=\"0.877358,0.877358,0.877358\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    textureParameters:
+    - textureName: Statue_Metal_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Statue_Metal_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Statue_Metal_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Statue_Metal_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Statue_Metal_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 1
+      textureWidth: 1024
+      textureHeight: 1024
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: dd52a43a9b3d319438aef407aa9fee52, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: dd52a43a9b3d319438aef407aa9fee52, type: 3}
+    - {fileID: 2800002, guid: dd52a43a9b3d319438aef407aa9fee52, type: 3}
+    - {fileID: 2800004, guid: dd52a43a9b3d319438aef407aa9fee52, type: 3}
+    - {fileID: 2800006, guid: dd52a43a9b3d319438aef407aa9fee52, type: 3}
