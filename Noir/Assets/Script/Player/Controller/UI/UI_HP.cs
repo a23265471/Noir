@@ -55,7 +55,7 @@ public class UI_HP : MonoBehaviour
 
         if (HP <= 0)
         {
-            PlayerController.playerController.Dead();
+            PlayerControllerOld.playerControllerOld.Dead();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
