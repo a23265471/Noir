@@ -110,11 +110,11 @@ Shader "Shader Forge/Water" {
                 i.normalDir = normalize(i.normalDir);
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-                float4 node_2038 = _Time;
-                float2 node_2693 = ((i.uv0*5.0)+node_2038.g*float2(0.02,0.02));
+                float4 node_909 = _Time;
+                float2 node_2693 = ((i.uv0*5.0)+node_909.g*float2(0.02,0.02));
                 float3 _node_8693_var = UnpackNormal(tex2D(_node_8693,TRANSFORM_TEX(node_2693, _node_8693)));
                 float3 node_9406 = lerp(float3(0,0,3),_node_8693_var.rgb,_Reflection);
-                float2 node_4939 = ((i.uv0*100.0)+node_2038.g*float2(-0.03,-0.03));
+                float2 node_4939 = ((i.uv0*100.0)+node_909.g*float2(-0.03,-0.03));
                 float3 _NormalDetail_var = UnpackNormal(tex2D(_NormalDetail,TRANSFORM_TEX(node_4939, _NormalDetail)));
                 float3 node_9518_nrm_base = node_9406 + float3(0,0,1);
                 float3 node_9518_nrm_detail = _NormalDetail_var.rgb * float3(-1,-1,1);
@@ -315,11 +315,11 @@ Shader "Shader Forge/Water" {
                 i.normalDir = normalize(i.normalDir);
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-                float4 node_5836 = _Time;
-                float2 node_2693 = ((i.uv0*5.0)+node_5836.g*float2(0.02,0.02));
+                float4 node_7257 = _Time;
+                float2 node_2693 = ((i.uv0*5.0)+node_7257.g*float2(0.02,0.02));
                 float3 _node_8693_var = UnpackNormal(tex2D(_node_8693,TRANSFORM_TEX(node_2693, _node_8693)));
                 float3 node_9406 = lerp(float3(0,0,3),_node_8693_var.rgb,_Reflection);
-                float2 node_4939 = ((i.uv0*100.0)+node_5836.g*float2(-0.03,-0.03));
+                float2 node_4939 = ((i.uv0*100.0)+node_7257.g*float2(-0.03,-0.03));
                 float3 _NormalDetail_var = UnpackNormal(tex2D(_NormalDetail,TRANSFORM_TEX(node_4939, _NormalDetail)));
                 float3 node_9518_nrm_base = node_9406 + float3(0,0,1);
                 float3 node_9518_nrm_detail = _NormalDetail_var.rgb * float3(-1,-1,1);
@@ -450,8 +450,8 @@ Shader "Shader Forge/Water" {
                 
                 o.Emission = 0;
                 
-                float4 node_5605 = _Time;
-                float2 node_2693 = ((i.uv0*5.0)+node_5605.g*float2(0.02,0.02));
+                float4 node_2476 = _Time;
+                float2 node_2693 = ((i.uv0*5.0)+node_2476.g*float2(0.02,0.02));
                 float3 _node_8693_var = UnpackNormal(tex2D(_node_8693,TRANSFORM_TEX(node_2693, _node_8693)));
                 float3 node_9406 = lerp(float3(0,0,3),_node_8693_var.rgb,_Reflection);
                 float3 diffColor = ((_color.rgb*i.vertexColor.a)*pow(1.0-max(0,dot(node_9406, viewDirection)),_Fresnel));
