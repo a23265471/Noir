@@ -17,31 +17,44 @@ public class PlayerDamage : MonoBehaviour {
     {
         if (other.tag == "EnemyAttack_GetDown")
         {
-            PlayerControllerOld.playerControllerOld.playerAnimatorState = PlayerControllerOld.PlayerAnimatorState.GetDown;
+            PlayerController.playerController.playerAnimatorState = PlayerController.PlayerAnimatorState.GetDown;
             gameObject.SetActive(false);
-            PlayerControllerOld.playerControllerOld.animator.SetTrigger("Damage_GetDown");
-            PlayerControllerOld.playerControllerOld.DamageAudioPlay();
+            PlayerController.playerController.animator.SetTrigger("Damage_GetDown");
+            PlayerController.playerController.DamageAudioPlay();
             UI_HP.Ui_HP.DarkBarStartControl();
 
         }
         else if (other.tag == "EnemyAttack_Big")
         {
-            PlayerControllerOld.playerControllerOld.playerAnimatorState = PlayerControllerOld.PlayerAnimatorState.Damage;
-            PlayerControllerOld.playerControllerOld.animator.SetTrigger("Damage_Big");
+            PlayerController.playerController.playerAnimatorState = PlayerController.PlayerAnimatorState.Damage;
+            PlayerController.playerController.animator.SetTrigger("Damage_Big");
             EnemyController.enemyController.PlayerisDamage = true;
-            PlayerControllerOld.playerControllerOld.DamageAudioPlay();
+            PlayerController.playerController.DamageAudioPlay();
             UI_HP.Ui_HP.HP -= 40;
             UI_HP.Ui_HP.DarkBarStartControl();
         }
         else if (other.tag == "EnemyAttack_Small")
         {
-            PlayerControllerOld.playerControllerOld.playerAnimatorState = PlayerControllerOld.PlayerAnimatorState.Damage;
-            PlayerControllerOld.playerControllerOld.animator.SetTrigger("Damage_Small");
+            PlayerController.playerController.playerAnimatorState = PlayerController.PlayerAnimatorState.Damage;
+            PlayerController.playerController.animator.SetTrigger("Damage_Small");
             EnemyController.enemyController.PlayerisDamage = true;
-            PlayerControllerOld.playerControllerOld.DamageAudioPlay();
+            PlayerController.playerController.DamageAudioPlay();
             UI_HP.Ui_HP.HP -= 20;
             UI_HP.Ui_HP.DarkBarStartControl();
+          //  Debug.Log("fff");
         }
+        else if (other.tag == "BlackRain")
+        {
+            PlayerController.playerController.playerAnimatorState = PlayerController.PlayerAnimatorState.Damage;
+            PlayerController.playerController.animator.SetTrigger("Damage_Small");
+           // EnemyController.enemyController.PlayerisDamage = true;
+           // PlayerController.playerController.DamageAudioPlay();
+            UI_HP.Ui_HP.HP -= 20;
+            UI_HP.Ui_HP.DarkBarStartControl();
+          //  Debug.Log("fff");
+        }
+
+
     }
 
     

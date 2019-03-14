@@ -61,39 +61,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Abstract\Character.cs" />
-    <Compile Include="Assets\Script\Behaviour\MainCamera.cs" />
-    <Compile Include="Assets\Script\Behaviour\PlayerBehaviour.cs" />
-    <Compile Include="Assets\Script\Component\AnimationEvent.cs" />
-    <Compile Include="Assets\Script\Component\AnimationHash.cs" />
-    <Compile Include="Assets\Script\Component\Gravity.cs" />
-    <Compile Include="Assets\Script\Controller\GameStageController.cs" />
-    <Compile Include="Assets\Script\Controller\PlayerController.cs" />
-    <Compile Include="Assets\Script\EnemySpine.cs" />
-    <Compile Include="Assets\Script\GameFacade.cs" />
     <Compile Include="Assets\Script\GlowObject\GlowComposite.cs" />
     <Compile Include="Assets\Script\GlowObject\GlowController.cs" />
     <Compile Include="Assets\Script\GlowObject\GlowObject.cs" />
     <Compile Include="Assets\Script\GlowObject\GlowObjectCmd.cs" />
     <Compile Include="Assets\Script\GlowObject\GlowPrePass.cs" />
     <Compile Include="Assets\Script\GlowObject\Spinner.cs" />
-    <Compile Include="Assets\Script\Models\ActionState.cs" />
-    <Compile Include="Assets\Script\Models\GameStageData.cs" />
-    <Compile Include="Assets\Script\Models\InputKey.cs" />
-    <Compile Include="Assets\Script\Models\InputSetting.cs" />
-    <Compile Include="Assets\Script\Models\PlayerAniamtionHash.cs" />
-    <Compile Include="Assets\Script\Models\PlayerData.cs" />
-    <Compile Include="Assets\Script\Models\PlayerStageData.cs" />
     <Compile Include="Assets\Script\Player\Controller\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Script\Player\Controller\GameControl\EnemyManager.cs" />
     <Compile Include="Assets\Script\Player\Controller\GameControl\NoviceTeachingController.cs" />
     <Compile Include="Assets\Script\Player\Controller\GameControl\NoviceTeachingImage.cs" />
-    <Compile Include="Assets\Script\Player\Controller\MainCameraOld.cs" />
+    <Compile Include="Assets\Script\Player\Controller\MainCamera.cs" />
     <Compile Include="Assets\Script\Player\Controller\ObjectPool\BulletHit.cs" />
     <Compile Include="Assets\Script\Player\Controller\ObjectPool\CloseBullet.cs" />
     <Compile Include="Assets\Script\Player\Controller\ObjectPool\ObjectPool.cs" />
-    <Compile Include="Assets\Script\Player\Controller\Player\PlayerControllerOld.cs" />
+    <Compile Include="Assets\Script\Player\Controller\Player\PlayerController.cs" />
     <Compile Include="Assets\Script\Player\Controller\Player\PlayerDamage.cs" />
+    <Compile Include="Assets\Script\Player\Controller\Player\應急\BlackRain.cs" />
     <Compile Include="Assets\Script\Player\Controller\Player\應急\CloseAttackCollider.cs" />
     <Compile Include="Assets\Script\Player\Controller\UI\TriggerNoviceTeach.cs" />
     <Compile Include="Assets\Script\Player\Controller\UI\UI_FollowEnemy.cs" />
@@ -102,7 +86,6 @@
     <Compile Include="Assets\Script\Player\Effect\GhostShadow.cs" />
     <Compile Include="Assets\Script\Player\Effect\GhostShadowSwitch.cs" />
     <Compile Include="Assets\Script\Player\GameManager.cs" />
-    <Compile Include="Assets\Script\Player\Model\PlayerDataCollection.cs" />
     <Compile Include="Assets\Script\UI\ActivatedText.cs" />
     <Compile Include="Assets\Script\UI\Fading.cs" />
     <Compile Include="Assets\Script\UI\GameDialogue.cs" />
@@ -130,23 +113,23 @@
     <None Include="Assets\Shader\GlowObject\GlowCmdShader.shader" />
     <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
     <None Include="Assets\Shader\GlowObject\GlowComposite.shader" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Cinemachine">
       <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>F:/Rain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

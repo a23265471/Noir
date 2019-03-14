@@ -88,6 +88,7 @@ public class EnemyController : MonoBehaviour
          Attack_L_Collider = gameObject.transform.Find("EnemyAttack_L_Collider").gameObject;*/
         Attack_L_Collider.SetActive(false);
         Attack_R_Collider.SetActive(false);
+        TriggerNextAttack = false;
 
         // Player = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
@@ -110,9 +111,9 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
 
-        PlayerDis = Vector3.Distance(PlayerControllerOld.playerControllerOld.transform.position, transform.position);
+        PlayerDis = Vector3.Distance(PlayerController.playerController.transform.position, transform.position);
 
-        if (PlayerControllerOld.playerControllerOld.playerAnimatorState != PlayerControllerOld.PlayerAnimatorState.Dead && PlayerDis <= PlayerChaseDis) 
+        if (PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead && PlayerDis <= PlayerChaseDis) 
         {
             if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
             {
@@ -138,7 +139,7 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyMove()
     {
-        EnemyNav.SetDestination(PlayerControllerOld.playerControllerOld.transform.position);
+        EnemyNav.SetDestination(PlayerController.playerController.transform.position);
         if (enemyState != EnemyState.Movement)
         {
             EnemyNav.isStopped = true;
@@ -192,7 +193,7 @@ public class EnemyController : MonoBehaviour
         switch (AttackStateInt)
         {
             case (int)AttackState.Attack1:
-                transform.LookAt(PlayerControllerOld.playerControllerOld.transform);
+                transform.LookAt(PlayerController.playerController.transform);
                 EnemyAnimator.SetTrigger("Attack1");
                 attackState = AttackState.Attack1;
                 Attack_R_Collider.tag = "EnemyAttack_Small";
@@ -200,23 +201,34 @@ public class EnemyController : MonoBehaviour
             case (int)AttackState.Attack2:             
                 if (PlayerisDamage)
                 {
-                    transform.LookAt(PlayerControllerOld.playerControllerOld.transform);
+               //     Debug.Log("hh");
+
+                    transform.LookAt(PlayerController.playerController.transform);
                     Attack_L_Collider.tag = "EnemyAttack_Small";
                     EnemyAnimator.SetTrigger("Attack2");
                     attackState = AttackState.Attack2;
                     TriggerNextAttack = true;
                     PlayerisDamage = false;
-                  
-                }               
+                }
+                else
+                {
+                    TriggerNextAttack = false;
+                }              
                 break;
             case (int)AttackState.Attack3:
                 if (PlayerisDamage)
                 {
-                    transform.LookAt(PlayerControllerOld.playerControllerOld.transform);
+                    transform.LookAt(PlayerController.playerController.transform);
                     Attack_L_Collider.tag = "EnemyAttack_Big";
                     EnemyAnimator.SetTrigger("Attack3");
                     attackState = AttackState.Attack3;
-                    PlayerisDamage = false;                   
+                    PlayerisDamage = false;
+                    TriggerNextAttack = true;
+                }
+                else
+                {
+                    TriggerNextAttack = false;
+
                 }
                 break;
 
@@ -238,12 +250,16 @@ public class EnemyController : MonoBehaviour
     {
         ResetStateCoroutine = ResetState(WaitTime);
         //StartCoroutine(ResetStateCoroutine);
+        
         if (!TriggerNextAttack)
         {
+            //Debug.Log("ChangToIdle");
+
             StartCoroutine(ResetStateCoroutine);
-        }
-        TriggerNextAttack = false;
-       // Debug.Log("ChangToIdle");
+       }
+       TriggerNextAttack = false;
+
+        // Debug.Log("ChangToIdle");
     }
 
     IEnumerator ResetState(float WaitTime)
@@ -271,6 +287,8 @@ public class EnemyController : MonoBehaviour
         {
             case (int)AttackState.Attack1:
                 Attack_R_Collider.SetActive(true);
+          //      Debug.Log("hh");
+
                 break;
             case (int)AttackState.Attack2:
                 Attack_L_Collider.SetActive(true);
@@ -314,7 +332,7 @@ public class EnemyController : MonoBehaviour
         if (other.tag == "PlayerAttack_BigSkill")
         {
             EnemyAnimator.SetTrigger("Damage_Big");
-            transform.LookAt(PlayerControllerOld.playerControllerOld.transform.position);
+            transform.LookAt(PlayerController.playerController.transform.position);
             HP.HP -= 100;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
@@ -322,7 +340,7 @@ public class EnemyController : MonoBehaviour
         else if (other.tag == "PlayerAttack_Big")
         {           
             EnemyAnimator.SetTrigger("Damage_Big");
-            transform.LookAt(PlayerControllerOld.playerControllerOld.transform.position);
+            transform.LookAt(PlayerController.playerController.transform.position);
             HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
@@ -330,7 +348,7 @@ public class EnemyController : MonoBehaviour
         else if (other.tag == "PlayerAttack_Small")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
-            transform.LookAt(PlayerControllerOld.playerControllerOld.transform.position);
+            transform.LookAt(PlayerController.playerController.transform.position);
             HP.HP -= 10;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
@@ -338,7 +356,7 @@ public class EnemyController : MonoBehaviour
         else if(other.tag == "PlayerLongAttack")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
-            transform.LookAt(PlayerControllerOld.playerControllerOld.transform.position);
+            transform.LookAt(PlayerController.playerController.transform.position);
             HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();

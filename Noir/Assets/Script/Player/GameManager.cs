@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
             
         }
 
-        if (PlayerControllerOld.playerControllerOld.playerAnimatorState == PlayerControllerOld.PlayerAnimatorState.Dead)
+        if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead)
         {
             StartCoroutine("GoToMainScene");
            // END_Panel.SetActive(true);

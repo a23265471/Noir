@@ -110,7 +110,7 @@ public class NoviceTeachingController : MonoBehaviour
             }
             else
             {
-                Debug.Log("NoEnemy");
+              //  Debug.Log("NoEnemy");
                 return;
             }
         }
@@ -132,7 +132,7 @@ public class NoviceTeachingController : MonoBehaviour
         Time.timeScale = 1;
        
         this.enabled = false;
-        Debug.Log("ttt");
+       // Debug.Log("ttt");
     }
 
     private bool MakeSureInput()      
@@ -140,7 +140,7 @@ public class NoviceTeachingController : MonoBehaviour
         if(curTriggerNoviceTeach.NoviceTeachingState == NoviceTeachingState.Move)
         {
             
-            if (PlayerControllerOld.playerControllerOld.moveState != PlayerControllerOld.MoveState.Idle)
+            if (PlayerController.playerController.moveState != PlayerController.MoveState.Idle)
             {
                 
                 return true;
@@ -150,7 +150,7 @@ public class NoviceTeachingController : MonoBehaviour
         {
             for(int i=0; i < curTriggerNoviceTeach.AnimatorTransition.Length; i++)
             {
-                if (PlayerControllerOld.playerControllerOld.animator.GetAnimatorTransitionInfo(0).IsName(curTriggerNoviceTeach.AnimatorTransition[i]))
+                if (PlayerController.playerController.animator.GetAnimatorTransitionInfo(0).IsName(curTriggerNoviceTeach.AnimatorTransition[i]))
                 {
                     return true;
 
@@ -158,7 +158,7 @@ public class NoviceTeachingController : MonoBehaviour
             }
             
         }
-        else if (PlayerControllerOld.playerControllerOld.AnimatorstateInfo.IsTag(curTriggerNoviceTeach.NoviceTeachingState.ToString()))
+        else if (PlayerController.playerController.AnimatorstateInfo.IsTag(curTriggerNoviceTeach.NoviceTeachingState.ToString()))
         {
                 return true;
         }
