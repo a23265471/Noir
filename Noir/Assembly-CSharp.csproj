@@ -96,9 +96,9 @@
     <Compile Include="Assets\Script\UI\TutorialTrigger.cs" />
     <Compile Include="Assets\Script\UI\UIController.cs" />
     <Compile Include="Assets\月月\Script\Component\FadeIn.cs" />
+    <None Include="Assets\Shader\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Shader\Explosion.shader" />
     <None Include="Assets\Shader\GlowObject\Standard-Glow.shader" />
-    <None Include="Assets\嘉芝\Shader\BlinnPhong.shader" />
     <None Include="Assets\嘉芝\Shader\Water.shader" />
     <None Include="Assets\嘉芝\Shader\Electric.shader" />
     <None Include="Assets\嘉芝\Shader\Vegetation.shader" />
@@ -108,7 +108,6 @@
     <None Include="Assets\Shader\GlowObject\Blur.shader" />
     <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
     <None Include="Assets\Script\UI\Test_Text.txt" />
-    <None Include="Assets\嘉芝\Shader\Water_Shader.shader" />
     <None Include="Assets\Script\Player\Effect\Xray.shader" />
     <None Include="Assets\Shader\GlowObject\GlowCmdShader.shader" />
     <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />

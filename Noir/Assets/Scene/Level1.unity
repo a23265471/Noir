@@ -7680,37 +7680,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 16}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!84 &684171087
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 369
-  m_Height: 411
-  m_AntiAliasing: 4
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &685321191 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1078286774709872, guid: 627e10a3cc745c84a9848e2e4f09e082,
@@ -18770,7 +18739,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1152540860}
   m_LocalRotation: {x: 0.08813602, y: -0.70159256, z: 0.08813602, w: 0.70159256}
-  m_LocalPosition: {x: 14.96, y: 1.53, z: 46.54}
+  m_LocalPosition: {x: 14.22, y: 3.18, z: 45.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1176146614}
@@ -18787,9 +18756,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 22.76
-  m_Range: 13.65
-  m_SpotAngle: 45
+  m_Intensity: 20
+  m_Range: 15.03
+  m_SpotAngle: 31
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -25005,7 +24974,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 684171087}
+  m_TargetTexture: {fileID: 1697448198}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -25326,6 +25295,56 @@ Prefab:
     - target: {fileID: 4012798259719510, guid: 983398524aa659c4b868790316ca59a4, type: 2}
       propertyPath: m_RootOrder
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 23911357595831466, guid: 983398524aa659c4b868790316ca59a4,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13d8603024097b7468aff73691071e31, type: 2}
+    - target: {fileID: 4381632869848592, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -10.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4381632869848592, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -17.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.24421413
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.014707641
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.055160977
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9680395
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 28.112001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 3.6020002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543459165387422, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 7.425
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173190299686130, guid: 983398524aa659c4b868790316ca59a4, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108654902581803254, guid: 983398524aa659c4b868790316ca59a4,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 983398524aa659c4b868790316ca59a4, type: 2}
@@ -26030,6 +26049,37 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 15
   m_ShadowAngle: 0
+--- !u!84 &1697448198
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 364
+  m_Height: 205
+  m_AntiAliasing: 4
+  m_DepthFormat: 2
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &1714763458
 Prefab:
   m_ObjectHideFlags: 0
@@ -27792,7 +27842,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1925052654}
-  m_LocalRotation: {x: -0.05443612, y: 0.9837039, z: 0.12400895, w: 0.11825849}
+  m_LocalRotation: {x: -0.0557183, y: 0.9836101, z: 0.124094345, w: 0.118352495}
   m_LocalPosition: {x: -3.2, y: 1, z: 71.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -27800,7 +27850,7 @@ Transform:
   - {fileID: 1525307223}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 11.57, y: 0.48700002, z: 0}
+  m_LocalEulerAnglesHint: {x: -14.911, y: 166.901, z: -4.763}
 --- !u!114 &1925052659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27845,7 +27895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _threshold: 0
   _softKnee: 0.5
-  _radius: 7
+  _radius: 3.1
   _blurWeight: 0.1
   _intensity: 0.404
   _highQuality: 1
