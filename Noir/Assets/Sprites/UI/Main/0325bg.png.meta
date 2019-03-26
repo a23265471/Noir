@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: ee9948075bf4f544db9ac60cffbf9035
+guid: 1284a616d7d7aba4e8f154cedd77a98d
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: "LOADING\u5B57-09_0"
-    21300002: "LOADING\u5B57-09_1"
-    21300004: "LOADING\u5B57-09_2"
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -41,7 +38,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -83,31 +80,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: "LOADING\u5B57-09_2"
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 167
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6672db059520484d813048b5d2365b8
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: cdae30886e0858c40ac1af23e4af82a1
+    spriteID: 
     vertices: []
     indices: 
     edges: []
