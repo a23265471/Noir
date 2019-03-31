@@ -22,7 +22,14 @@ public class GhostItem : MonoBehaviour
             Debug.Log(tempTime);
             Destroy(this.gameObject.GetComponent(GhostItem));*/
         }
-        
+        else if (meshRenderer.material)
+        {
+            float rate = tempTime / duration;//计算生命周期的比例
+            Color cal = meshRenderer.material.GetColor("_RimColor");
+            cal.a *= rate;//设置透明通道
+            meshRenderer.material.SetColor("_RimColor", cal);
+        }
+
 
     }
 }

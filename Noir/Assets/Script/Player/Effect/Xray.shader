@@ -4,7 +4,7 @@ Shader "Xray"
 {
 	Properties
 	{
-		_RimColor("RimColor", Color) = (1, 1, 1, 1)
+		_RimColor("RimColor", Color) = (1, 1, 1,.1)
 		_RimIntensity("Intensity", Range(0, 2)) = 1
 	}
 		SubShader
@@ -52,6 +52,7 @@ Shader "Xray"
 	fixed4 frag(v2f i) : COLOR
 	{
 		return i.color;
+
 	}
 		ENDCG
 	}

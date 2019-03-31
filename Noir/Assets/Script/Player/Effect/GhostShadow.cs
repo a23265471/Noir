@@ -6,7 +6,7 @@ public class GhostShadow : MonoBehaviour
 {
     public static GhostShadow ghostShadow;
     //持續時間
-    public float duration = 2f;
+    public float duration = 5f;
     //殘影間隔
     public float interval = 0.1f;
 
@@ -65,10 +65,11 @@ public class GhostShadow : MonoBehaviour
             filter.mesh = mesh;
 
             MeshRenderer meshRen = go.AddComponent<MeshRenderer>();
-
+         
             meshRen.material = meshRender[i].material;
+         
             meshRen.material.shader = ghostShader;//设置xray效果
-           
+            
 
             go.transform.localScale = meshRender[i].transform.localScale;
             go.transform.position = meshRender[i].transform.position;
