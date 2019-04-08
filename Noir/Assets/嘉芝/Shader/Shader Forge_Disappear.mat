@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Shader Forge_Disappear
   m_Shader: {fileID: 4800000, guid: 3fd94f20c615b4d4aac492b1b871911b, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _SMOOTH_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,7 +28,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Cutoff: 0.5
-    - _Smooth: 0
+    - _Smooth: 1
     - _Threshold: 0.25
     m_Colors:
-    - _TintColor: {r: 0.57938766, g: 0.7924528, b: 0.7656309, a: 1}
+    - _TintColor: {r: 0.5032884, g: 0.4750801, b: 0.6415094, a: 1}
