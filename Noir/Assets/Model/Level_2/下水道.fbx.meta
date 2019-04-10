@@ -1895,7 +1895,22 @@ ModelImporter:
     4300716: "\u5934\u90E8"
     4300718: "\u9888\u90E8"
     4300720: "\u5173\u8282"
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u7D05\u87A2\u5149"
+    second: {fileID: 2100000, guid: 13d8603024097b7468aff73691071e31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u7D2B\u87A2\u5149"
+    second: {fileID: 2100000, guid: bf2e534a2b4783d4faf03a31b7ffaad3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u9752\u87A2\u5149"
+    second: {fileID: 2100000, guid: 7cff5a3ca0637db44afa1b1a922800b7, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
