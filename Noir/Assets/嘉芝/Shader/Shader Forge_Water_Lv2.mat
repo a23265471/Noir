@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Shader Forge_Water_Lv2
+  m_Shader: {fileID: 4800000, guid: 3db8239245ab2c740a70f246282924af, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _NormalDetail:
+        m_Texture: {fileID: 2800000, guid: 541f518900e7879438c577e82fee8d2c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _node_5918:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _node_8693:
+        m_Texture: {fileID: 2800000, guid: 52a47019358e303408620cff0d145fde, type: 3}
+        m_Scale: {x: 6, y: 6}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorEmission: 1
+    - _ColorPower: 3.43
+    - _Cutoff: 0.5
+    - _Depth: 10
+    - _DepthMax: 1
+    - _DepthMin: 0
+    - _Disortion: 0.192
+    - _FoamMax: 0.824
+    - _FoamMin: 0.451
+    - _FoamPower: 3.9
+    - _Fresnel: 1
+    - _Gloss: 0.89
+    - _Opacity: 1
+    - _Reflection: 1
+    - _node_2829: 0
+    m_Colors:
+    - _BoardColor_A: {r: 0, g: 0.28392217, b: 0.4339623, a: 1}
+    - _BoardColor_B: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorA: {r: 1, g: 0.040229887, b: 0, a: 1}
+    - _ColorB: {r: 0, g: 0.6952381, b: 1, a: 1}
+    - _color: {r: 0.2830189, g: 0.097454615, b: 0.258586, a: 1}
+    - _node_645: {r: 0.23736204, g: 0.32257566, b: 0.3962264, a: 1}

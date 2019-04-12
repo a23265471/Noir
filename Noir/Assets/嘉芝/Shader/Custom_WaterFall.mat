@@ -23,7 +23,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FlowMask:
-        m_Texture: {fileID: 2800000, guid: 0d53d82c7b9b95b4abec37ca8a6d1bb7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 57f583c33d51deb4fa1df2275514b10e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -34,9 +34,9 @@ Material:
     - _Cutoff: 0.5
     - _FlowMapSpeed: 2
     - _FlowStrength: 0.15
-    - _Opacity: 0.213
-    - _Reflaction: 0.1
-    - _VertexOffset: 0.2
+    - _Opacity: 0.643
+    - _Reflaction: 0.781
+    - _VertexOffset: 0.005
     - _WaterSplash: 10
     m_Colors:
-    - _Color: {r: 0.38355446, g: 0, b: 1, a: 1}
+    - _Color: {r: 0.031259563, g: 0, b: 0.7264151, a: 1}

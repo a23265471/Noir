@@ -1,0 +1,97 @@
+fileFormatVersion: 2
+guid: c24a05f4066fb394cb7675c3907a9773
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: Tram_Track/Tram_Track
+    400000: Tram_Track/Tram_Track/Transform
+    2100000: mat.Tram_Track
+    2300000: Tram_Track/Tram_Track/MeshRenderer
+    2800000: Tram_Track_baseColor
+    2800002: Tram_Track_normal
+    2800004: Tram_Track_metallic
+    2800006: Tram_Track_height
+    2800008: Tram_Track_ambientOcclusion
+    3300000: Tram_Track/Tram_Track/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: Tram_Track/Tram_Track/SphereCollider
+    100100000: Tram_Track
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Tram_Track
+    prototypeName: Tram_Track
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Tram_Track\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"2321934612\" type=\"8\" value=\"11,11\" />\n
+      </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: Tram_Track_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Tram_Track_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Tram_Track_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Tram_Track_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Tram_Track_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Tram_Track_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 1
+      textureWidth: 2048
+      textureHeight: 2048
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: c24a05f4066fb394cb7675c3907a9773, type: 3}
+    generatedTextures: []

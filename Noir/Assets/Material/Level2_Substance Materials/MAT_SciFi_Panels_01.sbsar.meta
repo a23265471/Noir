@@ -1,0 +1,97 @@
+fileFormatVersion: 2
+guid: 195d28dc2de56624cb7760e513cf738b
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: MAT_SciFi_Panels_01/MAT_SciFi_Panels_01
+    400000: MAT_SciFi_Panels_01/MAT_SciFi_Panels_01/Transform
+    2100000: mat.MAT_SciFi_Panels_01
+    2300000: MAT_SciFi_Panels_01/MAT_SciFi_Panels_01/MeshRenderer
+    2800000: MAT_SciFi_Panels_01_baseColor
+    2800002: MAT_SciFi_Panels_01_normal
+    2800004: MAT_SciFi_Panels_01_metallic
+    2800006: MAT_SciFi_Panels_01_height
+    2800008: MAT_SciFi_Panels_01_ambientOcclusion
+    3300000: MAT_SciFi_Panels_01/MAT_SciFi_Panels_01/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: MAT_SciFi_Panels_01/MAT_SciFi_Panels_01/SphereCollider
+    100100000: MAT_SciFi_Panels_01
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: MAT_SciFi_Panels_01
+    prototypeName: MAT_SciFi_Panels_01
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://MAT_SciFi_Panels_01\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"2204318485\" type=\"8\" value=\"10,10\" />\n
+      </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: MAT_SciFi_Panels_01_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: MAT_SciFi_Panels_01_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: MAT_SciFi_Panels_01_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: MAT_SciFi_Panels_01_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: MAT_SciFi_Panels_01_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: MAT_SciFi_Panels_01_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 1
+      textureWidth: 1024
+      textureHeight: 1024
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 195d28dc2de56624cb7760e513cf738b, type: 3}
+    generatedTextures: []

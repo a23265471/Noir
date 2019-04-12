@@ -1,0 +1,89 @@
+fileFormatVersion: 2
+guid: 9e6c9528175f53e4cb70cb1baaf3612c
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: Spaceship_Metal_Colony/Spaceship_Metal_Colony
+    400000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/Transform
+    2100000: mat.Spaceship_Metal_Colony
+    2300000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/MeshRenderer
+    2800000: Spaceship_Metal_Colony_baseColor
+    2800002: Spaceship_Metal_Colony_normal
+    2800004: Spaceship_Metal_Colony_metallic
+    2800006: Spaceship_Metal_Colony_ambientOcclusion
+    3300000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/SphereCollider
+    100100000: Spaceship_Metal_Colony
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Spaceship_Metal_Colony
+    prototypeName: Spaceship_Metal_Colony
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Spaceship_Metal_Colony\" label=\"\" >\n  <presetinput
+      identifier=\"TIle_Metal_Color\" uid=\"774614203\" type=\"3\" value=\"0.226415,0.226415,0.226415,1\"
+      />\n  <presetinput identifier=\"Dirt_Level\" uid=\"774614640\" type=\"0\" value=\"0.85\"
+      />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: Spaceship_Metal_Colony_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 1
+      textureWidth: 1024
+      textureHeight: 1024
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 9e6c9528175f53e4cb70cb1baaf3612c, type: 3}
+    generatedTextures: []
