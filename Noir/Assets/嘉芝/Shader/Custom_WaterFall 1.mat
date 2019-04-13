@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Custom_WaterFall 1
+  m_Shader: {fileID: 4800000, guid: f8665c7aeaaa266429dc4c460b6e8048, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FlowMap:
+        m_Texture: {fileID: 2800000, guid: 0d53d82c7b9b95b4abec37ca8a6d1bb7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowMask:
+        m_Texture: {fileID: 2800000, guid: 57f583c33d51deb4fa1df2275514b10e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 36462a274cd73394ca78311fd9d72e14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _FlowMapSpeed: 2
+    - _FlowStrength: 0.15
+    - _Opacity: 0
+    - _Reflaction: 0.781
+    - _VertexOffset: 0.005
+    - _WaterSplash: 10
+    m_Colors:
+    - _Color: {r: 0.031259563, g: 0, b: 0.7264151, a: 1}
