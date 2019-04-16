@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5362051aaf3ca204fafcede5d89135b4, type: 3}
+  m_Name: PlayerParticleList
+  m_EditorClassIdentifier: 
+  particlesCollection:
+  - Id: NormalAttack1
+    Particle: {fileID: 1530112499070714, guid: bbd5086af88fbdd4288dbf99116376e9, type: 2}
+  - Id: NormalAttack2
+    Particle: {fileID: 1185169211852186, guid: b0f5aedc60de6624ab81e0f0e2fe53b6, type: 2}
+  - Id: NormalAttack3
+    Particle: {fileID: 1269320052246030, guid: 39c0e785923f8b140bbac9b14c039b98, type: 2}
+  - Id: NormalAttack4
+    Particle: {fileID: 1509779169406792, guid: 3eb6fbffa3fc1f242b67ddddcef9f1f0, type: 2}
+  - Id: DashAttack
+    Particle: {fileID: 1989382516029764, guid: 655cc2ea348136b458495e0aee70f4a7, type: 2}
+  - Id: DashAttack_Left
+    Particle: {fileID: 1989382516029764, guid: 655cc2ea348136b458495e0aee70f4a7, type: 2}
+  - Id: BigSkill
+    Particle: {fileID: 1935302822880762, guid: d5040d027db660945860145575321e88, type: 2}

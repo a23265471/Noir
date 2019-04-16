@@ -124,8 +124,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185169211852186}
-  m_LocalRotation: {x: -0.22714505, y: 0.53587455, z: -0.8128896, w: 0.021311056}
-  m_LocalPosition: {x: 0.39, y: 1.632, z: 2.173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4970131122920168}
@@ -133,7 +133,7 @@ Transform:
   - {fileID: 4131755511209388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 120.511, y: 230.56601, z: 33.21199}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &198304359950888972
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -18502,7 +18502,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1d9266654537ea046a591cd7e1f821ad, type: 2}
+  - {fileID: 2100000, guid: 704b9ac9321af3b4fb1680c1b7582883, type: 2}
   - {fileID: 2100000, guid: 1d9266654537ea046a591cd7e1f821ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -18670,7 +18670,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1d9266654537ea046a591cd7e1f821ad, type: 2}
+  - {fileID: 2100000, guid: 704b9ac9321af3b4fb1680c1b7582883, type: 2}
   - {fileID: 2100000, guid: 1d9266654537ea046a591cd7e1f821ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

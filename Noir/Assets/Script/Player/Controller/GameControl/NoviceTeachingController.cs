@@ -85,7 +85,7 @@ public class NoviceTeachingController : MonoBehaviour
 
     public void CloseNoviceTeaching(bool isSlowMotion)
     {     
-        if (MakeSureInput())
+      /*  if (MakeSureInput())
         {
             NoviceTeachingImage.noviceTeachingImage.UnLoadImage();
             
@@ -95,7 +95,7 @@ public class NoviceTeachingController : MonoBehaviour
             }
 
            
-        }
+        }*/
 
         if (curTriggerNoviceTeach.needToKillAllEnemy)
         {
@@ -135,7 +135,7 @@ public class NoviceTeachingController : MonoBehaviour
        // Debug.Log("ttt");
     }
 
-    private bool MakeSureInput()      
+   /* private bool MakeSureInput()      
     {       
         if(curTriggerNoviceTeach.NoviceTeachingState == NoviceTeachingState.Move)
         {
@@ -164,6 +164,6 @@ public class NoviceTeachingController : MonoBehaviour
         }
          return false;
         
-    }
+    }*/
 
 }

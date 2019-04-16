@@ -26,7 +26,7 @@ MonoBehaviour:
   m_DisplayName: Audio
   m_Id: 87d9a0f2-0227-409d-a0fc-b7b70ccd8022
   m_PreserveAudio: 1
---- !u!114 &114848391529905288
+--- !u!114 &114850999391101416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -35,18 +35,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d935bf7a4fcf66488738bda5536c1cb, type: 3}
-  m_Name: 49085af5-b1ef-447d-b283-9afa55b52ca9
+  m_Name: 38e0fe85-c4f3-45c7-9706-7ff3ab8f8709
   m_EditorClassIdentifier: 
   m_DisplayName: Pixels
-  m_Id: f6cc695b-896b-4091-86d4-ddd4a0e65a6c
-  m_OutputSize: 1080
+  m_Id: 6d24dba0-19fa-4ce6-8e7c-58a6ffa8a2bc
+  m_OutputSize: 0
   m_AspectRatio: 0
   m_ForceEvenSize: 1
   source: 1
   m_CameraTag: 
   m_FlipFinalOutput: 0
   m_AllowTransparency: 0
-  m_CaptureUI: 0
+  m_CaptureUI: 1
 --- !u!114 &114862661985269830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,13 +70,13 @@ MonoBehaviour:
   m_DurationMode: 0
   m_SynchFrameRate: 1
   m_BaseFileName:
-    m_Pattern: Fire.<ext>
+    m_Pattern: "\u7B2C2\u95DC_\u81EA\u7206\u602A\u5340_.<ext>"
   m_DestinationPath:
     m_root: 0
-    m_leaf: C:/Users/magic/Desktop/Video
+    m_leaf: "D:/\u8056\u6A02\u6708/00-\u7562\u5236/15-\u904A\u6232\u756B\u9762"
   m_InputsSettings:
     m_InputsSettingsAssets:
-    - {fileID: 114848391529905288}
+    - {fileID: 114850999391101416}
     - {fileID: 114393853448236394}
     ownerRecorderSettingsAssetId: bc570611eccbae04f94a398a6b0c868f
   m_RecorderTypeName: UnityEditor.Recorder.MediaRecorder, Assembly-CSharp-Editor,

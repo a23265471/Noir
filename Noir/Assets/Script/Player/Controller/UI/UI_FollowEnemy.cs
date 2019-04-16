@@ -17,7 +17,7 @@ public class UI_FollowEnemy : MonoBehaviour {
     void Start ()
     {
        
-        maincamera = GameObject.Find("Main Camera");
+        maincamera = GameObject.Find("New_Main Camera(Clone)");
         enemyController = Enemy.GetComponent<EnemyController>();
 
     }

@@ -63,6 +63,7 @@ public class EnemyController : MonoBehaviour
       private GameObject AttackSmall_L_Collider;
       private GameObject AttackBig_L_Collider;
       private GameObject AttackDown_L_Collider;*/
+    private CapsuleCollider DamageCollider;
 
     //----------------------Attack----------------
     //--------------------Coroutine---------------
@@ -82,6 +83,7 @@ public class EnemyController : MonoBehaviour
         EnemyAnimator = GetComponent<Animator>();
         enemyController = this;
         EnemyNav = GetComponent<NavMeshAgent>();
+        DamageCollider = GetComponent<CapsuleCollider>();
         audiosource = GetComponent<AudioSource>();
       //  HP = Enemy_UI.GetComponent<UI_FollowEnemy>();
         /* Attack_R_Collider = gameObject.transform.Find("EnemyAttack_R_Collider").gameObject;
@@ -111,9 +113,9 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
 
-        PlayerDis = Vector3.Distance(PlayerController.playerController.transform.position, transform.position);
+        PlayerDis = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
 
-        if (PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead && PlayerDis <= PlayerChaseDis) 
+        if (/*PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead &&*/ PlayerDis <= PlayerChaseDis) 
         {
             if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
             {
@@ -139,7 +141,7 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyMove()
     {
-        EnemyNav.SetDestination(PlayerController.playerController.transform.position);
+        EnemyNav.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
         if (enemyState != EnemyState.Movement)
         {
             EnemyNav.isStopped = true;
@@ -193,7 +195,7 @@ public class EnemyController : MonoBehaviour
         switch (AttackStateInt)
         {
             case (int)AttackState.Attack1:
-                transform.LookAt(PlayerController.playerController.transform);
+                transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
                 EnemyAnimator.SetTrigger("Attack1");
                 attackState = AttackState.Attack1;
                 Attack_R_Collider.tag = "EnemyAttack_Small";
@@ -203,7 +205,7 @@ public class EnemyController : MonoBehaviour
                 {
                //     Debug.Log("hh");
 
-                    transform.LookAt(PlayerController.playerController.transform);
+                    transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
                     Attack_L_Collider.tag = "EnemyAttack_Small";
                     EnemyAnimator.SetTrigger("Attack2");
                     attackState = AttackState.Attack2;
@@ -218,7 +220,7 @@ public class EnemyController : MonoBehaviour
             case (int)AttackState.Attack3:
                 if (PlayerisDamage)
                 {
-                    transform.LookAt(PlayerController.playerController.transform);
+                    transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
                     Attack_L_Collider.tag = "EnemyAttack_Big";
                     EnemyAnimator.SetTrigger("Attack3");
                     attackState = AttackState.Attack3;
@@ -242,6 +244,7 @@ public class EnemyController : MonoBehaviour
         enemyState = EnemyState.Dead;
         EnemyAnimator.SetTrigger("Dead");
         AttackCollider_Close();
+        DamageCollider.enabled = false;
         
     }
 
@@ -332,7 +335,7 @@ public class EnemyController : MonoBehaviour
         if (other.tag == "PlayerAttack_BigSkill")
         {
             EnemyAnimator.SetTrigger("Damage_Big");
-            transform.LookAt(PlayerController.playerController.transform.position);
+            transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
             HP.HP -= 100;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
@@ -340,7 +343,7 @@ public class EnemyController : MonoBehaviour
         else if (other.tag == "PlayerAttack_Big")
         {           
             EnemyAnimator.SetTrigger("Damage_Big");
-            transform.LookAt(PlayerController.playerController.transform.position);
+            transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
             HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
@@ -348,7 +351,7 @@ public class EnemyController : MonoBehaviour
         else if (other.tag == "PlayerAttack_Small")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
-            transform.LookAt(PlayerController.playerController.transform.position);
+            transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
             HP.HP -= 10;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
@@ -356,7 +359,7 @@ public class EnemyController : MonoBehaviour
         else if(other.tag == "PlayerLongAttack")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
-            transform.LookAt(PlayerController.playerController.transform.position);
+            transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
             HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();

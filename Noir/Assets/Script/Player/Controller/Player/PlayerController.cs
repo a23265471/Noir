@@ -365,11 +365,11 @@ public class PlayerController: MonoBehaviour {
        if(playerAnimatorState == PlayerAnimatorState.Movement || playerAnimatorState == PlayerAnimatorState.Attack || playerAnimatorState == PlayerAnimatorState.Avoid && IsGround) 
        {
 
-            if (Input.GetKeyDown(KeyCode.Q) && attackState == AttackState.Default && UI_HP.Ui_HP.MP >= 30)  
+            if (Input.GetKeyDown(KeyCode.Q) && attackState == AttackState.Default/* && UI_HP.Ui_HP.MP >= 30*/)  
             {
                 if (CanAttack)
                 {
-                    UI_HP.Ui_HP.MP -= 30;
+                   // UI_HP.Ui_HP.MP -= 30;
                     attackState = AttackState.BigSkill;
                     AttackTrigger += 1;
                     CanAttack = false;
@@ -442,9 +442,9 @@ public class PlayerController: MonoBehaviour {
             else if (Input.GetMouseButtonDown(1))
             {
                 //playerAnimatorState = PlayerAnimatorState.Attack;               
-                if (CanAttack && attackState != AttackState.BigSkill && UI_HP.Ui_HP.MP >= 5 && attackState != AttackState.LongAttack)  //--
+                if (CanAttack && attackState != AttackState.BigSkill /*&& UI_HP.Ui_HP.MP >= 5*/ && attackState != AttackState.LongAttack)  //--
                 {                                    
-                    UI_HP.Ui_HP.MP -= 10;
+                 //   UI_HP.Ui_HP.MP -= 10;
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
                     CanAttack = false;
