@@ -20,11 +20,11 @@ public class PlayerBehaviour : Character
         Attack = 0x20,//10 0000
      //   DashAttack = 0x30,//11 0000
         Skill = 0x40,//0100 0000
-        Avoid = 0x80,//101 0000
+        Avoid = 0x80,//100 0000
 //        SkyAttack = 0xf0,//
-        Damage = 0xff,
+        Damage = 0x01 + 0xff,//1 0000 0000
         GetDown = 0xff,
-        Dead = 0xff,
+        Dead = 0x01+0xff,//10 0000 0000 
 
         CanFalling = Move | Attack | Dash/* | SkyAttack*/ ,
         FallingMove = Falling | Jump | DoubleJump /*| SkyAttack*/,
@@ -35,7 +35,7 @@ public class PlayerBehaviour : Character
         CanAvoid = Move | Attack | Skill,
         CanAttack =  Move | Avoid,
         CanSkill = Attack | Move,
-        DoNotGroudedMove = Attack | Skill /*| SkyAttack*/ | Avoid,
+        DoNotGroudedMove = Attack | Skill | Damage | Avoid | Dead,
         CanDamage = 0xff,
         CaGetDown = 0xff,
         CanDead = 0xff,
@@ -105,6 +105,8 @@ public class PlayerBehaviour : Character
     public GameObject SmallPhysicsCollider;
     public GameObject MediumPhysicsCollider;
 
+    private CapsuleCollider damageCollider;
+
     public float groundedDis;
   //  public bool isGround;
     //public bool isNotGraoundStep;
@@ -121,6 +123,7 @@ public class PlayerBehaviour : Character
 
     private void Awake()
     {
+
         playerBehaviour = this;
         playerAnimator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
@@ -130,8 +133,8 @@ public class PlayerBehaviour : Character
         particleManager = GetComponent<ParticleManager>();
         attackSystem = GetComponent<AttackSystem>();
         gravity = GetComponent<Gravity>();
+        damageCollider = GetComponent<CapsuleCollider>();
         PlayerShader.enabled = false;
-        //  groundCheck = GroundCheckObject.GetComponent<GroundCheck>();
 
         gameStageData = GameFacade.GetInstance().gameStageData;
         playerController = GameFacade.GetInstance().playerController;
@@ -155,7 +158,8 @@ public class PlayerBehaviour : Character
         moveAnimation_Vertical = 0;
         moveAnimation_Horizontal = 0;
         cameraLookAt= gameObject.transform.Find("CameraLookAt");
-       
+
+        Debug.Log((int)PlayerState.Dead);
     }
      
     void Update()
@@ -539,7 +543,11 @@ public class PlayerBehaviour : Character
                 SwitchMove(0);
                 break;
 
-           
+            case (int)PlayerState.Damage:
+                playerState = PlayerState.Damage;
+                playerRigidbody.velocity = new Vector3(0, 0, 0);
+
+                break;
 
         }
     }
@@ -568,21 +576,36 @@ public class PlayerBehaviour : Character
         switch (colliderSize)
         {
             case 0:
-                IdlePhysicsCollider.SetActive(true);
+                IdlePhysicsCollider.SetActive(true);            
                 MediumPhysicsCollider.SetActive(false);
                 SmallPhysicsCollider.SetActive(false);
+            /*--暫時Damage--*/
+                damageCollider.height = IdlePhysicsCollider.GetComponent<CapsuleCollider>().height;
+                damageCollider.center = IdlePhysicsCollider.GetComponent<CapsuleCollider>().center;
                 break;
+            /*--暫時Damage--*/
 
             case 1:
                 IdlePhysicsCollider.SetActive(false);
                 MediumPhysicsCollider.SetActive(true);
                 SmallPhysicsCollider.SetActive(false);
+
+                /*--暫時Damage--*/
+                damageCollider.height = MediumPhysicsCollider.GetComponent<CapsuleCollider>().height;
+                damageCollider.center = MediumPhysicsCollider.GetComponent<CapsuleCollider>().center;
+                /*--暫時Damage--*/
                 break;
 
             case 2:
                 IdlePhysicsCollider.SetActive(false);
                 MediumPhysicsCollider.SetActive(false);
                 SmallPhysicsCollider.SetActive(true);
+
+                /*--暫時Damage--*/
+                damageCollider.height = SmallPhysicsCollider.GetComponent<CapsuleCollider>().height;
+                damageCollider.center = SmallPhysicsCollider.GetComponent<CapsuleCollider>().center;
+                /*--暫時Damage--*/
+
                 break;
         }
 
@@ -594,6 +617,8 @@ public class PlayerBehaviour : Character
         {
             if (gravity.groundCheck.IsGround)
             {
+                Debug.Log((int)PlayerState.Damage);
+
                 playerAnimator.ResetTrigger("Falling");
                 playerAnimator.SetTrigger("Idle");
                 ChangePlayerState(1);
@@ -837,6 +862,27 @@ public class PlayerBehaviour : Character
     #endregion
 
     #endregion
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyAttack_Small"))
+        {
+            Time.timeScale = 0.1f;
+            playerAnimator.SetTrigger("Damage");
+            StopCoroutine("ss");
+            StartCoroutine("ss");
+        }
+
+
+    }
+
+    IEnumerator ss()
+    {
+        yield return new WaitForSeconds(0.01f);
+        Time.timeScale = 1f;
+
+
+    }
 
 
 }

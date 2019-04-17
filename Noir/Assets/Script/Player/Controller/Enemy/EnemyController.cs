@@ -347,14 +347,22 @@ public class EnemyController : MonoBehaviour
             HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
+            StopCoroutine("ss");
+            StartCoroutine("ss");
         }
         else if (other.tag == "PlayerAttack_Small")
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
-            HP.HP -= 10;
+          //  HP.HP -= 10;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
+            ///-----
+            Time.timeScale = 0.1f;
+            StopCoroutine("ss");
+            StartCoroutine("ss");         
+            ///-----
+
         }
         else if(other.tag == "PlayerLongAttack")
         {
@@ -366,8 +374,23 @@ public class EnemyController : MonoBehaviour
         }                         
         //EnemyCanDamage = false;
     }
+    IEnumerator ss()
+    {
+        yield return new WaitForSeconds(0.006f);
+        Time.timeScale = 1f;
+
+
+    }
+
+    IEnumerator aa()
+    {
+        yield return new WaitForSeconds(0.01f);
+        Time.timeScale = 1f;
+
+
+    }
 
     //--------------------------------
-    
+
 
 }
