@@ -221,7 +221,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.49098215
+      - time: 0.32508352
         functionName: StartTriggerNextAnimation
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -232,7 +232,7 @@ ModelImporter:
       - time: 0.8500218
         functionName: StopTriggerNextAttack
         data: 
-        objectReferenceParameter: {fileID: 2100000, guid: 1d61a18ac521e004cab4124b868c72f6,
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
@@ -289,6 +289,22 @@ ModelImporter:
         floatParameter: 0
         intParameter: 152
         messageOptions: 0
+      - time: 0.033781298
+        functionName: TriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.0698696
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 16
+        messageOptions: 0
       - time: 0.10212767
         functionName: DashMove
         data: 
@@ -297,24 +313,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.10212767
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 16
-        messageOptions: 0
-      - time: 0.15359697
-        functionName: TriggerNextAttack
+      - time: 0.32420033
+        functionName: StartTriggerNextAnimation
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7112971
-        functionName: EndDash
+      - time: 0.8626034
+        functionName: StopTriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -330,7 +338,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 1
-        functionName: ResetTriggerAttack
+        functionName: EndOfAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -373,23 +381,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 151
         messageOptions: 0
-      - time: 0.10212767
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
-          type: 3}
-        floatParameter: 0
-        intParameter: 16
-        messageOptions: 0
-      - time: 0.10212767
-        functionName: DashMove
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.1347396
+      - time: 0.028748805
         functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -397,7 +389,31 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6945607
+      - time: 0.06526131
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 48984eef8ea34764d8a93b59a73a6109,
+          type: 3}
+        floatParameter: 0
+        intParameter: 16
+        messageOptions: 0
+      - time: 0.08830278
+        functionName: DashMove
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.31573716
+        functionName: StartTriggerNextAnimation
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.86967593
         functionName: StopTriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -414,7 +430,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 1
-        functionName: ResetTriggerAttack
+        functionName: EndOfAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -457,23 +473,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 154
         messageOptions: 0
-      - time: 0.106382966
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 16
-        messageOptions: 0
-      - time: 0.106382966
-        functionName: DashMove
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.13807532
+      - time: 0.032084536
         functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -481,10 +481,34 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6945607
+      - time: 0.06490831
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 16
+        messageOptions: 0
+      - time: 0.09255808
+        functionName: DashMove
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.32370678
+        functionName: StartTriggerNextAnimation
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8516488
         functionName: StopTriggerNextAttack
         data: 
-        objectReferenceParameter: {fileID: 2100000, guid: 1d61a18ac521e004cab4124b868c72f6,
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
@@ -492,15 +516,15 @@ ModelImporter:
       - time: 0.926714
         functionName: EndDash
         data: 
-        objectReferenceParameter: {fileID: 2100000, guid: 1d61a18ac521e004cab4124b868c72f6,
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: ResetTriggerAttack
+      - time: 0.96168584
+        functionName: EndOfAttack
         data: 
-        objectReferenceParameter: {fileID: 2100000, guid: 1d61a18ac521e004cab4124b868c72f6,
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
@@ -541,15 +565,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 153
         messageOptions: 0
-      - time: 0.09574467
-        functionName: DashMove
+      - time: 0.026754526
+        functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.09574467
+      - time: 0.057430495
         functionName: ChangePlayerState
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -557,16 +581,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 16
         messageOptions: 0
-      - time: 0.12637138
-        functionName: TriggerNextAttack
+      - time: 0.08425041
+        functionName: DashMove
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.67782426
-        functionName: TriggerNextAttack
+      - time: 0.8617323
+        functionName: StopTriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -581,8 +605,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: ResetTriggerAttack
+      - time: 0.954023
+        functionName: EndOfAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.33168986
+        functionName: StartTriggerNextAnimation
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}

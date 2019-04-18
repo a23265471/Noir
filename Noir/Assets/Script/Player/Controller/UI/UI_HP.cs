@@ -125,18 +125,18 @@ public class UI_HP : MonoBehaviour
             notFullSp = (int)(SP / (SP_Max / SP_Light.Length));
             SP_small[notFullSp] = SP % (SP_Max / SP_Light.Length);
 
-            SP_transformPosition = -72 + ((SP_small[notFullSp] / (SP_Max / SP_Light.Length)) * 72);
+            SP_transformPosition = -68.9f + ((SP_small[notFullSp] / (SP_Max / SP_Light.Length)) * 68.9f);
             SP_Light[notFullSp].transform.localPosition = new Vector3(SP_transformPosition, 0, 0);
 
             for(int i = notFullSp + 1; i < SP_Light.Length; i++)
             {
-                SP_Light[i].transform.localPosition = new Vector3(-72, 0, 0);
+                SP_Light[i].transform.localPosition = new Vector3(-68.9f, 0, 0);
             }
 
         }
         else if(SP % (SP_Max / SP_Light.Length) == 0 && SP != SP_Max) 
         {
-            SP_Light[(int)(SP / (SP_Max / SP_Light.Length))].transform.localPosition = new Vector3(-72, 0, 0);
+            SP_Light[(int)(SP / (SP_Max / SP_Light.Length))].transform.localPosition = new Vector3(-68.9f, 0, 0);
         }
 
     }
@@ -146,8 +146,38 @@ public class UI_HP : MonoBehaviour
         SP -= consumSp;
 
         ConsumeSP();
+        StartRecoverySp();
     }
 
+    public bool RecoverySP(float recoverySP)
+    {
+        SP += recoverySP;
+        ConsumeSP();
+
+        if (SP >= SP_Max)
+        {
+            SP = SP_Max;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    public void StartRecoverySp()
+    {
+        StopCoroutine("recoverySP");
+        StartCoroutine("recoverySP");
+    }
+
+    IEnumerator recoverySP()
+    {
+        yield return new WaitUntil(() => RecoverySP(0.1f));
+
+        Debug.Log("SP is Fill");
+    }
 
 }
 

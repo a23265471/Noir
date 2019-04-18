@@ -362,7 +362,7 @@ public class PlayerBehaviour : Character
     public void Avoid(int moveDirection_Vertical,int moveDirection_Horizontal)
     {
        
-        if ((playerBehaviour.playerState & PlayerState.CanAvoid) != 0)
+        if (((playerBehaviour.playerState & PlayerState.CanAvoid) != 0) && (UI_HP.Ui_HP.SP>=20))
         {
             Direction_X = moveDirection_Horizontal;
             Direction_Z = moveDirection_Vertical;
@@ -431,35 +431,38 @@ public class PlayerBehaviour : Character
 
     public void Dash(int moveDirection_Vertical, int moveDirection_Horizontal)
     {
-        
-        if (moveDirection_Horizontal == 0 && moveDirection_Vertical == 0) 
-        {
-            Direction_Z = 1;
-            Direction_X = 0;
-        }
-        else
-        {
-            if (moveDirection_Vertical < 0)
-            {
-                Direction_Z = 0;
-            }
-            else
-            {
-                Direction_Z = moveDirection_Vertical;
-            }
+       if (UI_HP.Ui_HP.SP >= 20)
+       {
 
-            Direction_X = moveDirection_Horizontal;
+           
+          if (moveDirection_Horizontal == 0 && moveDirection_Vertical == 0) 
+          {
+              Direction_Z = 1;
+              Direction_X = 0;
+          }
+          else
+          {
+              if (moveDirection_Vertical < 0)
+              {
+                  Direction_Z = 0;
+              }
+              else
+              {
+                  Direction_Z = moveDirection_Vertical;
+              }
+
+              Direction_X = moveDirection_Horizontal;
 
 
-        }
-        if(moveDirection_Vertical>=0)
-        if ((playerState & PlayerState.CanDash) != 0)
-        {
-            // Debug.Log("jjj");
-            AnimationRotation(Direction_Z, Direction_X);
-            playerAnimator.SetTrigger("Dash");
-        } 
-       
+          }
+          if(moveDirection_Vertical>=0)
+          if ((playerState & PlayerState.CanDash) != 0)
+          {
+              // Debug.Log("jjj");
+              AnimationRotation(Direction_Z, Direction_X);
+              playerAnimator.SetTrigger("Dash");
+          }
+       }
 
     }
 
@@ -512,7 +515,7 @@ public class PlayerBehaviour : Character
                 playerState = PlayerState.Avoid;
                 SwitchCollider(2);
                 damageCollider.enabled = false;
-                UI_HP.Ui_HP.Consumesp(10);
+                UI_HP.Ui_HP.Consumesp(20);
                 Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, Direction_X, 0, Direction_Z);
 
                 break;
@@ -540,7 +543,8 @@ public class PlayerBehaviour : Character
                 PlayerShader.enabled = true;
                 canfall = false;
                 damageCollider.enabled = false;
-
+                UI_HP.Ui_HP.Consumesp(20);
+                
                 StartCoroutine("DetcetExitDash");
                 StopCoroutine("LandingCheck");
 
