@@ -18,6 +18,9 @@ MonoBehaviour:
     - Name: NormalAttack_2
       AnimatorTriggerName: NormalAttack
       keyCode: 323
+    - Name: Electric
+      AnimatorTriggerName: Skill
+      keyCode: 113
     moveInfo:
       MoveSpeed: 6
       MoveDistance: 0.5
@@ -29,9 +32,9 @@ MonoBehaviour:
   - Name: NormalAttack_2
     Id: 101
     NextAttack:
-    - Name: NormalAttack_3
-      AnimatorTriggerName: NormalAttack
-      keyCode: 323
+    - Name: Electric
+      AnimatorTriggerName: Skill
+      keyCode: 113
     - Name: Combo1_1
       AnimatorTriggerName: Combo1
       keyCode: 324
@@ -49,6 +52,9 @@ MonoBehaviour:
     - Name: NormalAttack_4
       AnimatorTriggerName: NormalAttack
       keyCode: 323
+    - Name: Electric
+      AnimatorTriggerName: Skill
+      keyCode: 113
     moveInfo:
       MoveSpeed: 9
       MoveDistance: 0.6
@@ -59,7 +65,10 @@ MonoBehaviour:
     AudioClip_Attack: {fileID: 0}
   - Name: NormalAttack_4
     Id: 103
-    NextAttack: []
+    NextAttack:
+    - Name: Electric
+      AnimatorTriggerName: Skill
+      keyCode: 113
     moveInfo:
       MoveSpeed: 13
       MoveDistance: 1.5

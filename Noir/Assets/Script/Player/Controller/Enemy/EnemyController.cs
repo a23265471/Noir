@@ -40,6 +40,8 @@ public class EnemyController : MonoBehaviour
  //   public GameObject Enemy_UI;
 
     private NavMeshAgent EnemyNav;
+    IEnumerator damageStopEffect;
+
 
     //-----------------------Move-----------------   
     public float PlayerChaseDis;//EneyData
@@ -344,7 +346,7 @@ public class EnemyController : MonoBehaviour
         {           
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
-            HP.HP -= 30;
+           // HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
             StopCoroutine("ss");
@@ -358,9 +360,8 @@ public class EnemyController : MonoBehaviour
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
             ///-----
-            Time.timeScale = 0.1f;
-            StopCoroutine("ss");
-            StartCoroutine("ss");         
+           
+                  
             ///-----
 
         }
@@ -374,12 +375,23 @@ public class EnemyController : MonoBehaviour
         }                         
         //EnemyCanDamage = false;
     }
-    IEnumerator ss()
+
+    public void DamageFX(float stopTime)
     {
-        yield return new WaitForSeconds(0.006f);
+        Time.timeScale = 0.1f;
+        if (damageStopEffect != null)
+        {
+            StopCoroutine(damageStopEffect);
+        }
+        damageStopEffect = DamageStopEffect(stopTime);
+        StartCoroutine(damageStopEffect);
+
+    }
+
+    IEnumerator DamageStopEffect(float stopTime)
+    {
+        yield return new WaitForSeconds(stopTime);//0.006
         Time.timeScale = 1f;
-
-
     }
 
     IEnumerator aa()

@@ -131,6 +131,7 @@ ModelImporter:
     2100002: Blueisland_Character_Mat2
     4300000: Blueisland
     7400000: PlayerDamage
+    7400002: EnemyDamage
     9500000: //RootNode
     13700000: Blueisland
   externalObjects: {}
@@ -210,6 +211,58 @@ ModelImporter:
           postInfinity: 3
           rotationOrder: 4
       events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: EnemyDamage
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 26
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: EnemyDamage
+        data: 
+        objectReferenceParameter: {fileID: 1145708909835516, guid: f084c27a7a2c337419ebbf1bfaac96ab,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: DamageFX
+        data: 
+        objectReferenceParameter: {fileID: 1145708909835516, guid: f084c27a7a2c337419ebbf1bfaac96ab,
+          type: 2}
+        floatParameter: 0.004
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.94614905
+        functionName: EnemyChangToIdle
+        data: 
+        objectReferenceParameter: {fileID: 1145708909835516, guid: f084c27a7a2c337419ebbf1bfaac96ab,
+          type: 2}
+        floatParameter: 0.1
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

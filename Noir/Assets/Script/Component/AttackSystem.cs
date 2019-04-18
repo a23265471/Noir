@@ -23,6 +23,8 @@ public class AttackSystem : MonoBehaviour
 
     public bool CanTriggerNextAttack;
     public bool isTriggerAttack;
+    private int nextAttackID;
+
     private SkillList.AttackParameter currentAttackInfo;
 
     public bool IsAttack;
@@ -171,6 +173,15 @@ public class AttackSystem : MonoBehaviour
         }
     }
 
+    public void TriggerNextAttack()
+    {
+        //   Debug.Log("jjjj");
+        CanTriggerNextAttack = true;
+        isTriggerAttack = false;
+
+        StartCoroutine("DetectInput");
+    }
+
     public void StopTriggerNextAttack()
     {
         Debug.Log(isTriggerAttack);
@@ -181,13 +192,24 @@ public class AttackSystem : MonoBehaviour
         }
     }
 
-    public void TriggerNextAttack()
+    public void StartTriggerNextAnimation()
     {
-     //   Debug.Log("jjjj");
-        CanTriggerNextAttack = true;
-        isTriggerAttack = false;
+        if (isTriggerAttack)
+        {
+            StopCoroutine("triggerNextAnimation");
 
-        StartCoroutine("DetectInput");
+            StartCoroutine("triggerNextAnimation");
+        }
+
+    }
+
+    IEnumerator triggerNextAnimation()
+    {
+        yield return new WaitUntil(() => isTriggerAttack);
+
+        Debug.Log("TriggerNextAttack");
+        Attack(currentAttackInfo.NextAttack[nextAttackID].AnimatorTriggerName);
+
     }
 
     IEnumerator DetectInput()
@@ -215,7 +237,9 @@ public class AttackSystem : MonoBehaviour
 
                 if (Input.GetKeyDown(currentAttackInfo.NextAttack[i].keyCode))
                 {
-                    Attack(currentAttackInfo.NextAttack[i].AnimatorTriggerName);
+                    nextAttackID = i;
+                    isTriggerAttack = true;
+                    IsAttack = true;
                     return true;
                 }              
             }            
@@ -236,29 +260,25 @@ public class AttackSystem : MonoBehaviour
             }
         }
         gravity.StartUseGravity();
+        StopCoroutine("DetectInput");
+
         StopCoroutine("resetTriggerAttack");
         StartCoroutine("resetTriggerAttack");
     }
 
     IEnumerator resetTriggerAttack()
     {
+        yield return new WaitForSeconds(0.2f);
+      //  Debug.Log(IsAttack);
+        StopCoroutine("triggerNextAnimation");
 
-        yield return new WaitForSeconds(0.5f);
-        Debug.Log(IsAttack);
-        IsAttack = false;
-
-        /*  CanTriggerNextAttack = true;
-           isTriggerAttack = false;*/
-        //Debug.Log("Reset TriggerAttack");
-
-        StopCoroutine("DetectInput");
+        //   IsAttack = false;
         //站存
         AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
         AttackCollider_Skill.SetActive(false);
         //站存
-        CanTriggerNextAttack = true;
-          isTriggerAttack = false; 
+        
         // Debug.Log("stopDetectInput");
 
     }

@@ -617,7 +617,7 @@ public class PlayerBehaviour : Character
         {
             if (gravity.groundCheck.IsGround)
             {
-                Debug.Log((int)PlayerState.Damage);
+              //  Debug.Log((int)PlayerState.Damage);
 
                 playerAnimator.ResetTrigger("Falling");
                 playerAnimator.SetTrigger("Idle");
@@ -773,9 +773,9 @@ public class PlayerBehaviour : Character
 
     IEnumerator DetectAnimationStateNotAttack(string animationTag)
     {
-        
 
 
+        Debug.Log(!attackSystem.IsAttack);
         yield return new WaitUntil(() => !attackSystem.IsAttack);
 
        // yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
@@ -878,7 +878,7 @@ public class PlayerBehaviour : Character
 
     IEnumerator ss()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.004f);
         Time.timeScale = 1f;
 
 
