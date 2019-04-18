@@ -37,6 +37,8 @@ public class EnemyController : MonoBehaviour
     public static EnemyController enemyController;
     public bool EnemyCanDamage;
     public UI_FollowEnemy HP;
+    private ParticleManager particleManager;
+
  //   public GameObject Enemy_UI;
 
     private NavMeshAgent EnemyNav;
@@ -66,7 +68,7 @@ public class EnemyController : MonoBehaviour
       private GameObject AttackBig_L_Collider;
       private GameObject AttackDown_L_Collider;*/
     private CapsuleCollider DamageCollider;
-
+    private string preParticle;
     //----------------------Attack----------------
     //--------------------Coroutine---------------
     private IEnumerator ResetStateCoroutine;
@@ -87,6 +89,7 @@ public class EnemyController : MonoBehaviour
         EnemyNav = GetComponent<NavMeshAgent>();
         DamageCollider = GetComponent<CapsuleCollider>();
         audiosource = GetComponent<AudioSource>();
+        particleManager = GetComponent<ParticleManager>();
       //  HP = Enemy_UI.GetComponent<UI_FollowEnemy>();
         /* Attack_R_Collider = gameObject.transform.Find("EnemyAttack_R_Collider").gameObject;
          Attack_L_Collider = gameObject.transform.Find("EnemyAttack_L_Collider").gameObject;*/
@@ -117,7 +120,7 @@ public class EnemyController : MonoBehaviour
 
         PlayerDis = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
 
-        if (/*PlayerController.playerController.playerAnimatorState != PlayerController.PlayerAnimatorState.Dead &&*/ PlayerDis <= PlayerChaseDis) 
+        if (PlayerBehaviour.playerBehaviour.playerState != PlayerBehaviour.PlayerState.Dead && PlayerDis <= PlayerChaseDis) 
         {
             if (PlayerDis <= EnemyNav.stoppingDistance && enemyState == EnemyState.Movement && attackState == AttackState.Defualt)
             {
@@ -319,6 +322,23 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void PlayParticle(string Id)
+    {
+        /* particleManager.GetParticle(Id).*/
+        if (preParticle != null)
+        {
+            particleManager.GetParticle(preParticle).Stop();
+
+            Debug.Log("S");
+
+        }
+
+        preParticle = Id;
+        particleManager.GetParticle(Id).Play();
+        Debug.Log("HHHHH");
+    }
+
+
     public void DistroyEnemy()
     {
         StartCoroutine("distroyEnemy");
@@ -349,8 +369,7 @@ public class EnemyController : MonoBehaviour
            // HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
-            StopCoroutine("ss");
-            StartCoroutine("ss");
+  
         }
         else if (other.tag == "PlayerAttack_Small")
         {
@@ -359,6 +378,9 @@ public class EnemyController : MonoBehaviour
           //  HP.HP -= 10;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
+
+
+
             ///-----
            
                   

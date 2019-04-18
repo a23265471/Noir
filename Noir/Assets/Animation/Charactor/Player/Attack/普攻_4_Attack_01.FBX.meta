@@ -229,14 +229,6 @@ ModelImporter:
           rotationOrder: 4
       events:
       - time: 0
-        functionName: DetectForceExitAttack
-        data: NormalAttack
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
         functionName: GetAttackInfo
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -252,40 +244,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 32
         messageOptions: 0
-      - time: 0.1371308
-        functionName: AttackDisplacement
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 103
-        messageOptions: 0
-      - time: 0.95852536
-        functionName: ResetTriggerAttack
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.95852536
-        functionName: ResetToIdleState
+      - time: 0
+        functionName: DetectForceExitAttack
         data: NormalAttack
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.95852536
-        functionName: AttackMoveSwitch
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.900844
-        functionName: TriggerNextAttack
+      - time: 0.09917179
+        functionName: AudioPlay
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -299,6 +267,14 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.1371308
+        functionName: AttackDisplacement
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 103
         messageOptions: 0
       - time: 0.17167382
         functionName: OpenAttackCollider
@@ -316,8 +292,24 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.09917179
-        functionName: AudioPlay
+      - time: 0.900844
+        functionName: TriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: ResetToIdleState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: EndOfAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}

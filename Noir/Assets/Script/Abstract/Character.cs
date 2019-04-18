@@ -148,11 +148,11 @@ public abstract class Character : MonoBehaviour
        
     }
     
-    protected void AudioPlay(AudioSource audioSource,AudioClip audioClip)
+    /*protected void AudioPlay(AudioSource audioSource,AudioClip audioClip)
     {
         audioSource.clip = audioClip;
         audioSource.Play();
-    }
+    }*/
 
     protected void ParticlePlay(ParticleSystem particleSystem)
     {

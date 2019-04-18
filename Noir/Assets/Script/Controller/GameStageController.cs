@@ -35,8 +35,8 @@ public class GameStageController : MonoBehaviour {
     void Start ()
     {
        
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
+      /*  Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;*/
 
     }
 	
@@ -44,10 +44,10 @@ public class GameStageController : MonoBehaviour {
 	void Update ()
     {
         // CursorControl();
-        CursorLock();
+       // CursorLock();
     }
 
-    private void CursorControl()
+   /* private void CursorControl()
     {
         if (Input.GetKeyDown(KeyCode.Tab) && Cursor.visible) 
         {
@@ -78,6 +78,6 @@ public class GameStageController : MonoBehaviour {
 
         }
 
-    }
+    }*/
 
 }

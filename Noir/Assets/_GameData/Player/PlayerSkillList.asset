@@ -38,6 +38,9 @@ MonoBehaviour:
     - Name: Combo1_1
       AnimatorTriggerName: Combo1
       keyCode: 324
+    - Name: NormalAttack_3
+      AnimatorTriggerName: NormalAttack
+      keyCode: 323
     moveInfo:
       MoveSpeed: 6
       MoveDistance: 0.2

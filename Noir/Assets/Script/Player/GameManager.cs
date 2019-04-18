@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
             
         }
 
-        if (PlayerController.playerController.playerAnimatorState == PlayerController.PlayerAnimatorState.Dead)
+        if (PlayerBehaviour.playerBehaviour.playerState == PlayerBehaviour.PlayerState.Dead)
         {
             StartCoroutine("GoToMainScene");
            // END_Panel.SetActive(true);
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour {
 
     private void CursorLock()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.Escape)) 
         {
             if (Screen.lockCursor)
             {

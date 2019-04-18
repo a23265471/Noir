@@ -113,7 +113,7 @@ ModelImporter:
     400104: Exporter
     400106: Motion
     400108: //RootNode
-    7400000: 2Hand-Bow-GetHit-B1
+    7400000: EnemyDamage
     7400002: PlayerDamage
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -149,7 +149,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 2Hand-Bow-GetHit-B1
+      name: EnemyDamage
       takeName: Take 001
       firstFrame: 3
       lastFrame: 15
@@ -211,6 +211,14 @@ ModelImporter:
         objectReferenceParameter: {fileID: 1145708909835516, guid: f084c27a7a2c337419ebbf1bfaac96ab,
           type: 2}
         floatParameter: 0.004
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: PlayParticle
+        data: DamageEffect_Small
+        objectReferenceParameter: {fileID: 1145708909835516, guid: f084c27a7a2c337419ebbf1bfaac96ab,
+          type: 2}
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.8248848

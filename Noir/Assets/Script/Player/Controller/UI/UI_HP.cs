@@ -46,7 +46,8 @@ public class UI_HP : MonoBehaviour
 
         if (HP <= 0)
         {
-            PlayerController.playerController.Dead();
+            PlayerBehaviour.playerBehaviour.Dead();
+
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
@@ -95,6 +96,14 @@ public class UI_HP : MonoBehaviour
         darkBarCanMove = true;
     }
 
+    public void ConsumeHp(int consumeHP)
+    {
+        HP -= consumeHP;
+        DarkBarStartControl();
+
+    }
+
+
     public void ConsumeSP()
     {
 
@@ -131,7 +140,15 @@ public class UI_HP : MonoBehaviour
         }
 
     }
-        
+
+    public void Consumesp(int consumSp)
+    {
+        SP -= consumSp;
+
+        ConsumeSP();
+    }
+
+
 }
 
     

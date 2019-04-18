@@ -182,9 +182,42 @@ public class AttackSystem : MonoBehaviour
         StartCoroutine("DetectInput");
     }
 
-    public void StopTriggerNextAttack()
+    IEnumerator DetectInput()
     {
-        Debug.Log(isTriggerAttack);
+        if (currentAttackInfo.NextAttack.Length != 0)
+        {
+            yield return new WaitUntil(() => DetectTriggerNextAttack());
+            //    Debug.Log("TriggerNext");
+        }
+        else
+        {
+            yield return null;
+            //    Debug.Log("dddd");
+        }
+
+
+    }
+
+    private bool DetectTriggerNextAttack()
+    {
+        if (currentAttackInfo.NextAttack != null)
+        {
+            for (int i = 0; i < currentAttackInfo.NextAttack.Length; i++)
+            {
+
+                if (Input.GetKeyDown(currentAttackInfo.NextAttack[i].keyCode))
+                {
+                    nextAttackID = i;
+                    isTriggerAttack = true;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void StopTriggerNextAttack()//Dash
+    {
         if (!isTriggerAttack)
         {
             CanTriggerNextAttack = false;
@@ -207,81 +240,53 @@ public class AttackSystem : MonoBehaviour
     {
         yield return new WaitUntil(() => isTriggerAttack);
 
-        Debug.Log("TriggerNextAttack");
+     //   Debug.Log("TriggerNextAttack");
         Attack(currentAttackInfo.NextAttack[nextAttackID].AnimatorTriggerName);
 
     }
 
-    IEnumerator DetectInput()
-    {        
-        if (currentAttackInfo.NextAttack.Length != 0)
+   
+    public void EndOfAttack()
+    {
+      
+        if (detectAttackStateForceExit != null)
         {
-            yield return new WaitUntil(() => DetectTriggerNextAttack());
-        //    Debug.Log("TriggerNext");
-        }
-        else
-        {
-            yield return null;
-        //    Debug.Log("dddd");
-        }
+                StopCoroutine(detectAttackStateForceExit);
+                    Debug.Log("3. Reset Detect Attack State Force Exit");
 
+        }
+        
+
+        StopDetectInput();
+        ResetTriggerAttack();
+        IsAttack = false;
 
     }
 
-    private bool DetectTriggerNextAttack()
-    {       
-        if (currentAttackInfo.NextAttack != null)
-        {
-            for (int i = 0; i < currentAttackInfo.NextAttack.Length; i++)
-            {
-
-                if (Input.GetKeyDown(currentAttackInfo.NextAttack[i].keyCode))
-                {
-                    nextAttackID = i;
-                    isTriggerAttack = true;
-                    IsAttack = true;
-                    return true;
-                }              
-            }            
-        }
-        return false;         
+    public void StopDetectInput()
+    {
+        StopCoroutine("DetectInput");
+        StopCoroutine("triggerNextAnimation");
+    
+       
     }
 
     public void ResetTriggerAttack()
     {
-       // Debug.Log(isTriggerAttack);
         if (!isTriggerAttack)
         {
             if (detectAttackStateForceExit != null)
             {
                 StopCoroutine(detectAttackStateForceExit);
-                Debug.Log("3. Reset Detect Attack State Force Exit");
+            //    Debug.Log("3. Reset Detect Attack State Force Exit");
 
             }
         }
         gravity.StartUseGravity();
-        StopCoroutine("DetectInput");
-
-        StopCoroutine("resetTriggerAttack");
-        StartCoroutine("resetTriggerAttack");
+        CanTriggerNextAttack = true;
+        isTriggerAttack = false;
     }
 
-    IEnumerator resetTriggerAttack()
-    {
-        yield return new WaitForSeconds(0.2f);
-      //  Debug.Log(IsAttack);
-        StopCoroutine("triggerNextAnimation");
-
-        //   IsAttack = false;
-        //站存
-        AttackCollider_Small.SetActive(false);
-        AttackCollider_Big.SetActive(false);
-        AttackCollider_Skill.SetActive(false);
-        //站存
-        
-        // Debug.Log("stopDetectInput");
-
-    }
 
     public void DetectForceExitAttack(string animationTag)
     {
@@ -298,13 +303,9 @@ public class AttackSystem : MonoBehaviour
 
     IEnumerator DetectAttackStateForceExit(string animationTag)
     {
-        //Debug.Log("1.Detect Attack State Force Exit");
-
-       // yield return new WaitUntil(() => animationHash.GetCurrentAnimationTag(animationTag));
-       // Debug.Log(animationHash.GetCurrentAnimationTag(animationTag));
-
+       
         yield return new WaitUntil(() => !animationHash.GetCurrentAnimationTag(animationTag));
-        Debug.Log("2.  Attack is State Force Exit");
+       // Debug.Log("2.  Attack is State Force Exit");
 
         //站存
         AttackCollider_Small.SetActive(false);
@@ -315,7 +316,7 @@ public class AttackSystem : MonoBehaviour
         
         //Debug.Log("Reset TriggerAttack");
 
-        IsAttack = false;
+  //      IsAttack = false;
         StopCoroutine("DetectInput");
         CanTriggerNextAttack = true;
         isTriggerAttack = false;

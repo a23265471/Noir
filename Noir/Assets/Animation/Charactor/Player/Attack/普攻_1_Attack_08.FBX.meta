@@ -165,7 +165,7 @@ ModelImporter:
       name: NormalAttack_1
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 11
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 10
       level: 0
@@ -198,7 +198,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.51476794
+            time: 0.3657289
             value: 1
             inSlope: 0
             outSlope: 0
@@ -207,7 +207,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.7151899
+            time: 0.9409283
             value: 1
             inSlope: 0
             outSlope: 0
@@ -229,14 +229,6 @@ ModelImporter:
           rotationOrder: 4
       events:
       - time: 0
-        functionName: ChangePlayerState
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 32
-        messageOptions: 0
-      - time: 0
         functionName: DetectForceExitAttack
         data: NormalAttack
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -251,6 +243,14 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 100
+        messageOptions: 0
+      - time: 0
+        functionName: ChangePlayerState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 32
         messageOptions: 0
       - time: 0.16129032
         functionName: TriggerNextAttack
@@ -284,40 +284,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.50858366
+      - time: 0.5577217
         functionName: OpenAttackCollider
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.72834796
-        functionName: CloseAttaCollider
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9493087
-        functionName: ResetTriggerAttack
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9493087
-        functionName: ResetToIdleState
-        data: NormalAttack
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9493087
-        functionName: AttackMoveSwitch
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -326,6 +294,30 @@ ModelImporter:
         messageOptions: 0
       - time: 0.8556486
         functionName: StartTriggerNextAnimation
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9124424
+        functionName: ResetToIdleState
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9124424
+        functionName: EndOfAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9372616
+        functionName: CloseAttaCollider
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}

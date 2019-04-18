@@ -24,7 +24,7 @@ public class PlayerBehaviour : Character
 //        SkyAttack = 0xf0,//
         Damage = 0x01 + 0xff,//1 0000 0000
         GetDown = 0xff,
-        Dead = 0x01+0xff,//10 0000 0000 
+        Dead = 0x01+0xff+0xff+0x01,//10 0000 0000 
 
         CanFalling = Move | Attack | Dash/* | SkyAttack*/ ,
         FallingMove = Falling | Jump | DoubleJump /*| SkyAttack*/,
@@ -59,7 +59,6 @@ public class PlayerBehaviour : Character
     private ParticleManager particleManager;
     private AttackSystem attackSystem;
     
-
     public GhostShadow PlayerShader;
 
    // public GameObject GroundCheckObject;
@@ -104,26 +103,20 @@ public class PlayerBehaviour : Character
     public GameObject IdlePhysicsCollider;
     public GameObject SmallPhysicsCollider;
     public GameObject MediumPhysicsCollider;
-
     private CapsuleCollider damageCollider;
-
     public float groundedDis;
-  //  public bool isGround;
-    //public bool isNotGraoundStep;
-
     private bool ForceMove;
     #endregion
 
-    #region 攻擊
+    #region 受傷
 
- /*   public bool CanTriggerNextAttack;
-    private bool isTriggerAttack;*/
-  
+    private string preFx;
+    IEnumerator damageStopEffect;
+
     #endregion
 
     private void Awake()
     {
-
         playerBehaviour = this;
         playerAnimator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
@@ -144,7 +137,6 @@ public class PlayerBehaviour : Character
         floorMask = LayerMask.GetMask("Floor");
         playerState = PlayerState.Move;
        // CanTriggerNextAttack = true;
-        detectAnimationStateNotAttack = null;
         ForceMove = false;
        // isTriggerAttack = false;
         canfall = true;
@@ -158,14 +150,14 @@ public class PlayerBehaviour : Character
         moveAnimation_Vertical = 0;
         moveAnimation_Horizontal = 0;
         cameraLookAt= gameObject.transform.Find("CameraLookAt");
+        damageStopEffect = null;
+        detectAnimationStateNotAttack = null;
 
-        Debug.Log((int)PlayerState.Dead);
     }
-     
+
     void Update()
     {
         Rotaion();
-      //  Debug.Log(playerRigidbody.velocity.y);
     }
 
     private void FixedUpdate()
@@ -472,6 +464,25 @@ public class PlayerBehaviour : Character
     }
 
     #endregion
+    #region 死亡
+    public void Dead()
+    {
+        if (playerState != PlayerState.Dead)
+        {
+            damageCollider.enabled = false;
+          /*  IdlePhysicsCollider.SetActive(false);
+            MediumPhysicsCollider.SetActive(false);
+            SmallPhysicsCollider.SetActive(false);*/
+            playerState = PlayerState.Dead;
+            playerAnimator.SetTrigger("Dead");
+        }
+        
+
+    }
+
+
+    #endregion
+
 
     #region AnimationEvent
     public void ChangePlayerState(int ChangePlayerState)
@@ -500,7 +511,8 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Avoid:
                 playerState = PlayerState.Avoid;
                 SwitchCollider(2);
-
+                damageCollider.enabled = false;
+                UI_HP.Ui_HP.Consumesp(10);
                 Displacement(playerRigidbody, transform.rotation, avoidSpeed, playerParameter.avoidParameter.AvoidDistance, Direction_X, 0, Direction_Z);
 
                 break;
@@ -511,26 +523,24 @@ public class PlayerBehaviour : Character
                     playerState = PlayerState.Falling;
                     playerAnimator.ResetTrigger("Falling");
                     StartLandingCheck();
-                   // JumpDoExitGround();
                     SwitchCollider(1);
-                 //   Debug.Log("eee");
                 }
                 break;
 
             case (int)PlayerState.Attack:
+
                 playerState = PlayerState.Attack;
-                //      StopDetectAnimationStateNotAttack();
                 StopResetToIdleState();
                 playerRigidbody.velocity = playerRigidbody.velocity*0.1f;
                 SwitchMove(0);
 
-                // CanTriggerNextAttack = false;
                 break;
             case (int)PlayerState.Dash:
                 playerState = PlayerState.Dash;
-                //  gravity.StopGroundCheck();
                 PlayerShader.enabled = true;
                 canfall = false;
+                damageCollider.enabled = false;
+
                 StartCoroutine("DetcetExitDash");
                 StopCoroutine("LandingCheck");
 
@@ -554,6 +564,11 @@ public class PlayerBehaviour : Character
 
     public void EffectPlay(string Id)//------
     {
+        if (preFx != null)
+        {
+            particleManager.GetParticle(preFx).Stop();
+        }
+        preFx = Id;
         ParticlePlay(particleManager.GetParticle(Id));
     }
 
@@ -617,19 +632,22 @@ public class PlayerBehaviour : Character
         {
             if (gravity.groundCheck.IsGround)
             {
-              //  Debug.Log((int)PlayerState.Damage);
+                //  Debug.Log((int)PlayerState.Damage);
+                //Debug.Log("hhh");
 
                 playerAnimator.ResetTrigger("Falling");
                 playerAnimator.SetTrigger("Idle");
                 ChangePlayerState(1);
+                damageCollider.enabled = true;
+
             }
             else
             {
                 playerAnimator.ResetTrigger("Idle");
 
                 playerAnimator.SetTrigger("Falling");
+                damageCollider.enabled = true;
 
-                //Debug.Log("hhh");
             }
         }
 
@@ -753,44 +771,36 @@ public class PlayerBehaviour : Character
 
     public void StopResetToIdleState()
     {
-        if (detectAnimationStateNotAttack != null)
+        /*if (detectAnimationStateNotAttack != null)
         {
             StopCoroutine(detectAnimationStateNotAttack);
-        }
-        //  StopCoroutine()
+        }*/
+        StopCoroutine("resetToIdleState");
+        playerAnimator.ResetTrigger("idle");
+
     }
 
     public void ResetToIdleState(string animationTag)
     {
-        if (!attackSystem.isTriggerAttack)
-        {
-            Debug.Log("Attack => Idle");
+       
+        StopCoroutine("resetToIdleState");
+        StartCoroutine("resetToIdleState");
 
-            detectAnimationStateNotAttack = DetectAnimationStateNotAttack(animationTag);
-            StartCoroutine(detectAnimationStateNotAttack);
-        }
+      
+     
     }
 
-    IEnumerator DetectAnimationStateNotAttack(string animationTag)
+    IEnumerator resetToIdleState()
     {
 
-
-        Debug.Log(!attackSystem.IsAttack);
         yield return new WaitUntil(() => !attackSystem.IsAttack);
-
-       // yield return new WaitWhile(() => animationHash.GetCurrentAnimationTag(animationTag));
-      // if(animationTag)
 
         ChangeToIdle(32);
 
         ForceMove = false;
 
-
-        
-     //   playerAnimator.ResetTrigger("NormalAttack");
-
-
     }
+
 
     public void AttackDisplacement(int AttackId)
     {
@@ -867,22 +877,29 @@ public class PlayerBehaviour : Character
     {
         if (other.CompareTag("EnemyAttack_Small"))
         {
-            Time.timeScale = 0.1f;
             playerAnimator.SetTrigger("Damage");
-            StopCoroutine("ss");
-            StartCoroutine("ss");
+            UI_HP.Ui_HP.ConsumeHp(10);
+            
         }
 
 
     }
-
-    IEnumerator ss()
+    public void DamageFX(float stopTime)
     {
-        yield return new WaitForSeconds(0.004f);
-        Time.timeScale = 1f;
-
+        Time.timeScale = 0.1f;
+        if (damageStopEffect != null)
+        {
+            StopCoroutine(damageStopEffect);
+        }
+        damageStopEffect = DamageStopEffect(stopTime);
+        StartCoroutine(damageStopEffect);
 
     }
 
+    IEnumerator DamageStopEffect(float stopTime)
+    {
+        yield return new WaitForSeconds(stopTime);//0.006
+        Time.timeScale = 1f;
+    }
 
 }
