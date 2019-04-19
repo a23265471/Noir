@@ -16,7 +16,7 @@ public class PlayVideo : MonoBehaviour {
 
     IEnumerator LoadScene()
     {
-        yield return new WaitForSeconds(3f);//括號內填入影片時間
+        yield return new WaitForSeconds(35f);//括號內填入影片時間
 
         SkipMovie();//載入場景
     }

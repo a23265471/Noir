@@ -252,8 +252,48 @@ ModelImporter:
         floatParameter: 0
         intParameter: 111
         messageOptions: 0
+      - time: 0.13924052
+        functionName: TriggerNextAttack
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.20648536
+        functionName: AudioPlay
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2663855
+        functionName: OpenAttackCollider
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.58712304
+        functionName: CloseAttaCollider
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8096793
+        functionName: StartTriggerNextAnimation
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.9479282
-        functionName: AttackMoveSwitch
+        functionName: EndOfAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -262,23 +302,15 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9479282
         functionName: ResetToIdleState
-        data: Combo
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9479282
-        functionName: ResetTriggerAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.13924052
-        functionName: TriggerNextAttack
-        data: 
+      - time: 0.28990474
+        functionName: EffectPlay
+        data: ComboFx_1
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0

@@ -112,6 +112,7 @@ public class PlayerBehaviour : Character
 
     private string preFx;
     IEnumerator damageStopEffect;
+    private bool inBlackRain;
 
     #endregion
 
@@ -152,6 +153,7 @@ public class PlayerBehaviour : Character
         cameraLookAt= gameObject.transform.Find("CameraLookAt");
         damageStopEffect = null;
         detectAnimationStateNotAttack = null;
+        inBlackRain = false;
 
     }
 
@@ -467,6 +469,7 @@ public class PlayerBehaviour : Character
     }
 
     #endregion
+
     #region 死亡
     public void Dead()
     {
@@ -885,9 +888,56 @@ public class PlayerBehaviour : Character
             UI_HP.Ui_HP.ConsumeHp(10);
             
         }
+        else if (other.CompareTag("BlackRain"))
+        {
+            inBlackRain = true;
+            Debug.Log(other.transform.name);
+            StopCoroutine("InBlackRain");
+            StartCoroutine("InBlackRain");
+        }
+        else if (other.CompareTag("BlackRain_Dead"))
+        {
+            UI_HP.Ui_HP.ConsumeHp(UI_HP.Ui_HP.HP_Max);
 
+
+        }
+        else if (other.CompareTag("Level2"))
+        {
+            MainMenu.mainMenu.LoadGame(5);
+        }
+      
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("EnemyAttack_Small"))
+        {
+            inBlackRain = false;
+        }
+    }
+    
+    private bool BlackRainConsumHP()
+    {
+        if (inBlackRain)
+        {
+            UI_HP.Ui_HP.ConsumeHp(5);
+            return false;
+        }
+        else
+        {
+            return true;
+
+        }
 
     }
+
+
+    IEnumerator InBlackRain()
+    {
+        yield return new WaitWhile(() => BlackRainConsumHP());
+    }
+
+
     public void DamageFX(float stopTime)
     {
         Time.timeScale = 0.1f;

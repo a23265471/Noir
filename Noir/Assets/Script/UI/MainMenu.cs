@@ -8,10 +8,17 @@ public class MainMenu : MonoBehaviour {
 
     public static MainMenu mainMenu;  
     public static int num;
-   
+
+    private void Awake()
+    {
+        mainMenu = this;
+
+    }
+
     public void LoadGame(int sceneIndex)
     {
         num = sceneIndex;
+        Time.timeScale = 1;
         SceneManager.LoadScene("Loading");
     }
 
@@ -25,6 +32,8 @@ public class MainMenu : MonoBehaviour {
     }
     public void ChooseLevel()
     {
+        Time.timeScale = 1;
+
         SceneManager.LoadScene("ChooseLevel");
     }
     public void QuitGame()
@@ -34,10 +43,14 @@ public class MainMenu : MonoBehaviour {
     }
     public void BackToMainMenu()
     {
+        Time.timeScale = 1;
+
         SceneManager.LoadScene(1);
     }
     public void Back()
     {
+        Time.timeScale = 1;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
           

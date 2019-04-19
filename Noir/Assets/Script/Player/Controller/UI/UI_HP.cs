@@ -96,7 +96,7 @@ public class UI_HP : MonoBehaviour
         darkBarCanMove = true;
     }
 
-    public void ConsumeHp(int consumeHP)
+    public void ConsumeHp(float consumeHP)
     {
         HP -= consumeHP;
         DarkBarStartControl();

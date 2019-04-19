@@ -61,27 +61,6 @@ MonoBehaviour:
   m_DisplayName: Audio
   m_Id: cd09d9d1-0d29-4ac2-a055-fe5b0975b2ef
   m_PreserveAudio: 1
---- !u!114 &114615367996609694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d935bf7a4fcf66488738bda5536c1cb, type: 3}
-  m_Name: 446b9922-8db0-43b2-855d-318399c38f32
-  m_EditorClassIdentifier: 
-  m_DisplayName: Pixels
-  m_Id: 5b2e5b58-9031-4dd1-b4a9-7c49a084ec2c
-  m_OutputSize: 0
-  m_AspectRatio: 0
-  m_ForceEvenSize: 1
-  source: 1
-  m_CameraTag: 
-  m_FlipFinalOutput: 0
-  m_AllowTransparency: 0
-  m_CaptureUI: 0
 --- !u!114 &114677401719766282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +98,22 @@ MonoBehaviour:
   m_OutputFormat: 0
   m_VideoBitRateMode: 2
   m_AppendSuffix: 0
+--- !u!114 &114780886897928060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93936c560512aa4f89b283d08d5b3f0, type: 3}
+  m_Name: 66841071-d9ae-496a-ac74-6366b31a7879
+  m_EditorClassIdentifier: 
+  m_DisplayName: Pixels
+  m_Id: 8a95b38e-71aa-4f61-966c-4b8656d1da34
+  m_OutputSize: 0
+  m_AspectRatio: 0
+  m_ForceEvenSize: 1
 --- !u!114 &114838259332509740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,22 +128,22 @@ MonoBehaviour:
   m_AssetID: bc570611eccbae04f94a398a6b0c868f
   m_CaptureEveryNthFrame: 1
   m_FrameRateMode: 1
-  m_FrameRate: 30
-  m_FrameRateExact: 1
+  m_FrameRate: 50
+  m_FrameRateExact: 128
   m_StartFrame: 0
-  m_EndFrame: 10
+  m_EndFrame: 0
   m_StartTime: 0
   m_EndTime: 1
   m_DurationMode: 0
   m_SynchFrameRate: 1
   m_BaseFileName:
-    m_Pattern: movie.<ext>
+    m_Pattern: attack9.<ext>
   m_DestinationPath:
-    m_root: 1
-    m_leaf: Recordings
+    m_root: 0
+    m_leaf: "D:/\u6708\u6708\u7684\u4F5C\u696D/\u904A\u6232\u756B\u9762/\u7B2C\u4E00\u95DC\u7B2C2\u500B\u8F49\u89D2/\u6709\u8072"
   m_InputsSettings:
     m_InputsSettingsAssets:
-    - {fileID: 114615367996609694}
+    - {fileID: 114780886897928060}
     - {fileID: 114454093613409150}
     ownerRecorderSettingsAssetId: bc570611eccbae04f94a398a6b0c868f
   m_RecorderTypeName: UnityEditor.Recorder.MediaRecorder, Assembly-CSharp-Editor,

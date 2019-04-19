@@ -253,14 +253,6 @@ ModelImporter:
         intParameter: 32
         messageOptions: 0
       - time: 0.9578059
-        functionName: ResetTriggerAttack
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9578059
         functionName: ResetToIdleState
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -269,16 +261,40 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.9578059
-        functionName: AttackMoveSwitch
+        functionName: EndOfAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.17088607
-        functionName: TriggerNextAttack
+      - time: 0.21418965
+        functionName: AudioPlay
         data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.12837946
+        functionName: OpenAttackCollider
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.25319588
+        functionName: CloseAttaCollider
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.19704641
+        functionName: EffectPlay
+        data: ComboFx_2
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0

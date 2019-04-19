@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4983648313502850}
   - component: {fileID: 114781305285149052}
   - component: {fileID: 114197086973746878}
+  - component: {fileID: 114073741944897928}
+  - component: {fileID: 114512375163913546}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -50,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1908892321264302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 0.673, z: 6.104}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4983648313502850}
@@ -63,13 +65,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1746443142002066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.3532486, y: 0.8924956, z: -1.2833997}
+  m_LocalPosition: {x: 13.4, y: 2.77, z: 68.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4477330052444994}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114073741944897928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1746443142002066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6e295cad6469345ab3fe0dd378387c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelChanger_anim: {fileID: 0}
 --- !u!114 &114197086973746878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,6 +98,17 @@ MonoBehaviour:
   playerStartPos: {fileID: 4477330052444994}
   playerBehaviour: {fileID: 0}
   mainCameraBehaviour: {fileID: 0}
+--- !u!114 &114512375163913546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1746443142002066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877a55b52a5b1974fb2381dc5a755eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114781305285149052
 MonoBehaviour:
   m_ObjectHideFlags: 1

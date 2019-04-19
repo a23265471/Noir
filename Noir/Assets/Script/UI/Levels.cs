@@ -16,7 +16,7 @@ public class Levels : MonoBehaviour {
     {
         LevelSelect_anim.SetBool("Level2_Open", true);    
     }
-    
+   
     public void CloseLevelAnim()
     {
         LevelSelect_anim.SetBool("Level2_Open", false);

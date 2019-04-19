@@ -7,7 +7,7 @@ public class IntroPages : MonoBehaviour
 {
     public GameObject[] Pages;
     public GameObject Page_Active;
-    public Text Page_Num;
+   // public Text Page_Num;
     public int x;
     public int Page_CurrentNum
     {
@@ -56,6 +56,6 @@ public class IntroPages : MonoBehaviour
         Page_Active.SetActive(false);
         Page_Active = Pages[Page_CurrentNum];
         Page_Active.SetActive(true);
-        Page_Num.text = "" + (Page_CurrentNum + 1) + "/" + Pages.Length.ToString();
+        //Page_Num.text = "" + (Page_CurrentNum + 1) + "/" + Pages.Length.ToString();
     }
 }

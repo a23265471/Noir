@@ -316,6 +316,7 @@ public class EnemyController : MonoBehaviour
     public void EnemyDamage()
     {
         enemyState = EnemyState.Damage;
+        AttackCollider_Close();
         if (ResetStateCoroutine != null)
         {
             StopCoroutine(ResetStateCoroutine);
@@ -366,7 +367,7 @@ public class EnemyController : MonoBehaviour
         {           
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
-           // HP.HP -= 30;
+            HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
   
@@ -375,7 +376,7 @@ public class EnemyController : MonoBehaviour
         {
             EnemyAnimator.SetTrigger("Damage_Small");
             transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
-          //  HP.HP -= 10;
+            HP.HP -= 10;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
 
