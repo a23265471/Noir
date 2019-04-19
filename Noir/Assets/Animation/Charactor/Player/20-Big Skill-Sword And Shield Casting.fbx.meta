@@ -368,6 +368,14 @@ ModelImporter:
         intParameter: 32
         messageOptions: 0
       - time: 0
+        functionName: EffectPlay
+        data: BigSkill
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
         functionName: DetectForceExitAttack
         data: Skill
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -382,22 +390,6 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 200
-        messageOptions: 0
-      - time: 0
-        functionName: EffectPlay
-        data: BigSkill
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.21940927
-        functionName: TriggerNextAttack
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
         messageOptions: 0
       - time: 0.6371308
         functionName: OpenAttackCollider
@@ -423,7 +415,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.99030966
+      - time: 0.9675084
         functionName: ResetToIdleState
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,

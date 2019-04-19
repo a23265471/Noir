@@ -780,7 +780,7 @@ public class PlayerBehaviour : Character
             StopCoroutine(detectAnimationStateNotAttack);
         }*/
         StopCoroutine("resetToIdleState");
-        playerAnimator.ResetTrigger("idle");
+        playerAnimator.ResetTrigger("Idle");
 
     }
 

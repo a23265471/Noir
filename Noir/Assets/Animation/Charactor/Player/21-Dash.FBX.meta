@@ -197,7 +197,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 150
         messageOptions: 0
-      - time: 0.027201803
+      - time: 0.0144791575
         functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -473,7 +473,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 154
         messageOptions: 0
-      - time: 0.032084536
+      - time: 0.024450948
         functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -497,7 +497,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.32370678
+      - time: 0.4636559
         functionName: StartTriggerNextAnimation
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -565,7 +565,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 153
         messageOptions: 0
-      - time: 0.026754526
+      - time: 0.021665469
         functionName: TriggerNextAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -583,6 +583,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.08425041
         functionName: DashMove
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.33168986
+        functionName: StartTriggerNextAnimation
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
@@ -607,14 +615,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.954023
         functionName: EndOfAttack
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.33168986
-        functionName: StartTriggerNextAnimation
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
