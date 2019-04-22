@@ -539,7 +539,7 @@ public class PlayerBehaviour : Character
                 StopResetToIdleState();
                 playerRigidbody.velocity = playerRigidbody.velocity*0.1f;
                 SwitchMove(0);
-
+                DetectForceExitAttack();
                 break;
             case (int)PlayerState.Dash:
                 playerState = PlayerState.Dash;
@@ -789,7 +789,7 @@ public class PlayerBehaviour : Character
 
     public void ResetToIdleState(string animationTag)
     {
-       
+        StopCoroutine("detectForceExitAttack");
         StopCoroutine("resetToIdleState");
         StartCoroutine("resetToIdleState");
 
@@ -822,14 +822,22 @@ public class PlayerBehaviour : Character
                attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_Y,
                attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_Z
                );
+        }              
+    }
 
-        }
-        
-        
+    public void DetectForceExitAttack()
+    {
+        StopCoroutine("detectForceExitAttack");
+        StartCoroutine("detectForceExitAttack");
 
     }
 
+    IEnumerator detectForceExitAttack()
+    {
+        yield return new WaitUntil(() => playerState != PlayerState.Attack);
+        attackSystem.ForceExitAttack();
 
+    }
     #endregion
 
     #region 衝刺
@@ -940,7 +948,22 @@ public class PlayerBehaviour : Character
 
     public void DamageFX(float stopTime)
     {
-        Time.timeScale = 0.1f;
+        switch (playerState)
+        {
+            case PlayerState.Dead:
+                Time.timeScale = 0.1f;
+                MainCamera_New.mainCamera.CameraShake(0.3f, 0.03f);
+
+                break;
+
+            case PlayerState.Damage:
+                playerAnimator.speed = 0.1f;
+                MainCamera_New.mainCamera.CameraShake(0.1f, 0.04f);
+
+                break;
+        }
+
+
         if (damageStopEffect != null)
         {
             StopCoroutine(damageStopEffect);
@@ -948,12 +971,16 @@ public class PlayerBehaviour : Character
         damageStopEffect = DamageStopEffect(stopTime);
         StartCoroutine(damageStopEffect);
 
+
     }
 
     IEnumerator DamageStopEffect(float stopTime)
     {
         yield return new WaitForSeconds(stopTime);//0.006
-        Time.timeScale = 1f;
+        playerAnimator.speed = 1f;
+        Time.timeScale = 1;
+
     }
+
 
 }

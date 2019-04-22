@@ -24,7 +24,24 @@ public class GroundCheck : MonoBehaviour
 
 	}
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Floor"))
+        {
+            IsGround = true;
+            IsNotStandOnFloor = false;
+
+        }
+        else
+        {
+            IsNotStandOnFloor = true;
+
+        }
+
+    }
+
+
+  /*  private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Floor"))
         {
@@ -36,7 +53,7 @@ public class GroundCheck : MonoBehaviour
             IsNotStandOnFloor = true;
         }
         
-    }
+    }*/
 
     private void OnTriggerExit(Collider other)
     {

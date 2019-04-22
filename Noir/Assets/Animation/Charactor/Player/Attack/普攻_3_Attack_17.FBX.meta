@@ -246,14 +246,6 @@ ModelImporter:
         intParameter: 32
         messageOptions: 0
       - time: 0
-        functionName: DetectForceExitAttack
-        data: NormalAttack
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
         functionName: GetAttackInfo
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,

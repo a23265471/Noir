@@ -288,7 +288,7 @@ public class AttackSystem : MonoBehaviour
     }
 
 
-    public void DetectForceExitAttack(string animationTag)
+   /* public void DetectForceExitAttack(string animationTag)
     {
         if (detectAttackStateForceExit != null)
         {
@@ -302,10 +302,9 @@ public class AttackSystem : MonoBehaviour
     }
 
     IEnumerator DetectAttackStateForceExit(string animationTag)
-    {
-       
+    {      
         yield return new WaitUntil(() => !animationHash.GetCurrentAnimationTag(animationTag));
-       // Debug.Log("2.  Attack is State Force Exit");
+        Debug.Log("2.  Attack is State Force Exit");
 
         //站存
         AttackCollider_Small.SetActive(false);
@@ -320,6 +319,26 @@ public class AttackSystem : MonoBehaviour
         StopCoroutine("DetectInput");
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
+    }*/
+
+    public void ForceExitAttack()
+    {
+        Debug.Log("2.  Attack is State Force Exit");
+
+        //站存
+        AttackCollider_Small.SetActive(false);
+        AttackCollider_Big.SetActive(false);
+        AttackCollider_Skill.SetActive(false);
+        //站存
+
+
+        //Debug.Log("Reset TriggerAttack");
+
+        //      IsAttack = false;
+        StopCoroutine("DetectInput");
+        CanTriggerNextAttack = true;
+        isTriggerAttack = false;
+
     }
 
     public void OpenAttackCollider(int ColliderSize)

@@ -380,13 +380,6 @@ public class EnemyController : MonoBehaviour
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
 
-
-
-            ///-----
-           
-                  
-            ///-----
-
         }
         else if(other.tag == "PlayerLongAttack")
         {
@@ -399,31 +392,35 @@ public class EnemyController : MonoBehaviour
         //EnemyCanDamage = false;
     }
 
-    public void DamageFX(float stopTime)
+    public void DamageFX(int damageState)
     {
-        Time.timeScale = 0.1f;
-        if (damageStopEffect != null)
+        EnemyAnimator.speed = 0.1f;
+       
+        StopCoroutine("DamageStopEffect");
+       
+        switch (damageState)
         {
-            StopCoroutine(damageStopEffect);
+            case 0:
+                MainCamera_New.mainCamera.CameraShake(0.04f, 0.05f);
+                break;
+            case 1:
+                MainCamera_New.mainCamera.CameraShake(0.1f, 0.09f);
+
+
+                break;
         }
-        damageStopEffect = DamageStopEffect(stopTime);
-        StartCoroutine(damageStopEffect);
+
+     //   damageStopEffect = DamageStopEffect(stopTime);
+        StartCoroutine("DamageStopEffect");
 
     }
 
-    IEnumerator DamageStopEffect(float stopTime)
+    IEnumerator DamageStopEffect()
     {
-        yield return new WaitForSeconds(stopTime);//0.006
-        Time.timeScale = 1f;
+        yield return new WaitForSeconds(0.004f);//0.006
+        EnemyAnimator.speed = 1f;
     }
 
-    IEnumerator aa()
-    {
-        yield return new WaitForSeconds(0.01f);
-        Time.timeScale = 1f;
-
-
-    }
 
     //--------------------------------
 

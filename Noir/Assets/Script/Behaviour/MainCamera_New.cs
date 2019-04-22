@@ -35,8 +35,11 @@ public class MainCamera_New : MonoBehaviour
     public bool longAttackRaycastHitSomeThing;
     private bool cameraIsCollision;
     bool cameraCanChangeMovement = false;
-
     private float moveRotation_Y = 0;
+
+    IEnumerator cameraShakeCoroutine;
+    Vector3 cameraShakePos;
+
     bool cameraRaycastHitFloor
     {
         get
@@ -58,17 +61,18 @@ public class MainCamera_New : MonoBehaviour
     {
         gameStageController = GameFacade.GetInstance().gameStageController;
         gameStageData = GameFacade.GetInstance().gameStageData;
+        mainCamera = this;
+
     }
 
     void Start()
     {
-        mainCamera = this;
         WallMask = LayerMask.GetMask("Wall");
         EnemyLayerMask = LayerMask.GetMask("Enemy");
         FloorMask = LayerMask.GetMask("Floor");
 
         playerBehavior = gameStageController.playerBehaviour;
-        
+        cameraShakeCoroutine = null;
     }
     private void Update()
     {
@@ -92,7 +96,7 @@ public class MainCamera_New : MonoBehaviour
             nowpos = new Vector3(nowpos.x, 0.5f, nowpos.z);
         }
 
-        transform.position = nowpos;
+        transform.position = nowpos + cameraShakePos;
         
         // transform.position = Vector3.Lerp(transform.position, rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position, 1f);
 
@@ -253,6 +257,44 @@ public class MainCamera_New : MonoBehaviour
 
     }
 
+    public void CameraShake(float shakeRang, float shakeTime)
+    {
+        if (cameraShakeCoroutine != null)
+        {
+            StopCoroutine(cameraShakeCoroutine);
+
+        }
+
+        cameraShakeCoroutine = cameraShake(shakeRang, shakeTime);
+        StartCoroutine(cameraShakeCoroutine);
+
+
+    }
+
+    IEnumerator cameraShake(float shakeRang,float shakeTime)
+    {
+
+        float pastTime = 0.0f;
+        
+        while(pastTime < shakeTime)
+        {
+            Vector3 currentPos = transform.position;
+
+            float x = Random.Range(-1f, 1f) * shakeRang;
+            float y = Random.Range(-1f, 1f) * shakeRang;
+
+            cameraShakePos = new Vector3(x, y, 0);
+            pastTime += Time.deltaTime;
+            Debug.Log(cameraShakePos);
+
+            yield return null;
+
+        }
+        //Vector3 originalPos = transform.position;
+
+        cameraShakePos = new Vector3(0,0,0);
+
+    }
 
 
 
