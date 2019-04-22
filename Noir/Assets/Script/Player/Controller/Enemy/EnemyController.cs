@@ -401,7 +401,7 @@ public class EnemyController : MonoBehaviour
         switch (damageState)
         {
             case 0:
-                MainCamera_New.mainCamera.CameraShake(0.04f, 0.05f);
+                MainCamera_New.mainCamera.CameraShake(0.05f, 0.05f);
                 break;
             case 1:
                 MainCamera_New.mainCamera.CameraShake(0.1f, 0.09f);

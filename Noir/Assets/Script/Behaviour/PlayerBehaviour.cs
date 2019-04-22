@@ -164,7 +164,7 @@ public class PlayerBehaviour : Character
 
     private void FixedUpdate()
     {
-            
+        
     }
 
     private void AnimationRotation(int moveDirection_Vertical, int moveDirection_Horizontal)
@@ -958,7 +958,7 @@ public class PlayerBehaviour : Character
 
             case PlayerState.Damage:
                 playerAnimator.speed = 0.1f;
-                MainCamera_New.mainCamera.CameraShake(0.1f, 0.04f);
+                MainCamera_New.mainCamera.CameraShake(0.1f, 0.06f);
 
                 break;
         }

@@ -35,6 +35,7 @@ public class GameFacade : MonoBehaviour {
     public PlayerStageData[] playerStageData;  
     public GameStageData gameStageData;
     public InputSetting inputSetting;
+    public ObjectPool objectPool;
     #endregion
 
     
@@ -44,7 +45,7 @@ public class GameFacade : MonoBehaviour {
       //  playerController = GetComponent<PlayerController_New>();
         gameStageController = GetComponent<GameStageController>();
 
-        
+        objectPool = GetComponent<ObjectPool>();
 
         gameStageData = new GameStageData();
         

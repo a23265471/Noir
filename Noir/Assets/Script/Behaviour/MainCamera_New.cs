@@ -285,7 +285,7 @@ public class MainCamera_New : MonoBehaviour
 
             cameraShakePos = new Vector3(x, y, 0);
             pastTime += Time.deltaTime;
-            Debug.Log(cameraShakePos);
+           // Debug.Log(cameraShakePos);
 
             yield return null;
 

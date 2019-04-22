@@ -441,16 +441,12 @@ public class PlayerController: MonoBehaviour {
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                //playerAnimatorState = PlayerAnimatorState.Attack;               
                 if (CanAttack && attackState != AttackState.BigSkill /*&& UI_HP.Ui_HP.MP >= 5*/ && attackState != AttackState.LongAttack)  //--
                 {                                    
-                 //   UI_HP.Ui_HP.MP -= 10;
                     attackState = AttackState.LongAttack;
                     AttackTrigger += 1;
                     CanAttack = false;
-                   
-                    //LongAttackBullet_Object.transform.rotation = Quaternion.LookRotation(MainCamera.mainCamera.GetAimTarget());
-                   
+                                      
                 }
 
             }
@@ -517,7 +513,7 @@ public class PlayerController: MonoBehaviour {
        
     }
    
-    private void LongAttackGetObj()
+  /*  private void LongAttackGetObj()
     {           
         Bullet = ObjectPool.objectPool.LongAttackObj();
 
@@ -544,7 +540,7 @@ public class PlayerController: MonoBehaviour {
         LongAttackDis = Mathf.Clamp(LongAttackDis,0, LongAttackMaxDis);
         Bullet.SetActive(true);
     }
-
+    */
     
 
 
@@ -1247,7 +1243,7 @@ public class PlayerController: MonoBehaviour {
                // LongAttackBullet_Particle.Stop();
                 LongAttack_Particle.Play();
                // LongAttackBullet_Particle.Play();
-                LongAttackGetObj();
+            //    LongAttackGetObj();
                 break;
             case AttackState.BigSkill:
                

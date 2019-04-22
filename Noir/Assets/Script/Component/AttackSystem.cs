@@ -12,6 +12,8 @@ public class AttackSystem : MonoBehaviour
     private AnimationHash animationHash;
     private Gravity gravity;
     public Dictionary<int, SkillList.AttackParameter> AttackCollection;
+    public ObjectPoolManager objectPoolManager;
+
 
     //站存
     public GameObject AttackCollider_Small;
@@ -38,6 +40,7 @@ public class AttackSystem : MonoBehaviour
         animationHash = GetComponent<AnimationHash>();
         gravity = GetComponent<Gravity>();
         audioSource = GetComponent<AudioSource>();
+        objectPoolManager = GetComponent<ObjectPoolManager>();
     }
 
     void Start()
@@ -55,7 +58,10 @@ public class AttackSystem : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            objectPoolManager.GetObjectPool(0);
+        }
     }
    
 
@@ -116,14 +122,6 @@ public class AttackSystem : MonoBehaviour
     }
     #endregion
 
-    public void JudgeInputKey(KeyCode input,string animatorTrigger)
-    {
-        
-
-
-
-    }
-
     public void Attack(string animatorTrigger)
     {
         if (CanTriggerNextAttack)
@@ -144,23 +142,7 @@ public class AttackSystem : MonoBehaviour
         }
 
     }
-
-   /* public void Attack()
-    {
-        if (currentAttackInfo.NextAttack.Length != 0)
-        {
-            for (int i = 0; i < currentAttackInfo.NextAttack.Length; i++)
-            {
-                if (Input.GetKeyDown(currentAttackInfo.NextAttack[i].keyCode))
-                {
-                    animator.SetTrigger(currentAttackInfo.NextAttack[i].AnimatorTriggerName);
-                }
-
-            }
-        }       
-        
-    }*/
-
+    
     #region 動畫事件
     public void GetAttackInfo(int Id)
     {
