@@ -8365,9 +8365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 264c0d75d1005874b88274d4a35246a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PooledAmount: 10
-  LongAttack: {fileID: 0}
-  LongAttacks: []
+  objectPoolList: {fileID: 0}
 --- !u!82 &245607163
 AudioSource:
   m_ObjectHideFlags: 0
@@ -74947,7 +74945,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4983648313502850, guid: 3929b81751c4a504b96e502e25613662, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 16.6
+      value: 8.4
       objectReference: {fileID: 0}
     - target: {fileID: 4983648313502850, guid: 3929b81751c4a504b96e502e25613662, type: 2}
       propertyPath: m_LocalPosition.z
@@ -74976,6 +74974,18 @@ Prefab:
     - target: {fileID: 1746443142002066, guid: 3929b81751c4a504b96e502e25613662, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477330052444994, guid: 3929b81751c4a504b96e502e25613662, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477330052444994, guid: 3929b81751c4a504b96e502e25613662, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477330052444994, guid: 3929b81751c4a504b96e502e25613662, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3929b81751c4a504b96e502e25613662, type: 2}

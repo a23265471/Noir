@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 54767395368391512}
   - component: {fileID: 65071819656617624}
   - component: {fileID: 114358828509544494}
+  - component: {fileID: 114541570357660394}
   m_Layer: 0
   m_Name: fx_LongAttack3
   m_TagString: PlayerLongAttack
@@ -314,6 +315,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DistroyTime: 0
+--- !u!114 &114541570357660394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557522454060600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ed852c28166a7439979d223f6fe21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114747732389573498
 MonoBehaviour:
   m_ObjectHideFlags: 1

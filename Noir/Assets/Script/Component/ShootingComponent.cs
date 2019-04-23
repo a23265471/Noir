@@ -5,32 +5,41 @@ using UnityEngine;
 public class ShootingComponent : MonoBehaviour
 {
 
-    Rigidbody rigidbody;
+    public Rigidbody rigidbody;
+    public Vector3 targetPos;
 
     IEnumerator moveCoroutine;
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+       
         moveCoroutine = null;
     }
 
-
-    public void MoveToTarget(Vector3 targetPos,float maxDistance)
+    private void OnEnable()
     {
 
-        if(Vector3.Distance(targetPos, transform.position)< maxDistance)
-        {
-            moveCoroutine = Move(targetPos, maxDistance);
+        MoveToTarget(20);
+    }
 
-            StartCoroutine(moveCoroutine);
+    public void MoveToTarget(float maxDistance)
+    {
+        rigidbody = GetComponent<Rigidbody>();
+
+        if (Vector3.Distance(targetPos, transform.position)< maxDistance)
+        {
+            /*moveCoroutine = Move(targetPos, maxDistance);
+
+            StartCoroutine(moveCoroutine);*/
+            transform.LookAt(targetPos);
+            rigidbody.velocity = transform.rotation * new Vector3(0, 0, 10);
         }
 
 
     }
 
 
-    IEnumerator Move(Vector3 targetPos, float maxDistance)
+   /* IEnumerator Move(Vector3 targetPos, float maxDistance)
     {
 
 
@@ -42,8 +51,8 @@ public class ShootingComponent : MonoBehaviour
 
             yield return null;
         }
+        
 
-
-    }
+    }*/
 
 }

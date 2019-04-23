@@ -939,12 +939,10 @@ public class PlayerBehaviour : Character
 
     }
 
-
     IEnumerator InBlackRain()
     {
         yield return new WaitWhile(() => BlackRainConsumHP());
     }
-
 
     public void DamageFX(float stopTime)
     {

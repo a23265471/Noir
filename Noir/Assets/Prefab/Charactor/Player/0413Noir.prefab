@@ -2553,6 +2553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillList: {fileID: 11400000, guid: e15f01fa6b1c6424b8647f38471892c1, type: 2}
+  objectPoolManager: {fileID: 0}
   AttackCollider_Small: {fileID: 1251647026664248}
   AttackCollider_Big: {fileID: 1094413363198152}
   AttackCollider_Skill: {fileID: 1408730736226808}

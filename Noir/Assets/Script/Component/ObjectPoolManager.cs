@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour {
 
-
     private ObjectPool objectPool;
 
     [System.Serializable]
@@ -16,7 +15,6 @@ public class ObjectPoolManager : MonoBehaviour {
     }
 
     public objectPoolItemInfo[] ObjectPoolItemInfo;
-
 
     private void Awake()
     {

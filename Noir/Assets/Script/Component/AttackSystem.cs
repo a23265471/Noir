@@ -58,10 +58,11 @@ public class AttackSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+     /*   if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             objectPoolManager.GetObjectPool(0);
-        }
+            objectPoolManager.GetObjectPool(0).GetComponent<ShootingComponent>().targetPos = MainCamera_New.mainCamera.GetAimTarget();
+        }*/
     }
    
 
