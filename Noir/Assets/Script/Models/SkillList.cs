@@ -15,21 +15,11 @@ public class SkillList : ScriptableObject
         public MoveInfo moveInfo;
 
         public AudioClip AudioClip_Attack;
-        // public GameObject Particle_Attack;    
-    }
-
-    [System.Serializable]
-    public struct ShootingParameter
-    {
-        public string Name;
-        public int Id;
-        public ChangeToDeputyAttack[] NextAttack;
-        public MoveInfo moveInfo;
-        public AudioClip AudioClip_Attack;
 
         public Shooting shootingInfo;
-    }
 
+        // public GameObject Particle_Attack;    
+    }
 
     [System.Serializable]
     public struct DeputyAttackCollection
@@ -68,5 +58,5 @@ public class SkillList : ScriptableObject
     public AttackParameter[] normalAttack;  
     public DeputyAttackCollection[] deputyAttackCollections;
     public AttackParameter[] specialAttack;
-
+   // public ShootingAttack[] shootingAttack;
 }

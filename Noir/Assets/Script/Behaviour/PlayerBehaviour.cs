@@ -540,7 +540,9 @@ public class PlayerBehaviour : Character
                 playerRigidbody.velocity = playerRigidbody.velocity*0.1f;
                 SwitchMove(0);
                 DetectForceExitAttack();
+
                 break;
+
             case (int)PlayerState.Dash:
                 playerState = PlayerState.Dash;
                 PlayerShader.enabled = true;
@@ -787,7 +789,7 @@ public class PlayerBehaviour : Character
 
     }
 
-    public void ResetToIdleState(string animationTag)
+    public void ResetToIdleState()
     {
         StopCoroutine("detectForceExitAttack");
         StopCoroutine("resetToIdleState");
@@ -803,6 +805,7 @@ public class PlayerBehaviour : Character
         yield return new WaitUntil(() => !attackSystem.IsAttack);
 
         ChangeToIdle(32);
+
 
         ForceMove = false;
 
@@ -961,6 +964,7 @@ public class PlayerBehaviour : Character
                 break;
         }
 
+        UI_HP.Ui_HP.OpenBloodSpot();
 
         if (damageStopEffect != null)
         {
@@ -980,5 +984,6 @@ public class PlayerBehaviour : Character
 
     }
 
+   
 
 }

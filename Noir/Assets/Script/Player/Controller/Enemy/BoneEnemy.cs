@@ -9,20 +9,24 @@ public class BoneEnemy : MonoBehaviour {
     public EnemyData enemyData;
     private EnemyData.EnemyInfo enemyInfo;
     private ParticleManager particleManager;
+    private Animator animator;
 
-    private MeshRenderer meshRenderer;
+    public GameObject meshRenderer;
     private SphereCollider physicsCollider;
+
 
     public GameObject BoneCollider;
 
     private bool CanAttack;
+    private bool isMove;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         physicsCollider = GetComponent<SphereCollider>();
         particleManager = GetComponent<ParticleManager>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        animator = GetComponent<Animator>();
+        //meshRenderer = GetComponent<SkinnedMeshRenderer>();
         enemyInfo = enemyData.enemyInfo;
     }
 
@@ -30,6 +34,7 @@ public class BoneEnemy : MonoBehaviour {
     {
         CanAttack = true;
         BoneCollider.SetActive(false);
+        isMove = false;
     }
 	
 	void Update ()
@@ -48,6 +53,11 @@ public class BoneEnemy : MonoBehaviour {
         {
             if(PlayerDis <= enemyInfo.moveInfo.ChaseDis)
             {
+                if (!isMove)
+                {
+                    isMove = true;
+                    animator.SetTrigger("Run");
+                }
 
                 if (PlayerDis <= navMeshAgent.stoppingDistance + 2 && PlayerDis > navMeshAgent.stoppingDistance) 
                 {
@@ -76,8 +86,18 @@ public class BoneEnemy : MonoBehaviour {
                 navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
 
             }
+            else
+            {
+                if (isMove)
+                {
+                    isMove = false;
+                    animator.SetTrigger("Idle");
+                }
+
+            }
 
         }
+        
 
     }
 
@@ -87,7 +107,7 @@ public class BoneEnemy : MonoBehaviour {
         BoneCollider.SetActive(true);
         particleManager.GetParticle("Bone").Play();
         physicsCollider.enabled = false;
-        meshRenderer.enabled = false;
+        meshRenderer.SetActive(false);
         StartCoroutine("CloseBoneCollider");
 
     }

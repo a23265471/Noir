@@ -58,11 +58,40 @@ public class AttackSystem : MonoBehaviour
 
     private void Update()
     {
-     /*   if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            objectPoolManager.GetObjectPool(0);
-            objectPoolManager.GetObjectPool(0).GetComponent<ShootingComponent>().targetPos = MainCamera_New.mainCamera.GetAimTarget();
-        }*/
+            Vector3 longAttackAimTartgetPos;
+            GameObject bullet;
+
+
+            bullet = objectPoolManager.GetObjectPool(0);
+            //objectPoolManager.GetObjectPool(0);
+            //objectPoolManager.GetObjectPool(0).GetComponent<ShootingComponent>().targetPos = MainCamera_New.mainCamera.GetAimTarget();
+            longAttackAimTartgetPos = MainCamera_New.mainCamera.GetAimTarget();
+
+            if (MainCamera_New.mainCamera.longAttackRaycastHitSomeThing)
+            {
+                bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
+
+            }
+            else
+            {
+                Debug.Log(longAttackAimTartgetPos);
+                bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos * AttackCollection[104].shootingInfo.MaxDistance;
+
+
+
+            }
+
+            bullet.SetActive(true);
+            //objectPoolManager.GetObjectPool(0);
+
+
+         
+
+        }
+
+       
     }
    
 
@@ -120,6 +149,7 @@ public class AttackSystem : MonoBehaviour
         }
 
        
+
     }
     #endregion
 

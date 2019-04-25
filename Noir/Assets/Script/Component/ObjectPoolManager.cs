@@ -27,17 +27,19 @@ public class ObjectPoolManager : MonoBehaviour {
 
         if (objectPool.GetObject(objectID) == null)
         {
-            Debug.Log("jjj");
 
             return null;
         }
         objectPool.GetObject(objectID).transform.position = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.position;
         objectPool.GetObject(objectID).transform.rotation = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.rotation;
-        objectPool.GetObject(objectID).SetActive(true);
+        Debug.Log("jjj");
+
         return objectPool.GetObject(objectID);
 
 
     }
+
+
 
   /*  private void Update()
     {

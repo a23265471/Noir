@@ -32,6 +32,8 @@ public class MainCamera_New : MonoBehaviour
     public Ray aimPoint;
     private RaycastHit playerHit;
     private RaycastHit floorHit;
+    private Camera camera;
+
     public bool longAttackRaycastHitSomeThing;
     private bool cameraIsCollision;
     bool cameraCanChangeMovement = false;
@@ -73,14 +75,16 @@ public class MainCamera_New : MonoBehaviour
 
         playerBehavior = gameStageController.playerBehaviour;
         cameraShakeCoroutine = null;
+
+        camera = GetComponent<Camera>();
     }
     private void Update()
     {
       //  Debug.Log(cameraCanChangeMovement);
         CameraCollision();
         CollisionFloor();
-        
-        
+
+
     }
 
     // Update is called once per frame
@@ -235,14 +239,15 @@ public class MainCamera_New : MonoBehaviour
     public Vector3 GetAimTarget()
     {
         RaycastHit RayHitPoint;
-        aimPoint = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        aimPoint = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
-        longAttackRaycastHitSomeThing = Physics.Raycast(transform.position, transform.forward);
+        longAttackRaycastHitSomeThing = Physics.Raycast(aimPoint.origin, transform.forward, out RayHitPoint);
 
         if (longAttackRaycastHitSomeThing)
         {
-            Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
+          //  Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
             Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
+            Debug.DrawLine(aimPoint.origin, RayHitPoint.point, Color.red);
 
             return RayHitPoint.point;
 

@@ -23,6 +23,7 @@ public class UI_HP : MonoBehaviour
 
     private bool darkBarCanMove;
 
+    public GameObject BloodSpot;
 
     private void Awake()
     {
@@ -103,6 +104,22 @@ public class UI_HP : MonoBehaviour
 
     }
 
+    public void RecoverHP(int recoverValue)
+    {
+        if (HP <= HP_Max)
+        {
+            HP = HP_Max;
+            DarkHP = HP;
+
+        }
+        else
+        {
+            HP += recoverValue;
+            DarkHP = HP;
+        }
+        
+    }
+
 
     public void ConsumeSP()
     {
@@ -149,6 +166,22 @@ public class UI_HP : MonoBehaviour
         StartRecoverySp();
     }
 
+    public void RecoverSPImmediately(int recoverySP)
+    {
+        if (SP >= SP_Max)
+        {
+            SP = SP_Max;
+
+        }
+        else
+        {
+            SP += recoverySP;
+
+        }
+        
+
+    }
+
     public bool RecoverySP(float recoverySP)
     {
         SP += recoverySP;
@@ -174,11 +207,19 @@ public class UI_HP : MonoBehaviour
 
     IEnumerator recoverySP()
     {
-        yield return new WaitUntil(() => RecoverySP(0.1f));
+        yield return new WaitUntil(() => RecoverySP(0.2f));
 
         Debug.Log("SP is Fill");
     }
 
+    public void OpenBloodSpot()
+    {
+        BloodSpot.GetComponent<Animator>().SetTrigger("TriggerBloodSpot");
+
+
+    }
+
+   
 }
 
     

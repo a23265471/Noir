@@ -29,6 +29,9 @@ MonoBehaviour:
       MoveDirection_Z: 1
       UseGravity: 1
     AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
   - Name: NormalAttack_2
     Id: 101
     NextAttack:
@@ -49,6 +52,9 @@ MonoBehaviour:
       MoveDirection_Z: 1
       UseGravity: 1
     AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
   - Name: NormalAttack_3
     Id: 102
     NextAttack:
@@ -66,6 +72,9 @@ MonoBehaviour:
       MoveDirection_Z: 1
       UseGravity: 1
     AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
   - Name: NormalAttack_4
     Id: 103
     NextAttack:
@@ -80,6 +89,26 @@ MonoBehaviour:
       MoveDirection_Z: 1
       UseGravity: 1
     AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
+  - Name: LongAttack
+    Id: 104
+    NextAttack:
+    - Name: Electric
+      AnimatorTriggerName: Skill
+      keyCode: 113
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 1
+    AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 20
+      ShootingSpeed: 20
   deputyAttackCollections:
   - Name: Dash=>DashAttack
     DeputyAttack:
@@ -97,6 +126,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: Dash=>DashAttack_Right
       Id: 151
       NextAttack:
@@ -111,6 +143,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: Dash=>DashAttack_Left
       Id: 152
       NextAttack:
@@ -125,6 +160,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: Dash=>DashAttack_ForwardRight
       Id: 153
       NextAttack:
@@ -139,6 +177,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: Dash=>DashAttack_ForwardLeft
       Id: 154
       NextAttack:
@@ -153,6 +194,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: DashAttack
       Id: 155
       NextAttack: []
@@ -164,6 +208,9 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: DashAttack_Right
       Id: 156
       NextAttack: []
@@ -175,6 +222,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: DashAttack_Left
       Id: 157
       NextAttack: []
@@ -186,6 +236,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: DashAttack_ForwardRight
       Id: 158
       NextAttack: []
@@ -197,6 +250,9 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: DashAttack_ForwardLeft
       Id: 159
       NextAttack: []
@@ -208,6 +264,9 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
   - Name: Combo1
     DeputyAttack:
     - Name: Combo1_1
@@ -224,6 +283,9 @@ MonoBehaviour:
         MoveDirection_Z: 1
         UseGravity: 1
       AudioClip_Attack: {fileID: 0}
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
     - Name: Combo1_2
       Id: 112
       NextAttack: []
@@ -235,8 +297,9 @@ MonoBehaviour:
         MoveDirection_Z: 0
         UseGravity: 0
       AudioClip_Attack: {fileID: 0}
-  - Name: 
-    DeputyAttack: []
+      shootingInfo:
+        MaxDistance: 0
+        ShootingSpeed: 0
   specialAttack:
   - Name: Electric
     Id: 200
@@ -249,6 +312,9 @@ MonoBehaviour:
       MoveDirection_Z: 0
       UseGravity: 0
     AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
   - Name: 
     Id: 0
     NextAttack: []
@@ -260,3 +326,6 @@ MonoBehaviour:
       MoveDirection_Z: 0
       UseGravity: 0
     AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0

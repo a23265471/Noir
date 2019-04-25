@@ -237,14 +237,6 @@ ModelImporter:
         intParameter: 32
         messageOptions: 0
       - time: 0
-        functionName: DetectForceExitAttack
-        data: Combo1
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
         functionName: GetAttackInfo
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -276,6 +268,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.28990474
+        functionName: EffectPlay
+        data: ComboFx_1
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.58712304
         functionName: CloseAttaCollider
         data: 
@@ -292,7 +292,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9479282
+      - time: 0.89868575
         functionName: EndOfAttack
         data: 
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
@@ -300,17 +300,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9479282
+      - time: 0.89868575
         functionName: ResetToIdleState
         data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.28990474
-        functionName: EffectPlay
-        data: ComboFx_1
         objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
           type: 2}
         floatParameter: 0
