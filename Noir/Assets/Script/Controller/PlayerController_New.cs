@@ -9,9 +9,9 @@ public class PlayerController_New : MonoBehaviour {
     private GameStageData gameStageData;
     private InputSetting inputSetting;
 
+
     public int moveDirection_Vertical;
     public int moveDirection_Horizontal;
-
     
     string keepKeyCode;
 
@@ -20,7 +20,6 @@ public class PlayerController_New : MonoBehaviour {
     private void Awake()
     {
         gameStageData = GameFacade.GetInstance().gameStageData;
-      //  gameStageController = GameFacade.GetInstance().gameStageController;
         inputSetting=GameFacade.GetInstance().inputSetting;
 
         playerBehaviour = GetComponent<PlayerBehaviour>();
@@ -28,55 +27,21 @@ public class PlayerController_New : MonoBehaviour {
 
     void Start ()
     {
-      //  playerBehaviour = gameStageController.playerBehaviour;
-
         keepKeyCode = "";
         cleanKeepKeyCode = null;
         
-
     }
 	
     private void Update()
     {
-        PlayerDirectionControl();
-
-        /*   if (playerBehaviour.isGround)
-           {
-               GroundedMove(playerBehaviour);
-               Avoid(playerBehaviour);
-
-           }
-           else
-           {
-               Falling(playerBehaviour);
-               Debug.Log("tttttt");
-           }*/
-        
+        PlayerDirectionControl();       
         GroundedMove();
         Falling();
         Jump();
         Attack();
-        Skill();
         Dash();
         Avoid();
-      // Debug.Log(Input.inputString.GetHashCode());
     }
-
-
-  /*  public void GetCurrentKeyCode()
-    {
-       if(Input.anyKeyDown)
-        {
-
-
-
-
-        }
-        
-       // switch 
-
-    }
-    */
 
     public void GroundedMove()
     { 
@@ -103,9 +68,7 @@ public class PlayerController_New : MonoBehaviour {
     public void Jump()
     {
         if (Input.GetKeyDown(inputSetting.inputKey.Jump))
-        {
-           // Debug.Log("Trigger Jump");
-           // Debug.Log(playerBehaviour.playerState);
+        {          
             playerBehaviour.Jump(moveDirection_Vertical, moveDirection_Horizontal);
         }
 
@@ -113,26 +76,22 @@ public class PlayerController_New : MonoBehaviour {
 
     public void Attack()
     {
-          
-        if (Input.GetKeyDown(inputSetting.inputKey.NormalAttack))
+        if (Input.GetKeyDown(inputSetting.inputKey.BigSkill))
+        {
+            playerBehaviour.Skill();
+
+        }else if (Input.GetKeyDown(inputSetting.inputKey.Shoot))
+        {
+            playerBehaviour.Shooting();
+        }
+        else if (Input.GetKeyDown(inputSetting.inputKey.NormalAttack))
         {
             playerBehaviour.NormalAttack();
 
         }
-
-
-
     }
 
-    public void Skill()
-    {
-        if (Input.GetKeyDown(inputSetting.inputKey.BigSkill))
-        {
-            playerBehaviour.Skill();
-        }
-
-    }
-
+    
 
     public void Dash()
     {
@@ -179,7 +138,6 @@ public class PlayerController_New : MonoBehaviour {
         if (keepString == "")
         {
             keepString = KeyCode;
-         //   Debug.Log(keepString);
         }
         
     }
@@ -187,7 +145,6 @@ public class PlayerController_New : MonoBehaviour {
     IEnumerator CleanKeepKeyCode()
     {
         yield return new WaitForSeconds(0.2f);
-       // Debug.Log("fff");
         keepKeyCode = "";
     }
 

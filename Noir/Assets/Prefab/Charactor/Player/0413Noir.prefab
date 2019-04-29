@@ -1053,7 +1053,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1325140313760778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.81, z: 2.06}
+  m_LocalPosition: {x: 0.02, y: 2.58, z: 2.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4648764130805232}
@@ -1448,7 +1448,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345968818244624}
   m_LocalRotation: {x: -0, y: 0.08715578, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0.42, y: 2.6, z: -0.34}
+  m_LocalPosition: {x: 0.65, y: 3.05, z: -0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4648764130805232}
@@ -2524,27 +2524,27 @@ MonoBehaviour:
   ParticleData: {fileID: 11400000, guid: 595ea285b06ef6940af01b1e725fc139, type: 2}
   particleTransform:
   - Id: NormalAttack1
-    ParticlePos: {fileID: 4274969986761582}
+    ParticlePos: {fileID: 1554827760386636}
   - Id: NormalAttack2
-    ParticlePos: {fileID: 4756164844344584}
+    ParticlePos: {fileID: 1488923333411556}
   - Id: NormalAttack3
-    ParticlePos: {fileID: 4391539566684108}
+    ParticlePos: {fileID: 1363483978701734}
   - Id: DashAttack
-    ParticlePos: {fileID: 4479971694328904}
+    ParticlePos: {fileID: 1317084514056052}
   - Id: DashAttack_Left
-    ParticlePos: {fileID: 4804482308455186}
+    ParticlePos: {fileID: 1933475130553588}
   - Id: NormalAttack4
-    ParticlePos: {fileID: 4696989191024894}
+    ParticlePos: {fileID: 1170594611070968}
   - Id: BigSkill
-    ParticlePos: {fileID: 4013246342970014}
+    ParticlePos: {fileID: 1408730736226808}
   - Id: Damage
-    ParticlePos: {fileID: 4688763532042210}
+    ParticlePos: {fileID: 1978438375785466}
   - Id: ComboFx_1
-    ParticlePos: {fileID: 4262175139922650}
+    ParticlePos: {fileID: 1311554545289928}
   - Id: ComboFx_2
-    ParticlePos: {fileID: 4225740114413156}
+    ParticlePos: {fileID: 1682460118949592}
   - Id: RecoverFx
-    ParticlePos: {fileID: 4497110354346742}
+    ParticlePos: {fileID: 1485511115520898}
 --- !u!114 &114724873911081442
 MonoBehaviour:
   m_ObjectHideFlags: 1

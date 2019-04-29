@@ -22,62 +22,34 @@ public class ShootingComponent : MonoBehaviour
 
     private void OnEnable()
     {
-
-        MoveToTarget(20);
         originPos = transform.position;
+
+        // MoveToTarget(20);
     }
 
     private void Update()
     {
 
-       /* if(Vector3.Distance(targetPos, transform.position)<= maxDistance)
-        {
-
-
-        }*/
-            
-
     }
 
-    public void MoveToTarget(float maxDistance)
+    public void MoveToTarget(float maxDistance,float speed)
     {
         rigidbody = GetComponent<Rigidbody>();
 
+        transform.LookAt(targetPos);
+        rigidbody.velocity = transform.rotation * new Vector3(0, 0, speed);
 
-        Debug.Log(targetPos);
-        
-        if (Vector3.Distance(targetPos, transform.position) < maxDistance)
-        {
-
-                transform.LookAt(targetPos);
-                rigidbody.velocity = transform.rotation * new Vector3(0, 0, 10);
-        }
-
-        
-
-
+        StartCoroutine("CloseObject");
+     
     }
-
-    /*IEnumerator Move(Vector3 targetPos, float maxDistance)
-    {
-        while(Vector3.Distance(targetPos,transform.position) != 0)
-        {
-            transform.LookAt(targetPos);
-            rigidbody.velocity = new Vector3(0, 0, 10);
-            
-
-            yield return null;
-        }
-        
-
-    }*/
 
     IEnumerator CloseObject()
     {
 
-        //while(Vector3.Distance(transform.position, originPos)>=)
-        yield return null;
 
+        yield return new WaitUntil(() => Vector3.Distance(targetPos, transform.position) < 0.5f);
+
+        gameObject.SetActive(false);
     }
 
 }

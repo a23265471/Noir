@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Gravity))]
-[RequireComponent(typeof(AnimationHash))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(ObjectPoolManager))]
+
 public class AttackSystem : MonoBehaviour
 {
     public SkillList skillList;
     private Animator animator;
-    private AnimationHash animationHash;
+  //  private AnimationHash animationHash;
     private Gravity gravity;
     public Dictionary<int, SkillList.AttackParameter> AttackCollection;
     public ObjectPoolManager objectPoolManager;
@@ -37,7 +38,7 @@ public class AttackSystem : MonoBehaviour
     {
         CreateAttackCollection();
         animator = GetComponent<Animator>();
-        animationHash = GetComponent<AnimationHash>();
+      //  animationHash = GetComponent<AnimationHash>();
         gravity = GetComponent<Gravity>();
         audioSource = GetComponent<AudioSource>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
@@ -58,40 +59,8 @@ public class AttackSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Vector3 longAttackAimTartgetPos;
-            GameObject bullet;
+      //  Debug.DrawLine(transform.position, MainCamera_New.mainCamera.transform.forward * AttackCollection[104].shootingInfo.MaxDistance, Color.red);
 
-
-            bullet = objectPoolManager.GetObjectPool(0);
-            //objectPoolManager.GetObjectPool(0);
-            //objectPoolManager.GetObjectPool(0).GetComponent<ShootingComponent>().targetPos = MainCamera_New.mainCamera.GetAimTarget();
-            longAttackAimTartgetPos = MainCamera_New.mainCamera.GetAimTarget();
-
-            if (MainCamera_New.mainCamera.longAttackRaycastHitSomeThing)
-            {
-                bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
-
-            }
-            else
-            {
-                Debug.Log(longAttackAimTartgetPos);
-                bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos * AttackCollection[104].shootingInfo.MaxDistance;
-
-
-
-            }
-
-            bullet.SetActive(true);
-            //objectPoolManager.GetObjectPool(0);
-
-
-         
-
-        }
-
-       
     }
    
 
@@ -173,7 +142,31 @@ public class AttackSystem : MonoBehaviour
         }
 
     }
-    
+
+    public void Shooting(int Bullet_ID)
+    {
+        Vector3 longAttackAimTartgetPos;
+        GameObject bullet;
+
+        bullet = objectPoolManager.GetObjectPool(Bullet_ID);
+        longAttackAimTartgetPos = MainCamera_New.mainCamera.GetAimTarget();
+
+      /*  if (MainCamera_New.mainCamera.longAttackRaycastHitSomeThing)
+        {
+            bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
+        }
+        else
+        {*/
+            longAttackAimTartgetPos += MainCamera_New.mainCamera.transform.rotation * new Vector3(0, 0, currentAttackInfo.shootingInfo.MaxDistance);
+            bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
+      //  }
+
+        bullet.SetActive(true);
+        bullet.GetComponent<ShootingComponent>().MoveToTarget(currentAttackInfo.shootingInfo.MaxDistance, currentAttackInfo.shootingInfo.ShootingSpeed);
+
+    }
+
+
     #region 動畫事件
     public void GetAttackInfo(int Id)
     {
@@ -299,40 +292,6 @@ public class AttackSystem : MonoBehaviour
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
     }
-
-
-   /* public void DetectForceExitAttack(string animationTag)
-    {
-        if (detectAttackStateForceExit != null)
-        {
-            StopCoroutine(detectAttackStateForceExit);
-        }
-
-
-        detectAttackStateForceExit = DetectAttackStateForceExit(animationTag);
-
-        StartCoroutine(detectAttackStateForceExit);
-    }
-
-    IEnumerator DetectAttackStateForceExit(string animationTag)
-    {      
-        yield return new WaitUntil(() => !animationHash.GetCurrentAnimationTag(animationTag));
-        Debug.Log("2.  Attack is State Force Exit");
-
-        //站存
-        AttackCollider_Small.SetActive(false);
-        AttackCollider_Big.SetActive(false);
-        AttackCollider_Skill.SetActive(false);
-        //站存
-
-        
-        //Debug.Log("Reset TriggerAttack");
-
-  //      IsAttack = false;
-        StopCoroutine("DetectInput");
-        CanTriggerNextAttack = true;
-        isTriggerAttack = false;
-    }*/
 
     public void ForceExitAttack()
     {

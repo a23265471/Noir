@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainCamera_New : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MainCamera_New : MonoBehaviour
     private PlayerBehaviour playerBehavior;
     private GameStageController gameStageController;
     private GameStageData gameStageData;
+
 
     private Quaternion rotationEuler;
     private float cameraPreRotation_Y;
@@ -32,7 +34,7 @@ public class MainCamera_New : MonoBehaviour
     public Ray aimPoint;
     private RaycastHit playerHit;
     private RaycastHit floorHit;
-    private Camera camera;
+    public Camera camera;
 
     public bool longAttackRaycastHitSomeThing;
     private bool cameraIsCollision;
@@ -41,6 +43,9 @@ public class MainCamera_New : MonoBehaviour
 
     IEnumerator cameraShakeCoroutine;
     Vector3 cameraShakePos;
+
+    public GameObject ConcentricPrefab;
+    private Image concentric;
 
     bool cameraRaycastHitFloor
     {
@@ -63,6 +68,9 @@ public class MainCamera_New : MonoBehaviour
     {
         gameStageController = GameFacade.GetInstance().gameStageController;
         gameStageData = GameFacade.GetInstance().gameStageData;
+
+        concentric = Instantiate(ConcentricPrefab, GameObject.FindGameObjectWithTag("UI").transform).GetComponent<Image>();
+
         mainCamera = this;
 
     }
@@ -84,6 +92,7 @@ public class MainCamera_New : MonoBehaviour
         CameraCollision();
         CollisionFloor();
 
+        Debug.DrawLine(transform.position,  transform.position+ (transform.rotation*new Vector3(0,0,20)), Color.red);
 
     }
 
@@ -101,10 +110,11 @@ public class MainCamera_New : MonoBehaviour
         }
 
         transform.position = nowpos + cameraShakePos;
-        
-        // transform.position = Vector3.Lerp(transform.position, rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position, 1f);
 
-       
+        // transform.position = Vector3.Lerp(transform.position, rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position, 1f);
+        concentric.transform.position = camera.WorldToScreenPoint(transform.position+transform.rotation * new Vector3(0, 0,30));
+
+
 
         /*Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);*/
         Debug.DrawLine(transform.position, transform.position - new Vector3(0, 1, 0), Color.red);
@@ -243,21 +253,22 @@ public class MainCamera_New : MonoBehaviour
 
         longAttackRaycastHitSomeThing = Physics.Raycast(aimPoint.origin, transform.forward, out RayHitPoint);
 
-        if (longAttackRaycastHitSomeThing)
+       /* if (longAttackRaycastHitSomeThing)
         {
           //  Physics.Raycast(transform.position, transform.forward, out RayHitPoint);
-            Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
+           // Debug.Log(RayHitPoint.point + RayHitPoint.transform.name);
             Debug.DrawLine(aimPoint.origin, RayHitPoint.point, Color.red);
 
             return RayHitPoint.point;
 
         }
         else
-        {
-            return transform.forward;
+        {*/
 
-        }
+            return transform.position;
 
+      //  }
+    
 
 
     }

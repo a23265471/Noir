@@ -108,6 +108,7 @@ public class BoneEnemy : MonoBehaviour {
         particleManager.GetParticle("Bone").Play();
         physicsCollider.enabled = false;
         meshRenderer.SetActive(false);
+        navMeshAgent.isStopped = true;
         StartCoroutine("CloseBoneCollider");
 
     }
@@ -128,5 +129,16 @@ public class BoneEnemy : MonoBehaviour {
         gameObject.SetActive(false);
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("PlayerAttack_Small")|| other.CompareTag("PlayerLongAttack") || other.CompareTag("PlayerAttack_Big") || other.CompareTag("PlayerAttack_BigSkill"))
+        {
+            Attack();
+        }
+
+
+    }
+
 
 }

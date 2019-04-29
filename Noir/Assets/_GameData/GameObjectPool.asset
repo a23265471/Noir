@@ -14,7 +14,11 @@ MonoBehaviour:
   ObjectPool:
   - Name: LongAttack
     Id: 0
-    gameObject: {fileID: 1580945580566632, guid: a3d36098436f12646854304f451516aa,
+    gameObject: {fileID: 1557522454060600, guid: a6918c11606f3474b8934eedd22eb9e9,
+      type: 2}
+    Amount: 6
+  - Name: LongAttack_Enemy
+    Id: 1
+    gameObject: {fileID: 1557522454060600, guid: a6918c11606f3474b8934eedd22eb9e9,
       type: 2}
     Amount: 10
-    StartTransform: {fileID: 0}

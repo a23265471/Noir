@@ -12,7 +12,6 @@ public class ObjectPoolList : ScriptableObject
         public int Id;
         public GameObject gameObject;
         public int Amount;
-        public Transform StartTransform;
 
     }
 

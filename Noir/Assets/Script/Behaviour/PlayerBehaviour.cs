@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
@@ -32,7 +34,7 @@ public class PlayerBehaviour : Character
         CanDash = Move | Attack | Jump | DoubleJump /*| SkyAttack */| Falling | Avoid,
  //       CanDashAttack = CanDash,
         CanSkyAttack = Jump | Falling | DoubleJump,
-        CanAvoid = Move | Attack | Skill,
+        CanAvoid = Move | Attack ,
         CanAttack =  Move | Avoid,
         CanSkill = Attack | Move,
         DoNotGroudedMove = Attack | Skill | Damage | Avoid | Dead,
@@ -64,7 +66,9 @@ public class PlayerBehaviour : Character
    // public GameObject GroundCheckObject;
     public Gravity gravity;
 
-    IEnumerator detectAnimationStateNotAttack;
+   
+
+    IEnumerator attackStateResetToIdle;
 
     #region 圖層
     int floorMask;
@@ -136,14 +140,12 @@ public class PlayerBehaviour : Character
         playerData = gameStageData.CurPlayerStageData.playerData;
 
         floorMask = LayerMask.GetMask("Floor");
+
         playerState = PlayerState.Move;
-       // CanTriggerNextAttack = true;
         ForceMove = false;
-       // isTriggerAttack = false;
         canfall = true;
         canTriggerFallingCoroutine = true;
         CreateWeapon();
-      //  CreateParticle();
     }
 
     void Start()
@@ -152,7 +154,7 @@ public class PlayerBehaviour : Character
         moveAnimation_Horizontal = 0;
         cameraLookAt= gameObject.transform.Find("CameraLookAt");
         damageStopEffect = null;
-        detectAnimationStateNotAttack = null;
+        attackStateResetToIdle = null;
         inBlackRain = false;
 
     }
@@ -395,31 +397,32 @@ public class PlayerBehaviour : Character
         {
             if ((playerState & PlayerState.CanAttack)!=0)
             {
-                // Debug.Log("gggg");
-                /* playerAnimator.SetTrigger("NormalAttack");
-                 CanTriggerNextAttack = false;
-                 isTriggerAttack = true;*/
-               // Debug.Log(playerState);
-
+             
                 attackSystem.Attack("NormalAttack");
             }
 
         }
 
     }
+    public void Shooting()
+    {
+        if (gravity.groundCheck.IsGround)
+        {
+            if ((playerState & PlayerState.CanAttack) != 0)
+            {
 
+                attackSystem.Attack("LongAttack");
+            }
+
+        }
+
+    }
     public void Skill()
     {
         if (gravity.groundCheck.IsGround)
         {
             if ((playerState & PlayerState.CanSkill) != 0)
-            {
-                // Debug.Log("gggg");
-                /* playerAnimator.SetTrigger("NormalAttack");
-                 CanTriggerNextAttack = false;
-                 isTriggerAttack = true;*/
-                // Debug.Log(playerState);
-
+            {             
                 attackSystem.Attack("Skill");
             }
 
@@ -537,7 +540,7 @@ public class PlayerBehaviour : Character
 
                 playerState = PlayerState.Attack;
                 StopResetToIdleState();
-                playerRigidbody.velocity = playerRigidbody.velocity*0.1f;
+                playerRigidbody.velocity = playerRigidbody.velocity*0.01f;
                 SwitchMove(0);
                 DetectForceExitAttack();
 
@@ -558,6 +561,7 @@ public class PlayerBehaviour : Character
                 playerState = PlayerState.Skill;
                 StopResetToIdleState();
                 playerRigidbody.velocity = new Vector3(0,0,0);
+                DetectForceExitAttack();
 
                 SwitchMove(0);
                 break;
@@ -784,28 +788,39 @@ public class PlayerBehaviour : Character
         {
             StopCoroutine(detectAnimationStateNotAttack);
         }*/
-        StopCoroutine("resetToIdleState");
+        if (attackStateResetToIdle != null)
+        {
+            StopCoroutine(attackStateResetToIdle);
+
+        }
         playerAnimator.ResetTrigger("Idle");
 
     }
 
-    public void ResetToIdleState()
+    public void ResetToIdleState(int currentState)
     {
         StopCoroutine("detectForceExitAttack");
-        StopCoroutine("resetToIdleState");
-        StartCoroutine("resetToIdleState");
+
+        if (attackStateResetToIdle != null)
+        {
+            StopCoroutine(attackStateResetToIdle);
+
+        }
+        attackStateResetToIdle = resetToIdleState(currentState);
+        StartCoroutine(attackStateResetToIdle);
 
       
      
     }
 
-    IEnumerator resetToIdleState()
+    IEnumerator resetToIdleState(int currentState)
     {
 
         yield return new WaitUntil(() => !attackSystem.IsAttack);
 
-        ChangeToIdle(32);
+        ChangeToIdle(currentState);
 
+       
 
         ForceMove = false;
 
@@ -837,7 +852,7 @@ public class PlayerBehaviour : Character
 
     IEnumerator detectForceExitAttack()
     {
-        yield return new WaitUntil(() => playerState != PlayerState.Attack);
+        yield return new WaitUntil(() => (playerState != PlayerState.Attack || playerState != PlayerState.Skill));
         attackSystem.ForceExitAttack();
 
     }
@@ -915,6 +930,11 @@ public class PlayerBehaviour : Character
         else if (other.CompareTag("Level2"))
         {
             MainMenu.mainMenu.LoadGame(5);
+        }
+        else if (other.CompareTag("Bone"))
+        {
+            playerAnimator.SetTrigger("Damage");
+            UI_HP.Ui_HP.ConsumeHp(20);
         }
       
     }

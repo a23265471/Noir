@@ -14,7 +14,7 @@ public class InputKey
     public KeyCode Dash;
     
     public KeyCode NormalAttack;
-    public KeyCode Aim_Shoot;
+    public KeyCode Shoot;
     public KeyCode BigSkill;
 
 

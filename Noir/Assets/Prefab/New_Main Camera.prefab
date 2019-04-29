@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114115549166212270}
   - component: {fileID: 114479551013148662}
   - component: {fileID: 124113451666811994}
+  - component: {fileID: 92972149704008870}
   m_Layer: 0
   m_Name: New_Main Camera
   m_TagString: Untagged
@@ -63,7 +64,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -71,12 +72,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
-  m_AllowMSAA: 1
+  m_HDR: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -84,6 +85,13 @@ Camera:
   m_StereoSeparation: 0.022
 --- !u!81 &81363493378893310
 AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521474619529176}
+  m_Enabled: 1
+--- !u!92 &92972149704008870
+Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -152,7 +160,10 @@ MonoBehaviour:
   Min_distence: 3
   distenceSpeed: 20
   preDistence: 7
+  camera: {fileID: 0}
   longAttackRaycastHitSomeThing: 0
+  ConcentricPrefab: {fileID: 1560505519620214, guid: 962e3029bab433e40b7802b3c0d542c3,
+    type: 2}
 --- !u!124 &124113451666811994
 Behaviour:
   m_ObjectHideFlags: 1

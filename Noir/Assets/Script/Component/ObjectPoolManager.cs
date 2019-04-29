@@ -24,17 +24,19 @@ public class ObjectPoolManager : MonoBehaviour {
 
     public GameObject GetObjectPool(int objectID)
     {
+        GameObject currentGameObject;
 
         if (objectPool.GetObject(objectID) == null)
         {
 
             return null;
         }
-        objectPool.GetObject(objectID).transform.position = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.position;
-        objectPool.GetObject(objectID).transform.rotation = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.rotation;
-        Debug.Log("jjj");
+        currentGameObject = objectPool.GetObject(objectID);
+        currentGameObject.transform.position = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.position;
+        currentGameObject.transform.rotation = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.rotation;
+       // Debug.Log("jjj");
 
-        return objectPool.GetObject(objectID);
+        return currentGameObject;
 
 
     }

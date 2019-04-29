@@ -107,8 +107,8 @@ MonoBehaviour:
       UseGravity: 1
     AudioClip_Attack: {fileID: 0}
     shootingInfo:
-      MaxDistance: 20
-      ShootingSpeed: 20
+      MaxDistance: 35
+      ShootingSpeed: 60
   deputyAttackCollections:
   - Name: Dash=>DashAttack
     DeputyAttack:

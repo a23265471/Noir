@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 
 public class EnemyController : MonoBehaviour
 {
@@ -78,9 +80,12 @@ public class EnemyController : MonoBehaviour
     //----------------Audio----------------
     private AudioSource audiosource;
     public AudioClip AudioClip_Damage;
-    
 
     //----------------Audio----------------
+
+    public GameObject HP_UI;
+    private Image hp_UI;
+    public Vector3 Pos_UI;
 
     private void Awake()
     {
@@ -90,9 +95,7 @@ public class EnemyController : MonoBehaviour
         DamageCollider = GetComponent<CapsuleCollider>();
         audiosource = GetComponent<AudioSource>();
         particleManager = GetComponent<ParticleManager>();
-      //  HP = Enemy_UI.GetComponent<UI_FollowEnemy>();
-        /* Attack_R_Collider = gameObject.transform.Find("EnemyAttack_R_Collider").gameObject;
-         Attack_L_Collider = gameObject.transform.Find("EnemyAttack_L_Collider").gameObject;*/
+    
         Attack_L_Collider.SetActive(false);
         Attack_R_Collider.SetActive(false);
         TriggerNextAttack = false;
@@ -105,14 +108,30 @@ public class EnemyController : MonoBehaviour
         CanChase = true;
         enemyState = EnemyState.Movement;
         ResetStateCoroutine = null;
-        
-       /* Attack_R_Collider.SetActive(false);
-        Attack_L_Collider.SetActive(false);*/
+
+        hp_UI = Instantiate(HP_UI, GameObject.FindGameObjectWithTag("UI").transform).GetComponent<Image>();
+        hp_UI.GetComponent<UI_FollowEnemy>().enemyController = this;
+        HP = hp_UI.GetComponent<UI_FollowEnemy>();
+        HP.CloseUI();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PlayerDis <= PlayerChaseDis && !HP.UIOpened) 
+        {
+            HP.OpenUI();
+        }
+        else if(PlayerDis > PlayerChaseDis)
+        {
+            HP.CloseUI();
+        }
+
+        if (HP.UIOpened)
+        {
+            hp_UI.transform.position = MainCamera_New.mainCamera.camera.WorldToScreenPoint(transform.position + Pos_UI);
+
+        }
 
     }
     private void FixedUpdate()
@@ -135,12 +154,12 @@ public class EnemyController : MonoBehaviour
             EnemyMove();
         }
         //Debug.Log(enemyState);
-        if (!EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && (Attack_L_Collider.activeInHierarchy == true || Attack_R_Collider.activeInHierarchy == true)) 
+      /*  if (!EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && (Attack_L_Collider.activeInHierarchy == true || Attack_R_Collider.activeInHierarchy == true)) 
         {
             AttackCollider_Close();
 
         }
-        
+        */
 
     }
 
@@ -330,13 +349,11 @@ public class EnemyController : MonoBehaviour
         {
             particleManager.GetParticle(preParticle).Stop();
 
-            Debug.Log("S");
 
         }
 
         preParticle = Id;
         particleManager.GetParticle(Id).Play();
-        Debug.Log("HHHHH");
     }
 
 
@@ -349,13 +366,45 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
+        HP.DestroyUI();
     }
 
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
     {
-        if (other.tag == "PlayerAttack_BigSkill")
+        switch (other.tag)
+        {
+            case "PlayerAttack_BigSkill":
+                EnemyAnimator.SetTrigger("Damage_Big");
+                HP.HP -= 100;
+                break;
+            case "PlayerAttack_Big":
+                EnemyAnimator.SetTrigger("Damage_Big");
+                HP.HP -= 30;
+
+                break;
+            case "PlayerAttack_Small":
+                EnemyAnimator.SetTrigger("Damage_Small");
+                HP.HP -= 10;
+
+                break;
+            case "PlayerLongAttack":
+                EnemyAnimator.SetTrigger("Damage_Small");
+                HP.HP -= 30;
+
+                break;
+            case "Bone":
+                EnemyAnimator.SetTrigger("Damage_Big");
+                HP.HP -= 30;
+
+                break;
+        }
+        transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
+        audiosource.clip = AudioClip_Damage;
+        audiosource.Play();
+
+      /*  if (other.tag == "PlayerAttack_BigSkill")
         {
             EnemyAnimator.SetTrigger("Damage_Big");
             transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
@@ -388,7 +437,8 @@ public class EnemyController : MonoBehaviour
             HP.HP -= 30;
             audiosource.clip = AudioClip_Damage;
             audiosource.Play();
-        }                         
+        }                   
+        else*/
         //EnemyCanDamage = false;
     }
 

@@ -8,7 +8,7 @@ public class ParticleManager : MonoBehaviour
     public struct ParticleTransform
     {
         public string Id;
-        public Transform ParticlePos;
+        public GameObject ParticlePos;
     }    
     public ParticleList ParticleData;   
     public ParticleTransform[] particleTransform;
@@ -47,7 +47,8 @@ public class ParticleManager : MonoBehaviour
                           //  Debug.Log("dd");
                             if(ParticleData.particlesCollection[j].Particle!=null&& particleTransform[i].ParticlePos != null)
                             {
-                                GameObject particle = Instantiate(ParticleData.particlesCollection[j].Particle, particleTransform[i].ParticlePos.position, particleTransform[i].ParticlePos.transform.rotation, transform);
+                                GameObject particle = Instantiate(ParticleData.particlesCollection[j].Particle, particleTransform[i].ParticlePos.transform.position, particleTransform[i].ParticlePos.transform.rotation, transform);
+                                Destroy(particleTransform[i].ParticlePos);
                                 ParticleCollection[particleTransform[i].Id] = particle.GetComponent<ParticleSystem>();
 
                             }

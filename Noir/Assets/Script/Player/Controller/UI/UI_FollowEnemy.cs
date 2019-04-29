@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_FollowEnemy : MonoBehaviour {
 
@@ -8,29 +9,22 @@ public class UI_FollowEnemy : MonoBehaviour {
     public float HP_Max;    
     public float HP; 
     public GameObject HP_Light;
-    public GameObject Enemy;
     private Vector3 UI_pos;
-    private GameObject maincamera;
-    private EnemyController enemyController;
+    public EnemyController enemyController;
+    public bool UIOpened;
 
-    // Use this for initialization
-    void Start ()
+    private Image hpImage;
+
+    private void Awake()
     {
-       
-        maincamera = GameObject.Find("New_Main Camera(Clone)");
-        enemyController = Enemy.GetComponent<EnemyController>();
-
+        hpImage = GetComponent<Image>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+
+    void Update ()
     {
 
-        /*UI_pos = new Vector3(0, 2.5f, 0) +Enemy.transform.position;
-        GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(UI_pos);*/
-        HP_Light.transform.localPosition = new Vector3(-2.006f + (HP / HP_Max * 2.006f), 0, 0);
-
-        transform.rotation = Quaternion.LookRotation(transform.position - maincamera.transform.position);
+        HP_Light.transform.localPosition = new Vector3(-298f + (HP / HP_Max * 298f), 0, 0);
 
         if (HP <= 0 && enemyController.enemyState != EnemyController.EnemyState.Dead) 
         {
@@ -38,5 +32,21 @@ public class UI_FollowEnemy : MonoBehaviour {
         }
 	}
 
-    
+    public void OpenUI()
+    {
+        hpImage.enabled = true;
+        UIOpened = true;
+    }
+
+    public void CloseUI()
+    {
+        hpImage.enabled = false;
+        UIOpened = false;
+    }
+
+    public void DestroyUI()
+    {
+        Destroy(gameObject);
+    }
+
 }
