@@ -410,13 +410,20 @@ public class PlayerBehaviour : Character
         {
             if ((playerState & PlayerState.CanAttack) != 0)
             {
-
+                attackSystem.GetShtooingTargetPos = ShootingTargetPos;
                 attackSystem.Attack("LongAttack");
+
             }
 
         }
 
     }
+
+    public Vector3 ShootingTargetPos()
+    {
+        return MainCamera_New.mainCamera.GetAimTarget() + MainCamera_New.mainCamera.transform.rotation * new Vector3(0, 0, attackSystem.currentAttackInfo.shootingInfo.MaxDistance);
+    }
+
     public void Skill()
     {
         if (gravity.groundCheck.IsGround)

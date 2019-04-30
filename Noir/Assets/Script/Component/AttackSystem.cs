@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Gravity))]
 [RequireComponent(typeof(Animator))]
@@ -24,13 +25,17 @@ public class AttackSystem : MonoBehaviour
     public AudioClip audioClip;
     //站存
 
+    public Vector3 longAttackAimTartgetPos;
+    public Func<Vector3> GetShtooingTargetPos;
+
     public bool CanTriggerNextAttack;
     public bool isTriggerAttack;
+    public bool IsAttack;
+
     private int nextAttackID;
 
-    private SkillList.AttackParameter currentAttackInfo;
+    public SkillList.AttackParameter currentAttackInfo;
 
-    public bool IsAttack;
 
     IEnumerator detectAttackStateForceExit;
 
@@ -126,7 +131,6 @@ public class AttackSystem : MonoBehaviour
     {
         if (CanTriggerNextAttack)
         {
-          //  Debug.Log("fff");
             if (detectAttackStateForceExit != null)
             {
                 StopCoroutine(detectAttackStateForceExit);
@@ -145,22 +149,14 @@ public class AttackSystem : MonoBehaviour
 
     public void Shooting(int Bullet_ID)
     {
-        Vector3 longAttackAimTartgetPos;
         GameObject bullet;
-
         bullet = objectPoolManager.GetObjectPool(Bullet_ID);
-        longAttackAimTartgetPos = MainCamera_New.mainCamera.GetAimTarget();
+        longAttackAimTartgetPos = GetShtooingTargetPos();
 
-      /*  if (MainCamera_New.mainCamera.longAttackRaycastHitSomeThing)
-        {
-            bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
-        }
-        else
-        {*/
-            longAttackAimTartgetPos += MainCamera_New.mainCamera.transform.rotation * new Vector3(0, 0, currentAttackInfo.shootingInfo.MaxDistance);
-            bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
-      //  }
 
+      //  longAttackAimTartgetPos += MainCamera_New.mainCamera.transform.rotation * new Vector3(0, 0, currentAttackInfo.shootingInfo.MaxDistance);
+        bullet.GetComponent<ShootingComponent>().targetPos = longAttackAimTartgetPos;
+     
         bullet.SetActive(true);
         bullet.GetComponent<ShootingComponent>().MoveToTarget(currentAttackInfo.shootingInfo.MaxDistance, currentAttackInfo.shootingInfo.ShootingSpeed);
 
@@ -292,6 +288,10 @@ public class AttackSystem : MonoBehaviour
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
     }
+
+
+
+
 
     public void ForceExitAttack()
     {

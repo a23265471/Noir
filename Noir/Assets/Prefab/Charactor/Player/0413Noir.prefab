@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 23139246730509662}
   - component: {fileID: 135942343412784670}
   m_Layer: 0
-  m_Name: BigSkill
+  m_Name: Collider_BigSkill
   m_TagString: PlayerAttack_BigSkill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,7 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4013246342970014}
   m_Layer: 0
-  m_Name: BigSkill
+  m_Name: BigSkillFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1014,8 +1014,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467076173223662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39, z: 0}
-  m_LocalScale: {x: 0, y: 1, z: 1}
+  m_LocalPosition: {x: -0.00000022352, y: 0.68, z: 0}
+  m_LocalScale: {x: 6.1305137, y: 6.1305165, z: 6.1305165}
   m_Children: []
   m_Father: {fileID: 4648764130805232}
   m_RootOrder: 12
@@ -1552,8 +1552,8 @@ Transform:
   - {fileID: 4989621908202162}
   - {fileID: 4583575336856582}
   - {fileID: 4494498137739778}
-  - {fileID: 4880533762507534}
   - {fileID: 4827042750978836}
+  - {fileID: 4880533762507534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1718,7 +1718,7 @@ Transform:
   m_LocalScale: {x: 6.1305137, y: 6.1305165, z: 6.1305165}
   m_Children: []
   m_Father: {fileID: 4648764130805232}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4832220213297544
 Transform:
@@ -1773,7 +1773,7 @@ Transform:
   m_LocalScale: {x: 1.18, y: 1.1800004, z: 1.1800004}
   m_Children: []
   m_Father: {fileID: 4648764130805232}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4923947574777872
 Transform:
@@ -2536,7 +2536,7 @@ MonoBehaviour:
   - Id: NormalAttack4
     ParticlePos: {fileID: 1170594611070968}
   - Id: BigSkill
-    ParticlePos: {fileID: 1408730736226808}
+    ParticlePos: {fileID: 1467076173223662}
   - Id: Damage
     ParticlePos: {fileID: 1978438375785466}
   - Id: ComboFx_1
@@ -2570,7 +2570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectPoolItemInfo:
   - Name: LongAttack
-    ID: 0
+    ID: 10
     ObjectPoolItemStartTransform: {fileID: 4051889390721042}
 --- !u!114 &114805337864603254
 MonoBehaviour:
@@ -2590,9 +2590,25 @@ MonoBehaviour:
   AttackCollider_Skill: {fileID: 1408730736226808}
   audioSource: {fileID: 0}
   audioClip: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
+  longAttackAimTartgetPos: {x: 0, y: 0, z: 0}
   CanTriggerNextAttack: 0
   isTriggerAttack: 0
   IsAttack: 0
+  currentAttackInfo:
+    Name: 
+    Id: 0
+    NextAttack: []
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 0
+    AudioClip_Attack: {fileID: 0}
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
 --- !u!114 &114816001852568172
 MonoBehaviour:
   m_ObjectHideFlags: 1

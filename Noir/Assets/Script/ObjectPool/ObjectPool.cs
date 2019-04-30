@@ -33,8 +33,8 @@ public class ObjectPool : MonoBehaviour {
                 GameObject gameObject = Instantiate(objectPoolList.ObjectPool[i].gameObject);
                 gameObject.SetActive(false);
                 int id = objectPoolList.ObjectPool[i].Id + j;
-                ObjectsPoolItem[id] = gameObject; 
-
+                ObjectsPoolItem[id] = gameObject;
+              //  Debug.Log(id);
             }
 
         }

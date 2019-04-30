@@ -10,16 +10,23 @@ public class EnemyData : ScriptableObject
     public struct MoveInfo
     {
         public float ChaseDis;
+        public float Acceleration;
 
+       
     }
 
-
+    [System.Serializable]
+    public struct AttackDisInfo
+    {
+        public float ShortAttackDis;
+        public float LongAttackDis;
+    }
 
     [System.Serializable]
     public struct EnemyInfo
     {
         public MoveInfo moveInfo;
-
+        public AttackDisInfo attackDisInfo;
     }
 
     public EnemyInfo enemyInfo;

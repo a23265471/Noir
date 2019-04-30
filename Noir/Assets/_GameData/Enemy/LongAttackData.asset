@@ -14,3 +14,7 @@ MonoBehaviour:
   enemyInfo:
     moveInfo:
       ChaseDis: 20
+      Acceleration: 0
+    attackDisInfo:
+      ShortAttackDis: 0
+      LongAttackDis: 100

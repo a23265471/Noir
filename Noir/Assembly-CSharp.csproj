@@ -76,6 +76,7 @@
     <Compile Include="Assets\Script\Component\ParticleManager.cs" />
     <Compile Include="Assets\Script\Component\ShootingComponent.cs" />
     <Compile Include="Assets\Script\Controller\GameStageController.cs" />
+    <Compile Include="Assets\Script\Controller\LongAttackEnemy.cs" />
     <Compile Include="Assets\Script\Controller\PlayerController_New.cs" />
     <Compile Include="Assets\Script\EnemySpine.cs" />
     <Compile Include="Assets\Script\GameFacade.cs" />

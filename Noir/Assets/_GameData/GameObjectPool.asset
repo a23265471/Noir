@@ -13,12 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectPool:
   - Name: LongAttack
-    Id: 0
+    Id: 10
     gameObject: {fileID: 1557522454060600, guid: a6918c11606f3474b8934eedd22eb9e9,
       type: 2}
     Amount: 6
   - Name: LongAttack_Enemy
-    Id: 1
+    Id: 20
     gameObject: {fileID: 1557522454060600, guid: a6918c11606f3474b8934eedd22eb9e9,
       type: 2}
     Amount: 10
