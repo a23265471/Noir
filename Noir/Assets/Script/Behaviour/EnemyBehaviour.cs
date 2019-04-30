@@ -24,6 +24,7 @@ public class EnemyBehaviour : MonoBehaviour {
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private AttackSystem attackSystem;
+    private ObjectPoolManager objectPoolManager;
 
     public Transform ShootingStartPos;
    
@@ -34,7 +35,7 @@ public class EnemyBehaviour : MonoBehaviour {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         attackSystem = GetComponent<AttackSystem>();
-
+        objectPoolManager = GetComponent<ObjectPoolManager>();
     }
 
     void Start ()
@@ -45,7 +46,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void Update ()
     {
-
+        transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
     }
 
     public void Move(float acceleration)
@@ -67,14 +68,14 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public void Attack(string animatorTrigger)
     {
+
         attackSystem.Attack(animatorTrigger);
         attackSystem.GetShtooingTargetPos = ShootingTargetPos;
     }
 
-    private Vector3 ShootingTargetPos()
+    private Vector3 ShootingTargetPos(int bulletID)
     {
-        return ShootingStartPos.position + ShootingStartPos.rotation * new Vector3(0, 0, attackSystem.currentAttackInfo.shootingInfo.MaxDistance);
-
+        return objectPoolManager.ObjectPoolItemInfoCollection[bulletID].ObjectPoolItemStartTransform.position + transform.rotation * new Vector3(0, 0, attackSystem.currentAttackInfo.shootingInfo.MaxDistance);
     }
 
     public void Damage()

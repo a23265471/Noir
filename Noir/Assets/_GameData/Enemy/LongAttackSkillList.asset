@@ -24,7 +24,7 @@ MonoBehaviour:
       UseGravity: 0
     AudioClip_Attack: {fileID: 0}
     shootingInfo:
-      MaxDistance: 0
-      ShootingSpeed: 0
+      MaxDistance: 20
+      ShootingSpeed: 20
   deputyAttackCollections: []
   specialAttack: []

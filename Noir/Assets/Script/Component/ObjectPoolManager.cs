@@ -16,11 +16,27 @@ public class ObjectPoolManager : MonoBehaviour {
 
     public objectPoolItemInfo[] ObjectPoolItemInfo;
 
+    public Dictionary<int, objectPoolItemInfo> ObjectPoolItemInfoCollection;
+
     private void Awake()
     {
         objectPool = GameFacade.GetInstance().objectPool;
+        CreatObjectPoolItemInfoCollection();
+    }
+
+    private void CreatObjectPoolItemInfoCollection()
+    {
+        ObjectPoolItemInfoCollection = new Dictionary<int, objectPoolItemInfo>();
+
+        for (int i=0;i< ObjectPoolItemInfo.Length; i++)
+        {
+            ObjectPoolItemInfoCollection[ObjectPoolItemInfo[i].ID] = ObjectPoolItemInfo[i];
+
+        }
 
     }
+
+
 
     public GameObject GetObjectPool(int objectID)
     {
@@ -32,8 +48,8 @@ public class ObjectPoolManager : MonoBehaviour {
             return null;
         }
         currentGameObject = objectPool.GetObject(objectID);
-        currentGameObject.transform.position = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.position;
-        currentGameObject.transform.rotation = ObjectPoolItemInfo[objectID].ObjectPoolItemStartTransform.rotation;
+        currentGameObject.transform.position = ObjectPoolItemInfoCollection[objectID].ObjectPoolItemStartTransform.position;
+        currentGameObject.transform.rotation = ObjectPoolItemInfoCollection[objectID].ObjectPoolItemStartTransform.rotation;
        // Debug.Log("jjj");
 
         return currentGameObject;

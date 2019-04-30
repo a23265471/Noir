@@ -11,11 +11,9 @@ public class AttackSystem : MonoBehaviour
 {
     public SkillList skillList;
     private Animator animator;
-  //  private AnimationHash animationHash;
     private Gravity gravity;
     public Dictionary<int, SkillList.AttackParameter> AttackCollection;
     public ObjectPoolManager objectPoolManager;
-
 
     //站存
     public GameObject AttackCollider_Small;
@@ -26,7 +24,7 @@ public class AttackSystem : MonoBehaviour
     //站存
 
     public Vector3 longAttackAimTartgetPos;
-    public Func<Vector3> GetShtooingTargetPos;
+    public Func<int,Vector3> GetShtooingTargetPos;
 
     public bool CanTriggerNextAttack;
     public bool isTriggerAttack;
@@ -151,7 +149,7 @@ public class AttackSystem : MonoBehaviour
     {
         GameObject bullet;
         bullet = objectPoolManager.GetObjectPool(Bullet_ID);
-        longAttackAimTartgetPos = GetShtooingTargetPos();
+        longAttackAimTartgetPos = GetShtooingTargetPos(Bullet_ID);
 
 
       //  longAttackAimTartgetPos += MainCamera_New.mainCamera.transform.rotation * new Vector3(0, 0, currentAttackInfo.shootingInfo.MaxDistance);

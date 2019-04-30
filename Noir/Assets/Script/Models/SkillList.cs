@@ -10,15 +10,11 @@ public class SkillList : ScriptableObject
     {
         public string Name;
         public int Id;
-       // public int AttackOder;
         public ChangeToDeputyAttack[] NextAttack;
         public MoveInfo moveInfo;
-
         public AudioClip AudioClip_Attack;
-
         public Shooting shootingInfo;
-
-        // public GameObject Particle_Attack;    
+        
     }
 
     [System.Serializable]
@@ -42,6 +38,8 @@ public class SkillList : ScriptableObject
         public float MaxDistance;
         public float ShootingSpeed;
 
+        public int PenetrateCount;
+        public string[] TargetTag;
     }
 
     [System.Serializable]
@@ -55,8 +53,12 @@ public class SkillList : ScriptableObject
         public bool UseGravity;
     }
 
+
+
     public AttackParameter[] normalAttack;  
     public DeputyAttackCollection[] deputyAttackCollections;
     public AttackParameter[] specialAttack;
+
+
    // public ShootingAttack[] shootingAttack;
 }

@@ -43,13 +43,29 @@ public class ShootingComponent : MonoBehaviour
      
     }
 
+    public void PenetrateCount(string[] targetTag, Collider OnEnterCollider)
+    {
+        for(int i=0;i< targetTag.Length; i++)
+        {
+            if(OnEnterCollider.CompareTag(targetTag[i]))
+            {
+
+            }
+        }
+
+    }
+
     IEnumerator CloseObject()
     {
-
-
         yield return new WaitUntil(() => Vector3.Distance(targetPos, transform.position) < 0.5f);
 
         gameObject.SetActive(false);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 
 }

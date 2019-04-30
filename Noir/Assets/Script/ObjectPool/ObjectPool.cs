@@ -10,6 +10,8 @@ public class ObjectPool : MonoBehaviour {
 
     public ObjectPoolList objectPoolList;
     public Dictionary<int,GameObject> ObjectsPoolItem;
+    public Dictionary<int, ObjectPoolList.Object> ObjectInfo;
+
 
     private void Awake()
     {
@@ -25,10 +27,11 @@ public class ObjectPool : MonoBehaviour {
     private void CreatObjectPool()
     {
         ObjectsPoolItem = new Dictionary<int, GameObject>();
-
+        ObjectInfo = new Dictionary<int, ObjectPoolList.Object>();
         for (int i=0;i< objectPoolList.ObjectPool.Length; i++)
         {
-            for(int j = 0; j < objectPoolList.ObjectPool[i].Amount; j++)
+            ObjectInfo[objectPoolList.ObjectPool[i].Id] = objectPoolList.ObjectPool[i];
+            for (int j = 0; j < objectPoolList.ObjectPool[i].Amount; j++)
             {
                 GameObject gameObject = Instantiate(objectPoolList.ObjectPool[i].gameObject);
                 gameObject.SetActive(false);
@@ -44,8 +47,7 @@ public class ObjectPool : MonoBehaviour {
 
     public GameObject GetObject(int gameObjectId)
     {
-     //   int itemId=0;
-        for(int i=0;i< objectPoolList.ObjectPool[gameObjectId].Amount; i++)
+        for(int i=0;i< ObjectInfo[gameObjectId].Amount; i++)
         {
             int id = gameObjectId + i;
             if (!ObjectsPoolItem[id].activeInHierarchy)
@@ -59,17 +61,5 @@ public class ObjectPool : MonoBehaviour {
         return null;
     }
 
-/*	public GameObject LongAttackObj()
-    {
-        for (int i = 0; i < LongAttacks.Count; i++)
-        {
-            if (!LongAttacks[i].activeInHierarchy)
-            {
-                return LongAttacks[i];
-            }
-        }
 
-        return null;
-
-    }*/
 }

@@ -26,7 +26,8 @@ public class LongAttackEnemy : MonoBehaviour
     {
         playerDis = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
 
-        if (playerDis <= attackDisInfo.LongAttackDis) 
+
+        if (playerDis <= attackDisInfo.LongAttackDis && PlayerBehaviour.playerBehaviour.playerState != PlayerBehaviour.PlayerState.Dead)  
         {
             Attack("Attack");
         }

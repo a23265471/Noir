@@ -419,7 +419,7 @@ public class PlayerBehaviour : Character
 
     }
 
-    public Vector3 ShootingTargetPos()
+    public Vector3 ShootingTargetPos(int bulletID)
     {
         return MainCamera_New.mainCamera.GetAimTarget() + MainCamera_New.mainCamera.transform.rotation * new Vector3(0, 0, attackSystem.currentAttackInfo.shootingInfo.MaxDistance);
     }
@@ -915,7 +915,42 @@ public class PlayerBehaviour : Character
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyAttack_Small"))
+        switch (other.tag)
+        {
+            case "EnemyAttack_Small":
+                playerAnimator.SetTrigger("Damage");
+                UI_HP.Ui_HP.ConsumeHp(10);
+                break;
+            case "EnemyAttack_Big":
+                playerAnimator.SetTrigger("Damage");
+                UI_HP.Ui_HP.ConsumeHp(20);
+                break;
+
+            case "BlackRain":
+                inBlackRain = true;
+                Debug.Log(other.transform.name);
+                StopCoroutine("InBlackRain");
+                StartCoroutine("InBlackRain");
+                break;
+            case "BlackRain_Dead":
+                UI_HP.Ui_HP.ConsumeHp(UI_HP.Ui_HP.HP_Max);
+
+                break;
+            case "Level2":
+                MainMenu.mainMenu.LoadGame(5);
+
+                break;
+            case "Bone":
+                playerAnimator.SetTrigger("Damage");
+                UI_HP.Ui_HP.ConsumeHp(20);
+                break;
+
+        }
+
+
+
+
+       /* if (other.CompareTag("EnemyAttack_Small"))
         {
             playerAnimator.SetTrigger("Damage");
             UI_HP.Ui_HP.ConsumeHp(10);
@@ -942,7 +977,7 @@ public class PlayerBehaviour : Character
         {
             playerAnimator.SetTrigger("Damage");
             UI_HP.Ui_HP.ConsumeHp(20);
-        }
+        }*/
       
     }
 
