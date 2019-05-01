@@ -48,7 +48,7 @@ public class CreatRayCastComponent : MonoBehaviour
 
             if (Physics.Raycast(ray, groupOfRayCast[0].Long))
             {
-                Debug.Log("hhh");
+              //  Debug.Log("hhh");
             }
 
         }

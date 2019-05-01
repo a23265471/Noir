@@ -12,9 +12,11 @@ public class SkillList : ScriptableObject
         public int Id;
         public ChangeToDeputyAttack[] NextAttack;
         public MoveInfo moveInfo;
-        public AudioClip AudioClip_Attack;
         public Shooting shootingInfo;
+
         public GameObject AttackRang;
+        public AudioClip AudioClip_Attack;
+
     }
 
     [System.Serializable]

@@ -13,6 +13,7 @@ public class AttackSystem : MonoBehaviour
     private Animator animator;
     private Gravity gravity;
     public Dictionary<int, SkillList.AttackParameter> AttackCollection;
+    public Dictionary<int, GameObject> AttackRangeObjectCollection;
     public ObjectPoolManager objectPoolManager;
 
     //站存
@@ -28,10 +29,11 @@ public class AttackSystem : MonoBehaviour
     {
         public string Name;
         public int ID;
-        public GameObject AttackCollider_Ray;
-
+        public Transform Parent;
+        public GameObject AttackRangTransform;
+       // public GameObject AttackCollider_Ray;
     } 
-         
+    
     public Vector3 longAttackAimTartgetPos;
     public Func<int,Vector3> GetShtooingTargetPos;
 
@@ -42,7 +44,7 @@ public class AttackSystem : MonoBehaviour
     private int nextAttackID;
 
     public SkillList.AttackParameter currentAttackInfo;
-
+    public AttackRang[] attackRange;
 
     IEnumerator detectAttackStateForceExit;
 
@@ -93,6 +95,11 @@ public class AttackSystem : MonoBehaviour
             else
             {
                 AttackCollection[skillList.normalAttack[i].Id] = skillList.normalAttack[i];
+                if (skillList.normalAttack[i].AttackRang != null)
+                {
+                    CreateAttackRange(skillList.normalAttack[i].Id);
+
+                }
             }
          //   Debug.Log(skillList.normalAttack[i].Id);
 
@@ -108,7 +115,11 @@ public class AttackSystem : MonoBehaviour
             else
             {
                 AttackCollection[skillList.specialAttack[i].Id] = skillList.specialAttack[i];
+                if (skillList.specialAttack[i].AttackRang != null)
+                {
+                    CreateAttackRange(skillList.specialAttack[i].Id);
 
+                }
             }
         }
 
@@ -124,12 +135,43 @@ public class AttackSystem : MonoBehaviour
                 else
                 {
                     AttackCollection[skillList.deputyAttackCollections[j].DeputyAttack[i].Id] = skillList.deputyAttackCollections[j].DeputyAttack[i];
+                    if (skillList.deputyAttackCollections[j].DeputyAttack[i].AttackRang != null)
+                    {
+                        CreateAttackRange(skillList.deputyAttackCollections[j].DeputyAttack[i].Id);
+
+                    }
 
                 }
             }
         }
 
        
+
+    }
+
+    public void CreateAttackRange(int currentSkill_ID)
+    {
+        AttackRangeObjectCollection = new Dictionary<int, GameObject>();
+
+       /* if (skillList.normalAttack[currentSkill].AttackRang != null)
+        {*/
+            for(int i=0;i< attackRange.Length; i++)
+            {
+                if (currentSkill_ID == attackRange[i].ID) 
+                {
+                    GameObject createattackRange = Instantiate(AttackCollection[currentSkill_ID].AttackRang, attackRange[i].Parent);
+                    createattackRange.transform.position = attackRange[i].AttackRangTransform.transform.position;
+                    createattackRange.transform.rotation = attackRange[i].AttackRangTransform.transform.rotation;
+                    //attackRange[i].AttackCollider_Ray = createattackRange;
+                    AttackRangeObjectCollection[attackRange[i].ID] = createattackRange;
+                    AttackRangeObjectCollection[attackRange[i].ID].SetActive(false);
+                    Destroy(attackRange[i].AttackRangTransform);
+                }
+
+            }
+
+
+       // }
 
     }
     #endregion
@@ -320,7 +362,7 @@ public class AttackSystem : MonoBehaviour
 
     }
 
-    public void OpenAttackCollider(int ColliderSize)
+    public void OpenAttackCollider(int ID)
     {
        
         /*switch (ColliderSize)

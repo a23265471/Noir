@@ -23,61 +23,19 @@ public class GameStageController : MonoBehaviour {
         gameStageData = GameFacade.GetInstance().gameStageData;
         GameObject mainCamera = Instantiate(gameStageData.CurPlayerStageData.playerData.MainCamera, new Vector3(0,0,0), playerStartPos.rotation);
         GameObject player = Instantiate(gameStageData.CurPlayerStageData.playerData.Player, playerStartPos.position, playerStartPos.rotation);
-   //     Weapon= Instantiate(gameStageData.CurPlayerStageData.playerData.Weapon, gameStageData.CurPlayerStageData.playerData.WeaponPos.position, gameStageData.CurPlayerStageData.playerData.WeaponPos.rotation);
-
-     //   Weapon.transform.parent=
-
         mainCameraBehaviour = mainCamera.GetComponent<MainCamera_New>();
         playerBehaviour = player.GetComponent<PlayerBehaviour>();
         
     }
-    // Use this for initialization
+
     void Start ()
     {
        
-      /*  Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;*/
-
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        // CursorControl();
-       // CursorLock();
+     
     }
 
-   /* private void CursorControl()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && Cursor.visible) 
-        {
-            Cursor.visible = false;
-
-        }
-        else if(Input.GetKeyDown(KeyCode.Tab) && !Cursor.visible)
-        {
-            Cursor.visible = true;
-        }
-
     }
-
-    private void CursorLock()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Screen.lockCursor)
-            {
-                Screen.lockCursor = false;
-
-            }
-            else
-            {
-                Screen.lockCursor = true;
-
-            }
-
-        }
-
-    }*/
 
 }
