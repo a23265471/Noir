@@ -87,6 +87,8 @@ public class EnemyController : MonoBehaviour
     private Image hp_UI;
     public Vector3 Pos_UI;
 
+    private GetHitComponent getHitComponent;
+
     private void Awake()
     {
         EnemyAnimator = GetComponent<Animator>();
@@ -95,7 +97,8 @@ public class EnemyController : MonoBehaviour
         DamageCollider = GetComponent<CapsuleCollider>();
         audiosource = GetComponent<AudioSource>();
         particleManager = GetComponent<ParticleManager>();
-    
+        getHitComponent = GetComponent<GetHitComponent>();
+
         Attack_L_Collider.SetActive(false);
         Attack_R_Collider.SetActive(false);
         TriggerNextAttack = false;
@@ -113,6 +116,8 @@ public class EnemyController : MonoBehaviour
         hp_UI.GetComponent<UI_FollowEnemy>().enemyController = this;
         HP = hp_UI.GetComponent<UI_FollowEnemy>();
         HP.CloseUI();
+
+        getHitComponent.DamageFunction = TriggerDamage;
     }
 
     // Update is called once per frame
@@ -371,6 +376,14 @@ public class EnemyController : MonoBehaviour
 
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------
+
+    public void TriggerDamage(int damageValue)
+    {
+        EnemyAnimator.SetTrigger("Damage_Small");
+        HP.HP -= damageValue;
+    }
+
+
     private void OnTriggerEnter(Collider other)//判斷是否被攻擊
     {
         switch (other.tag)

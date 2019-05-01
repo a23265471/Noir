@@ -29,6 +29,11 @@ public class CreatRayCastComponent : MonoBehaviour
 
     public GroupOfRayCast[] groupOfRayCast;
 
+    public int CurrentAttackCombo;
+    public float DamageValue;
+    private int HitCombo;
+    
+
 
     private void Update()
     {
@@ -39,16 +44,26 @@ public class CreatRayCastComponent : MonoBehaviour
     private void CreatRaycast()
     {
         Ray ray;
+        RaycastHit rayHit;
 
         for (int i=0;i< groupOfRayCast.Length; i++)
         {
             groupOfRayCast[i].OneGroupOfRayCast[0].LookAt(groupOfRayCast[i].OneGroupOfRayCast[1].position);
             ray = new Ray(groupOfRayCast[i].OneGroupOfRayCast[0].position, groupOfRayCast[i].OneGroupOfRayCast[0].forward);
             Debug.DrawLine(groupOfRayCast[i].OneGroupOfRayCast[0].position, groupOfRayCast[i].OneGroupOfRayCast[1].position, Color.red);
-
-            if (Physics.Raycast(ray, groupOfRayCast[0].Long))
+            if (Physics.Raycast(ray, out rayHit, groupOfRayCast[0].Long))
             {
-              //  Debug.Log("hhh");
+
+                if (rayHit.transform.GetComponent<GetHitComponent>() != null)
+                {
+                    Debug.Log("hhh");
+
+                   
+                    rayHit.transform.GetComponent<GetHitComponent>().TriggerDamage(10);
+                       
+                    break;
+                }
+              //  
             }
 
         }

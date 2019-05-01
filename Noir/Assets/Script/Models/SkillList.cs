@@ -17,6 +17,9 @@ public class SkillList : ScriptableObject
         public GameObject AttackRang;
         public AudioClip AudioClip_Attack;
 
+        public float AttackPower;
+        public int Combo;
+
     }
 
     [System.Serializable]

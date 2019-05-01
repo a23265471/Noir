@@ -364,7 +364,8 @@ public class AttackSystem : MonoBehaviour
 
     public void OpenAttackCollider(int ID)
     {
-       
+        AttackRangeObjectCollection[ID].SetActive(true);
+
         /*switch (ColliderSize)
         {
             case 0:
@@ -383,24 +384,26 @@ public class AttackSystem : MonoBehaviour
         }*/
     }
 
-    public void CloseAttaCollider(int ColliderSize)
+    public void CloseAttaCollider(int ID)
     {
-      /*  switch (ColliderSize)
-        {
-            case 0:
-                AttackCollider_Small.SetActive(false);
-                break;
-            case 1:
-                AttackCollider_Big.SetActive(false);
-                break;
-            case 3:
-                AttackCollider_Skill.SetActive(false);
+        AttackRangeObjectCollection[ID].SetActive(false);
+
+        /*  switch (ColliderSize)
+          {
+              case 0:
+                  AttackCollider_Small.SetActive(false);
+                  break;
+              case 1:
+                  AttackCollider_Big.SetActive(false);
+                  break;
+              case 3:
+                  AttackCollider_Skill.SetActive(false);
 
 
-                break;
+                  break;
 
-        }
-        */
+          }
+          */
 
 
     }
