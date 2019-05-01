@@ -5,12 +5,12 @@ using UnityEngine;
 public class CreatRayCastComponent : MonoBehaviour
 {
 
-    [System.Serializable]
+   /* [System.Serializable]
     public struct AttackRange
     {
         public GroupOfRayCast[] groupOfRayCast;
 
-    }
+    }*/
 
     [System.Serializable]
     public struct GroupOfRayCast
@@ -27,7 +27,7 @@ public class CreatRayCastComponent : MonoBehaviour
         }
     }
 
-    public AttackRange attackRange;
+    public GroupOfRayCast[] groupOfRayCast;
 
 
     private void Update()
@@ -38,14 +38,23 @@ public class CreatRayCastComponent : MonoBehaviour
 
     private void CreatRaycast()
     {
-        Ray ray = new Ray(attackRange.groupOfRayCast[0].OneGroupOfRayCast[0].position, attackRange.groupOfRayCast[0].OneGroupOfRayCast[1].position);
+        Ray ray;
 
-        if (Physics.Raycast(ray, attackRange.groupOfRayCast[0].Long))
+        for (int i=0;i< groupOfRayCast.Length; i++)
         {
-            Debug.Log("hhh");
+            groupOfRayCast[i].OneGroupOfRayCast[0].LookAt(groupOfRayCast[i].OneGroupOfRayCast[1].position);
+            ray = new Ray(groupOfRayCast[i].OneGroupOfRayCast[0].position, groupOfRayCast[i].OneGroupOfRayCast[0].forward);
+            Debug.DrawLine(groupOfRayCast[i].OneGroupOfRayCast[0].position, groupOfRayCast[i].OneGroupOfRayCast[1].position, Color.red);
+
+            if (Physics.Raycast(ray, groupOfRayCast[0].Long))
+            {
+                Debug.Log("hhh");
+            }
+
         }
+
+        
        
-        Debug.DrawLine(attackRange.groupOfRayCast[0].OneGroupOfRayCast[0].position, attackRange.groupOfRayCast[0].OneGroupOfRayCast[1].position,Color.red, attackRange.groupOfRayCast[0].Long);
     }
 
 }

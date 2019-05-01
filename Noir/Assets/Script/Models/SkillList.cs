@@ -14,7 +14,7 @@ public class SkillList : ScriptableObject
         public MoveInfo moveInfo;
         public AudioClip AudioClip_Attack;
         public Shooting shootingInfo;
-        
+        public GameObject AttackRang;
     }
 
     [System.Serializable]

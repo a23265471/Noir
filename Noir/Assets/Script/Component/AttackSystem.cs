@@ -16,13 +16,22 @@ public class AttackSystem : MonoBehaviour
     public ObjectPoolManager objectPoolManager;
 
     //站存
-    public GameObject AttackCollider_Small;
+ /*   public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
-    public GameObject AttackCollider_Skill;
+    public GameObject AttackCollider_Skill;*/
     public AudioSource audioSource;
     public AudioClip audioClip;
     //站存
 
+    [System.Serializable]
+    public struct AttackRang
+    {
+        public string Name;
+        public int ID;
+        public GameObject AttackCollider_Ray;
+
+    } 
+         
     public Vector3 longAttackAimTartgetPos;
     public Func<int,Vector3> GetShtooingTargetPos;
 
@@ -54,9 +63,9 @@ public class AttackSystem : MonoBehaviour
         isTriggerAttack = false;
         IsAttack = false;
 
-        AttackCollider_Small.SetActive(false);
+     /*   AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
-        AttackCollider_Skill.SetActive(false);
+        AttackCollider_Skill.SetActive(false);*/
     }
 
 
@@ -296,10 +305,10 @@ public class AttackSystem : MonoBehaviour
         Debug.Log("2.  Attack is State Force Exit");
 
         //站存
-        AttackCollider_Small.SetActive(false);
+       /* AttackCollider_Small.SetActive(false);
         AttackCollider_Big.SetActive(false);
         AttackCollider_Skill.SetActive(false);
-        //站存
+        //站存*/
 
 
         //Debug.Log("Reset TriggerAttack");
@@ -314,7 +323,7 @@ public class AttackSystem : MonoBehaviour
     public void OpenAttackCollider(int ColliderSize)
     {
        
-        switch (ColliderSize)
+        /*switch (ColliderSize)
         {
             case 0:
                 AttackCollider_Small.SetActive(true);
@@ -329,12 +338,12 @@ public class AttackSystem : MonoBehaviour
 
                 break;
 
-        }
+        }*/
     }
 
     public void CloseAttaCollider(int ColliderSize)
     {
-        switch (ColliderSize)
+      /*  switch (ColliderSize)
         {
             case 0:
                 AttackCollider_Small.SetActive(false);
@@ -349,7 +358,7 @@ public class AttackSystem : MonoBehaviour
                 break;
 
         }
-
+        */
 
 
     }
