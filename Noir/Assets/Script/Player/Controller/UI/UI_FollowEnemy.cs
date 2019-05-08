@@ -11,6 +11,7 @@ public class UI_FollowEnemy : MonoBehaviour {
     public GameObject HP_Light;
     private Vector3 UI_pos;
     public EnemyController enemyController;
+    public EnemyBehaviour enemyBehaviour;
     public bool UIOpened;
 
     private Image hpImage;
@@ -34,13 +35,14 @@ public class UI_FollowEnemy : MonoBehaviour {
 
     public void OpenUI()
     {
-        hpImage.enabled = true;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         UIOpened = true;
     }
 
     public void CloseUI()
     {
-        hpImage.enabled = false;
+        // hpImage.enabled = false;
+        transform.rotation = Quaternion.Euler(0, 90, 0);
         UIOpened = false;
     }
 

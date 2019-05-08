@@ -9,6 +9,7 @@ using System;
 
 public class AttackSystem : MonoBehaviour
 {
+    public static AttackSystem attackSystem;
     public SkillList skillList;
     private Animator animator;
     private Gravity gravity;
@@ -17,7 +18,7 @@ public class AttackSystem : MonoBehaviour
     public ObjectPoolManager objectPoolManager;
 
     //站存
- /*   public GameObject AttackCollider_Small;
+ /* public GameObject AttackCollider_Small;
     public GameObject AttackCollider_Big;
     public GameObject AttackCollider_Skill;*/
     public AudioSource audioSource;
@@ -46,7 +47,7 @@ public class AttackSystem : MonoBehaviour
     public SkillList.AttackParameter currentAttackInfo;
     public AttackRang[] attackRange;
 
-    IEnumerator detectAttackStateForceExit;
+  //  IEnumerator detectAttackStateForceExit;
 
     private void Awake()
     {
@@ -56,18 +57,19 @@ public class AttackSystem : MonoBehaviour
         gravity = GetComponent<Gravity>();
         audioSource = GetComponent<AudioSource>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
+
     }
 
     void Start()
     {
-        detectAttackStateForceExit = null;
+       // detectAttackStateForceExit = null;
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
         IsAttack = false;
 
-     /*   AttackCollider_Small.SetActive(false);
-        AttackCollider_Big.SetActive(false);
-        AttackCollider_Skill.SetActive(false);*/
+        /*   AttackCollider_Small.SetActive(false);
+           AttackCollider_Big.SetActive(false);*/
+        // AttackCollider_Skill.SetActive(false);
     }
 
 
@@ -84,6 +86,8 @@ public class AttackSystem : MonoBehaviour
         SkillList.AttackParameter AttackParameter;
 
         AttackCollection = new Dictionary<int, SkillList.AttackParameter>();
+        AttackRangeObjectCollection = new Dictionary<int, GameObject>();
+
 
         for (int i=0;i< skillList.normalAttack.Length; i++)
         {
@@ -101,7 +105,6 @@ public class AttackSystem : MonoBehaviour
 
                 }
             }
-         //   Debug.Log(skillList.normalAttack[i].Id);
 
         }
 
@@ -151,7 +154,6 @@ public class AttackSystem : MonoBehaviour
 
     public void CreateAttackRange(int currentSkill_ID)
     {
-        AttackRangeObjectCollection = new Dictionary<int, GameObject>();
 
        /* if (skillList.normalAttack[currentSkill].AttackRang != null)
         {*/
@@ -163,8 +165,14 @@ public class AttackSystem : MonoBehaviour
                     createattackRange.transform.position = attackRange[i].AttackRangTransform.transform.position;
                     createattackRange.transform.rotation = attackRange[i].AttackRangTransform.transform.rotation;
                     //attackRange[i].AttackCollider_Ray = createattackRange;
+                    if (createattackRange.GetComponent<CreatRayCastComponent>() != null)
+                    {
+                        createattackRange.GetComponent<CreatRayCastComponent>().attackSystem = this;
+                    }
                     AttackRangeObjectCollection[attackRange[i].ID] = createattackRange;
+
                     AttackRangeObjectCollection[attackRange[i].ID].SetActive(false);
+
                     Destroy(attackRange[i].AttackRangTransform);
                 }
 
@@ -174,16 +182,19 @@ public class AttackSystem : MonoBehaviour
        // }
 
     }
+
+
+    
     #endregion
 
     public void Attack(string animatorTrigger)
     {
         if (CanTriggerNextAttack)
         {
-            if (detectAttackStateForceExit != null)
+        /*    if (detectAttackStateForceExit != null)
             {
                 StopCoroutine(detectAttackStateForceExit);
-            }
+            }*/
 
             StopCoroutine("resetTriggerAttack");
             StopCoroutine("DetectInput");
@@ -300,13 +311,13 @@ public class AttackSystem : MonoBehaviour
     public void EndOfAttack()
     {
       
-        if (detectAttackStateForceExit != null)
+     /*   if (detectAttackStateForceExit != null)
         {
                 StopCoroutine(detectAttackStateForceExit);
-                    Debug.Log("3. Reset Detect Attack State Force Exit");
 
         }
-        
+        */
+        Debug.Log("3. Reset Detect Attack State Force Exit");
 
         StopDetectInput();
         ResetTriggerAttack();
@@ -326,12 +337,12 @@ public class AttackSystem : MonoBehaviour
     {
         if (!isTriggerAttack)
         {
-            if (detectAttackStateForceExit != null)
+            /*if (detectAttackStateForceExit != null)
             {
                 StopCoroutine(detectAttackStateForceExit);
             //    Debug.Log("3. Reset Detect Attack State Force Exit");
 
-            }
+            }*/
         }
         gravity.StartUseGravity();
         CanTriggerNextAttack = true;
@@ -346,15 +357,7 @@ public class AttackSystem : MonoBehaviour
     {
         Debug.Log("2.  Attack is State Force Exit");
 
-        //站存
-       /* AttackCollider_Small.SetActive(false);
-        AttackCollider_Big.SetActive(false);
-        AttackCollider_Skill.SetActive(false);
-        //站存*/
-
-
-        //Debug.Log("Reset TriggerAttack");
-
+       
         //      IsAttack = false;
         StopCoroutine("DetectInput");
         CanTriggerNextAttack = true;
@@ -364,53 +367,33 @@ public class AttackSystem : MonoBehaviour
 
     public void OpenAttackCollider(int ID)
     {
+        
         AttackRangeObjectCollection[ID].SetActive(true);
 
-        /*switch (ColliderSize)
+        if (AttackRangeObjectCollection[ID].GetComponent<CreatRayCastComponent>() != null) 
         {
-            case 0:
-                AttackCollider_Small.SetActive(true);
-                break;
-            case 1:
-                AttackCollider_Big.SetActive(true);
-                break;
 
-            case 3:
-                AttackCollider_Skill.SetActive(true);
+            AttackRangeObjectCollection[ID].GetComponent<CreatRayCastComponent>().ResetHitCombo(currentAttackInfo.Combo);
 
+        }
+        
 
-                break;
-
-        }*/
     }
 
     public void CloseAttaCollider(int ID)
     {
-        AttackRangeObjectCollection[ID].SetActive(false);
+        
+            AttackRangeObjectCollection[ID].SetActive(false);
 
-        /*  switch (ColliderSize)
-          {
-              case 0:
-                  AttackCollider_Small.SetActive(false);
-                  break;
-              case 1:
-                  AttackCollider_Big.SetActive(false);
-                  break;
-              case 3:
-                  AttackCollider_Skill.SetActive(false);
-
-
-                  break;
-
-          }
-          */
+      
+          
 
 
     }
 
     public void AudioPlay()
     {
-        audioSource.clip = audioClip;
+        audioSource.clip = currentAttackInfo.AudioClip_Attack;
         audioSource.Play();
 
     }

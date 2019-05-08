@@ -24,6 +24,7 @@ public class UI_HP : MonoBehaviour
     private bool darkBarCanMove;
 
     public GameObject BloodSpot;
+    public GameObject PoisoningSpot;
 
     private void Awake()
     {
@@ -218,8 +219,20 @@ public class UI_HP : MonoBehaviour
 
 
     }
+    public void OpenPoisoningSpot()
+    {
+        PoisoningSpot.GetComponent<Animator>().SetTrigger("Open");
 
-   
+    }
+
+    public void ClosePoisoningSpot()
+    {
+        PoisoningSpot.GetComponent<Animator>().ResetTrigger("Open");
+
+        PoisoningSpot.GetComponent<Animator>().SetTrigger("Close");
+
+    }
+
 }
 
     

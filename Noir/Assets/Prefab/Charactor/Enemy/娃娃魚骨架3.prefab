@@ -941,8 +941,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1145708909835516}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9, y: 0, z: 2.3}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 15, y: 0, z: 96.11}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4126307275022868}
@@ -951,7 +951,7 @@ Transform:
   - {fileID: 4931921045202956}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4619526710106116
 Transform:
   m_ObjectHideFlags: 1
@@ -1114,7 +1114,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.09
+  m_Volume: 0.58
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1229,7 +1229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyState: 0
   EnemyCanDamage: 0
-  HP: {fileID: 0}
   PlayerChaseDis: 20
   CanChase: 0
   EnemyMaxSpeed: 0
@@ -1239,6 +1238,7 @@ MonoBehaviour:
   Attack_R_Collider: {fileID: 1925045197613732}
   Attack_L_Collider: {fileID: 1530582038451994}
   AudioClip_Damage: {fileID: 8300000, guid: f856887707c21c04cb899a933a388819, type: 3}
+  HP: {fileID: 0}
   HP_UI: {fileID: 1721585090869108, guid: b75631c4b233a3940960efa1fc6dc9b9, type: 2}
   Pos_UI: {x: 0, y: 2.2, z: 0}
 --- !u!114 &114369865956326248
@@ -1269,6 +1269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d062ff28d98b14d4e9462785ae4db4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GetHitCombo: 0
 --- !u!136 &136002211711366780
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1278,7 +1279,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.64
+  m_Radius: 2.1
   m_Height: 5.43
   m_Direction: 1
   m_Center: {x: 0, y: 2.73, z: 0}

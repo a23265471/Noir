@@ -42,6 +42,7 @@ public class PlayerBehaviour : Character
         CaGetDown = 0xff,
         CanDead = 0xff,
 
+        AttackBehaviour=Attack | Skill,
         LandingChecking = Jump | Falling | DoubleJump /*| SkyAttack*/,
 
     }
@@ -66,7 +67,8 @@ public class PlayerBehaviour : Character
    // public GameObject GroundCheckObject;
     public Gravity gravity;
 
-   
+    private AudioSource audioSource;
+    public AudioClip DamageAudioClip;
 
     IEnumerator attackStateResetToIdle;
 
@@ -81,7 +83,7 @@ public class PlayerBehaviour : Character
     #endregion
 
     #region 移動參數
-    private float rotation_Horizontal;
+    public float rotation_Horizontal;
     private float curMoveSpeed;
     private float moveSpeed;
 
@@ -96,6 +98,9 @@ public class PlayerBehaviour : Character
     private float avoidSpeed;
     private bool canfall;
     private bool canTriggerFallingCoroutine;
+
+    private bool canFallingMove_x;
+    private bool canFallingMove_z;
 
     //private ParticleSystem jumpParticleSytem;
     // public Transform jumpParticleTransform;
@@ -132,6 +137,7 @@ public class PlayerBehaviour : Character
         attackSystem = GetComponent<AttackSystem>();
         gravity = GetComponent<Gravity>();
         damageCollider = GetComponent<CapsuleCollider>();
+        audioSource = GetComponent<AudioSource>();
         PlayerShader.enabled = false;
 
         gameStageData = GameFacade.GetInstance().gameStageData;
@@ -157,6 +163,8 @@ public class PlayerBehaviour : Character
         attackStateResetToIdle = null;
         inBlackRain = false;
 
+        canFallingMove_x = true;
+        canFallingMove_z = true;
     }
 
     void Update()
@@ -248,10 +256,12 @@ public class PlayerBehaviour : Character
             {
                
                 curMoveSpeed = FixSpeed(moveDirection_Vertical, moveDirection_Horizontal, playerParameter.moveParameter.RunSpeed);
+
                 MoveX = moveAnimation_Horizontal * curMoveSpeed;
-                MoveZ = moveAnimation_Vertical * curMoveSpeed ;
-               
+                MoveZ = moveAnimation_Vertical * curMoveSpeed;
                 playerRigidbody.velocity = transform.rotation * new Vector3(MoveX, playerRigidbody.velocity.y, MoveZ);
+
+             
             }            
         }
     }
@@ -319,6 +329,16 @@ public class PlayerBehaviour : Character
 
             float fallingMoveX = moveDirection_Horizontal * playerParameter.jumpParameter.JumpMoveSpeed;
             float fallingMoveZ = direction_Y * playerParameter.jumpParameter.JumpMoveSpeed;
+
+          /*  if (!canFallingMove_x)
+            {
+                fallingMoveX = 0;
+
+            }
+            if (!canFallingMove_z)
+            {
+                fallingMoveZ = 0;
+            }*/
 
             playerRigidbody.velocity = transform.rotation * new Vector3(fallingMoveX, playerRigidbody.velocity.y, fallingMoveZ);
 
@@ -508,6 +528,7 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Move:        
                 
                 playerState = PlayerState.Move;
+
                 SwitchCollider(0);
                // CanTriggerNextAttack = true;
                 break;
@@ -549,6 +570,7 @@ public class PlayerBehaviour : Character
                 StopResetToIdleState();
                 playerRigidbody.velocity = playerRigidbody.velocity*0.01f;
                 SwitchMove(0);
+             //   Debug.Log(playerState);
                 DetectForceExitAttack();
 
                 break;
@@ -576,6 +598,7 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Damage:
                 playerState = PlayerState.Damage;
                 playerRigidbody.velocity = new Vector3(0, 0, 0);
+                AudioPlay();
 
                 break;
 
@@ -670,6 +693,13 @@ public class PlayerBehaviour : Character
 
             }
         }
+
+    }
+
+    public void AudioPlay()
+    {
+        audioSource.clip = DamageAudioClip;
+        audioSource.Play();
 
     }
 
@@ -776,6 +806,14 @@ public class PlayerBehaviour : Character
     
 
     }
+
+    IEnumerator ForceExitJump()
+    {
+        yield return new WaitUntil(() => playerState != PlayerState.Jump || playerState != PlayerState.DoubleJump);
+
+    }
+
+
     #endregion
 
     #region 攻擊動畫
@@ -859,7 +897,9 @@ public class PlayerBehaviour : Character
 
     IEnumerator detectForceExitAttack()
     {
-        yield return new WaitUntil(() => (playerState != PlayerState.Attack || playerState != PlayerState.Skill));
+      
+        yield return new WaitUntil(() => (playerState & PlayerState.AttackBehaviour)==0);
+        Debug.Log(playerState);
         attackSystem.ForceExitAttack();
 
     }
@@ -928,7 +968,8 @@ public class PlayerBehaviour : Character
 
             case "BlackRain":
                 inBlackRain = true;
-                Debug.Log(other.transform.name);
+                UI_HP.Ui_HP.OpenPoisoningSpot();
+             //   Debug.Log(other.transform.name);
                 StopCoroutine("InBlackRain");
                 StartCoroutine("InBlackRain");
                 break;
@@ -946,47 +987,15 @@ public class PlayerBehaviour : Character
                 break;
 
         }
-
-
-
-
-       /* if (other.CompareTag("EnemyAttack_Small"))
-        {
-            playerAnimator.SetTrigger("Damage");
-            UI_HP.Ui_HP.ConsumeHp(10);
-            
-        }
-        else if (other.CompareTag("BlackRain"))
-        {
-            inBlackRain = true;
-            Debug.Log(other.transform.name);
-            StopCoroutine("InBlackRain");
-            StartCoroutine("InBlackRain");
-        }
-        else if (other.CompareTag("BlackRain_Dead"))
-        {
-            UI_HP.Ui_HP.ConsumeHp(UI_HP.Ui_HP.HP_Max);
-
-
-        }
-        else if (other.CompareTag("Level2"))
-        {
-            MainMenu.mainMenu.LoadGame(5);
-        }
-        else if (other.CompareTag("Bone"))
-        {
-            playerAnimator.SetTrigger("Damage");
-            UI_HP.Ui_HP.ConsumeHp(20);
-        }*/
-      
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("EnemyAttack_Small"))
+        if (other.CompareTag("BlackRain"))
         {
             inBlackRain = false;
         }
+
     }
     
     private bool BlackRainConsumHP()
@@ -994,10 +1003,12 @@ public class PlayerBehaviour : Character
         if (inBlackRain)
         {
             UI_HP.Ui_HP.ConsumeHp(5);
+
             return false;
         }
         else
         {
+
             return true;
 
         }
@@ -1007,6 +1018,7 @@ public class PlayerBehaviour : Character
     IEnumerator InBlackRain()
     {
         yield return new WaitWhile(() => BlackRainConsumHP());
+        UI_HP.Ui_HP.ClosePoisoningSpot();
     }
 
     public void DamageFX(float stopTime)
@@ -1015,13 +1027,13 @@ public class PlayerBehaviour : Character
         {
             case PlayerState.Dead:
                 Time.timeScale = 0.1f;
-                MainCamera_New.mainCamera.CameraShake(0.3f, 0.03f);
+                MainCamera_New.mainCamera.CameraShake(0.3f, 0.08f);
 
                 break;
 
             case PlayerState.Damage:
                 playerAnimator.speed = 0.1f;
-                MainCamera_New.mainCamera.CameraShake(0.1f, 0.06f);
+                MainCamera_New.mainCamera.CameraShake(0.3f, 0.07f);
 
                 break;
         }
@@ -1046,6 +1058,31 @@ public class PlayerBehaviour : Character
 
     }
 
-   
+  /*  private void OnCollisionStay(Collision collision)
+    {
+        if ((playerState & PlayerState.FallingMove) != 0) 
+        {
+            if(playerController.moveDirection_Horizontal!=0 && playerRigidbody.velocity.x == 0)
+            {
+                canFallingMove_x = false;
+            }
 
+            if (playerController.moveDirection_Vertical != 0 && playerRigidbody.velocity.z == 0)
+            {
+                canFallingMove_z = false;
+            }
+
+        }
+
+
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+
+        canFallingMove_x = true;
+        canFallingMove_z = true;
+
+    }
+    */
 }

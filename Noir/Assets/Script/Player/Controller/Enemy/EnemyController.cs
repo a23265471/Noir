@@ -38,7 +38,6 @@ public class EnemyController : MonoBehaviour
    // AnimatorStateInfo animatorStateInfo;
     public static EnemyController enemyController;
     public bool EnemyCanDamage;
-    public UI_FollowEnemy HP;
     private ParticleManager particleManager;
 
  //   public GameObject Enemy_UI;
@@ -82,7 +81,7 @@ public class EnemyController : MonoBehaviour
     public AudioClip AudioClip_Damage;
 
     //----------------Audio----------------
-
+    public UI_FollowEnemy HP;
     public GameObject HP_UI;
     private Image hp_UI;
     public Vector3 Pos_UI;
@@ -341,10 +340,15 @@ public class EnemyController : MonoBehaviour
     {
         enemyState = EnemyState.Damage;
         AttackCollider_Close();
+        audiosource.Stop();
+        audiosource.clip = AudioClip_Damage;
+        audiosource.Play();
         if (ResetStateCoroutine != null)
         {
             StopCoroutine(ResetStateCoroutine);
         }
+        transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
+
     }
 
     public void PlayParticle(string Id)
@@ -377,9 +381,11 @@ public class EnemyController : MonoBehaviour
     //--------------------------Aniamtion Event------------------------------------------
     //---------------------------Collider------------------------------------------------
 
-    public void TriggerDamage(int damageValue)
+    public void TriggerDamage(float damageValue,string AnimatorTrigger)
     {
-        EnemyAnimator.SetTrigger("Damage_Small");
+        EnemyAnimator.SetTrigger(AnimatorTrigger);
+        //Debug.Log("jjj");
+        
         HP.HP -= damageValue;
     }
 
@@ -392,19 +398,19 @@ public class EnemyController : MonoBehaviour
                 EnemyAnimator.SetTrigger("Damage_Big");
                 HP.HP -= 100;
                 break;
-            case "PlayerAttack_Big":
+         /*   case "PlayerAttack_Big":
                 EnemyAnimator.SetTrigger("Damage_Big");
-                HP.HP -= 30;
+                HP.HP -= 20;*/
 
                 break;
-            case "PlayerAttack_Small":
+         /*   case "PlayerAttack_Small":
                 EnemyAnimator.SetTrigger("Damage_Small");
                 HP.HP -= 10;
 
-                break;
+                break;*/
             case "PlayerLongAttack":
                 EnemyAnimator.SetTrigger("Damage_Small");
-                HP.HP -= 30;
+                HP.HP -= 20;
 
                 break;
             case "Bone":
@@ -413,9 +419,8 @@ public class EnemyController : MonoBehaviour
 
                 break;
         }
-        transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
-        audiosource.clip = AudioClip_Damage;
-        audiosource.Play();
+      /*  audiosource.clip = AudioClip_Damage;
+        audiosource.Play();*/
 
       /*  if (other.tag == "PlayerAttack_BigSkill")
         {
@@ -464,10 +469,10 @@ public class EnemyController : MonoBehaviour
         switch (damageState)
         {
             case 0:
-                MainCamera_New.mainCamera.CameraShake(0.05f, 0.05f);
+                MainCamera_New.mainCamera.CameraShake(0.1f, 0.05f);
                 break;
             case 1:
-                MainCamera_New.mainCamera.CameraShake(0.1f, 0.09f);
+                MainCamera_New.mainCamera.CameraShake(0.2f, 0.09f);
 
 
                 break;

@@ -367,6 +367,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 104
         messageOptions: 0
+      - time: 0.1897059
+        functionName: EffectPlay
+        data: MagicleCircle
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.20783484
         functionName: Shooting
         data: 
@@ -390,6 +398,14 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 32
+        messageOptions: 0
+      - time: 0.13358775
+        functionName: AudioPlay
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3

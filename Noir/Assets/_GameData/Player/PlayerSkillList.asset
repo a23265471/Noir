@@ -35,9 +35,10 @@ MonoBehaviour:
       TargetTag: []
     AttackRang: {fileID: 1453074454489688, guid: 17865efee8ebcb44a85447847c07e2e9,
       type: 2}
-    AudioClip_Attack: {fileID: 0}
-    AttackPower: 0
+    AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
+    AttackPower: 10
     Combo: 1
+    DamageAnimator: Damage_Small
   - Name: NormalAttack_2
     Id: 101
     NextAttack:
@@ -63,9 +64,10 @@ MonoBehaviour:
       PenetrateCount: 0
       TargetTag: []
     AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
-    AttackPower: 0
-    Combo: 0
+    AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
+    AttackPower: 10
+    Combo: 1
+    DamageAnimator: Damage_Small
   - Name: NormalAttack_3
     Id: 102
     NextAttack:
@@ -88,9 +90,10 @@ MonoBehaviour:
       PenetrateCount: 0
       TargetTag: []
     AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
-    AttackPower: 0
-    Combo: 0
+    AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
+    AttackPower: 10
+    Combo: 1
+    DamageAnimator: Damage_Small
   - Name: NormalAttack_4
     Id: 103
     NextAttack:
@@ -109,10 +112,12 @@ MonoBehaviour:
       ShootingSpeed: 0
       PenetrateCount: 0
       TargetTag: []
-    AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
-    AttackPower: 0
-    Combo: 0
+    AttackRang: {fileID: 1168439108953170, guid: b7aafc2bba5ee714aa6c54480a5ee254,
+      type: 2}
+    AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
+    AttackPower: 30
+    Combo: 1
+    DamageAnimator: Damage_Big
   - Name: LongAttack
     Id: 104
     NextAttack:
@@ -132,9 +137,10 @@ MonoBehaviour:
       PenetrateCount: 0
       TargetTag: []
     AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
+    AudioClip_Attack: {fileID: 8300000, guid: bbfb8d431d9363948b02aa409808e96c, type: 3}
     AttackPower: 0
     Combo: 0
+    DamageAnimator: Damage_Small
   deputyAttackCollections:
   - Name: Dash=>DashAttack
     DeputyAttack:
@@ -160,6 +166,7 @@ MonoBehaviour:
       AudioClip_Attack: {fileID: 0}
       AttackPower: 0
       Combo: 0
+      DamageAnimator: 
     - Name: Dash=>DashAttack_Right
       Id: 151
       NextAttack:
@@ -182,6 +189,7 @@ MonoBehaviour:
       AudioClip_Attack: {fileID: 0}
       AttackPower: 0
       Combo: 0
+      DamageAnimator: 
     - Name: Dash=>DashAttack_Left
       Id: 152
       NextAttack:
@@ -204,6 +212,7 @@ MonoBehaviour:
       AudioClip_Attack: {fileID: 0}
       AttackPower: 0
       Combo: 0
+      DamageAnimator: 
     - Name: Dash=>DashAttack_ForwardRight
       Id: 153
       NextAttack:
@@ -226,6 +235,7 @@ MonoBehaviour:
       AudioClip_Attack: {fileID: 0}
       AttackPower: 0
       Combo: 0
+      DamageAnimator: 
     - Name: Dash=>DashAttack_ForwardLeft
       Id: 154
       NextAttack:
@@ -248,6 +258,7 @@ MonoBehaviour:
       AudioClip_Attack: {fileID: 0}
       AttackPower: 0
       Combo: 0
+      DamageAnimator: 
     - Name: DashAttack
       Id: 155
       NextAttack: []
@@ -264,9 +275,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 20
+      Combo: 1
+      DamageAnimator: Damage_Big
     - Name: DashAttack_Right
       Id: 156
       NextAttack: []
@@ -283,9 +296,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 20
+      Combo: 1
+      DamageAnimator: Damage_Big
     - Name: DashAttack_Left
       Id: 157
       NextAttack: []
@@ -302,9 +317,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 20
+      Combo: 1
+      DamageAnimator: Damage_Big
     - Name: DashAttack_ForwardRight
       Id: 158
       NextAttack: []
@@ -321,9 +338,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 20
+      Combo: 1
+      DamageAnimator: Damage_Big
     - Name: DashAttack_ForwardLeft
       Id: 159
       NextAttack: []
@@ -340,9 +359,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 20
+      Combo: 1
+      DamageAnimator: Damage_Big
   - Name: Combo1
     DeputyAttack:
     - Name: Combo1_1
@@ -364,9 +385,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 10
+      Combo: 1
+      DamageAnimator: Damage_Small
     - Name: Combo1_2
       Id: 112
       NextAttack: []
@@ -383,9 +406,11 @@ MonoBehaviour:
         PenetrateCount: 0
         TargetTag: []
       AttackRang: {fileID: 0}
-      AudioClip_Attack: {fileID: 0}
-      AttackPower: 0
-      Combo: 0
+      AudioClip_Attack: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac,
+        type: 3}
+      AttackPower: 40
+      Combo: 1
+      DamageAnimator: Damage_Big
   specialAttack:
   - Name: Electric
     Id: 200
@@ -402,10 +427,12 @@ MonoBehaviour:
       ShootingSpeed: 0
       PenetrateCount: 0
       TargetTag: []
-    AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
-    AttackPower: 0
-    Combo: 0
+    AttackRang: {fileID: 1168439108953170, guid: b7aafc2bba5ee714aa6c54480a5ee254,
+      type: 2}
+    AudioClip_Attack: {fileID: 8300000, guid: 6813f7c338cc0b24ea9a22ebe71c4ded, type: 3}
+    AttackPower: 200
+    Combo: 1
+    DamageAnimator: Damage_Big
   - Name: 
     Id: 0
     NextAttack: []
@@ -425,3 +452,4 @@ MonoBehaviour:
     AudioClip_Attack: {fileID: 0}
     AttackPower: 0
     Combo: 0
+    DamageAnimator: 

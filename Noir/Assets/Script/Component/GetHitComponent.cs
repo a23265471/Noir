@@ -5,7 +5,7 @@ using System;
 
 public class GetHitComponent : MonoBehaviour
 {
-    public Action<int> DamageFunction;
+    public Action<float, string> DamageFunction;
     public int GetHitCombo;
 
     private void Start()
@@ -13,14 +13,21 @@ public class GetHitComponent : MonoBehaviour
         GetHitCombo = 0;
     }
 
-    public void TriggerDamage(int DamageInfo)
+    public void TriggerDamage(float DamageInfo, string animatorTrigger)
     {
-        DamageFunction(DamageInfo);
+        DamageFunction(DamageInfo, animatorTrigger);
 
-        Debug.Log("jjj");
 
     }
 
+   /* private void OnTriggerEnter(Collider other)//判斷是否被攻擊
+    {
+        if (other.CompareTag("Attack"))
+        {
+            TriggerDamage(AttackSystem.attackSystem.currentAttackInfo.AttackPower, AttackSystem.attackSystem.currentAttackInfo.DamageAnimator);
 
-	
+
+        }
+
+    }*/
 }

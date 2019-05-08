@@ -41,7 +41,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1649680678166814
 GameObject:
@@ -58,7 +58,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1656834112186282
 GameObject:
@@ -143,7 +143,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4121289310185966
 Transform:
@@ -5092,8 +5092,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 0.8
+      scalar: 2.5
+      minScalar: 1.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6454,8 +6454,8 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -0.5
-      minScalar: -1.5
+      scalar: -0.8
+      minScalar: -2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14325,8 +14325,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 0.8
+      scalar: 1.8
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -18913,7 +18913,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 20
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -18966,7 +18966,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 13
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -19019,7 +19019,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 13
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -23501,7 +23501,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2

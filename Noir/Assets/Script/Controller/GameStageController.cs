@@ -30,8 +30,7 @@ public class GameStageController : MonoBehaviour {
 
     void Start ()
     {
-       
-     
+
     }
 
     void Update()

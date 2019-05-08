@@ -94,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084250634475444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.4719996, y: 0.08899994, z: -0.227}
+  m_LocalPosition: {x: 2.702, y: 0.35000002, z: -0.227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4199548853863162}
@@ -124,7 +124,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609458828987122}
   m_LocalRotation: {x: -0, y: -0.00000008195636, z: -0, w: 1}
-  m_LocalPosition: {x: 2.4720008, y: -0.02000007, z: -0.22700007}
+  m_LocalPosition: {x: 2.702001, y: -0.22, z: -0.22700007}
   m_LocalScale: {x: 1.0000012, y: 1, z: 1.0000012}
   m_Children: []
   m_Father: {fileID: 4199548853863162}
@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381244938007234}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09000022, y: 0.08899994, z: 0.0000000027939677}
+  m_LocalPosition: {x: -0.09000022, y: 0.35, z: 0.0000000027939677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4199548853863162}
@@ -150,7 +150,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576783893976040}
   m_LocalRotation: {x: -0, y: -0.00000008195636, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09, y: -0.02, z: -0}
+  m_LocalPosition: {x: -0.09, y: -0.21999991, z: 0}
   m_LocalScale: {x: 1.0000012, y: 1, z: 1.0000012}
   m_Children: []
   m_Father: {fileID: 4199548853863162}
@@ -174,3 +174,6 @@ MonoBehaviour:
   - OneGroupOfRayCast:
     - {fileID: 4292042472414430}
     - {fileID: 4845703096787298}
+  attackSystem: {fileID: 0}
+  CurrentAttackCombo: 0
+  DamageValue: 0

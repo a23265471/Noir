@@ -17,6 +17,9 @@ public class BoneEnemy : MonoBehaviour {
 
     public GameObject BoneCollider;
 
+    private AudioSource audioSource;
+    
+
     private bool CanAttack;
     private bool isMove;
 
@@ -26,6 +29,7 @@ public class BoneEnemy : MonoBehaviour {
         physicsCollider = GetComponent<SphereCollider>();
         particleManager = GetComponent<ParticleManager>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         //meshRenderer = GetComponent<SkinnedMeshRenderer>();
         enemyInfo = enemyData.enemyInfo;
     }
@@ -83,6 +87,7 @@ public class BoneEnemy : MonoBehaviour {
 
                 }
 
+                transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
                 navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
 
             }
@@ -105,10 +110,12 @@ public class BoneEnemy : MonoBehaviour {
     private void Attack()
     {
         BoneCollider.SetActive(true);
+        PlayAudio();
         particleManager.GetParticle("Bone").Play();
         physicsCollider.enabled = false;
         meshRenderer.SetActive(false);
         navMeshAgent.isStopped = true;
+        DamageFX(1);
         StartCoroutine("CloseBoneCollider");
 
     }
@@ -139,6 +146,39 @@ public class BoneEnemy : MonoBehaviour {
 
 
     }
+    public void PlayAudio()
+    {
+        audioSource.Play();
 
+    }
+
+    public void DamageFX(int damageState)
+    {
+        animator.speed = 0.1f;
+
+        StopCoroutine("DamageStopEffect");
+
+        switch (damageState)
+        {
+            case 0:
+                MainCamera_New.mainCamera.CameraShake(0.05f, 0.05f);
+                break;
+            case 1:
+                MainCamera_New.mainCamera.CameraShake(0.1f, 0.09f);
+
+
+                break;
+        }
+
+        //   damageStopEffect = DamageStopEffect(stopTime);
+        StartCoroutine("DamageStopEffect");
+
+    }
+
+    IEnumerator DamageStopEffect()
+    {
+        yield return new WaitForSeconds(0.004f);//0.006
+        animator.speed = 1f;
+    }
 
 }

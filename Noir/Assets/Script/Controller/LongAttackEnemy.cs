@@ -6,10 +6,11 @@ using UnityEngine.AI;
 
 public class LongAttackEnemy : MonoBehaviour
 {
+    public static LongAttackEnemy longAttackEnemy;
     private EnemyBehaviour enemyBehaviour;
     private NavMeshAgent navMeshAgent;
     public EnemyData enemyData;
-    private EnemyData.MoveInfo enemyMoveInfo;
+    public EnemyData.MoveInfo enemyMoveInfo;
     private EnemyData.AttackDisInfo attackDisInfo;
 
     public float playerDis;
@@ -20,6 +21,7 @@ public class LongAttackEnemy : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyMoveInfo = enemyData.enemyInfo.moveInfo;
         attackDisInfo = enemyData.enemyInfo.attackDisInfo;
+        longAttackEnemy = this;
     }
 
     private void Update()
@@ -29,7 +31,7 @@ public class LongAttackEnemy : MonoBehaviour
 
         if (playerDis <= attackDisInfo.LongAttackDis && PlayerBehaviour.playerBehaviour.playerState != PlayerBehaviour.PlayerState.Dead)  
         {
-            Attack("Attack");
+            //Attack("Attack");
         }
 
 

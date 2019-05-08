@@ -171,8 +171,8 @@ MonoBehaviour:
   HP_Max: 100
   HP: 100
   HP_Light: {fileID: 1678616541276514}
-  Enemy: {fileID: 0}
   enemyController: {fileID: 0}
+  UIOpened: 0
 --- !u!222 &222146695541124990
 CanvasRenderer:
   m_ObjectHideFlags: 1

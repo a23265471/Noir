@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SkillList : ScriptableObject
 {
+  
+
     [System.Serializable]
     public struct AttackParameter
     {
@@ -19,6 +21,7 @@ public class SkillList : ScriptableObject
 
         public float AttackPower;
         public int Combo;
+        public string DamageAnimator;
 
     }
 

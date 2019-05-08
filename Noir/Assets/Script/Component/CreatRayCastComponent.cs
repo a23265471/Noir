@@ -28,16 +28,23 @@ public class CreatRayCastComponent : MonoBehaviour
     }
 
     public GroupOfRayCast[] groupOfRayCast;
+    public AttackSystem attackSystem;
+
 
     public int CurrentAttackCombo;
     public float DamageValue;
     private int HitCombo;
+    private int currentCombo;
     
 
 
     private void Update()
     {
+    }
+    private void FixedUpdate()
+    {
         CreatRaycast();
+
     }
 
 
@@ -56,20 +63,29 @@ public class CreatRayCastComponent : MonoBehaviour
 
                 if (rayHit.transform.GetComponent<GetHitComponent>() != null)
                 {
-                    Debug.Log("hhh");
 
-                   
-                    rayHit.transform.GetComponent<GetHitComponent>().TriggerDamage(10);
-                       
-                    break;
+                    if (currentCombo > 0)
+                    {
+                        currentCombo -= 1;
+                        rayHit.transform.GetComponent<GetHitComponent>().TriggerDamage(attackSystem.currentAttackInfo.AttackPower, attackSystem.currentAttackInfo.DamageAnimator);
+
+                        break;
+                    }
+                    
                 }
-              //  
             }
 
         }
 
         
        
+    }
+
+    public void ResetHitCombo(int currentAttackCombo)
+    {
+        currentCombo = currentAttackCombo;
+
+
     }
 
 }
