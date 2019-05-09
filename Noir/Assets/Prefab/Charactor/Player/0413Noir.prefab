@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 136580534405624094}
   m_Layer: 0
   m_Name: Collider_S
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 136418691377542064}
   m_Layer: 0
   m_Name: Collider_M
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 136268490473688156}
   m_Layer: 0
   m_Name: Collider_Big
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2287,7 +2287,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &65299926420504196
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2831,8 +2831,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.052001953, y: 109.046814, z: -13.711426}
-    m_Extent: {x: 48.523296, y: 55.58023, z: 30.472363}
+    m_Center: {x: 0.051993765, y: 109.046844, z: -13.711403}
+    m_Extent: {x: 48.523323, y: 55.58023, z: 30.472383}
   m_DirtyAABB: 0
 --- !u!137 &137585561775011422
 SkinnedMeshRenderer:
@@ -2878,8 +2878,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 178.65681, z: -8.238647}
-    m_Extent: {x: 7.502857, y: 20.659048, z: 10.90043}
+    m_Center: {x: -0.0000029676594, y: 178.65686, z: -8.23851}
+    m_Extent: {x: 7.5028787, y: 20.659048, z: 10.900486}
   m_DirtyAABB: 0
 --- !u!137 &137627801501134708
 SkinnedMeshRenderer:

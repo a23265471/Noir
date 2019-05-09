@@ -76,8 +76,8 @@ public class BoneEnemy : MonoBehaviour {
 
                     if (CanAttack)
                     {
-                        CanAttack = false;
                         Attack();
+                        Debug.Log("jjj");
                     }
 
                 }
@@ -109,6 +109,7 @@ public class BoneEnemy : MonoBehaviour {
 
     private void Attack()
     {
+        CanAttack = false;
         BoneCollider.SetActive(true);
         PlayAudio();
         particleManager.GetParticle("Bone").Play();

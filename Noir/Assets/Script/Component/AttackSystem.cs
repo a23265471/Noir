@@ -22,7 +22,7 @@ public class AttackSystem : MonoBehaviour
     public GameObject AttackCollider_Big;
     public GameObject AttackCollider_Skill;*/
     public AudioSource audioSource;
-    public AudioClip audioClip;
+ //   public AudioClip audioClip;
     //站存
 
     [System.Serializable]
@@ -169,6 +169,13 @@ public class AttackSystem : MonoBehaviour
                     {
                         createattackRange.GetComponent<CreatRayCastComponent>().attackSystem = this;
                     }
+
+                    if (createattackRange.GetComponent<AttackColliderTrigger>() != null)
+                    {
+                        createattackRange.GetComponent<AttackColliderTrigger>().attackSystem = this;
+
+                    }
+
                     AttackRangeObjectCollection[attackRange[i].ID] = createattackRange;
 
                     AttackRangeObjectCollection[attackRange[i].ID].SetActive(false);
@@ -335,7 +342,7 @@ public class AttackSystem : MonoBehaviour
 
     public void ResetTriggerAttack()
     {
-        if (!isTriggerAttack)
+      /*  if (!isTriggerAttack)
         {
             /*if (detectAttackStateForceExit != null)
             {
@@ -343,7 +350,7 @@ public class AttackSystem : MonoBehaviour
             //    Debug.Log("3. Reset Detect Attack State Force Exit");
 
             }*/
-        }
+        //}
         gravity.StartUseGravity();
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
@@ -363,6 +370,8 @@ public class AttackSystem : MonoBehaviour
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
 
+        AttackRangeObjectCollection[currentAttackInfo.Id].SetActive(false);
+
     }
 
     public void OpenAttackCollider(int ID)
@@ -376,7 +385,12 @@ public class AttackSystem : MonoBehaviour
             AttackRangeObjectCollection[ID].GetComponent<CreatRayCastComponent>().ResetHitCombo(currentAttackInfo.Combo);
 
         }
-        
+
+        if (AttackRangeObjectCollection[ID].GetComponent<AttackColliderTrigger>() != null)
+        {
+            AttackRangeObjectCollection[ID].GetComponent<AttackColliderTrigger>().ResetHitCombo(currentAttackInfo.Combo);
+
+        }
 
     }
 

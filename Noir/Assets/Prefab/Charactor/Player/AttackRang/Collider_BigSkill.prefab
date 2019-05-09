@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33331043580414132}
   - component: {fileID: 23221012319395640}
   - component: {fileID: 135016370784721382}
+  - component: {fileID: 114781733553918032}
   m_Layer: 0
   m_Name: Collider_BigSkill
   m_TagString: PlayerAttack_BigSkill
@@ -84,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1168439108953170}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114781733553918032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1168439108953170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e035093efe2ddb49a2fc532f2e03a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSystem: {fileID: 0}
 --- !u!135 &135016370784721382
 SphereCollider:
   m_ObjectHideFlags: 1

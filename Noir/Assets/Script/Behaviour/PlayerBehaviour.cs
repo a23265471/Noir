@@ -112,13 +112,12 @@ public class PlayerBehaviour : Character
     public GameObject IdlePhysicsCollider;
     public GameObject SmallPhysicsCollider;
     public GameObject MediumPhysicsCollider;
-    private CapsuleCollider damageCollider;
     public float groundedDis;
     private bool ForceMove;
     #endregion
 
     #region 受傷
-
+    private CapsuleCollider damageCollider;
     private string preFx;
     IEnumerator damageStopEffect;
     private bool inBlackRain;
@@ -541,6 +540,7 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.DoubleJump:
                 SwitchCollider(2);
                 jumpCount += 1;
+                //gravity.StopUseGravity();
 
                 playerState = PlayerState.DoubleJump;                  
                 break;
@@ -728,7 +728,6 @@ public class PlayerBehaviour : Character
                 StopCoroutine("StartUseGravity");
 
                 StartCoroutine("StartUseGravity");
-                
              //   StartLandingCheck();
                 
                 break;
@@ -910,12 +909,8 @@ public class PlayerBehaviour : Character
     {
         
         StopCoroutine("DetcetExitDash");
-        PlayerShader.enabled = false;
-       
-      //  Debug.Log("Start");
-        gravity.StartUseGravity();
-        
-        // gravity.StartGroundCheck();
+        PlayerShader.enabled = false;      
+        gravity.StartUseGravity();     
         canfall = true;
         ChangeToIdle(16);     
     }
@@ -926,12 +921,13 @@ public class PlayerBehaviour : Character
 
         yield return new WaitUntil(() => (playerState!=PlayerState.Dash));
 
-    //    Debug.Log("StopExitDash");
 
         PlayerShader.enabled = false;
-        if (!attackSystem.isTriggerAttack)
+        if (!attackSystem.isTriggerAttack && playerState!=PlayerState.DoubleJump)
         {
             gravity.StartUseGravity();
+            Debug.Log(playerState);
+
         }
         canfall = true;
     }
@@ -969,7 +965,7 @@ public class PlayerBehaviour : Character
             case "BlackRain":
                 inBlackRain = true;
                 UI_HP.Ui_HP.OpenPoisoningSpot();
-             //   Debug.Log(other.transform.name);
+                Debug.Log(other.transform.name);
                 StopCoroutine("InBlackRain");
                 StartCoroutine("InBlackRain");
                 break;
@@ -1058,31 +1054,4 @@ public class PlayerBehaviour : Character
 
     }
 
-  /*  private void OnCollisionStay(Collision collision)
-    {
-        if ((playerState & PlayerState.FallingMove) != 0) 
-        {
-            if(playerController.moveDirection_Horizontal!=0 && playerRigidbody.velocity.x == 0)
-            {
-                canFallingMove_x = false;
-            }
-
-            if (playerController.moveDirection_Vertical != 0 && playerRigidbody.velocity.z == 0)
-            {
-                canFallingMove_z = false;
-            }
-
-        }
-
-
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-
-        canFallingMove_x = true;
-        canFallingMove_z = true;
-
-    }
-    */
 }

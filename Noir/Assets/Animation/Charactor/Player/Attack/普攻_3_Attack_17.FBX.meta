@@ -253,14 +253,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 102
         messageOptions: 0
-      - time: 0.10515019
-        functionName: OpenAttackCollider
-        data: 
-        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
-          type: 2}
-        floatParameter: 0
-        intParameter: 100
-        messageOptions: 0
       - time: 0.21182992
         functionName: AudioPlay
         data: 
@@ -268,6 +260,14 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.24339904
+        functionName: OpenAttackCollider
+        data: 
+        objectReferenceParameter: {fileID: 1820110184108066, guid: 0a47d74d4ddea294b8b4297828409ab9,
+          type: 2}
+        floatParameter: 0
+        intParameter: 100
         messageOptions: 0
       - time: 0.25340247
         functionName: TriggerNextAttack

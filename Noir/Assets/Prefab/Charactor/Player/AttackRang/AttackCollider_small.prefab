@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33970799766092718}
   - component: {fileID: 23975361248090514}
   - component: {fileID: 65649191747545760}
+  - component: {fileID: 114165205477797566}
   m_Layer: 0
   m_Name: AttackCollider_small
   m_TagString: PlayerAttack_Small
@@ -96,3 +97,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114165205477797566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123268089592216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e035093efe2ddb49a2fc532f2e03a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSystem: {fileID: 0}

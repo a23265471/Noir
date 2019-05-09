@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7defb85d1712b4e9028f790e27fd54, type: 3}
+  m_Name: ShortAttackEnemy
+  m_EditorClassIdentifier: 
+  normalAttack:
+  - Name: Attack_1
+    Id: 1
+    NextAttack:
+    - Name: Attack_2
+      AnimatorTriggerName: Attack2
+      keyCode: 0
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 0
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
+      PenetrateCount: 0
+      TargetTag: []
+    AttackRang: {fileID: 1285161327360772, guid: 6b99b69354fd6a54d973b76df778f73d,
+      type: 2}
+    AudioClip_Attack: {fileID: 0}
+    AttackPower: 20
+    Combo: 1
+    DamageAnimator: Damage
+  - Name: Attack_2
+    Id: 2
+    NextAttack:
+    - Name: Attack_3
+      AnimatorTriggerName: Attack3
+      keyCode: 0
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 0
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
+      PenetrateCount: 0
+      TargetTag: []
+    AttackRang: {fileID: 0}
+    AudioClip_Attack: {fileID: 0}
+    AttackPower: 20
+    Combo: 1
+    DamageAnimator: Damage
+  - Name: Attack_3
+    Id: 3
+    NextAttack: []
+    moveInfo:
+      MoveSpeed: 0
+      MoveDistance: 0
+      MoveDirection_X: 0
+      MoveDirection_Y: 0
+      MoveDirection_Z: 0
+      UseGravity: 0
+    shootingInfo:
+      MaxDistance: 0
+      ShootingSpeed: 0
+      PenetrateCount: 0
+      TargetTag: []
+    AttackRang: {fileID: 0}
+    AudioClip_Attack: {fileID: 0}
+    AttackPower: 30
+    Combo: 1
+    DamageAnimator: Damage
+  deputyAttackCollections: []
+  specialAttack: []
