@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Gravity))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ObjectPoolManager))]
 
@@ -53,8 +52,13 @@ public class AttackSystem : MonoBehaviour
     {
         CreateAttackCollection();
         animator = GetComponent<Animator>();
-      //  animationHash = GetComponent<AnimationHash>();
-        gravity = GetComponent<Gravity>();
+        //  animationHash = GetComponent<AnimationHash>();
+
+        if (GetComponent<Gravity>()!=null)
+        {
+            gravity = GetComponent<Gravity>();
+
+        }
         audioSource = GetComponent<AudioSource>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
 
@@ -235,11 +239,15 @@ public class AttackSystem : MonoBehaviour
     {
         currentAttackInfo = AttackCollection[Id];
 
-        if (!currentAttackInfo.moveInfo.UseGravity)
+        if (gravity != null)
         {
-           // Debug.Log("Stop Use Gravity");
-            gravity.StopUseGravity();
+            if (!currentAttackInfo.moveInfo.UseGravity)
+            {
+                // Debug.Log("Stop Use Gravity");
+                gravity.StopUseGravity();
+            }
         }
+       
     }
 
     public void TriggerNextAttack()
@@ -342,16 +350,21 @@ public class AttackSystem : MonoBehaviour
 
     public void ResetTriggerAttack()
     {
-      /*  if (!isTriggerAttack)
-        {
-            /*if (detectAttackStateForceExit != null)
-            {
-                StopCoroutine(detectAttackStateForceExit);
-            //    Debug.Log("3. Reset Detect Attack State Force Exit");
+        /*  if (!isTriggerAttack)
+          {
+              /*if (detectAttackStateForceExit != null)
+              {
+                  StopCoroutine(detectAttackStateForceExit);
+              //    Debug.Log("3. Reset Detect Attack State Force Exit");
 
-            }*/
+              }*/
         //}
-        gravity.StartUseGravity();
+
+        if (gravity != null)
+        {
+            gravity.StartUseGravity();
+
+        }
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
     }

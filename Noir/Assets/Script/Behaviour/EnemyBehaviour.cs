@@ -5,40 +5,56 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 
-public class EnemyBehaviour : MonoBehaviour {
+public class EnemyBehaviour : Character
+{
 
     public enum EnemyState
     {
+//Idle = 0x01,
         Move = 0x01,
         Attack = 0x02,
         Skill = 0x04,
         Damage = 0x08,
         Dead = 0x10,
 
+        
         CanAttack = Move | Attack,
 
     }
 
     public EnemyState enemyState;
 
+    #region Data
+    public EnemyData enemyData;
+    private EnemyData.EnemyInfo enemyInfo;
+    public Dictionary<int, EnemyData.AttackDisInfo> AttackDisInfoCollection;
 
+    #endregion
+
+    #region Component
     private Animator animator;
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     private AttackSystem attackSystem;
     private ObjectPoolManager objectPoolManager;
     private ParticleManager particleManager;
     private GetHitComponent getHitComponent;
     private AudioSource audiosource;
+    private Rigidbody rigidbody;
+    #endregion
 
+    #region UI
     public UI_FollowEnemy HP;
     public GameObject HP_UI;
     private Image hp_UI;
     public Vector3 Pos_UI;
+    #endregion
 
     public Transform ShootingStartPos;
 
     private string preParticle;
     private bool isMove;
+    private float animationBlendTreeControllValue;
+    public float disWithPlayer;
 
     private void Awake()
     {
@@ -48,6 +64,10 @@ public class EnemyBehaviour : MonoBehaviour {
         objectPoolManager = GetComponent<ObjectPoolManager>();
         getHitComponent = GetComponent<GetHitComponent>();
         audiosource = GetComponent<AudioSource>();
+        rigidbody = GetComponent<Rigidbody>();
+        enemyInfo = enemyData.enemyInfo;
+        CreatAttackDisInfoCollection();
+
     }
 
     void Start ()
@@ -59,37 +79,76 @@ public class EnemyBehaviour : MonoBehaviour {
         HP = hp_UI.GetComponent<UI_FollowEnemy>();
         HP.CloseUI();
         getHitComponent.DamageFunction = Damage;
-
+        animationBlendTreeControllValue = 0;
     }
 
     void Update ()
     {
         transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+        disWithPlayer = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
 
-
-        if (LongAttackEnemy.longAttackEnemy.playerDis <= LongAttackEnemy.longAttackEnemy.enemyMoveInfo.ChaseDis && !HP.UIOpened)
-        {
-            HP.OpenUI();
-        }
-        else if (LongAttackEnemy.longAttackEnemy.playerDis > LongAttackEnemy.longAttackEnemy.enemyMoveInfo.ChaseDis)
-        {
-            HP.CloseUI();
-        }
-
-        if (HP.UIOpened)
-        {
-            hp_UI.transform.position = MainCamera_New.mainCamera.camera.WorldToScreenPoint(transform.position + Pos_UI);
-
-        }
+        
     }
 
-    public void Move(float acceleration)
+    private void CreatAttackDisInfoCollection()
     {
-        navMeshAgent.acceleration = acceleration;
-        navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
+        AttackDisInfoCollection = new Dictionary<int, EnemyData.AttackDisInfo>();
+        for (int i = 0; i < enemyInfo.attackDisInfo.Length; i++)
+        {
+            AttackDisInfoCollection[enemyInfo.attackDisInfo[i].ID] = enemyInfo.attackDisInfo[i];
+
+        }
+
     }
 
-    public void SlowDownSpeed(float acceleration)
+    public void AnimationControll(string animationTrigger,float targetValue,float animationacceleration)
+    {
+
+
+        AnimationBlendTreeControll(animator, animationTrigger, targetValue,ref animationBlendTreeControllValue, animationacceleration);
+      //  animator.SetFloat(animationTrigger, animationacceleration);
+            
+    }
+
+    public void Move()
+    {
+        // navMeshAgent.acceleration = acceleration;    
+        navMeshAgent.isStopped = false;
+
+        if (enemyState == EnemyState.Move)
+        {
+            if (disWithPlayer < enemyInfo.moveInfo.ChaseDis)
+            {
+                if (disWithPlayer > navMeshAgent.stoppingDistance + enemyInfo.moveInfo.BufferDis)
+                {
+
+                    AnimationControll("MoveState", 1, 0.2f);
+
+                    //Move(enemyInfo.moveInfo.Acceleration);
+                    ChageSpeed(enemyInfo.moveInfo.Acceleration);
+                    navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
+                }
+                else if (disWithPlayer <= navMeshAgent.stoppingDistance + enemyInfo.moveInfo.BufferDis && disWithPlayer > navMeshAgent.stoppingDistance)
+                {
+                    ChageSpeed(enemyInfo.moveInfo.Acceleration);
+                    navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
+                    AnimationControll("MoveState", 1, 0.2f);
+
+                }
+                else if (disWithPlayer <= navMeshAgent.stoppingDistance)
+                {
+
+                    AnimationControll("MoveState", 0, 0.2f);
+
+                    StopMove();
+                }
+
+            }
+        }
+        
+    }
+
+    public void ChageSpeed(float acceleration)
     {
         navMeshAgent.acceleration = acceleration;
     }
@@ -98,13 +157,17 @@ public class EnemyBehaviour : MonoBehaviour {
     {
         navMeshAgent.acceleration = 0;
         navMeshAgent.velocity = new Vector3(0, 0, 0);
+        navMeshAgent.isStopped = true;
     }
 
     public void Attack(string animatorTrigger)
     {
 
-        attackSystem.Attack(animatorTrigger);
-        attackSystem.GetShtooingTargetPos = ShootingTargetPos;
+        /*if (Random.Range(0, 1000) < AttackDisInfoCollection[1].AttackProbability)
+        {
+            attackSystem.Attack(animatorTrigger);
+            //attackSystem.GetShtooingTargetPos = ShootingTargetPos;
+        }        */
     }
 
     private Vector3 ShootingTargetPos(int bulletID)
@@ -127,6 +190,8 @@ public class EnemyBehaviour : MonoBehaviour {
         DamageFX(1);
     }
 
+    #region AniamtionEvent
+
     public void SwitchState(int Enemystate)
     {
         switch (Enemystate)
@@ -140,7 +205,7 @@ public class EnemyBehaviour : MonoBehaviour {
             case (int)EnemyState.Attack:
                 enemyState = EnemyState.Attack;
 
-
+                DetectForceExitAttack();
                 break;
 
             case (int)EnemyState.Damage:
@@ -158,6 +223,76 @@ public class EnemyBehaviour : MonoBehaviour {
 
 
     }
+
+
+    #region Attack
+
+    public void ResetToIdleState(int currentState)
+    {
+        StopCoroutine("detectForceExitAttack");
+
+     /*   if (attackStateResetToIdle != null)
+        {
+            StopCoroutine(attackStateResetToIdle);
+
+        }
+        attackStateResetToIdle = resetToIdleState(currentState);*/
+        StartCoroutine("resetToIdleState");
+
+
+
+    }
+
+    IEnumerator resetToIdleState()
+    {
+
+        yield return new WaitUntil(() => !attackSystem.IsAttack);
+
+        SwitchState(1);
+
+
+
+      //  ForceMove = false;
+
+    }
+
+
+    public void AttackDisplacement(int AttackId)
+    {
+        //  Debug.Log("Attack hhh");
+        if (enemyState == EnemyState.Attack)
+        {
+            Displacement(rigidbody,
+               transform.rotation,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveSpeed,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDistance,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_X,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_Y,
+               attackSystem.AttackCollection[AttackId].moveInfo.MoveDirection_Z
+               );
+        }
+    }
+
+    public void DetectForceExitAttack()
+    {
+        StopCoroutine("detectForceExitAttack");
+        StartCoroutine("detectForceExitAttack");
+
+    }
+
+    IEnumerator detectForceExitAttack()
+    {
+
+        yield return new WaitUntil(() => (enemyState & EnemyState.Attack) == 0);
+       // Debug.Log(playerState);
+        attackSystem.ForceExitAttack();
+
+    }
+
+
+    #endregion
+
+
 
     public void DamageFX(int damageState)
     {
@@ -209,4 +344,6 @@ public class EnemyBehaviour : MonoBehaviour {
 
 
     }
+
+    #endregion
 }

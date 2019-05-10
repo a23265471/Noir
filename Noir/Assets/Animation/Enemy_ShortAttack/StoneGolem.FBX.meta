@@ -164,7 +164,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Avatar Rig Configuration mis-match. Inbetween bone rotation
       in configuration does not match rotation in animation file:\n\t'StoneRigChest'
-      : rotation error = 6.546916 deg\n\t'StoneRigLArmForearm2' : rotation error =
+      : rotation error = 6.546917 deg\n\t'StoneRigLArmForearm2' : rotation error =
       0.443147 deg\n\t'StoneRigRArmForearm2' : rotation error = 14.659982 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -848,43 +848,35 @@ ModelImporter:
           rotationOrder: 4
       events:
       - time: 0
-        functionName: SetAttackState
+        functionName: SwitchState
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.5158832
-        functionName: AttackCollider_Open
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.7200001
-        functionName: AttackCollider_Close
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.875576
-        functionName: Attack
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 1
-        functionName: EnemyChangToIdle
+      - time: 0
+        functionName: GetAttackInfo
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
-          type: 3}
-        floatParameter: 0.1
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.9280823
+        functionName: EndOfAttack
+        data: 
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.91095906
+        functionName: ResetToIdleState
+        data: 
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask:

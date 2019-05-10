@@ -11,7 +11,7 @@ public class LongAttackEnemy : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     public EnemyData enemyData;
     public EnemyData.MoveInfo enemyMoveInfo;
-    private EnemyData.AttackDisInfo attackDisInfo;
+   // private EnemyData.AttackDisInfo attackDisInfo;
 
     public float playerDis;
 
@@ -20,7 +20,7 @@ public class LongAttackEnemy : MonoBehaviour
         enemyBehaviour = GetComponent<EnemyBehaviour>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyMoveInfo = enemyData.enemyInfo.moveInfo;
-        attackDisInfo = enemyData.enemyInfo.attackDisInfo;
+       // attackDisInfo = enemyData.enemyInfo.attackDisInfo;
         longAttackEnemy = this;
     }
 
@@ -29,18 +29,18 @@ public class LongAttackEnemy : MonoBehaviour
         playerDis = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
 
 
-        if (playerDis <= attackDisInfo.LongAttackDis && PlayerBehaviour.playerBehaviour.playerState != PlayerBehaviour.PlayerState.Dead)  
+      /*  if (playerDis <= attackDisInfo.LongAttackDis && PlayerBehaviour.playerBehaviour.playerState != PlayerBehaviour.PlayerState.Dead)  
         {
             //Attack("Attack");
         }
-
+        */
 
 
     }
     
     private void Move()
     {
-        enemyBehaviour.Move(enemyMoveInfo.Acceleration);
+       // enemyBehaviour.Move(enemyMoveInfo.Acceleration);
 
 
 
