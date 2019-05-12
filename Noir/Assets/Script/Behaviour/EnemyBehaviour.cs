@@ -38,14 +38,14 @@ public class EnemyBehaviour : Character
     private ObjectPoolManager objectPoolManager;
     private ParticleManager particleManager;
     private GetHitComponent getHitComponent;
-    private AudioSource audiosource;
+    private CapsuleCollider capsuleCollider;
     private Rigidbody rigidbody;
     #endregion
 
     #region UI
     public UI_FollowEnemy HP;
     public GameObject HP_UI;
-    private Image hp_UI;
+    public Image hp_UI;
     public Vector3 Pos_UI;
     #endregion
 
@@ -56,6 +56,9 @@ public class EnemyBehaviour : Character
     private float animationBlendTreeControllValue;
     public float disWithPlayer;
 
+
+   // public AudioClip DamageClip;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -63,8 +66,10 @@ public class EnemyBehaviour : Character
         attackSystem = GetComponent<AttackSystem>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
         getHitComponent = GetComponent<GetHitComponent>();
-        audiosource = GetComponent<AudioSource>();
+        //audiosource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
+        particleManager = GetComponent<ParticleManager>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         enemyInfo = enemyData.enemyInfo;
         CreatAttackDisInfoCollection();
 
@@ -84,7 +89,7 @@ public class EnemyBehaviour : Character
 
     void Update ()
     {
-        transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+      //  transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
         disWithPlayer = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
 
         
@@ -103,16 +108,12 @@ public class EnemyBehaviour : Character
 
     public void AnimationControll(string animationTrigger,float targetValue,float animationacceleration)
     {
-
-
         AnimationBlendTreeControll(animator, animationTrigger, targetValue,ref animationBlendTreeControllValue, animationacceleration);
-      //  animator.SetFloat(animationTrigger, animationacceleration);
             
     }
 
     public void Move()
     {
-        // navMeshAgent.acceleration = acceleration;    
         navMeshAgent.isStopped = false;
 
         if (enemyState == EnemyState.Move)
@@ -126,11 +127,16 @@ public class EnemyBehaviour : Character
 
                     //Move(enemyInfo.moveInfo.Acceleration);
                     ChageSpeed(enemyInfo.moveInfo.Acceleration);
+                    transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+
                     navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
+
                 }
                 else if (disWithPlayer <= navMeshAgent.stoppingDistance + enemyInfo.moveInfo.BufferDis && disWithPlayer > navMeshAgent.stoppingDistance)
                 {
                     ChageSpeed(enemyInfo.moveInfo.Acceleration);
+                    transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+
                     navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
                     AnimationControll("MoveState", 1, 0.2f);
 
@@ -163,11 +169,13 @@ public class EnemyBehaviour : Character
     public void Attack(string animatorTrigger)
     {
 
-        /*if (Random.Range(0, 1000) < AttackDisInfoCollection[1].AttackProbability)
+        if (Random.Range(0, 1000) < AttackDisInfoCollection[1].AttackProbability)
         {
+            transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+
             attackSystem.Attack(animatorTrigger);
             //attackSystem.GetShtooingTargetPos = ShootingTargetPos;
-        }        */
+        }        
     }
 
     private Vector3 ShootingTargetPos(int bulletID)
@@ -178,17 +186,18 @@ public class EnemyBehaviour : Character
     public void TriggerDamage(float damageValue,string animatortrigger)
     {
         animator.SetTrigger(animatortrigger);
-        audiosource.Stop();
+      //  audiosource.Stop();
       //  audiosource.clip = AudioClip_Damage;
-        audiosource.Play();
+       // audiosource.Play();
     }
 
     public void Dead()
     {
         animator.SetTrigger("Dead");
         SwitchState(16);
-        DamageFX(1);
+        capsuleCollider.enabled = false;
     }
+
 
     #region AniamtionEvent
 
@@ -210,18 +219,31 @@ public class EnemyBehaviour : Character
 
             case (int)EnemyState.Damage:
                 enemyState = EnemyState.Damage;
-
+              
 
                 break;
 
             case (int)EnemyState.Dead:
                 enemyState = EnemyState.Dead;
-
+                
 
                 break;
         }
 
 
+    }
+
+    /* public void AudioPlay()
+     {
+        // audiosource.clip = DamageClip;
+         audiosource.Play();
+
+     }*/
+
+    public void EnemyDisplacement(float dis)
+    {
+        Debug.Log("move");
+        Displacement(rigidbody, transform.rotation, 30, dis, 0, 0, -1);
     }
 
 
@@ -292,7 +314,7 @@ public class EnemyBehaviour : Character
 
     #endregion
 
-
+    #region Damage
 
     public void DamageFX(int damageState)
     {
@@ -303,10 +325,10 @@ public class EnemyBehaviour : Character
         switch (damageState)
         {
             case 0:
-                MainCamera_New.mainCamera.CameraShake(0.08f, 0.05f);
+                MainCamera_New.mainCamera.CameraShake(0.1f, 0.05f);
                 break;
             case 1:
-                MainCamera_New.mainCamera.CameraShake(0.1f, 0.09f);
+                MainCamera_New.mainCamera.CameraShake(0.25f, 0.1f);
 
 
                 break;
@@ -319,7 +341,7 @@ public class EnemyBehaviour : Character
 
     IEnumerator DamageStopEffect()
     {
-        yield return new WaitForSeconds(0.004f);//0.006
+        yield return new WaitForSeconds(0.1f);//0.006
         animator.speed = 1f;
     }
 
@@ -345,5 +367,18 @@ public class EnemyBehaviour : Character
 
     }
 
+    public void DeadDestroyGame()
+    {
+        StartCoroutine("DestroyGameObject");
+        HP.DestroyUI();
+    }
+
+    IEnumerator DestroyGameObject()
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+    }
+
+    #endregion
     #endregion
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e61f8e47af59a44a288f937499e307, type: 3}
+  m_Name: PlayerAudio
+  m_EditorClassIdentifier: 
+  audioInfo:
+  - Name: Damage
+    ID: 1
+    audioClip: {fileID: 8300000, guid: 0dae5e18f394ea64ea9aa1915b8794eb, type: 3}
+  - Name: ShortAttack
+    ID: 2
+    audioClip: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
+  - Name: LongAttack
+    ID: 3
+    audioClip: {fileID: 8300000, guid: bbfb8d431d9363948b02aa409808e96c, type: 3}
+  - Name: BigSkill
+    ID: 4
+    audioClip: {fileID: 8300000, guid: 6813f7c338cc0b24ea9a22ebe71c4ded, type: 3}

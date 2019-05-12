@@ -792,6 +792,7 @@ GameObject:
   - component: {fileID: 114549614526464614}
   - component: {fileID: 114805337864603254}
   - component: {fileID: 114793806904041598}
+  - component: {fileID: 114621141521979948}
   m_Layer: 0
   m_Name: 0413Noir
   m_TagString: Player
@@ -2454,7 +2455,6 @@ MonoBehaviour:
   playerState: 0
   PlayerShader: {fileID: 114411213000539836}
   gravity: {fileID: 0}
-  DamageAudioClip: {fileID: 8300000, guid: 0dae5e18f394ea64ea9aa1915b8794eb, type: 3}
   cameraLookAt: {fileID: 4542479462287524}
   GetWeaponHand: {fileID: 4057991969827118}
   WeaponPos: {fileID: 4336079125872676}
@@ -2505,6 +2505,18 @@ MonoBehaviour:
     m_RotationOrder: 4
   GravityPerIntervalTime: 0.04
   groundCheck: {fileID: 114818982675542486}
+--- !u!114 &114621141521979948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820110184108066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538b3f156d7be204bae5b4ff7fe8090b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerAudioInfo: {fileID: 11400000, guid: 6d1ccaaac1ea9b641b0a147bcab6694d, type: 2}
 --- !u!114 &114686150451500790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2582,8 +2594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList: {fileID: 11400000, guid: e15f01fa6b1c6424b8647f38471892c1, type: 2}
   objectPoolManager: {fileID: 0}
-  audioSource: {fileID: 0}
-  audioClip: {fileID: 8300000, guid: 777a03c44a9602e4d897305c5bd46aac, type: 3}
   longAttackAimTartgetPos: {x: 0, y: 0, z: 0}
   CanTriggerNextAttack: 0
   isTriggerAttack: 0
@@ -2831,8 +2841,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.051993765, y: 109.046844, z: -13.711403}
-    m_Extent: {x: 48.523323, y: 55.58023, z: 30.472383}
+    m_Center: {x: 0.052001953, y: 109.046814, z: -13.711426}
+    m_Extent: {x: 48.523296, y: 55.58023, z: 30.472363}
   m_DirtyAABB: 0
 --- !u!137 &137585561775011422
 SkinnedMeshRenderer:
@@ -2878,8 +2888,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.0000029676594, y: 178.65686, z: -8.23851}
-    m_Extent: {x: 7.5028787, y: 20.659048, z: 10.900486}
+    m_Center: {x: 0, y: 178.65681, z: -8.238647}
+    m_Extent: {x: 7.5028563, y: 20.659048, z: 10.90043}
   m_DirtyAABB: 0
 --- !u!137 &137627801501134708
 SkinnedMeshRenderer:

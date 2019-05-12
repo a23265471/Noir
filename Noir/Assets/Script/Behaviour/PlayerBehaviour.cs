@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class PlayerBehaviour : Character
 {
@@ -67,8 +66,8 @@ public class PlayerBehaviour : Character
    // public GameObject GroundCheckObject;
     public Gravity gravity;
 
-    private AudioSource audioSource;
-    public AudioClip DamageAudioClip;
+
+   
 
     IEnumerator attackStateResetToIdle;
 
@@ -136,7 +135,6 @@ public class PlayerBehaviour : Character
         attackSystem = GetComponent<AttackSystem>();
         gravity = GetComponent<Gravity>();
         damageCollider = GetComponent<CapsuleCollider>();
-        audioSource = GetComponent<AudioSource>();
         PlayerShader.enabled = false;
 
         gameStageData = GameFacade.GetInstance().gameStageData;
@@ -220,6 +218,7 @@ public class PlayerBehaviour : Character
 
     }
 
+   
     #endregion
 
     #region 移動
@@ -456,6 +455,21 @@ public class PlayerBehaviour : Character
 
     }
 
+    public void AttackTimeScaleEffect()
+    {
+        StopCoroutine("attackTimeScaleEffect");
+        StartCoroutine("attackTimeScaleEffect");
+    }
+
+    IEnumerator attackTimeScaleEffect()
+    {
+        playerAnimator.speed = 0.1f;
+
+        yield return new WaitForSeconds(0.05f);
+        playerAnimator.speed = 1;
+
+    }
+
     #endregion
 
     #region 衝刺
@@ -598,7 +612,6 @@ public class PlayerBehaviour : Character
             case (int)PlayerState.Damage:
                 playerState = PlayerState.Damage;
                 playerRigidbody.velocity = new Vector3(0, 0, 0);
-                AudioPlay();
 
                 break;
 
@@ -614,7 +627,6 @@ public class PlayerBehaviour : Character
         preFx = Id;
         ParticlePlay(particleManager.GetParticle(Id));
     }
-
 
     public void SwitchMove(int onOff)
     {
@@ -696,12 +708,7 @@ public class PlayerBehaviour : Character
 
     }
 
-    public void AudioPlay()
-    {
-        audioSource.clip = DamageAudioClip;
-        audioSource.Play();
-
-    }
+   
 
     #region 跳躍動畫
     public void AddForce(int JumpState)
@@ -863,7 +870,7 @@ public class PlayerBehaviour : Character
         yield return new WaitUntil(() => !attackSystem.IsAttack);
 
         ChangeToIdle(currentState);
-
+       // Debug.Log("tttttt");
        
 
         ForceMove = false;

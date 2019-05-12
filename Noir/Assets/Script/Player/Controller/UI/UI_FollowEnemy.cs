@@ -27,9 +27,10 @@ public class UI_FollowEnemy : MonoBehaviour {
 
         HP_Light.transform.localPosition = new Vector3(-298f + (HP / HP_Max * 298f), 0, 0);
 
-        if (HP <= 0 && enemyController.enemyState != EnemyController.EnemyState.Dead) 
+        if (HP <= 0 && enemyBehaviour.enemyState != EnemyBehaviour.EnemyState.Dead) 
         {
-            enemyController.Dead();
+            enemyBehaviour.Dead();
+            CloseUI();
         }
 	}
 
@@ -48,6 +49,7 @@ public class UI_FollowEnemy : MonoBehaviour {
 
     public void DestroyUI()
     {
+
         Destroy(gameObject);
     }
 

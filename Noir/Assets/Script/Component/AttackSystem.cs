@@ -16,14 +16,6 @@ public class AttackSystem : MonoBehaviour
     public Dictionary<int, GameObject> AttackRangeObjectCollection;
     public ObjectPoolManager objectPoolManager;
 
-    //站存
- /* public GameObject AttackCollider_Small;
-    public GameObject AttackCollider_Big;
-    public GameObject AttackCollider_Skill;*/
-    public AudioSource audioSource;
- //   public AudioClip audioClip;
-    //站存
-
     [System.Serializable]
     public struct AttackRang
     {
@@ -46,40 +38,33 @@ public class AttackSystem : MonoBehaviour
     public SkillList.AttackParameter currentAttackInfo;
     public AttackRang[] attackRange;
 
-  //  IEnumerator detectAttackStateForceExit;
 
     private void Awake()
     {
         CreateAttackCollection();
         animator = GetComponent<Animator>();
-        //  animationHash = GetComponent<AnimationHash>();
 
         if (GetComponent<Gravity>()!=null)
         {
             gravity = GetComponent<Gravity>();
 
         }
-        audioSource = GetComponent<AudioSource>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
 
     }
 
     void Start()
     {
-       // detectAttackStateForceExit = null;
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
         IsAttack = false;
 
-        /*   AttackCollider_Small.SetActive(false);
-           AttackCollider_Big.SetActive(false);*/
-        // AttackCollider_Skill.SetActive(false);
+       
     }
 
 
     private void Update()
     {
-      //  Debug.DrawLine(transform.position, MainCamera_New.mainCamera.transform.forward * AttackCollection[104].shootingInfo.MaxDistance, Color.red);
 
     }
    
@@ -177,7 +162,6 @@ public class AttackSystem : MonoBehaviour
                     if (createattackRange.GetComponent<AttackColliderTrigger>() != null)
                     {
                         createattackRange.GetComponent<AttackColliderTrigger>().attackSystem = this;
-
                     }
 
                     AttackRangeObjectCollection[attackRange[i].ID] = createattackRange;
@@ -214,6 +198,8 @@ public class AttackSystem : MonoBehaviour
             CanTriggerNextAttack = false;
             isTriggerAttack = true;
             IsAttack = true;
+
+            Debug.Log("Attack");
         }
 
     }
@@ -222,6 +208,8 @@ public class AttackSystem : MonoBehaviour
     {
         GameObject bullet;
         bullet = objectPoolManager.GetObjectPool(Bullet_ID);
+        bullet.GetComponent<AttackColliderTrigger>().attackSystem = this;
+        bullet.GetComponent<AttackColliderTrigger>().ResetHitCombo(currentAttackInfo.Combo);
         longAttackAimTartgetPos = GetShtooingTargetPos(Bullet_ID);
 
 
@@ -304,6 +292,7 @@ public class AttackSystem : MonoBehaviour
 
     public void StartTriggerNextAnimation()
     {
+        StopTriggerNextAttack();
         if (isTriggerAttack)
         {
             StopCoroutine("triggerNextAnimation");
@@ -334,10 +323,15 @@ public class AttackSystem : MonoBehaviour
         */
         Debug.Log("3. Reset Detect Attack State Force Exit");
 
+        /* if (!isTriggerAttack)
+         {*/
+           
+            IsAttack = false;
+
+       //  }
+
         StopDetectInput();
         ResetTriggerAttack();
-        IsAttack = false;
-
     }
 
     public void StopDetectInput()
@@ -418,13 +412,13 @@ public class AttackSystem : MonoBehaviour
 
     }
 
-    public void AudioPlay()
+   /* public void AudioPlay()
     {
         audioSource.clip = currentAttackInfo.AudioClip_Attack;
         audioSource.Play();
 
     }
-
+    */
 
     #endregion
 

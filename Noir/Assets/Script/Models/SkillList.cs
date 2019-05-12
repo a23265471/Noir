@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SkillList : ScriptableObject
 {
-  
-
     [System.Serializable]
     public struct AttackParameter
     {
@@ -17,7 +15,7 @@ public class SkillList : ScriptableObject
         public Shooting shootingInfo;
 
         public GameObject AttackRang;
-        public AudioClip AudioClip_Attack;
+        //public AudioClip AudioClip_Attack;
 
         public float AttackPower;
         public int Combo;

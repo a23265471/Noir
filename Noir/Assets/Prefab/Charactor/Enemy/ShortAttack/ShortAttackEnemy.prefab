@@ -333,22 +333,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1591167869293170
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4505418986786080}
-  - component: {fileID: 65887212597818210}
-  m_Layer: 11
-  m_Name: EnemyAttack_L_Collider
-  m_TagString: EnemyAttack_Small
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1617512306461522
 GameObject:
   m_ObjectHideFlags: 1
@@ -500,6 +484,7 @@ GameObject:
   - component: {fileID: 4282689616120090}
   - component: {fileID: 95919847933133888}
   - component: {fileID: 136076893937475528}
+  - component: {fileID: 54564716455431094}
   - component: {fileID: 195529905528168106}
   - component: {fileID: 114472074389025294}
   - component: {fileID: 114137432969576976}
@@ -508,9 +493,10 @@ GameObject:
   - component: {fileID: 114443003801797110}
   - component: {fileID: 82049304777270462}
   - component: {fileID: 114653440385647470}
+  - component: {fileID: 114596007679971698}
   m_Layer: 0
   m_Name: ShortAttackEnemy
-  m_TagString: TeachEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -601,7 +587,7 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 0.9999999, z: 1.0000001}
   m_Children: []
   m_Father: {fileID: 4135960358513670}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4135960358513670
 Transform:
@@ -614,7 +600,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1.0000004, z: 1.0000001}
   m_Children:
   - {fileID: 4951599272594252}
-  - {fileID: 4505418986786080}
   - {fileID: 4087545689774938}
   - {fileID: 4990058495666750}
   m_Father: {fileID: 4472920228018152}
@@ -786,24 +771,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1771582318243534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.4, z: 1.82}
+  m_LocalPosition: {x: 0, y: 1.86, z: 1.82}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 4282689616120090}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4505418986786080
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1591167869293170}
-  m_LocalRotation: {x: 0.051281933, y: -0.29570574, z: -0.2663553, w: 0.9159603}
-  m_LocalPosition: {x: 0.26, y: -0.23, z: -0.19}
-  m_LocalScale: {x: 2.8571444, y: 2.8571444, z: 2.8571427}
-  m_Children: []
-  m_Father: {fileID: 4135960358513670}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4525786614843724
 Transform:
@@ -867,7 +839,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1282888459027792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.61, z: 1.81}
+  m_LocalPosition: {x: 0, y: 1.92, z: 1.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4282689616120090}
@@ -1095,7 +1067,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4135960358513670}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4993313120769712
 Transform:
@@ -1110,18 +1082,21 @@ Transform:
   m_Father: {fileID: 4651738331179134}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65887212597818210
-BoxCollider:
+--- !u!54 &54564716455431094
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1591167869293170}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_GameObject: {fileID: 1878365388209060}
   serializedVersion: 2
-  m_Size: {x: 0.56, y: 0.26, z: 0.3}
-  m_Center: {x: 0.1, y: -0.01, z: 0.03}
+  m_Mass: 500
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 2
 --- !u!82 &82049304777270462
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1146,7 +1121,7 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
-  BypassListenerEffects: 0
+  BypassListenerEffects: 1
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
@@ -1250,10 +1225,13 @@ MonoBehaviour:
   curAnimationCurvePastLong: 0
   enemyState: 0
   enemyData: {fileID: 11400000, guid: 0886e9f137d0dc44580488d47fd0ca07, type: 2}
+  navMeshAgent: {fileID: 0}
   HP: {fileID: 0}
   HP_UI: {fileID: 1721585090869108, guid: b75631c4b233a3940960efa1fc6dc9b9, type: 2}
+  hp_UI: {fileID: 0}
   Pos_UI: {x: 0, y: 2.2, z: 0}
   ShootingStartPos: {fileID: 0}
+  disWithPlayer: 0
 --- !u!114 &114406083954302068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1266,6 +1244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetHitCombo: 0
+  CurrentGetHitCombo: 0
 --- !u!114 &114443003801797110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1307,7 +1286,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillList: {fileID: 11400000, guid: fe0490f13b1f58b4b8edbc260061011a, type: 2}
   objectPoolManager: {fileID: 0}
-  audioSource: {fileID: 0}
   longAttackAimTartgetPos: {x: 0, y: 0, z: 0}
   CanTriggerNextAttack: 0
   isTriggerAttack: 0
@@ -1329,7 +1307,6 @@ MonoBehaviour:
       PenetrateCount: 0
       TargetTag: []
     AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
     AttackPower: 0
     Combo: 0
     DamageAnimator: 
@@ -1342,6 +1319,18 @@ MonoBehaviour:
     ID: 2
     Parent: {fileID: 4135960358513670}
     AttackRangTransform: {fileID: 1086519675099820}
+--- !u!114 &114596007679971698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1878365388209060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538b3f156d7be204bae5b4ff7fe8090b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerAudioInfo: {fileID: 11400000, guid: 8c9b5e93bbbcac440b511dc689d9acd6, type: 2}
 --- !u!114 &114653440385647470
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -31,7 +31,8 @@ public class EnemyData : ScriptableObject
         public MoveInfo moveInfo;
         public AttackDisInfo[] attackDisInfo;
     }
-
+    
     public EnemyInfo enemyInfo;
+
 
 }
