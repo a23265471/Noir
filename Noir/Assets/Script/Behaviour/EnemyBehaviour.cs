@@ -66,7 +66,6 @@ public class EnemyBehaviour : Character
         attackSystem = GetComponent<AttackSystem>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
         getHitComponent = GetComponent<GetHitComponent>();
-        //audiosource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
         particleManager = GetComponent<ParticleManager>();
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -92,7 +91,9 @@ public class EnemyBehaviour : Character
       //  transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
         disWithPlayer = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
 
+        //    Debug.Log(rigidbody.velocity);
         
+        rigidbody.velocity = new Vector3(0, 0, 10);
     }
 
     private void CreatAttackDisInfoCollection()
@@ -103,6 +104,8 @@ public class EnemyBehaviour : Character
             AttackDisInfoCollection[enemyInfo.attackDisInfo[i].ID] = enemyInfo.attackDisInfo[i];
 
         }
+
+         
 
     }
 
@@ -168,11 +171,11 @@ public class EnemyBehaviour : Character
 
     public void Attack(string animatorTrigger)
     {
-
         if (Random.Range(0, 1000) < AttackDisInfoCollection[1].AttackProbability)
         {
+            StopMove();
+            Debug.Log(navMeshAgent.isStopped);
             transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
-
             attackSystem.Attack(animatorTrigger);
             //attackSystem.GetShtooingTargetPos = ShootingTargetPos;
         }        
@@ -242,8 +245,7 @@ public class EnemyBehaviour : Character
 
     public void EnemyDisplacement(float dis)
     {
-        Debug.Log("move");
-        Displacement(rigidbody, transform.rotation, 30, dis, 0, 0, -1);
+        Displacement(rigidbody, transform.rotation, 13, dis, 0, 0, -1);
     }
 
 

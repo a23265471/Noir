@@ -15,7 +15,8 @@ public class ShortAttackEnemyController : MonoBehaviour {
         enemyBehaviour = GetComponent<EnemyBehaviour>();
     }
 
-    void Start () {
+    void Start ()
+    {
 		
 	}
 	
@@ -50,16 +51,10 @@ public class ShortAttackEnemyController : MonoBehaviour {
     private void Move()
     {
         enemyBehaviour.Move();
-       
-
-
-       
-    
     }
     private void Attack()
     {
         enemyBehaviour.Attack("Attack1");
-
     }
 
    

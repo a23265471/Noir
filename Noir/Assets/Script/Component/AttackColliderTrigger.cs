@@ -30,7 +30,7 @@ public class AttackColliderTrigger : MonoBehaviour
                 other.transform.GetComponent<GetHitComponent>().TriggerDamage(attackSystem.currentAttackInfo.AttackPower, attackSystem.currentAttackInfo.DamageAnimator);
                 //AttackTimeScaleEffect();
                // StartCoroutine("AttackEffect");
-                 Debug.Log(other.transform.GetComponent<GetHitComponent>().GetHitCombo);
+                // Debug.Log(other.transform.GetComponent<GetHitComponent>().GetHitCombo);
             }
         }
     }

@@ -68,6 +68,7 @@ public abstract class Character : MonoBehaviour
         float MoveZ = moveDirection_Z * speed;
        
         rigidbody.velocity = transform.rotation * new Vector3(MoveX, MoveY, MoveZ);
+
         yield return new WaitForSeconds(0.01f);
 
         if (Time.time-startTime >= moveTime)
@@ -76,7 +77,8 @@ public abstract class Character : MonoBehaviour
         //     Debug.Log("GG");
 
             rigidbody.velocity = new Vector3(0, 0, 0);
-            
+
+            Debug.Log(moveTime);
 
             StopCoroutine(moveControl);            
         }

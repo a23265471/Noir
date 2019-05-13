@@ -199,7 +199,7 @@ public class AttackSystem : MonoBehaviour
             isTriggerAttack = true;
             IsAttack = true;
 
-            Debug.Log("Attack");
+           // Debug.Log("Attack");
         }
 
     }
@@ -344,16 +344,6 @@ public class AttackSystem : MonoBehaviour
 
     public void ResetTriggerAttack()
     {
-        /*  if (!isTriggerAttack)
-          {
-              /*if (detectAttackStateForceExit != null)
-              {
-                  StopCoroutine(detectAttackStateForceExit);
-              //    Debug.Log("3. Reset Detect Attack State Force Exit");
-
-              }*/
-        //}
-
         if (gravity != null)
         {
             gravity.StartUseGravity();
