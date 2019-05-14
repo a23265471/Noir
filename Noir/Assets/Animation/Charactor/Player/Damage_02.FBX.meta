@@ -399,6 +399,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
+      - time: 0.33774006
+        functionName: EnemyDisplacement
+        data: 
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0.5
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

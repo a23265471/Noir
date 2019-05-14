@@ -45,7 +45,6 @@ public class ShortAttackEnemyController : MonoBehaviour {
         {
             Attack();
         }
-
     }
 
     private void Move()

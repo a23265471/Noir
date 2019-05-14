@@ -60,7 +60,8 @@ public class PlayerBehaviour : Character
     private AnimationHash animationHash;
     private ParticleManager particleManager;
     private AttackSystem attackSystem;
-    
+    public ObjectPoolManager objectPoolManager;
+
     public GhostShadow PlayerShader;
 
    // public GameObject GroundCheckObject;
@@ -135,6 +136,7 @@ public class PlayerBehaviour : Character
         attackSystem = GetComponent<AttackSystem>();
         gravity = GetComponent<Gravity>();
         damageCollider = GetComponent<CapsuleCollider>();
+        objectPoolManager = GetComponent<ObjectPoolManager>();
         PlayerShader.enabled = false;
 
         gameStageData = GameFacade.GetInstance().gameStageData;
@@ -532,6 +534,16 @@ public class PlayerBehaviour : Character
 
     #endregion
 
+    public void PlayObjectPoolObjectParticle(int ID)
+    {
+        GameObject ObjectPoolObject;
+        ObjectPoolObject = objectPoolManager.GetObjectPool(ID);
+        ObjectPoolObject.SetActive(true);
+
+        ObjectPoolObject.GetComponent<CloseObjectPoolObject>().CloseObject();
+    }
+
+    
 
     #region AnimationEvent
     public void ChangePlayerState(int ChangePlayerState)
@@ -819,7 +831,7 @@ public class PlayerBehaviour : Character
 
     }
 
-
+   
     #endregion
 
     #region 攻擊動畫
@@ -928,15 +940,18 @@ public class PlayerBehaviour : Character
       //  Debug.Log(animationHash.GetCurrentAnimationState("Dash"));
 
         yield return new WaitUntil(() => (playerState!=PlayerState.Dash));
-
-
         PlayerShader.enabled = false;
+
+        attackSystem.ForceExitAttack();
+
         if (!attackSystem.isTriggerAttack && playerState!=PlayerState.DoubleJump)
         {
             gravity.StartUseGravity();
-            Debug.Log(playerState);
 
         }
+
+        Debug.Log(playerState);
+
         canfall = true;
     }
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public abstract class Character : MonoBehaviour
 {
@@ -66,25 +68,34 @@ public abstract class Character : MonoBehaviour
         float MoveX = moveDirection_X * speed;
         float MoveY = moveDirection_Y * speed;
         float MoveZ = moveDirection_Z * speed;
-       
-        rigidbody.velocity = transform.rotation * new Vector3(MoveX, MoveY, MoveZ);
+
+        if (GetComponent<NavMeshAgent>() != null)
+        {
+            GetComponent<NavMeshAgent>().velocity= transform.rotation * new Vector3(MoveX, MoveY, MoveZ);
+        }
+        else
+        {
+            rigidbody.velocity = transform.rotation * new Vector3(MoveX, MoveY, MoveZ);
+
+        }
 
         yield return new WaitForSeconds(0.01f);
 
         if (Time.time-startTime >= moveTime)
         {
-            // moveDis = 0;
-        //     Debug.Log("GG");
-
-            rigidbody.velocity = new Vector3(0, 0, 0);
-
-            Debug.Log(moveTime);
+            if (GetComponent<NavMeshAgent>() != null)
+            {
+                GetComponent<NavMeshAgent>().velocity = new Vector3(0, 0, 0); 
+            }
+            else
+            {
+                rigidbody.velocity = new Vector3(0, 0, 0);
+            }
 
             StopCoroutine(moveControl);            
         }
         else
         {
-           // Debug.Log(rigidbody.velocity);
 
             moveControl = MoveControl(rigidbody, rotation, startTime, speed, maxDis, moveDirection_X, moveDirection_Y, moveDirection_Z);
 

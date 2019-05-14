@@ -190,8 +190,8 @@ ModelImporter:
       that will be discarded.\n\t'StoneRigRArmDigit42' has scale animation that will
       be discarded.\n\t'StoneRigRArmDigit43' has scale animation that will be discarded.\nEvent
       EnemyChangToIdle has a time (1.766667) outside the clip's valid range (0.000000..1.766666).
-      It will never be firedEvent DistroyEnemy has a time (1.400000) outside the clip's
-      valid range (0.000000..1.400000). It will never be fired"
+      It will never be firedEvent DeadDestroyGame has a time (1.400000) outside the
+      clip's valid range (0.000000..1.400000). It will never be fired"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -871,6 +871,30 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
+      - time: 0.5072666
+        functionName: OpenAttackCollider
+        data: 
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.79362345
+        functionName: CloseAttaCollider
+        data: 
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.83732927
+        functionName: ForceTriggerNextAnimation
+        data: 
+        objectReferenceParameter: {fileID: 1878365388209060, guid: c2f543924006f3d4cade2768480794a6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.91095906
         functionName: ResetToIdleState
         data: 
@@ -1070,6 +1094,22 @@ ModelImporter:
           type: 3}
         floatParameter: 0.1
         intParameter: 0
+        messageOptions: 0
+      - time: 0.66469634
+        functionName: CloseAttaCollider
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.44388142
+        functionName: OpenAttackCollider
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ebab33dc366b3eb4fa1727db769c0568,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
         messageOptions: 0
       transformMask:
       - path: 

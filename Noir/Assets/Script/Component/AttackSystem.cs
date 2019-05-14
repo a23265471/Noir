@@ -36,6 +36,7 @@ public class AttackSystem : MonoBehaviour
     private int nextAttackID;
 
     public SkillList.AttackParameter currentAttackInfo;
+    public GameObject currentAttackRange;
     public AttackRang[] attackRange;
 
 
@@ -311,7 +312,13 @@ public class AttackSystem : MonoBehaviour
 
     }
 
-   
+    public void ForceTriggerNextAnimation(int nextAttackID)
+    {
+        CanTriggerNextAttack = true;
+        Attack(currentAttackInfo.NextAttack[nextAttackID].AnimatorTriggerName);
+
+    }
+
     public void EndOfAttack()
     {
       
@@ -366,15 +373,16 @@ public class AttackSystem : MonoBehaviour
         StopCoroutine("DetectInput");
         CanTriggerNextAttack = true;
         isTriggerAttack = false;
-
-        AttackRangeObjectCollection[currentAttackInfo.Id].SetActive(false);
+        CloseAttaCollider();
+        
 
     }
 
     public void OpenAttackCollider(int ID)
     {
-        
-        AttackRangeObjectCollection[ID].SetActive(true);
+        currentAttackRange = AttackRangeObjectCollection[ID];
+        currentAttackRange.SetActive(true);
+
 
         if (AttackRangeObjectCollection[ID].GetComponent<CreatRayCastComponent>() != null) 
         {
@@ -391,10 +399,10 @@ public class AttackSystem : MonoBehaviour
 
     }
 
-    public void CloseAttaCollider(int ID)
+    public void CloseAttaCollider()
     {
-        
-            AttackRangeObjectCollection[ID].SetActive(false);
+
+        currentAttackRange.SetActive(false);
 
       
           

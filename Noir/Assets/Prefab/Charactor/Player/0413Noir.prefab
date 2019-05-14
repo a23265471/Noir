@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1820110184108066}
   m_IsPrefabParent: 1
+--- !u!1 &1001209895964768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4654920134220176}
+  m_Layer: 0
+  m_Name: JumpFx_Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1033052151058558
 GameObject:
   m_ObjectHideFlags: 1
@@ -1622,9 +1637,23 @@ Transform:
   - {fileID: 4560329805079012}
   - {fileID: 4880533762507534}
   - {fileID: 4454255495363628}
+  - {fileID: 4654920134220176}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!4 &4654920134220176
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001209895964768}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4648764130805232}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4667681151140676
 Transform:
   m_ObjectHideFlags: 1
@@ -2453,6 +2482,7 @@ MonoBehaviour:
   RigibodyAnimationCurveIsRunning: 0
   curAnimationCurvePastLong: 0
   playerState: 0
+  objectPoolManager: {fileID: 0}
   PlayerShader: {fileID: 114411213000539836}
   gravity: {fileID: 0}
   cameraLookAt: {fileID: 4542479462287524}
@@ -2581,6 +2611,9 @@ MonoBehaviour:
   - Name: LongAttack
     ID: 10
     ObjectPoolItemStartTransform: {fileID: 4051889390721042}
+  - Name: Jump
+    ID: 1
+    ObjectPoolItemStartTransform: {fileID: 4654920134220176}
 --- !u!114 &114805337864603254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2615,7 +2648,6 @@ MonoBehaviour:
       PenetrateCount: 0
       TargetTag: []
     AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
     AttackPower: 0
     Combo: 0
     DamageAnimator: 

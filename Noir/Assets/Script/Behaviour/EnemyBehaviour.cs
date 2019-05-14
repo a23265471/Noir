@@ -171,14 +171,17 @@ public class EnemyBehaviour : Character
 
     public void Attack(string animatorTrigger)
     {
-        if (Random.Range(0, 1000) < AttackDisInfoCollection[1].AttackProbability)
+        if ((enemyState & EnemyState.CanAttack) != 0)
         {
-            StopMove();
-            Debug.Log(navMeshAgent.isStopped);
-            transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
-            attackSystem.Attack(animatorTrigger);
-            //attackSystem.GetShtooingTargetPos = ShootingTargetPos;
-        }        
+            if (Random.Range(0, 1000) < AttackDisInfoCollection[1].AttackProbability)
+            {
+                StopMove();
+                transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
+                attackSystem.Attack(animatorTrigger);
+                //attackSystem.GetShtooingTargetPos = ShootingTargetPos;
+            }
+        }
+              
     }
 
     private Vector3 ShootingTargetPos(int bulletID)
@@ -245,7 +248,9 @@ public class EnemyBehaviour : Character
 
     public void EnemyDisplacement(float dis)
     {
-        Displacement(rigidbody, transform.rotation, 13, dis, 0, 0, -1);
+        Displacement(rigidbody, transform.rotation, 6, dis, 0, 0, -1);
+
+        //navMeshAgent.velocity = new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, rigidbody.velocity.z);
     }
 
 
