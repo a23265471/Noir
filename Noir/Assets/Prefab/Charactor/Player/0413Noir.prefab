@@ -409,7 +409,6 @@ GameObject:
   - component: {fileID: 4442823482209478}
   - component: {fileID: 33926824280548170}
   - component: {fileID: 23213274158888682}
-  - component: {fileID: 135982297803983614}
   m_Layer: 0
   m_Name: Collider_BigSkill
   m_TagString: PlayerAttack_BigSkill
@@ -808,6 +807,7 @@ GameObject:
   - component: {fileID: 114805337864603254}
   - component: {fileID: 114793806904041598}
   - component: {fileID: 114621141521979948}
+  - component: {fileID: 114749517842062370}
   m_Layer: 0
   m_Name: 0413Noir
   m_TagString: Player
@@ -1608,8 +1608,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820110184108066}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.529, y: 0, z: 5.972}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.11, y: 1.29, z: 0.539}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4957238245521168}
@@ -2596,6 +2596,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionState: {fileID: 11400000, guid: 9564ca38dcc4714409a0446023d253d0, type: 2}
+--- !u!114 &114749517842062370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820110184108066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d062ff28d98b14d4e9462785ae4db4d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GetHitCombo: 0
+  CurrentGetHitCombo: 0
 --- !u!114 &114793806904041598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2651,6 +2664,7 @@ MonoBehaviour:
     AttackPower: 0
     Combo: 0
     DamageAnimator: 
+  currentAttackRange: {fileID: 0}
   attackRange:
   - Name: NormalAttack
     ID: 100
@@ -2693,18 +2707,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1243641834438078}
   m_Enabled: 1
---- !u!135 &135982297803983614
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1420390567620110}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136053170492639620
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2873,8 +2875,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.052001953, y: 109.046814, z: -13.711426}
-    m_Extent: {x: 48.523296, y: 55.58023, z: 30.472363}
+    m_Center: {x: 0.051994324, y: 109.0468, z: -13.711407}
+    m_Extent: {x: 48.523323, y: 55.580242, z: 30.472383}
   m_DirtyAABB: 0
 --- !u!137 &137585561775011422
 SkinnedMeshRenderer:
@@ -2920,8 +2922,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 178.65681, z: -8.238647}
-    m_Extent: {x: 7.5028563, y: 20.659048, z: 10.90043}
+    m_Center: {x: 0.0000076293945, y: 178.6568, z: -8.238506}
+    m_Extent: {x: 7.5028715, y: 20.659048, z: 10.900486}
   m_DirtyAABB: 0
 --- !u!137 &137627801501134708
 SkinnedMeshRenderer:
