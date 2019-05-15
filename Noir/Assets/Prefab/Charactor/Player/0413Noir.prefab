@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 136580534405624094}
   m_Layer: 0
   m_Name: Collider_S
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 136418691377542064}
   m_Layer: 0
   m_Name: Collider_M
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 136268490473688156}
   m_Layer: 0
   m_Name: Collider_Big
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2483,6 +2483,7 @@ MonoBehaviour:
   curAnimationCurvePastLong: 0
   playerState: 0
   objectPoolManager: {fileID: 0}
+  getHitComponent: {fileID: 0}
   PlayerShader: {fileID: 114411213000539836}
   gravity: {fileID: 0}
   cameraLookAt: {fileID: 4542479462287524}

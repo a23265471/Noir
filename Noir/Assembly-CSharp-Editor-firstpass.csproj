@@ -473,23 +473,23 @@
     <None Include="Assets\Plugins\ShaderForge\Editor\InternalResources\GPU Rendering\SFN_Blend\SFN_Blend_HardLight.shader" />
     <None Include="Assets\Plugins\ShaderForge\Editor\InternalResources\GPU Rendering\SFN_Desaturate\SFN_Desaturate_REQONLY.shader" />
     <None Include="Assets\Plugins\ShaderForge\Editor\InternalResources\Shader Presets\PresetSky.shader" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Cinemachine">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -725,38 +725,44 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Substance.Game">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance.Game.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance.Game.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Livelink/Editor/Plugins/websocket-sharp.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Livelink/Editor/Plugins/websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Substance.Editor">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Substance Engine/Editor/Substance.Editor.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Substance Engine/Editor/Substance.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Substance.Reflection">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Substance Engine/Editor/Substance.Reflection.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Substance Engine/Editor/Substance.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="SourceUnityLib">
-      <HintPath>C:/Users/Intern/Documents/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Substance Source/Editor/SourceUnityLib.dll</HintPath>
+      <HintPath>D:/聖樂月/00-畢制/00-專題/BlackRain/Noir/Assets/Allegorithmic/Plugins/Substance/Substance Source/Editor/SourceUnityLib.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>C:/Users/Intern/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/Intern/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Analytics">
-      <HintPath>C:/Users/Intern/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll</HintPath>
+      <HintPath>C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>C:/Users/Intern/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/Intern/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>

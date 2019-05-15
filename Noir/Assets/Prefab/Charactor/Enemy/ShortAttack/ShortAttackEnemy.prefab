@@ -484,7 +484,6 @@ GameObject:
   - component: {fileID: 4282689616120090}
   - component: {fileID: 95919847933133888}
   - component: {fileID: 136076893937475528}
-  - component: {fileID: 54564716455431094}
   - component: {fileID: 195529905528168106}
   - component: {fileID: 114472074389025294}
   - component: {fileID: 114137432969576976}
@@ -1082,21 +1081,6 @@ Transform:
   m_Father: {fileID: 4651738331179134}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54564716455431094
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1878365388209060}
-  serializedVersion: 2
-  m_Mass: 500
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 2
 --- !u!82 &82049304777270462
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1310,6 +1294,7 @@ MonoBehaviour:
     AttackPower: 0
     Combo: 0
     DamageAnimator: 
+  currentAttackRange: {fileID: 0}
   attackRange:
   - Name: Attack_1
     ID: 1

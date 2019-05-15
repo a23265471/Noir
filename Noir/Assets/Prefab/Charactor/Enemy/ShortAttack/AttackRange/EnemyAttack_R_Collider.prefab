@@ -20,13 +20,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4696324868559008}
   - component: {fileID: 65994616196000292}
+  - component: {fileID: 114777815497478624}
   m_Layer: 11
   m_Name: EnemyAttack_R_Collider
   m_TagString: EnemyAttack_Small
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4696324868559008
 Transform:
   m_ObjectHideFlags: 1
@@ -52,3 +53,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.56, y: 0.26, z: 0.3}
   m_Center: {x: 0.1, y: -0.01, z: 0.03}
+--- !u!114 &114777815497478624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1285161327360772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e035093efe2ddb49a2fc532f2e03a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSystem: {fileID: 0}

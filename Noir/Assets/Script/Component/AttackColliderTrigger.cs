@@ -10,6 +10,8 @@ public class AttackColliderTrigger : MonoBehaviour
     private EnemyBehaviour enemyBehaviour;
     private PlayerBehaviour playerBehaviour;
     private Action AttackTimeScaleEffect;
+
+    private bool isGetHit;
     //  private int currentbehaviour;
 
 
@@ -46,8 +48,10 @@ public class AttackColliderTrigger : MonoBehaviour
         for (int i = 0; i < GameObject.FindGameObjectsWithTag("Enemy").Length; i++)
         {
             GameObject.FindGameObjectsWithTag("Enemy")[i].GetComponent<GetHitComponent>().CurrentGetHitCombo = 0;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<GetHitComponent>().CurrentGetHitCombo = 0;
+
         }
-        
+
     }
 
     /*IEnumerator AttackEffect()

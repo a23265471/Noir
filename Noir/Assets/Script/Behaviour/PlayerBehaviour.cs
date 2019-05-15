@@ -61,6 +61,8 @@ public class PlayerBehaviour : Character
     private ParticleManager particleManager;
     private AttackSystem attackSystem;
     public ObjectPoolManager objectPoolManager;
+    public GetHitComponent getHitComponent;
+
 
     public GhostShadow PlayerShader;
 
@@ -137,6 +139,7 @@ public class PlayerBehaviour : Character
         gravity = GetComponent<Gravity>();
         damageCollider = GetComponent<CapsuleCollider>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
+        getHitComponent = GetComponent<GetHitComponent>();
         PlayerShader.enabled = false;
 
         gameStageData = GameFacade.GetInstance().gameStageData;
@@ -164,6 +167,7 @@ public class PlayerBehaviour : Character
 
         canFallingMove_x = true;
         canFallingMove_z = true;
+        getHitComponent.DamageFunction = Damage;
     }
 
     void Update()
@@ -533,6 +537,14 @@ public class PlayerBehaviour : Character
 
 
     #endregion
+
+    public void Damage(float damageValue, string animatorTrigger)
+    {
+        playerAnimator.SetTrigger(animatorTrigger);
+        UI_HP.Ui_HP.ConsumeHp(damageValue);
+
+
+    }
 
     public void PlayObjectPoolObjectParticle(int ID)
     {
@@ -976,7 +988,7 @@ public class PlayerBehaviour : Character
     {
         switch (other.tag)
         {
-            case "EnemyAttack_Small":
+          /*  case "EnemyAttack_Small":
                 playerAnimator.SetTrigger("Damage");
                 UI_HP.Ui_HP.ConsumeHp(10);
                 break;
@@ -999,7 +1011,7 @@ public class PlayerBehaviour : Character
             case "Level2":
                 MainMenu.mainMenu.LoadGame(5);
 
-                break;
+                break;*/
             case "Bone":
                 playerAnimator.SetTrigger("Damage");
                 UI_HP.Ui_HP.ConsumeHp(20);

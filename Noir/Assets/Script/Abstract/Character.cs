@@ -55,7 +55,14 @@ public abstract class Character : MonoBehaviour
         if (moveControl!=null)
         {
             StopCoroutine(moveControl);
-            rigidbody.velocity = new Vector3(0, 0, 0);
+            if (GetComponent<NavMeshAgent>() != null)
+            {
+                GetComponent<NavMeshAgent>().velocity = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                rigidbody.velocity = new Vector3(0, 0, 0);
+            }
         }
         moveControl = MoveControl(rigidbody, rotation, Time.time, speed, maxDistance, moveDirection_X, moveDirection_Y, moveDirection_Z);
         

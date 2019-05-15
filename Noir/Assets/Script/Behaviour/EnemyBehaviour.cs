@@ -39,7 +39,6 @@ public class EnemyBehaviour : Character
     private ParticleManager particleManager;
     private GetHitComponent getHitComponent;
     private CapsuleCollider capsuleCollider;
-    private Rigidbody rigidbody;
     #endregion
 
     #region UI
@@ -66,7 +65,6 @@ public class EnemyBehaviour : Character
         attackSystem = GetComponent<AttackSystem>();
         objectPoolManager = GetComponent<ObjectPoolManager>();
         getHitComponent = GetComponent<GetHitComponent>();
-        rigidbody = GetComponent<Rigidbody>();
         particleManager = GetComponent<ParticleManager>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         enemyInfo = enemyData.enemyInfo;
@@ -93,7 +91,6 @@ public class EnemyBehaviour : Character
 
         //    Debug.Log(rigidbody.velocity);
         
-        rigidbody.velocity = new Vector3(0, 0, 10);
     }
 
     private void CreatAttackDisInfoCollection()
@@ -104,8 +101,6 @@ public class EnemyBehaviour : Character
             AttackDisInfoCollection[enemyInfo.attackDisInfo[i].ID] = enemyInfo.attackDisInfo[i];
 
         }
-
-         
 
     }
 
@@ -130,15 +125,13 @@ public class EnemyBehaviour : Character
 
                     //Move(enemyInfo.moveInfo.Acceleration);
                     ChageSpeed(enemyInfo.moveInfo.Acceleration);
-                    transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
 
                     navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
-
+                  //  transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
                 }
                 else if (disWithPlayer <= navMeshAgent.stoppingDistance + enemyInfo.moveInfo.BufferDis && disWithPlayer > navMeshAgent.stoppingDistance)
                 {
                     ChageSpeed(enemyInfo.moveInfo.Acceleration);
-                    transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
 
                     navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
                     AnimationControll("MoveState", 1, 0.2f);
@@ -151,6 +144,8 @@ public class EnemyBehaviour : Character
 
                     StopMove();
                 }
+
+
 
             }
         }
@@ -248,7 +243,7 @@ public class EnemyBehaviour : Character
 
     public void EnemyDisplacement(float dis)
     {
-        Displacement(rigidbody, transform.rotation, 6, dis, 0, 0, -1);
+        Displacement(GetComponent<Rigidbody>(), transform.rotation, 6, dis, 0, 0, -1);
 
         //navMeshAgent.velocity = new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, rigidbody.velocity.z);
     }
@@ -291,7 +286,7 @@ public class EnemyBehaviour : Character
         //  Debug.Log("Attack hhh");
         if (enemyState == EnemyState.Attack)
         {
-            Displacement(rigidbody,
+            Displacement(GetComponent<Rigidbody>(),
                transform.rotation,
                attackSystem.AttackCollection[AttackId].moveInfo.MoveSpeed,
                attackSystem.AttackCollection[AttackId].moveInfo.MoveDistance,
@@ -388,4 +383,19 @@ public class EnemyBehaviour : Character
 
     #endregion
     #endregion
+
+    private void OnTriggerEnter(Collider other)//判斷是否被攻擊
+    {
+        switch (other.tag)
+        {
+
+          
+            case "Bone":
+                animator.SetTrigger("Damage_Big");
+                HP.HP -= 30;
+
+                break;
+        }
+
+    }
 }

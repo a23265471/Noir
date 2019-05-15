@@ -28,14 +28,4 @@ public class GetHitComponent : MonoBehaviour
         GetHitCombo = currentAttackCombo;
     }
 
-    /* private void OnTriggerEnter(Collider other)//判斷是否被攻擊
-     {
-         if (other.CompareTag("Attack"))
-         {
-             TriggerDamage(AttackSystem.attackSystem.currentAttackInfo.AttackPower, AttackSystem.attackSystem.currentAttackInfo.DamageAnimator);
-
-
-         }
-
-     }*/
 }

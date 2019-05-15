@@ -66,8 +66,6 @@ public class BoneEnemy : MonoBehaviour {
                 if (PlayerDis <= navMeshAgent.stoppingDistance + 2 && PlayerDis > navMeshAgent.stoppingDistance) 
                 {
                     navMeshAgent.acceleration = 0.2f;
-
-
                 }
                 else if (PlayerDis <= navMeshAgent.stoppingDistance)
                 {
