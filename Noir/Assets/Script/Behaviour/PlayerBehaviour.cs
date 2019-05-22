@@ -995,7 +995,7 @@ public class PlayerBehaviour : Character
             case "EnemyAttack_Big":
                 playerAnimator.SetTrigger("Damage");
                 UI_HP.Ui_HP.ConsumeHp(20);
-                break;
+                break;*/
 
             case "BlackRain":
                 inBlackRain = true;
@@ -1011,7 +1011,7 @@ public class PlayerBehaviour : Character
             case "Level2":
                 MainMenu.mainMenu.LoadGame(5);
 
-                break;*/
+                break;
             case "Bone":
                 playerAnimator.SetTrigger("Damage");
                 UI_HP.Ui_HP.ConsumeHp(20);

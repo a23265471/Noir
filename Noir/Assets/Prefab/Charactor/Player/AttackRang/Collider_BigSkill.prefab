@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 4643244972513632}
   - component: {fileID: 33331043580414132}
   - component: {fileID: 23221012319395640}
-  - component: {fileID: 135016370784721382}
   - component: {fileID: 114781733553918032}
+  - component: {fileID: 65345331264417658}
   m_Layer: 0
   m_Name: Collider_BigSkill
   m_TagString: PlayerAttack_BigSkill
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014338755549496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.1086, z: 0.005}
+  m_LocalPosition: {x: -0, y: -0.51, z: 0.005}
   m_LocalScale: {x: 0.07759451, y: 0.012482027, z: 0.08446621}
   m_Children: []
   m_Father: {fileID: 4643244972513632}
@@ -68,8 +68,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1168439108953170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000022352, y: 0.68, z: 0}
-  m_LocalScale: {x: 6.1305137, y: 6.1305165, z: 6.1305165}
+  m_LocalPosition: {x: -0.00000022352, y: 2.18, z: 0}
+  m_LocalScale: {x: 8.374597, y: 3.9562976, z: 8.133584}
   m_Children:
   - {fileID: 4142697268522168}
   m_Father: {fileID: 0}
@@ -159,6 +159,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1168439108953170}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65345331264417658
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1168439108953170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: -0.000000014901161, y: 0, z: 0}
 --- !u!65 &65675518072389084
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -169,7 +181,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 23.51, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114781733553918032
 MonoBehaviour:
@@ -183,15 +195,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSystem: {fileID: 0}
---- !u!135 &135016370784721382
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1168439108953170}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
