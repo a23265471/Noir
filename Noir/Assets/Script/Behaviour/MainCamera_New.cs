@@ -88,15 +88,11 @@ public class MainCamera_New : MonoBehaviour
     }
     private void Update()
     {
-      //  Debug.Log(cameraCanChangeMovement);
         CameraCollision();
         CollisionFloor();
 
-       // Debug.DrawLine(transform.position,  transform.position+ (transform.rotation*new Vector3(0,0,20)), Color.red);
-
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         Rotaion();
@@ -111,13 +107,8 @@ public class MainCamera_New : MonoBehaviour
 
         transform.position = nowpos + cameraShakePos;
 
-        // transform.position = Vector3.Lerp(transform.position, rotationEuler * new Vector3(0, 0, -distence) + PlayerController.playerController.Player_pre_pos.position, 1f);
         concentric.transform.position = camera.WorldToScreenPoint(transform.position+transform.rotation * new Vector3(0, 0,30));
 
-
-
-        /*Debug.DrawLine(PlayerController.playerController.PlayerCollider[1].bounds.center, transform.position, Color.green);*/
-       // Debug.DrawLine(transform.position, transform.position - new Vector3(0, 1, 0), Color.red);
     }
     private void Rotaion()
     {
@@ -132,7 +123,6 @@ public class MainCamera_New : MonoBehaviour
             {              
                
                 distence -= Input.GetAxis("Mouse Y") * Time.deltaTime * 4;
-                //  cameraIsCollision = true;
                 cameraIsCollision = true;
                 CameraLookAt_Y -= Input.GetAxis("Mouse Y") * Time.deltaTime * 10;
                

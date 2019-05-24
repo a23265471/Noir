@@ -32,7 +32,8 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
+      TargetTag:
+      - 
     AttackRang: {fileID: 1123268089592216, guid: 8ea5d68571cebf84b8d8a764a7db0299,
       type: 2}
     AttackPower: 10

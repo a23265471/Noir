@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour {
     // public GameObject LongAttack;
 
     public ObjectPoolList objectPoolList;
-    public Dictionary<int,GameObject> ObjectsPoolItem;
+    public Dictionary<int, GameObject> ObjectsPoolItem;
     public Dictionary<int, ObjectPoolList.Object> ObjectInfo;
 
 
@@ -42,6 +42,7 @@ public class ObjectPool : MonoBehaviour {
 
         }
 
+        
 
     }
 

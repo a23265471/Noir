@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour {
         }
         
     }
-    public void PlayGame()
+
+    /*public void PlayGame()
     {
         Debug.Log("Play game");
         Time.timeScale = 1;
@@ -94,18 +95,18 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("Quit game");
         Application.Quit();
-    }
+    }*/
     public void BackToMainMenu()
     {
         Screen.lockCursor = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
-    public void Back()
+   /* public void Back()
     {
         
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
+    }*/
 
 }

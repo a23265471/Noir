@@ -14,6 +14,10 @@ public class MainMenu : MonoBehaviour {
         mainMenu = this;
 
     }
+    private void Update()
+    {
+        
+    }
 
     public void LoadGame(int sceneIndex)
     {

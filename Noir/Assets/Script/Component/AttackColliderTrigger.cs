@@ -14,7 +14,6 @@ public class AttackColliderTrigger : MonoBehaviour
     private bool isGetHit;
     //  private int currentbehaviour;
 
-
     private void Start()
     {
         GetBehaviour();
@@ -25,23 +24,15 @@ public class AttackColliderTrigger : MonoBehaviour
         if (other.transform.GetComponent<GetHitComponent>() != null)
         {
 
-           // other.transform.GetComponent<GetHitComponent>().ResetGetHitCombo(currentCombo);
             if (other.transform.GetComponent<GetHitComponent>().CurrentGetHitCombo < currentCombo)
             {
                 other.transform.GetComponent<GetHitComponent>().CurrentGetHitCombo += 1;
                 other.transform.GetComponent<GetHitComponent>().TriggerDamage(attackSystem.currentAttackInfo.AttackPower, attackSystem.currentAttackInfo.DamageAnimator);
-                //AttackTimeScaleEffect();
-               // StartCoroutine("AttackEffect");
-                // Debug.Log(other.transform.GetComponent<GetHitComponent>().GetHitCombo);
+                
             }
         }
     }
 
-   /* private void OnTriggerExit(Collider other)
-    {
-        other.transform.GetComponent<GetHitComponent>().CurrentGetHitCombo = 0;
-
-    }*/
     public void ResetHitCombo(int currentAttackCombo)
     {
         currentCombo = currentAttackCombo;
@@ -53,21 +44,6 @@ public class AttackColliderTrigger : MonoBehaviour
         }
 
     }
-
-    /*IEnumerator AttackEffect()
-    {
-        switch (currentbehaviour)
-        {
-            case 0:
-                playerBehaviour.
-                break;
-
-        }
-
-        yield return new WaitForSeconds(0.001f);
-        Time.timeScale = 1f;
-
-    }*/
 
     public void GetBehaviour()
     {

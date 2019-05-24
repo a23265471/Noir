@@ -8,7 +8,7 @@ public abstract class Character : MonoBehaviour
 {
     private Animator animator;
     private AudioSource audioSource;
-    private ParticleSystem particleSystem;
+    
 
     private IEnumerator moveControl;
     private IEnumerator rigibodyWithAnimationCurve;

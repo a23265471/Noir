@@ -35,6 +35,7 @@ public class GameStageController : MonoBehaviour {
 
     void Update()
     {
+
     }
 
 }
