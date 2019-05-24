@@ -25,11 +25,12 @@ MonoBehaviour:
     shootingInfo:
       MaxDistance: 20
       ShootingSpeed: 20
-      PenetrateCount: 0
-      TargetTag: []
+      PenetrateCount: 1
     AttackRang: {fileID: 0}
-    AttackPower: 0
-    Combo: 0
-    DamageAnimator: 
+    AttackPower: 10
+    Combo: 1
+    DamageAnimator: Damage
   deputyAttackCollections: []
   specialAttack: []
+  TargetTag:
+  - Player

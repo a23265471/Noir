@@ -32,8 +32,6 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag:
-      - 
     AttackRang: {fileID: 1123268089592216, guid: 8ea5d68571cebf84b8d8a764a7db0299,
       type: 2}
     AttackPower: 10
@@ -62,7 +60,6 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 0}
     AttackPower: 10
     Combo: 1
@@ -87,7 +84,6 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 0}
     AttackPower: 10
     Combo: 1
@@ -109,7 +105,6 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 1168439108953170, guid: b7aafc2bba5ee714aa6c54480a5ee254,
       type: 2}
     AttackPower: 30
@@ -132,7 +127,6 @@ MonoBehaviour:
       MaxDistance: 35
       ShootingSpeed: 60
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 0}
     AttackPower: 40
     Combo: 1
@@ -157,7 +151,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 0
       Combo: 0
@@ -179,7 +172,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 0
       Combo: 0
@@ -201,7 +193,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 0
       Combo: 0
@@ -223,7 +214,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 0
       Combo: 0
@@ -245,7 +235,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 0
       Combo: 0
@@ -264,7 +253,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 20
       Combo: 1
@@ -283,7 +271,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 20
       Combo: 1
@@ -302,7 +289,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 20
       Combo: 1
@@ -321,7 +307,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 20
       Combo: 1
@@ -340,7 +325,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 20
       Combo: 1
@@ -364,7 +348,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 10
       Combo: 1
@@ -383,7 +366,6 @@ MonoBehaviour:
         MaxDistance: 0
         ShootingSpeed: 0
         PenetrateCount: 0
-        TargetTag: []
       AttackRang: {fileID: 0}
       AttackPower: 40
       Combo: 1
@@ -403,7 +385,6 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 1168439108953170, guid: b7aafc2bba5ee714aa6c54480a5ee254,
       type: 2}
     AttackPower: 200
@@ -423,8 +404,9 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 0}
     AttackPower: 0
     Combo: 0
     DamageAnimator: 
+  TargetTag:
+  - Enemy

@@ -20,7 +20,6 @@ public class SkillList : ScriptableObject
         public float AttackPower;
         public int Combo;
         public string DamageAnimator;
-
     }
 
     [System.Serializable]
@@ -45,7 +44,7 @@ public class SkillList : ScriptableObject
         public float ShootingSpeed;
 
         public int PenetrateCount;
-        public string[] TargetTag;
+       
     }
 
     [System.Serializable]
@@ -64,7 +63,8 @@ public class SkillList : ScriptableObject
     public AttackParameter[] normalAttack;  
     public DeputyAttackCollection[] deputyAttackCollections;
     public AttackParameter[] specialAttack;
+    public string[] TargetTag;
 
 
-   // public ShootingAttack[] shootingAttack;
+    // public ShootingAttack[] shootingAttack;
 }

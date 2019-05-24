@@ -27,28 +27,20 @@ public class LongAttackEnemy : MonoBehaviour
     private void Update()
     {
         playerDis = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
-
-
-      /*  if (playerDis <= attackDisInfo.LongAttackDis && PlayerBehaviour.playerBehaviour.playerState != PlayerBehaviour.PlayerState.Dead)  
+        if (enemyBehaviour.disWithPlayer <= enemyBehaviour.enemyData.enemyInfo.attackDisInfo[0].AttackDis)
         {
-            //Attack("Attack");
+            Attack();
         }
-        */
-
-
     }
     
     private void Move()
     {
-       // enemyBehaviour.Move(enemyMoveInfo.Acceleration);
-
-
-
+      
     }
 
-    private void Attack(string triggerAnimatorState)
+    private void Attack()
     {
-        enemyBehaviour.Attack(triggerAnimatorState);
+        enemyBehaviour.Attack("Attack");
 
     }
 

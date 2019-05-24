@@ -21,7 +21,7 @@ public class AttackColliderTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponent<GetHitComponent>() != null)
+        if (other.transform.GetComponent<GetHitComponent>() != null && other.CompareTag(attackSystem.skillList.TargetTag[0]))
         {
 
             if (other.transform.GetComponent<GetHitComponent>().CurrentGetHitCombo < currentCombo)

@@ -29,10 +29,8 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 1285161327360772, guid: 6b99b69354fd6a54d973b76df778f73d,
       type: 2}
-    AudioClip_Attack: {fileID: 0}
     AttackPower: 20
     Combo: 1
     DamageAnimator: Damage
@@ -53,10 +51,8 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 1285161327360772, guid: 6b99b69354fd6a54d973b76df778f73d,
       type: 2}
-    AudioClip_Attack: {fileID: 0}
     AttackPower: 20
     Combo: 1
     DamageAnimator: Damage
@@ -74,11 +70,11 @@ MonoBehaviour:
       MaxDistance: 0
       ShootingSpeed: 0
       PenetrateCount: 0
-      TargetTag: []
     AttackRang: {fileID: 0}
-    AudioClip_Attack: {fileID: 0}
     AttackPower: 30
     Combo: 1
     DamageAnimator: Damage
   deputyAttackCollections: []
   specialAttack: []
+  TargetTag:
+  - Player

@@ -82,14 +82,31 @@ public class EnemyBehaviour : Character
         HP.CloseUI();
         getHitComponent.DamageFunction = Damage;
         animationBlendTreeControllValue = 0;
+        attackSystem.GetShtooingTargetPos = ShootingTargetPos;
     }
 
     void Update ()
     {
-      //  transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+        if (enemyState != EnemyState.Dead)
+        {
+            if (disWithPlayer <= enemyData.enemyInfo.moveInfo.ChaseDis && !HP.UIOpened)
+            {
+                HP.OpenUI();
+            }
+            else if (disWithPlayer > enemyData.enemyInfo.moveInfo.ChaseDis)
+            {
+                HP.CloseUI();
+            }
+        }
+
+        if (HP.UIOpened)
+        {
+            hp_UI.transform.position = MainCamera_New.mainCamera.camera.WorldToScreenPoint(transform.position + Pos_UI);
+
+        }
         disWithPlayer = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
 
-        //    Debug.Log(rigidbody.velocity);
+
         
     }
 
