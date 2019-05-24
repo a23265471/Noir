@@ -113,7 +113,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Dead
       takeName: Take 001
-      firstFrame: 0
+      firstFrame: 17
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
@@ -132,8 +132,66 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
+      curves:
+      - name: AnimationSpeed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.14675768
+            value: 7
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 4
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      events:
+      - time: 0
+        functionName: AudioPlay
+        data: 
+        objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0
+        functionName: SwitchState
+        data: 
+        objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
+          type: 2}
+        floatParameter: 0
+        intParameter: 16
+        messageOptions: 0
+      - time: 1
+        functionName: DeadDestroyGame
+        data: 
+        objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

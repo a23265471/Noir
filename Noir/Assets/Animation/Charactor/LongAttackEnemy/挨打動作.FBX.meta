@@ -114,7 +114,7 @@ ModelImporter:
       name: Damage
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 11
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -139,7 +139,7 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 3
+            value: 8
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -147,17 +147,17 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.27480915
-            value: 3
-            inSlope: 0
-            outSlope: 0
+            time: 0.5748092
+            value: 12
+            inSlope: 0.00292847
+            outSlope: 0.00292847
             tangentMode: 0
             weightedMode: 0
             inWeight: 0
-            outWeight: 0
+            outWeight: 0.5296239
           - serializedVersion: 3
             time: 1
-            value: 2
+            value: 8
             inSlope: 0
             outSlope: 0
             tangentMode: 0
@@ -177,6 +177,22 @@ ModelImporter:
         intParameter: 8
         messageOptions: 0
       - time: 0
+        functionName: PlayParticle
+        data: DamageEffect_Small
+        objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.05762712
+        functionName: AudioPlay
+        data: 
+        objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.08813559
         functionName: DamageFX
         data: 
         objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
@@ -184,13 +200,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: PlayParticle
-        data: DamageEffect_Small
+      - time: 0.9396275
+        functionName: SwitchState
+        data: 
         objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
           type: 2}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask: []
       maskType: 3

@@ -201,6 +201,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 20
         messageOptions: 0
+      - time: 0.89380485
+        functionName: ResetToIdleState
+        data: 
+        objectReferenceParameter: {fileID: 1437184926598916, guid: 7f90dcf0c0b5b7b478375d8a8e0dd2fe,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.91767395
         functionName: EndOfAttack
         data: 
